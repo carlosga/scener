@@ -5,8 +5,13 @@
 #ifndef SCENER_GRAPHICS_VULKAN_EXTENSIONS
 #define SCENER_GRAPHICS_VULKAN_EXTENSIONS
 
-#define VK_EXT_DEBUG_REPORT_NAME            "VK_EXT_debug_report"
+#ifndef VK_EXT_DEBUG_REPORT_NAME
+#define VK_EXT_DEBUG_REPORT_NAME "VK_EXT_debug_report"
+#endif
+
+#ifndef VK_LAYER_LUNARG_standard_validation
 #define VK_LAYER_LUNARG_standard_validation "VK_LAYER_LUNARG_standard_validation"
+#endif
 
 #ifndef VULKAN_CREATE_DEBUG_REPORT_CALLBACK_EXT
 #define VULKAN_CREATE_DEBUG_REPORT_CALLBACK_EXT

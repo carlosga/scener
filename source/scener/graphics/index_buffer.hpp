@@ -30,9 +30,6 @@ namespace scener::graphics
                    , component_type                  index_element_type
                    , std::size_t                     index_count) noexcept;
 
-        /// Releases all resources being used by this IndexBuffer.
-        ~index_buffer() override = default;
-
     public:
         /// Gets the number of indices in the buffer.
         /// \returns the number of indices.

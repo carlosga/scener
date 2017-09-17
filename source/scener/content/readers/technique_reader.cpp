@@ -90,7 +90,7 @@ namespace scener::content::readers
             }
 
             const auto& parameter = effect->_parameters[it.key()];
-            
+
             if (parameter == nullptr)
             {
                 continue;
@@ -101,7 +101,7 @@ namespace scener::content::readers
             if (current.count(k_node) != 0)
             {
                 // const auto nodeId = it.value()["node"].get<std::string>();
-                
+
                 // TODO: Read node reference
                 // auto node = context.find_object<Node>(nodeId);
                 // parameter->set_value<matrix4>(node->matrix);
@@ -167,7 +167,7 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::add_default_pass(content_reader*       input
-                                                               , const nlohmann::json& node
+                                                               , const nlohmann::json& value
                                                                , effect_technique*     effect) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
@@ -181,27 +181,27 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        read_pass_program(input, node[k_program].get<std::string>(), pass.get());
+        read_pass_program(input, value[k_program].get<std::string>(), pass.get());
 
         effect->_passes.push_back(pass);
     }
 
     void content_type_reader<effect_technique>::read_pass_program(content_reader*    input
-                                                                , const std::string& programName
-                                                                , effect_pass*       effectPass) const noexcept
+                                                                , const std::string& name
+                                                                , effect_pass*       pass) const noexcept
     {
         // Pass program
-        effectPass->_program = input->read_object_instance<program>(programName);
+        pass->_program = input->read_object_instance<program>(name);
 
         // Uniforms
-        auto offsets = effectPass->_program->get_uniform_offsets();
+        auto offsets = pass->_program->get_uniform_offsets();
 
-        for (const auto& parameter : effectPass->_parameters)
+        for (const auto& parameter : pass->_parameters)
         {
             if (offsets.find(parameter->_uniform_name) != offsets.end())
             {
                 parameter->_offset          = offsets[parameter->_uniform_name];
-                parameter->_constant_buffer = effectPass->_program->constant_buffer();
+                parameter->_constant_buffer = pass->_program->constant_buffer();
             }
         }
     }

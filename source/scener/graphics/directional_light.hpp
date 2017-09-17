@@ -12,8 +12,7 @@ namespace scener::graphics
     class directional_light final
     {
     public:
-        /// Creates an instance of a light that projects its effect in a specified direction.
-        /// This contructor creates an instance of a white light projected along a vector3 of value (0, 0, -1).
+        /// Creates an instance of a light that projects its effect along a specified vector3 with a specified color.
         directional_light() noexcept;
 
         /// Creates an instance of a light that projects its effect along a specified vector3 with a specified color.

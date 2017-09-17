@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (scener)
+project (scener::framework)
 enable_language (CXX)
 
 # Vulkan

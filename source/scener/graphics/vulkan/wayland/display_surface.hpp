@@ -8,16 +8,13 @@
 #include <cstdint>
 #include <string>
 
+#include <wayland-client.h>
+
 #include <gsl/gsl>
 #include <scener/math/basic_rect.hpp>
-#include <vulkan/vulkan.hpp>
-#include <wayland-client.h>
 
 namespace scener::graphics::vulkan
 {
-    class physical_device;
-    class logical_device;
-
     /// Represents a Wayland display surface.
     class display_surface final
     {
@@ -70,9 +67,6 @@ namespace scener::graphics::vulkan
         struct wl_seat*          _wl_seat;
 
         scener::math::basic_rect<std::uint32_t> _rect;
-
-        friend class vulkan::physical_device;
-        friend class vulkan::logical_device;
     };
 }
 

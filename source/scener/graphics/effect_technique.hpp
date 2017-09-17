@@ -35,9 +35,6 @@ namespace scener::graphics
         /// \param device the graphics device associated with this EffectTechnique.
         effect_technique(gsl::not_null<graphics_device*> device) noexcept;
 
-        /// Releases all resources being used by this EffectTechnique.
-        ~effect_technique() override = default;
-
     public:
         /// Gets the material alpha which determines its transparency.
         /// Range is between 1 (fully opaque) and 0 (fully transparent).

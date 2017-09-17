@@ -41,9 +41,6 @@ namespace scener::graphics
                 , std::size_t                     height
                 , surface_format                  format) noexcept;
 
-        /// Releases all resources being used by this texture.
-        ~texture2d() override = default;
-
     public:
         /// Gets the texture identifier.
         /// \returns the texture identifier.

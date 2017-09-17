@@ -1,3 +1,7 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// ==================================================================================================
+
 #include "scener/graphics/vulkan/adapter.hpp"
 
 #include <algorithm>
@@ -6,6 +10,7 @@
 #include <iomanip>
 
 #include "scener/graphics/vulkan/extensions.hpp"
+#include "scener/graphics/vulkan/physical_device.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
@@ -60,6 +65,7 @@ namespace scener::graphics::vulkan
 
     adapter::~adapter() noexcept
     {
+        _instance.destroyDebugReportCallbackEXT(_debug_callback);
         _instance.destroy(nullptr);
     }
 

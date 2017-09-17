@@ -2,10 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
-#ifndef SCENER_GRAPHICS_VULKAN_PLATFORM_HPP
-#define SCENER_GRAPHICS_VULKAN_PLATFORM_HPP
-
-#include "scener/graphics/vulkan/vulkan_result.hpp"
+#ifndef SCENER_GRAPHICS_VULKAN_SURFACE_HPP
+#define SCENER_GRAPHICS_VULKAN_SURFACE_HPP
 
 #if defined(VK_USE_PLATFORM_WIN32_KHR)
 #elif defined(VK_USE_PLATFORM_XLIB_KHR)

@@ -29,9 +29,6 @@ namespace scener::graphics
                     , std::size_t                         vertex_count
                     , const graphics::vertex_declaration& vertex_declaration) noexcept;
 
-        /// Releases all resources being used by the current VertexBuffer
-        ~vertex_buffer() override = default;
-
     public:
         /// Gets the number of vertex for the current buffer.
         std::size_t vertex_count() const noexcept;

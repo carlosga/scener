@@ -9,12 +9,10 @@
 #include <queue>
 #include <string>
 
-#include <gsl/gsl>
-#include <scener/math/basic_rect.hpp>
-#include <vulkan/vulkan.hpp>
 #include <xcb/xcb.h>
 
-namespace vk { class Instance; }
+#include <gsl/gsl>
+#include <scener/math/basic_rect.hpp>
 
 namespace scener::graphics::vulkan
 {

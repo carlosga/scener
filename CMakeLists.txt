@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2.2)
-project (scener::root)
+project (scener)
 enable_language (CXX)
 
 # set (CMAKE_VERBOSE_MAKEFILE on)
@@ -37,7 +37,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-terminate")
-    # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"    
+    # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -50,11 +50,9 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++ -lc++abi")
   set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
 
-# elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
-#   message ("-> GCC")
-# else ()
-#   message ("-> unknown compiler ...")
-
+elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
+else ()
+  message ("-> unknown compiler ...")
 endif ()
 
 # SceneR
@@ -63,8 +61,8 @@ set (SCENER_LIB_DIRS      ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (SCENER_LIBRARIES     scener)
 
 # global definitions
-set (VK_USE_PLATFORM_WAYLAND_KHR "1")
-# set (VK_USE_PLATFORM_XCB_KHR "1")
+# set (VK_USE_PLATFORM_WAYLAND_KHR "1")
+set (VK_USE_PLATFORM_XCB_KHR "1")
 
 # project subdirectories
 add_subdirectory (source)

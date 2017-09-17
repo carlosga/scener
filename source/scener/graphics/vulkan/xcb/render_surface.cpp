@@ -8,7 +8,7 @@
 
 #include <scener/math/basic_rect.hpp>
 
-#include "scener/graphics/vulkan/connection.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
@@ -24,7 +24,7 @@ namespace scener::graphics::vulkan
             .setConnection(display_surface->connection())
             .setWindow(display_surface->window());
 
-        auto result = connection->vulkan().createXcbSurfaceKHR(&create_info, nullptr, &_render_surface);
+        auto result = _adapter->instance().createXcbSurfaceKHR(&create_info, nullptr, &_render_surface);
 
         check_result(result);
     }
@@ -33,7 +33,7 @@ namespace scener::graphics::vulkan
     {
         if (_adapter)
         {
-            _adapter->vulkan().destroySurfaceKHR(_render_surface, nullptr);
+            _adapter->instance().destroySurfaceKHR(_render_surface, nullptr);
             _adapter = nullptr;
         }
         _display_surface = nullptr;

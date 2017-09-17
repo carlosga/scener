@@ -64,7 +64,7 @@ namespace scener::content
         /// Clears the resource manager instance.
         void clear()
         {
-            if (_resources.size() > 0)
+            if (!_resources.empty())
             {
                 _resources.clear();
             }

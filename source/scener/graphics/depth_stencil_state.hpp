@@ -23,9 +23,6 @@ namespace scener::graphics
         /// \param device the graphics device associated with this depth stencil state.
         depth_stencil_state(gsl::not_null<graphics_device*> device) noexcept;
 
-        /// Releases all resources being used by this DepthStencilState.
-        ~depth_stencil_state() override = default;
-
     public:
         /// Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer
         /// test fails for a counterclockwise triangle.

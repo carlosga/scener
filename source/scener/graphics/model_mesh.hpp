@@ -22,10 +22,6 @@ namespace scener::graphics
     class model_mesh final
     {
     public:
-        /// Initializes a new instance of the ModelMesh class.
-        model_mesh() = default;
-
-    public:
         /// Gets the BoundingSphere that contains this mesh.
         /// \returns The BoundingSphere that contains this mesh.
         const math::bounding_sphere& bounding_sphere() const noexcept;

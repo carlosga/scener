@@ -78,7 +78,7 @@ namespace scener::graphics
 
     void window::close() noexcept
     {
-        if (_display_surface.get())
+        if (_display_surface.get() != nullptr)
         {
             _display_surface->destroy();
             _display_surface = nullptr;

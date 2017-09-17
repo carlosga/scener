@@ -10,7 +10,7 @@
 
 #include "scener/graphics/primitive_type.hpp"
 
-namespace scener::content::readers { template <typename T> class content_type_reader; } 
+namespace scener::content::readers { template <typename T> class content_type_reader; }
 
 namespace scener::graphics
 {
@@ -23,10 +23,6 @@ namespace scener::graphics
     /// multiple ModelMeshPart objects, typically based on material information.
     class model_mesh_part final
     {
-    public:
-        /// Initializes a new instance of the ModelMeshPart class.
-        model_mesh_part() = default;
-
     public:
         /// Gets the index buffer for this mesh part.
         /// \returns the index buffer.

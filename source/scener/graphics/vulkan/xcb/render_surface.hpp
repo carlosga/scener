@@ -7,11 +7,12 @@
 
 #include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/xcb/display_surface.hpp"
 
 namespace scener::graphics::vulkan
 {
+    class adapter;
+
     class render_surface final
     {
     public:

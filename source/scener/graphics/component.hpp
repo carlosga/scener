@@ -24,9 +24,6 @@ namespace scener::graphics
         /// \param renderer the renderer that owns the component.
         component(gsl::not_null<renderer*> renderer) noexcept;
 
-        /// Releases all resources being used by this component instance.
-        ~component() override = default;
-
     public:
         /// Gets the Renderer associated with this Component.
         /// \returns a pointer to the Renderer instance associated with this Component.

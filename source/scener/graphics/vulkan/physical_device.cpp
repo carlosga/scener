@@ -1,9 +1,14 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// ==================================================================================================
+
 #include "scener/graphics/vulkan/physical_device.hpp"
 
 #include <gsl/gsl>
 
-#include "scener/graphics/vulkan/platform.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/logical_device.hpp"
+#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -95,7 +100,8 @@ namespace scener::graphics::vulkan
         );
 
         return {
-            logical_device
+            _physical_device
+          , logical_device
           , graphics_queue_family_index
           , present_queue_family_index
           , surface_caps

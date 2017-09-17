@@ -8,11 +8,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-| Name                                       | Version       |
-|--------------------------------------------|---------------|
-| C++ compiler                               | Clang 4.0     |
-| C compiler                                 | Clang 4.0     |
-| [**libC++**](http://libcxx.llvm.org/)      | 4.0 (Linux)   |
+| Name          | Version       |
+|---------------|---------------|
+| C++ compiler  | Clang / GCC   |
+| C compiler    | Clang / GCC   |
 
 ```
 sudo apt-get install clang libc++ lldb git

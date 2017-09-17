@@ -26,9 +26,6 @@ namespace scener::graphics
         /// \param renderer the Renderer associated with this GraphicsDeviceManager.
         graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept;
 
-        /// Releases all resources being used by this GraphicsDeviceManager.
-        ~graphics_device_manager() override = default;
-
     public:
         /// Applies any changes to device-related propertie.
         void apply_changes() noexcept;

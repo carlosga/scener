@@ -21,9 +21,6 @@ namespace scener::graphics
         /// \param device the graphics device associated with this RasterizerState.
         rasterizer_state(gsl::not_null<graphics_device*> device) noexcept;
 
-        /// Releases all resources being used by this RasterizerState.
-        ~rasterizer_state() override = default;
-
     public:
         /// Specifies the conditions for culling or removing triangles. The default value is CullMode.CullCounterClockwiseFace.
         graphics::cull_mode cull_mode { graphics::cull_mode::cull_counter_clockwise_face };

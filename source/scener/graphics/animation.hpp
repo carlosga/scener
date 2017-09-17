@@ -18,10 +18,6 @@ namespace scener::graphics
     class animation final
     {
     public:
-        /// Initializes a new instance of the Animatin class.
-        animation() = default;
-
-    public:
         /// Gets the current time of the animation.
         /// \returns the current time of the animation.
         const timespan& current_time() const noexcept;

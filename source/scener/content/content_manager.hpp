@@ -47,7 +47,7 @@ namespace scener::content
         void unload() noexcept;
 
     private:
-        std::shared_ptr<io::file_stream> open_stream(const std::string& assetname) noexcept;
+        io::file_stream open_stream(const std::string& assetname) const noexcept;
 
     private:
         graphics::service_container* _service_provider;

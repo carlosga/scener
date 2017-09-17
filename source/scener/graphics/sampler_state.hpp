@@ -23,9 +23,6 @@ namespace scener::graphics
         /// \param device the GraphicsDevice associated with this SamplerState.
         sampler_state(gsl::not_null<graphics_device*> device) noexcept;
 
-        /// Releases all resources being used by this SamplerState.
-        ~sampler_state() override = default;
-
     public:
         /// Gets or sets the texture-address mode for the u-coordinate.
         texture_address_mode address_u { texture_address_mode::wrap };

@@ -46,7 +46,7 @@ namespace scener::content
 
         auto stream = open_stream(assetname);
 
-        content_reader reader(assetname, this, *stream);
+        content_reader reader(assetname, this, stream);
 
         auto asset = reader.read_asset();
 
@@ -60,13 +60,13 @@ namespace scener::content
         _resource_manager.clear();
     }
 
-    std::shared_ptr<file_stream> content_manager::open_stream(const std::string& assetname) noexcept
+    file_stream content_manager::open_stream(const std::string& assetname) const noexcept
     {
         const auto filename = assetname + ".gltf";
         const auto path     = scener::io::path::combine(_root_directory, filename);
 
         Ensures(scener::io::file::exists(path));
 
-        return std::make_shared<file_stream>(path);
+        return file_stream { path };
     }
 }

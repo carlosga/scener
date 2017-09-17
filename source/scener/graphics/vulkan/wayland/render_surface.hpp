@@ -8,12 +8,11 @@
 #include <gsl/gsl>
 #include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/wayland/display_surface.hpp"
 
 namespace scener::graphics::vulkan
 {
-    class adapter;    
+    class adapter;
 
     class render_surface final
     {

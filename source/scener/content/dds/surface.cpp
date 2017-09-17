@@ -15,8 +15,8 @@ namespace scener::content::dds
     {
         Expects(scener::io::file::exists(filename));
 
-        file_stream stream(filename);
-        header      dds_header;
+        auto        stream     = file_stream(filename);
+        header      dds_header = { };
         std::size_t block_size = 16;
 
         Ensures(stream.length() >= sizeof dds_header);

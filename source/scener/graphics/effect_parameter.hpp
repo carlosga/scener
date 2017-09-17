@@ -12,7 +12,7 @@
 #include "scener/graphics/effect_parameter_type.hpp"
 #include "scener/math/matrix.hpp"
 
-namespace scener::content::readers { template <typename T> class content_type_reader; } 
+namespace scener::content::readers { template <typename T> class content_type_reader; }
 namespace scener::graphics::opengl { class constant_buffer; }
 
 namespace scener::graphics
@@ -20,10 +20,6 @@ namespace scener::graphics
     /// Represents an EffectTechnique parameter.
     class effect_parameter final
     {
-    public:
-        /// Initializes a new instance of the EffectParameter class.
-        effect_parameter() = default;
-
     public:
         /// Gets the number of columns in the parameter description.
         std::size_t column_count() const noexcept;

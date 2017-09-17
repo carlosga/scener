@@ -27,9 +27,6 @@ namespace scener::graphics
         /// \param device the graphics device associated with this blend state.
         blend_state(gsl::not_null<graphics_device*> device) noexcept;
 
-        /// Releases all resources being used by this BlendState.
-        ~blend_state() override = default;
-
     public:
         /// Gets or sets the arithmetic operation when blending alpha values.
         blend_function alpha_blend_function { blend_function::add };

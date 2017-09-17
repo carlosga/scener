@@ -31,7 +31,7 @@ namespace scener::io
 
         // http://xbox.create.msdn.com/en-US/sample/xnb_format
         // Decode UTF-8.
-        if ((buffer & 0x80) != 0)
+        if ((buffer & 0x80) == 0x80)
         {
             std::uint32_t byte_count = 1;
 
@@ -197,7 +197,7 @@ namespace scener::io
             value     = read<std::uint8_t>();
             result   |= (value & 0x7f) << bits_read;
             bits_read += 7;
-        } while (value & 0x80);
+        } while ((value & 0x80) == 0x80);
 
         return result;
     }
