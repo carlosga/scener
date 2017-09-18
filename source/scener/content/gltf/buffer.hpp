@@ -43,8 +43,8 @@ namespace scener::content::gltf
         gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
         /// Sets the buffer data.
-        /// \param buffer the buffer data.
-        void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
+        /// \param data the buffer data.
+        void set_data(const std::vector<std::uint8_t>& data) noexcept;
 
     private:
         std::size_t                   _byte_length { 0 };

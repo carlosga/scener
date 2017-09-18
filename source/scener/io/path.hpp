@@ -79,7 +79,7 @@ namespace scener::io
                 separator = path::directory_separator();
             }
 
-            return std::string(cpath1 + separator + cpath2);
+            return cpath1 + separator + cpath2;
         }
 
         /// Gets platform specific string with the directory separator.

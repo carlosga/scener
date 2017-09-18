@@ -51,6 +51,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
 
 elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
+
+    if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnull-dereference -Wduplicated-cond -Wduplicated-branches -Wlogical-op")
+    endif()
+
 else ()
   message ("-> unknown compiler ...")
 endif ()

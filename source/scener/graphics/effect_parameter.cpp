@@ -271,9 +271,9 @@ namespace scener::graphics
 
         transposed.reserve(value.size());
 
-        for (const auto& matrix4 : value)
+        for (const auto& matrix : value)
         {
-            transposed.push_back(scener::math::matrix::transpose(matrix4));
+            transposed.push_back(scener::math::matrix::transpose(matrix));
         }
 
         _constant_buffer->set_data(_offset, sizeof(matrix4) * transposed.size(), transposed.data());

@@ -25,11 +25,11 @@ namespace scener::content::gltf
         return _span.subspan(offset, count);
     }
 
-    void buffer::set_data(const std::vector<std::uint8_t>& buffer) noexcept
+    void buffer::set_data(const std::vector<std::uint8_t>& data) noexcept
     {
-        Expects(buffer.size() == _byte_length);
+        Expects(data.size() == _byte_length);
 
-        _data = buffer;
+        _data = data;
         _span = gsl::span<const std::uint8_t>(_data);
     }
 }
