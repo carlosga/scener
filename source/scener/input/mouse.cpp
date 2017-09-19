@@ -4,11 +4,10 @@
 #include "scener/input/mouse.hpp"
 
 #include "scener/input/mouse_state.hpp"
-#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener::input
 {
-    using scener::graphics::opengl::display_surface;
+    using scener::graphics::vulkan::display_surface;
 
     mouse_state mouse::get_state() noexcept
     {

@@ -291,11 +291,6 @@ namespace scener::graphics::vulkan
 
     image logical_device::create_image(const image_options& options) const noexcept
     {
-        auto internal_format = _surface_format.format;
-
-        // Create Sampler
-        create_sampler();
-
         // Images will always be sampled
         auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
         auto usage_flags = options.usage & vk::ImageUsageFlagBits::eSampled;
@@ -360,7 +355,7 @@ namespace scener::graphics::vulkan
         auto view_create_info = vk::ImageViewCreateInfo()
             .setImage(image)
             .setViewType(cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D)
-            .setFormat(internal_format)
+            .setFormat(_surface_format.format)
             .setComponents(component_mapping)
             .setSubresourceRange(subresource_range);
 
@@ -371,9 +366,42 @@ namespace scener::graphics::vulkan
         return { std::move(image), std::move(image_view) };
     }
 
-    void logical_device::create_sampler() const noexcept
+    vk::Sampler logical_device::create_sampler(const gsl::not_null<sampler_state*> state) const noexcept
     {
+        auto create_info = vk::SamplerCreateInfo();
 
+
+//        /// Gets or sets the texture-address mode for the u-coordinate.
+//        texture_address_mode address_u { texture_address_mode::wrap };
+
+//        /// Gets or sets the texture-address mode for the v-coordinate.
+//        texture_address_mode address_v { texture_address_mode::wrap };
+
+//        /// Gets or sets the texture-address mode for the w-coordinate.
+//        texture_address_mode address_w { texture_address_mode::wrap };
+
+//        /// Gets or sets the type of filtering during sampling.
+//        texture_filter mag_filter { texture_filter::linear };
+
+//        /// Gets or sets the type of filtering during sampling.
+//        texture_filter min_filter { texture_filter::linear };
+
+//        /// Gets or sets the maximum anisotropy. The default value is 0.
+//        std::int32_t max_anisotropy { 4 };
+
+//        /// Gets or sets the level of detail (LOD) index of the largest map to use.
+//        std::size_t max_mip_level { 0 };
+
+//        /// Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
+//        float mip_map_level_of_detail_bias { 0 };
+
+        vk::Sampler sampler;
+
+        auto result = _logical_device.createSampler(&create_info, nullptr, &sampler);
+
+        check_result(result);
+
+        return sampler;
     }
 
     void logical_device::get_device_queues() noexcept

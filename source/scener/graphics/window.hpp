@@ -11,7 +11,7 @@
 #include <gsl/gsl>
 #include <nod/nod.hpp>
 
-#include "scener/graphics/opengl/display_surface.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
 
 namespace scener::graphics
 {
@@ -29,7 +29,7 @@ namespace scener::graphics
         ~window();
 
     public:
-        opengl::display_surface* display_surface() const noexcept;
+        vulkan::display_surface* display_surface() const noexcept;
 
     public:
         /// Gets the renderer window title.
@@ -51,14 +51,15 @@ namespace scener::graphics
         /// \return true if the underliying display surface has been closed; false otherwise.
         bool closed() const;
 
+        /// Creates the underlying system window
+        void create() noexcept;
+
     public:
         nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
     private:
-        void open() noexcept;
         void show() const noexcept;
         void close() noexcept;
-        void initialize_connections() noexcept;
         void pool_events() const noexcept;
 
     private:
@@ -68,7 +69,7 @@ namespace scener::graphics
 
     private:
         renderer*                                _renderer          { nullptr };
-        std::unique_ptr<opengl::display_surface> _display_surface   { nullptr };
+        std::unique_ptr<vulkan::display_surface> _display_surface   { nullptr };
         std::string                              _title             { };
         nod::scoped_connection                   _close_connection  { };
         nod::scoped_connection                   _resize_connection { };

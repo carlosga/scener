@@ -47,7 +47,7 @@ namespace scener::graphics::vulkan
         return _features;
     }
 
-    logical_device physical_device::create_logical_device(const render_surface& surface) const noexcept
+    std::unique_ptr<logical_device> physical_device::create_logical_device(const render_surface& surface) const noexcept
     {
         auto graphics_queue_family_index = get_graphics_queue_family_index();
         auto present_queue_family_index  = get_present_queue_family_index(surface);
@@ -88,7 +88,7 @@ namespace scener::graphics::vulkan
             .setPpEnabledExtensionNames(_extension_names.data())
             .setPEnabledFeatures(&_features);
 
-        auto logical_device    = _physical_device.createDevice(deviceInfo, nullptr);
+        auto device            = _physical_device.createDevice(deviceInfo, nullptr);
         auto present_mode      = get_present_mode(surface);
         auto surface_caps      = get_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
@@ -99,17 +99,16 @@ namespace scener::graphics::vulkan
           , vk::FormatFeatureFlagBits::eDepthStencilAttachment
         );
 
-        return {
+        return std::make_unique<logical_device>(
             _physical_device
-          , logical_device
+          , device
           , graphics_queue_family_index
           , present_queue_family_index
           , surface_caps
           , surface_format
           , depth_format
           , present_mode
-          , format_properties
-        };
+          , format_properties);
     }
 
     void physical_device::identify_layers() noexcept

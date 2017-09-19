@@ -15,7 +15,6 @@
 #include "scener/graphics/service_container.hpp"
 #include "scener/graphics/steptime.hpp"
 #include "scener/graphics/steptimer.hpp"
-#include "scener/graphics/opengl/render_context.hpp"
 
 namespace scener::graphics
 {
@@ -119,7 +118,6 @@ namespace scener::graphics
 
     private:
         std::unique_ptr<graphics::window>         _window                { nullptr };
-        std::unique_ptr<opengl::render_context>   _render_context        { nullptr };
         std::unique_ptr<content::content_manager> _content_manager       { nullptr };
         std::unique_ptr<graphics_device_manager>  _device_manager        { nullptr };
         std::vector<std::shared_ptr<idrawable>>   _drawable_components   { };

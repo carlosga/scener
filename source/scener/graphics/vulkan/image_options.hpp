@@ -6,6 +6,7 @@
 
 #include <vulkan/vulkan.hpp>
 
+#include <scener/graphics/sampler_state.hpp>
 #include <scener/graphics/texture_target.hpp>
 
 namespace scener::graphics::vulkan
@@ -16,6 +17,7 @@ namespace scener::graphics::vulkan
         texture_target      target;
         vk::Extent3D        extent;
         std::uint32_t       mip_levels;
+        sampler_state*      sampler;
     };
 }
 

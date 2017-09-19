@@ -43,6 +43,7 @@ namespace scener::graphics
     void graphics_device_manager::create_device() noexcept
     {
         _graphics_device = std::make_unique<graphics_device>();
+        _graphics_device->create(_renderer->window()->display_surface());
     }
 
     graphics_device* graphics_device_manager::device() const noexcept

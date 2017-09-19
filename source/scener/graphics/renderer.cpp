@@ -19,7 +19,6 @@ namespace scener::graphics
     using scener::timespan;
     using scener::content::content_manager;
     using scener::graphics::graphics_device;
-    using scener::graphics::opengl::render_context;
     using scener::input::keyboard;
     using scener::input::keyboard_state;
     using scener::input::keys;
@@ -108,8 +107,7 @@ namespace scener::graphics
 
     void renderer::end_draw() noexcept
     {
-        _render_context->present();
-        // _graphics_device_manager->graphics_device()->present();
+        _device_manager->device()->present();
     }
 
     void renderer::end_run() noexcept
@@ -217,27 +215,10 @@ namespace scener::graphics
 
     void renderer::create_device() noexcept
     {
-        _device_manager->create_device();
         _window->allow_user_resizing(true);
-        _window->open();
-        _render_context = std::make_unique<render_context>(_device_manager->device()->display_device(), _window->display_surface());
-        _render_context->create();
+        _window->create();
+        _device_manager->create_device();
         _device_manager->apply_changes();
-
-        switch (_device_manager->device()->presentation_parameters().present_interval)
-        {
-        case present_interval::one:
-            _render_context->present_interval(1);
-            break;
-
-        case present_interval::two:
-            _render_context->present_interval(2);
-            break;
-
-        case present_interval::immediate:
-            _render_context->present_interval(0);
-            break;
-        }
     }
 
     void renderer::fixed_time_step() noexcept

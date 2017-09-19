@@ -1,4 +1,4 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+﻿// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifndef SCENER_GRAPHICS_GRAPHIC_SDEVICE_HPP
@@ -13,7 +13,9 @@
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
-#include "scener/graphics/opengl/display_device.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
+#include "scener/graphics/vulkan/logical_device.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
 #include "scener/math/color.hpp"
 
 namespace scener::graphics
@@ -51,7 +53,7 @@ namespace scener::graphics
 
             case primitive_type::triangle_strip:
                 return primitive_count + 2;
-            
+
             default:
                 throw std::runtime_error("Unknown primitive type");
             }
@@ -62,9 +64,9 @@ namespace scener::graphics
         graphics_device() noexcept;
 
     public:
-        opengl::display_device* display_device() const noexcept;
+        /// Creates the graphics device
+        void create(gsl::not_null<vulkan::display_surface*> dsurface);
 
-    public:
         /// Clears the resouce buffer
         void clear(const math::color& color) const noexcept;
 
@@ -135,7 +137,9 @@ namespace scener::graphics
         graphics::presentation_parameters        _presentation_parameters;
         graphics::rasterizer_state               _rasterizer_state;
         graphics::viewport                       _viewport;
-        std::unique_ptr<opengl::display_device>  _display_device { nullptr };
+        std::unique_ptr<vulkan::adapter>         _adapter;
+        std::unique_ptr<vulkan::render_surface>  _render_surface;
+        std::unique_ptr<vulkan::logical_device>  _logical_device;
     };
 }
 

@@ -3,11 +3,9 @@
 
 #include "scener/input/keyboard_state.hpp"
 
-#include "scener/graphics/opengl/display_surface.hpp"
-
 namespace scener::input
 {
-    using scener::graphics::opengl::display_surface;
+    using scener::graphics::vulkan::display_surface;
 
     // Initializes a new instance of the KeyboardState class.
     // Array or parameter list of Keys to initialize as pressed.

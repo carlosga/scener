@@ -15,6 +15,9 @@ namespace scener::graphics::vulkan
         , _screen                { nullptr }
         , _connection            { nullptr }
         , _atom_wm_delete_window { nullptr }
+        , _closing_signal        { }
+        , _resize_signal         { }
+
     {
         create(title, rect);
     }
@@ -22,6 +25,19 @@ namespace scener::graphics::vulkan
     display_surface::~display_surface() noexcept
     {
         destroy();
+    }
+
+    void display_surface::set_title(const std::string& title) noexcept
+    {
+        xcb_change_property(
+            _connection
+          , XCB_PROP_MODE_REPLACE
+          , _window
+          , XCB_ATOM_WM_NAME
+          , XCB_ATOM_STRING
+          , 8
+          , title.size()
+          , title.c_str());
     }
 
     xcb_connection_t* display_surface::connection() const noexcept
@@ -126,15 +142,20 @@ namespace scener::graphics::vulkan
         _connection = c;
 
         /* Set window title */
-        xcb_change_property(
-            _connection
-          , XCB_PROP_MODE_REPLACE
-          , _window
-          , XCB_ATOM_WM_NAME
-          , XCB_ATOM_STRING
-          , 8
-          , title.size()
-          , title.c_str());
+        set_title(title);
+    }
+
+    void display_surface::clear() noexcept
+    {
+    }
+
+    void display_surface::show() noexcept
+    {
+        xcb_flush(_connection);
+    }
+
+    void display_surface::pool_events() noexcept
+    {
     }
 
     void display_surface::destroy() noexcept
@@ -156,104 +177,14 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void display_surface::clear() noexcept
+    nod::connection display_surface::connect_closing(std::function<void()>&& slot) noexcept
     {
+        return _closing_signal.connect(slot);
     }
 
-    void display_surface::show() noexcept
+    nod::connection display_surface::connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept
     {
-        xcb_flush(_connection);
-    }
-
-    void display_surface::pool_events() noexcept
-    {
-    //     Expects(_display  != nullptr);
-    //     Expects(_drawable != 0);
-
-    //     XEvent ev;
-
-    //     // Enter message loop
-    //     while (XPending(_display->handle()) > 0)
-    //     {
-    //         XNextEvent(_display->handle(), &ev);
-    //         if (ev.type == Expose)
-    //         {
-    //             XWindowAttributes attribs;
-    //             XGetWindowAttributes(_display->handle(), _drawable, &attribs);
-    //             _resize_signal(attribs.width, attribs.height);
-    //         }
-    //         else if (ev.type == KeymapNotify)
-    //         {
-    //             XRefreshKeyboardMapping(&ev.xmapping);
-    //         }
-    //         else if (ev.type == KeyPress)
-    //         {
-    // //            len = XLookupString(&ev.xkey, str, 25, &keysym, NULL);
-    // //            if (len > 0) {
-    // //                std::cout << "Key pressed: " << str << " - " << len << " - " << keysym <<'\n';
-    // //            }
-    // //            if (keysym == XK_Escape) {
-    // //                running = false;
-    // //            }
-    //         }
-    //         else if (ev.type == KeyRelease)
-    //         {
-    // //            len = XLookupString(&ev.xkey, str, 25, &keysym, NULL);
-    // //            if (len > 0) {
-    // //                std::cout << "Key released: " << str << " - " << len << " - " << keysym <<'\n';
-    // //            }
-    //         }
-    //         else if (ev.type == MotionNotify)
-    //         {
-    // //            x = ev.xmotion.x;
-    // //            y = ev.xmotion.y;
-    // //            std::cout << "Mouse X:" << x << ", Y: " << y << "\n";
-    //         }
-    //         else if (ev.type == ButtonPress)
-    //         {
-    // //            if (ev.xbutton.button == 1) {
-    // //                std::cout << "Left mouse down\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 2) {
-    // //                std::cout << "Middle mouse down\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 3) {
-    // //                std::cout << "Right mouse down\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 4) {
-    // //                std::cout << "Mouse scroll up\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 5) {
-    // //                std::cout << "Mouse scroll down\n";
-    // //            }
-    //         }
-    //         else if (ev.type == ButtonRelease)
-    //         {
-    // //            if (ev.xbutton.button == 1) {
-    // //                std::cout << "Left mouse up\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 2) {
-    // //                std::cout << "Middle mouse up\n";
-    // //            }
-    // //            else if (ev.xbutton.button == 3) {
-    // //                std::cout << "Right mouse up\n";
-    // //                running = false;
-    // //            }
-    //         }
-    //         else if (ev.type == ClientMessage)
-    //         {
-    //             if (static_cast<Atom>(ev.xclient.data.l[0]) == _atomWmDeleteDrawable)
-    //             {
-    //                 _closing_signal();
-    //                 break;
-    //             }
-    //         }
-    //         else if (ev.type == DestroyNotify)
-    //         {
-    //             _closing_signal();
-    //             break;
-    //         }
-    //    }
+        return _resize_signal.connect(slot);
     }
 }
 

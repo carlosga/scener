@@ -11,6 +11,7 @@
 #include <scener/math/basic_size.hpp>
 #include <scener/math/basic_color.hpp>
 
+#include "scener/graphics/sampler_state.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
 #include "scener/graphics/vulkan/memory_allocator.hpp"
@@ -49,7 +50,7 @@ namespace scener::graphics::vulkan
 
     public:
         image create_image(const image_options& options) const noexcept;
-        void create_sampler() const noexcept;
+        vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
 
     private:
         void get_device_queues() noexcept;

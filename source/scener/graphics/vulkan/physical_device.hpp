@@ -27,7 +27,7 @@ namespace scener::graphics::vulkan
         const vk::PhysicalDeviceFeatures& features() const noexcept;
 
     public:
-        logical_device create_logical_device(const render_surface& surface) const noexcept;
+        std::unique_ptr<logical_device> create_logical_device(const render_surface& surface) const noexcept;
 
     private:
         void identify_layers() noexcept;

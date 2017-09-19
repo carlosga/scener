@@ -8,10 +8,11 @@
 #include <cstdint>
 #include <queue>
 #include <string>
-
 #include <xcb/xcb.h>
 
 #include <gsl/gsl>
+#include <nod/nod.hpp>
+
 #include <scener/math/basic_rect.hpp>
 
 namespace scener::graphics::vulkan
@@ -29,7 +30,8 @@ namespace scener::graphics::vulkan
         ~display_surface() noexcept;
 
     public:
-        xcb_connection_t*   connection() const noexcept;
+        void set_title(const std::string& title) noexcept;
+        xcb_connection_t* connection() const noexcept;
         const xcb_window_t& window() const noexcept;
         scener::math::basic_rect<std::uint32_t> rect() const noexcept;
 
@@ -43,15 +45,26 @@ namespace scener::graphics::vulkan
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
 
+        /// Destroys this display surface
+        void destroy() noexcept;
+
+    public:
+        nod::connection connect_closing(std::function<void()>&& slot) noexcept;
+        nod::connection connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept;
+
     private:
         void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
-        void destroy() noexcept;
 
     private:
         xcb_window_t             _window;
         xcb_screen_t*            _screen;
         xcb_connection_t*        _connection;
         xcb_intern_atom_reply_t* _atom_wm_delete_window;
+
+    private:
+        // signals
+        nod::signal<void()>                           _closing_signal;
+        nod::signal<void(std::int32_t, std::int32_t)> _resize_signal;
     };
 }
 

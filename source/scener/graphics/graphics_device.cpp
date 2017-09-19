@@ -9,6 +9,7 @@
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
+#include "scener/graphics/vulkan/physical_device.hpp"
 
 namespace scener::graphics
 {
@@ -21,17 +22,21 @@ namespace scener::graphics
         , _presentation_parameters { }
         , _rasterizer_state        { this }
         , _viewport                { }
-        , _display_device          { std::make_unique<opengl::display_device>() }
+        , _adapter                 { }
+        , _logical_device          { }
     {
-        if (!_display_device->open())
-        {
-            throw std::runtime_error("An error has occurred while opening the display device.");
-        }    
     }
 
-    opengl::display_device* graphics_device::display_device() const noexcept
+    void graphics_device::create(gsl::not_null<vulkan::display_surface*> dsurface)
     {
-        return _display_device.get();
+        // Vulkan instance
+        _adapter         = std::make_unique<vulkan::adapter>();
+        // Render surface (Vulkan - Wayland based)
+        _render_surface  = std::make_unique<vulkan::render_surface>(_adapter.get(), dsurface);
+        // Logical device (Vulkan)
+        _logical_device  = _adapter->physical_devices()[0].create_logical_device(*_render_surface);
+        // Swap chain
+        _logical_device->create_swap_chain(*_render_surface);
     }
 
     void graphics_device::clear(const math::color& color) const noexcept
