@@ -19,7 +19,7 @@ namespace scener::graphics
         /**
          * Gets the default adapter.
          */
-        static const graphics_adapter& default_adapter();
+        static graphics_adapter default_adapter();
 
         /**
          * Gets the collection of available adapters.

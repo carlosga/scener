@@ -12,6 +12,7 @@
 #include <nod/nod.hpp>
 
 #include "scener/graphics/vulkan/surface.hpp"
+#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics
 {
@@ -52,7 +53,8 @@ namespace scener::graphics
         bool closed() const;
 
         /// Creates the underlying system window
-        void create() noexcept;
+        /// \param rect initial window position and size
+        void create(const math::basic_rect<uint32_t>& rect) noexcept;
 
     public:
         nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;

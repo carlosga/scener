@@ -245,7 +245,7 @@ namespace scener::graphics::vulkan
     {
         std::vector<vk::Bool32> supports_present = get_surface_present_support(surface);
 
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
+        for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {

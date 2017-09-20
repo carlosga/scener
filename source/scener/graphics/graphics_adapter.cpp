@@ -10,14 +10,19 @@
 
 namespace scener::graphics
 {
-    const graphics_adapter& graphics_adapter::default_adapter()
+    graphics_adapter graphics_adapter::default_adapter()
     {
         auto adapters = graphics_adapter::adapters();
-        auto it       = std::find_if(adapters.begin(), adapters.end(),
-                                     [](const graphics_adapter& adapter) -> bool
-                                     {
-                                         return adapter.is_default_adapter();
-                                     });
+
+        if (adapters.size() == 1)
+        {
+            return adapters[0];
+        }
+
+        auto it = std::find_if(adapters.begin(), adapters.end(), [] (const graphics_adapter& adapter) -> bool
+        {
+            return adapter.is_default_adapter();
+        });
 
         if (it != adapters.end())
         {
@@ -29,19 +34,21 @@ namespace scener::graphics
 
     std::vector<graphics_adapter> graphics_adapter::adapters()
     {
-        vulkan::adapter adapter { };
+        vulkan::adapter               adapter  { };
+        std::vector<graphics_adapter> adapters { };
         const auto& devices = adapter.physical_devices();
-        std::vector<graphics_adapter> adapters(devices.size());
         bool default_device_selected = false;
+
+        adapters.reserve(devices.size());
 
         for (const auto& device : devices)
         {
             const auto& properties = device.properties();
             graphics_adapter adapter;
 
-            adapter._description        = std::string(properties.deviceName);
-            adapter._vendor_id          = properties.vendorID;
-            adapter._device_id          = properties.deviceID;
+            adapter._description = std::string(properties.deviceName);
+            adapter._vendor_id   = properties.vendorID;
+            adapter._device_id   = properties.deviceID;
 
             if (!default_device_selected)
             {

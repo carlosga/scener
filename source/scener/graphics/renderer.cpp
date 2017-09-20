@@ -218,8 +218,15 @@ namespace scener::graphics
 
     void renderer::create_device() noexcept
     {
+        Ensures(_device_manager->preferred_back_buffer_width  > 0);
+        Ensures(_device_manager->preferred_back_buffer_height > 0);
+
         _window->allow_user_resizing(true);
-        _window->create();
+        _window->create({ 0u
+                        , 0u
+                        , _device_manager->preferred_back_buffer_width
+                        , _device_manager->preferred_back_buffer_height });
+        _window->title(_device_manager->window_title);
         _device_manager->create_device();
     }
 

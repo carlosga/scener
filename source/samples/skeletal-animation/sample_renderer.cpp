@@ -25,7 +25,9 @@ namespace skeletal::animation
     {
         renderer::begin_run();
 
-        device_manager()->window_title = "SceneR";
+        device_manager()->window_title                 = "SceneR";
+        device_manager()->preferred_back_buffer_width  = 1600;
+        device_manager()->preferred_back_buffer_height = 900;
     }
 
     void sample_renderer::load_content() noexcept
@@ -46,8 +48,5 @@ namespace skeletal::animation
     void sample_renderer::prepare_device_settings(presentation_parameters* params) const noexcept
     {
         renderer::prepare_device_settings(params);
-
-        params->back_buffer_width  = 1600;
-        params->back_buffer_height = 900;
     }
 }

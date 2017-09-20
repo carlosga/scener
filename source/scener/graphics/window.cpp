@@ -6,7 +6,6 @@
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/graphics_device_manager.hpp"
 #include "scener/graphics/renderer.hpp"
-#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics
 {
@@ -51,13 +50,8 @@ namespace scener::graphics
         return _closed;
     }
 
-    void window::create() noexcept
+    void window::create(const math::basic_rect<uint32_t>& rect) noexcept
     {
-        auto rect = math::basic_rect<uint32_t>(0u
-                                             , 0u
-                                             , _renderer->_device_manager->preferred_back_buffer_width
-                                             , _renderer->_device_manager->preferred_back_buffer_height);
-
         _display_surface  = std::make_unique<vulkan::display_surface>(_title, rect);
         _close_connection = _display_surface->connect_closing([&]() {
             _closed = true;
