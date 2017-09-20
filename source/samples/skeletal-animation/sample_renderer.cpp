@@ -3,15 +3,16 @@
 
 #include "skeletal-animation/sample_renderer.hpp"
 
-#include <scener/graphics/graphics_device.hpp>
-#include <scener/graphics/graphics_device_manager.hpp>
-#include <scener/math/color.hpp>
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/graphics_device_manager.hpp"
+#include "scener/math/color.hpp"
 
 #include "skeletal-animation/camera.hpp"
 #include "skeletal-animation/earthshaker.hpp"
 
 namespace skeletal::animation
 {
+    using scener::graphics::presentation_parameters;
     using scener::graphics::steptime;
     using scener::math::color;
 
@@ -24,9 +25,7 @@ namespace skeletal::animation
     {
         renderer::begin_run();
 
-        device_manager()->preferred_back_buffer_width  = 1600;
-        device_manager()->preferred_back_buffer_height = 900;
-        device_manager()->window_title                 = "SceneR";
+        device_manager()->window_title = "SceneR";
     }
 
     void sample_renderer::load_content() noexcept
@@ -42,5 +41,13 @@ namespace skeletal::animation
         device()->clear(color::black());
 
         renderer::draw(time);
+    }
+
+    void sample_renderer::prepare_device_settings(presentation_parameters* params) const noexcept
+    {
+        renderer::prepare_device_settings(params);
+
+        params->back_buffer_width  = 1600;
+        params->back_buffer_height = 900;
     }
 }

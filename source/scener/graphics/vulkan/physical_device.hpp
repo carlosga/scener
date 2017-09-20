@@ -25,6 +25,12 @@ namespace scener::graphics::vulkan
         const vk::PhysicalDeviceProperties& properties() const noexcept;
         const vk::PhysicalDeviceMemoryProperties& memory_properties() const noexcept;
         const vk::PhysicalDeviceFeatures& features() const noexcept;
+        bool has_swapchain_support() const noexcept;
+        bool has_graphics_queue() const noexcept;
+        bool is_integrated_gpu() const noexcept;
+        bool is_discrete_gpu() const noexcept;
+        bool is_virtual_gpu() const noexcept;
+        bool is_cpu_gpu() const noexcept;
 
     public:
         std::unique_ptr<logical_device> create_logical_device(const render_surface& surface) const noexcept;

@@ -12,6 +12,7 @@
 #include "scener/graphics/icomponent.hpp"
 #include "scener/graphics/idrawable.hpp"
 #include "scener/graphics/iupdateable.hpp"
+#include "scener/graphics/presentation_parameters.hpp"
 #include "scener/graphics/service_container.hpp"
 #include "scener/graphics/steptime.hpp"
 #include "scener/graphics/steptimer.hpp"
@@ -87,6 +88,10 @@ namespace scener::graphics
 
         /// Called when the renderer has determined that render logic needs to be processed.
         virtual void update(const steptime& time) noexcept;
+
+        /// Called when the graphics_device_manager is changing the graphics_device settings
+        /// (during reset or recreation of the GraphicsDevice).
+        virtual void prepare_device_settings(presentation_parameters*) const noexcept;
 
         /// Updates the renderer's clock and calls update and draw.
         void time_step() noexcept;

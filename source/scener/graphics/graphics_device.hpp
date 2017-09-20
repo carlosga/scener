@@ -9,6 +9,7 @@
 
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
+#include "scener/graphics/graphics_adapter.hpp"
 #include "scener/graphics/presentation_parameters.hpp"
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
@@ -61,12 +62,10 @@ namespace scener::graphics
 
     public:
         /// Initializes a new instance of the GraphicsDevice class.
-        graphics_device() noexcept;
+        graphics_device(const graphics_adapter&                  adapter
+                      , const graphics::presentation_parameters& presentation_params) noexcept;
 
     public:
-        /// Creates the graphics device
-        void create(gsl::not_null<vulkan::display_surface*> dsurface);
-
         /// Clears the resouce buffer
         void clear(const math::color& color) const noexcept;
 
@@ -137,6 +136,7 @@ namespace scener::graphics
         graphics::presentation_parameters        _presentation_parameters;
         graphics::rasterizer_state               _rasterizer_state;
         graphics::viewport                       _viewport;
+        graphics_adapter                         _graphics_adapter;
         std::unique_ptr<vulkan::adapter>         _adapter;
         std::unique_ptr<vulkan::render_surface>  _render_surface;
         std::unique_ptr<vulkan::logical_device>  _logical_device;

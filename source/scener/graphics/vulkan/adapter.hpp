@@ -33,6 +33,7 @@ namespace scener::graphics::vulkan
     public:
         const vk::Instance& instance() const noexcept;
         const std::vector<physical_device>& physical_devices() const noexcept;
+        const physical_device& get_physical_device(std::uint32_t device_id) const noexcept;
 
     private:
         void create() noexcept;

@@ -8,6 +8,7 @@
 #include <cstdint>
 
 #include "scener/graphics/present_interval.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
 
 namespace scener::graphics
 {
@@ -34,6 +35,9 @@ namespace scener::graphics
 
         /// Gets or sets the swap buffer interval.
         graphics::present_interval present_interval;
+
+        /// Gets or sets the handle to the device window.
+        scener::graphics::vulkan::display_surface* device_window_handle;
     };
 }
 

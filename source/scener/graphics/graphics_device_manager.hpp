@@ -27,9 +27,6 @@ namespace scener::graphics
         graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept;
 
     public:
-        /// Applies any changes to device-related propertie.
-        void apply_changes() noexcept;
-
         /// Starts the drawing of a frame.
         bool begin_draw() noexcept override;
 
@@ -59,9 +56,19 @@ namespace scener::graphics
         /// Gets or sets the preferred back-buffer height.
         std::uint32_t preferred_back_buffer_height { 0 };
 
+    public:
+        /// Raised when the graphics_device_manager is changing the graphics_device settings
+        /// (during reset or recreation of the GraphicsDevice).
+        nod::connection prepare_device_settings(
+            std::function<void(presentation_parameters*)>&& slot) noexcept;
+
     private:
-        std::unique_ptr<graphics_device> _graphics_device { nullptr };
-        renderer*                        _renderer        { nullptr };
+        std::unique_ptr<graphics_device> _graphics_device;
+        renderer*                        _renderer;
+
+    private:
+        /// Signals
+        nod::signal<void(presentation_parameters*)> _prepare_device_settings_signal;
     };
 }
 

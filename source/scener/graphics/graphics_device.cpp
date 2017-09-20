@@ -13,28 +13,30 @@
 
 namespace scener::graphics
 {
-    graphics_device::graphics_device() noexcept
+    graphics_device::graphics_device(const graphics_adapter&                  adapter
+                                   , const graphics::presentation_parameters& presentation_params) noexcept
         : effect                   { nullptr }
         , index_buffer             { nullptr }
         , vertex_buffer            { nullptr }
         , _blend_state             { this }
         , _depth_stencil_state     { this }
-        , _presentation_parameters { }
+        , _presentation_parameters { presentation_params }
         , _rasterizer_state        { this }
         , _viewport                { }
+        , _graphics_adapter        { adapter }
         , _adapter                 { }
         , _logical_device          { }
     {
-    }
-
-    void graphics_device::create(gsl::not_null<vulkan::display_surface*> dsurface)
-    {
+        // Device window handle
+        const auto window_handle = _presentation_parameters.device_window_handle;
         // Vulkan instance
-        _adapter         = std::make_unique<vulkan::adapter>();
+        _adapter        = std::make_unique<vulkan::adapter>();
         // Render surface (Vulkan - Wayland based)
-        _render_surface  = std::make_unique<vulkan::render_surface>(_adapter.get(), dsurface);
+        _render_surface = std::make_unique<vulkan::render_surface>(_adapter.get(), window_handle);
+        // Physical device
+        const auto& gpu = _adapter->get_physical_device(_graphics_adapter.device_id());
         // Logical device (Vulkan)
-        _logical_device  = _adapter->physical_devices()[0].create_logical_device(*_render_surface);
+        _logical_device = gpu.create_logical_device(*_render_surface);
         // Swap chain
         _logical_device->create_swap_chain(*_render_surface);
     }
@@ -121,7 +123,7 @@ namespace scener::graphics
         return _depth_stencil_state;
     }
 
-    presentation_parameters& graphics_device::presentation_parameters() noexcept
+    graphics::presentation_parameters& graphics_device::presentation_parameters() noexcept
     {
         return _presentation_parameters;
     }

@@ -6,10 +6,10 @@
 
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/graphics_device_manager.hpp"
+#include "scener/graphics/presentation_parameters.hpp"
 #include "scener/graphics/renderer.hpp"
+#include "scener/graphics/steptime.hpp"
 #include "scener/graphics/window.hpp"
-
-namespace scener::graphics { struct steptime; }
 
 namespace skeletal::animation
 {
@@ -22,6 +22,7 @@ namespace skeletal::animation
         void begin_run() noexcept override;
         void load_content() noexcept override;
         void draw(const scener::graphics::steptime& time) noexcept override;
+        void prepare_device_settings(scener::graphics::presentation_parameters* params) const noexcept override;
     };
 }
 

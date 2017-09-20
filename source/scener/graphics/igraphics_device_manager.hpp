@@ -4,6 +4,10 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICS_DEVICE_MANAGER_HPP
 #define SCENER_GRAPHICS_IGRAPHICS_DEVICE_MANAGER_HPP
 
+#include <nod/nod.hpp>
+
+#include "scener/graphics/presentation_parameters.hpp"
+
 namespace scener::graphics
 {
     /// Defines the interface for an object that manages a GraphicsDevice.
@@ -22,6 +26,10 @@ namespace scener::graphics
 
         /// Called by the game at the end of drawing; presents the final rendering.
         virtual void end_draw() noexcept = 0;
+
+        /// Raised when the graphics_device_manager is changing the graphics_device settings
+        /// (during reset or recreation of the GraphicsDevice).
+        virtual nod::connection prepare_device_settings(std::function<void(presentation_parameters*)>&& slot) noexcept = 0;
     };
 }
 

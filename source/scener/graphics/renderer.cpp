@@ -92,6 +92,10 @@ namespace scener::graphics
         _device_manager  = std::make_unique<graphics_device_manager>(this);
         _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
         _window          = std::make_unique<graphics::window>(this);
+
+        _device_manager->prepare_device_settings([&](presentation_parameters* params) -> void {
+            prepare_device_settings(params);
+        });
     }
 
     void renderer::draw(const steptime &time) noexcept
@@ -116,8 +120,7 @@ namespace scener::graphics
 
     void renderer::initialize() noexcept
     {
-        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void
-        {
+        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void {
             component->initialize();
         });
 
@@ -218,7 +221,6 @@ namespace scener::graphics
         _window->allow_user_resizing(true);
         _window->create();
         _device_manager->create_device();
-        _device_manager->apply_changes();
     }
 
     void renderer::fixed_time_step() noexcept
@@ -263,5 +265,10 @@ namespace scener::graphics
     void renderer::add_component(std::shared_ptr<icomponent> component)
     {
         _components.push_back(component);
+    }
+
+    void renderer::prepare_device_settings(presentation_parameters* params) const noexcept
+    {
+        params->device_window_handle = _window->display_surface();
     }
 }

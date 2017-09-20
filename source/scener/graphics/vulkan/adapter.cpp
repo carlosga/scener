@@ -79,6 +79,22 @@ namespace scener::graphics::vulkan
         return _physical_devices;
     }
 
+    const physical_device& adapter::get_physical_device(std::uint32_t device_id) const noexcept
+    {
+        auto it = std::find_if(_physical_devices.begin(), _physical_devices.end(),
+                               [device_id](const physical_device& device) -> bool
+                               {
+                                   return device.properties().deviceID == device_id;
+                               });
+
+        if (it != _physical_devices.end())
+        {
+            return *it;
+        }
+
+        throw std::runtime_error("Unknown physical device");
+    }
+
     void adapter::create() noexcept
     {
         identify_validation_layers();

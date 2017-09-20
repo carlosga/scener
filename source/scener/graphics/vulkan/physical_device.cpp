@@ -47,6 +47,44 @@ namespace scener::graphics::vulkan
         return _features;
     }
 
+    bool physical_device::has_swapchain_support() const noexcept
+    {
+        return _extension_names.size() > 0;
+    }
+
+    bool physical_device::has_graphics_queue() const noexcept
+    {
+        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
+        {
+            if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool physical_device::is_integrated_gpu() const noexcept
+    {
+        return _physical_device.getProperties().deviceType == vk::PhysicalDeviceType::eIntegratedGpu;
+    }
+
+    bool physical_device::is_discrete_gpu() const noexcept
+    {
+        return _physical_device.getProperties().deviceType == vk::PhysicalDeviceType::eDiscreteGpu;
+    }
+
+    bool physical_device::is_virtual_gpu() const noexcept
+    {
+        return _physical_device.getProperties().deviceType == vk::PhysicalDeviceType::eVirtualGpu;
+    }
+
+    bool physical_device::is_cpu_gpu() const noexcept
+    {
+        return _physical_device.getProperties().deviceType == vk::PhysicalDeviceType::eCpu;
+    }
+
     std::unique_ptr<logical_device> physical_device::create_logical_device(const render_surface& surface) const noexcept
     {
         auto graphics_queue_family_index = get_graphics_queue_family_index();
@@ -131,9 +169,6 @@ namespace scener::graphics::vulkan
 
     void physical_device::identify_extensions() noexcept
     {
-        /* Look for device extensions */
-        vk::Bool32 supports_swap_chains = VK_FALSE;
-
         _extension_names.clear();
 
         auto extensions = _physical_device.enumerateDeviceExtensionProperties(nullptr);
@@ -142,14 +177,8 @@ namespace scener::graphics::vulkan
         {
             if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
             {
-                supports_swap_chains = VK_TRUE;
                 _extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
             }
-        }
-
-        if (supports_swap_chains == VK_FALSE)
-        {
-            throw std::runtime_error("Swap chain not supported");
         }
     }
 
