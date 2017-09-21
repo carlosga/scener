@@ -74,8 +74,7 @@ namespace scener::graphics::vulkan
 
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
 
-        // swap chain images are destroyed by the vulkan driver
-        _swap_chain_images.clear();
+        _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
 
         _logical_device.destroy(nullptr);
     }
@@ -88,11 +87,6 @@ namespace scener::graphics::vulkan
     const vk::Queue& logical_device::present_queue() const noexcept
     {
         return _present_queue;
-    }
-
-    const memory_allocator& logical_device::allocator() const noexcept
-    {
-        return _allocator;
     }
 
     const scener::math::basic_color<float>& logical_device::clear_color() const noexcept
@@ -176,20 +170,17 @@ namespace scener::graphics::vulkan
                 // VK_IMAGE_ASPECT_DEPTH_BIT
                 // VK_IMAGE_ASPECT_STENCIL_BIT
                 .setAspectMask(vk::ImageAspectFlagBits::eColor)
-                // For beginners - a base mip level of zero is par for the course.
-                .setBaseMipLevel(0)
                 // Level count is the # of images visible down the mip chain.
                 // So basically just 1...
                 .setLevelCount(1)
                 // We don't have multiple layers to these images.
-                .setBaseArrayLayer(0)
                 .setLayerCount(1);
 
             auto component_mapping = vk::ComponentMapping()
-                .setR(vk::ComponentSwizzle::eR)
-                .setG(vk::ComponentSwizzle::eG)
-                .setB(vk::ComponentSwizzle::eB)
-                .setA(vk::ComponentSwizzle::eA);
+                .setR(vk::ComponentSwizzle::eIdentity)
+                .setG(vk::ComponentSwizzle::eIdentity)
+                .setB(vk::ComponentSwizzle::eIdentity)
+                .setA(vk::ComponentSwizzle::eIdentity);
 
             auto image_view_create_info = vk::ImageViewCreateInfo()
                 // Just plug it in
@@ -207,6 +198,11 @@ namespace scener::graphics::vulkan
 
             check_result(result);
         }
+    }
+
+    void logical_device::create_graphics_pipeline() noexcept
+    {
+
     }
 
     void logical_device::create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept

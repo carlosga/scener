@@ -40,9 +40,6 @@ namespace scener::graphics
 
         _graphics_device = std::make_unique<graphics_device>(graphics_adapter::default_adapter(), params);
 
-//        _renderer->window()->title(window_title);
-//        _renderer->window()->allow_user_resizing(allow_user_resizing);
-
 //        _graphics_device->blend_state().apply();
 //        _graphics_device->rasterizer_state().apply();
 //        _graphics_device->depth_stencil_state().apply();

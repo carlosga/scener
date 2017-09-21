@@ -27,6 +27,8 @@ namespace scener::graphics
         , _adapter                 { }
         , _logical_device          { }
     {
+        Expects(_presentation_parameters.device_window_handle != nullptr);
+
         // Device window handle
         const auto window_handle = _presentation_parameters.device_window_handle;
         // Vulkan instance
@@ -109,8 +111,6 @@ namespace scener::graphics
 
     void graphics_device::present() noexcept
     {
-        // TODO
-        // glfwSwapBuffers(glfwGetCurrentContext());
     }
 
     blend_state& graphics_device::blend_state() noexcept

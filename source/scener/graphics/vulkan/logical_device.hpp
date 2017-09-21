@@ -38,13 +38,12 @@ namespace scener::graphics::vulkan
     public:
         const vk::Queue& graphics_queue() const noexcept;
         const vk::Queue& present_queue() const noexcept;
-
-        const memory_allocator& allocator() const noexcept;
-
         const scener::math::basic_color<float>& clear_color() const noexcept;
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
+    public:
         void create_swap_chain(const render_surface& surface) noexcept;
+        void create_graphics_pipeline() noexcept;
         void create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept;
         void record_command_buffers() const noexcept;
 

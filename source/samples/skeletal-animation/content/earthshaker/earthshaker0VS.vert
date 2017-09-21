@@ -1,5 +1,7 @@
 #version 430 core
 
+#extension  GL_GOOGLE_include_directive : require
+
 layout(location = 0) in vec3 a_position;
 layout(location = 2) in vec2 a_texcoord0;
 layout(location = 3) in vec3 a_normal;
