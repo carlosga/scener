@@ -4,15 +4,12 @@
 #include "scener/graphics/vertex_buffer.hpp"
 
 #include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/opengl/buffer_target.hpp"
-#include "scener/graphics/opengl/buffer_usage.hpp"
+#include "scener/graphics/vulkan/buffer_target.hpp"
 
 namespace scener::graphics
 {
-    using scener::graphics::opengl::buffer;
-    using scener::graphics::opengl::buffer_target;
-    using scener::graphics::opengl::buffer_usage;
-    using scener::graphics::opengl::vertex_array_object;
+    using scener::graphics::vulkan::buffer;
+    using scener::graphics::vulkan::buffer_target;
 
     vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
                                , std::size_t                         vertex_count
@@ -21,11 +18,8 @@ namespace scener::graphics
         , _binding_index      { 0 }
         , _vertex_count       { vertex_count }
         , _vertex_declaration { vertex_declaration }
-        , _vao                { }
-        , _vbo                { buffer_target::array_buffer, buffer_usage::static_draw }
+        , _buffer             { buffer_target::vertex_buffer }
     {
-        _vao.bind_to_buffer(_vbo, _binding_index, 0, _vertex_declaration.vertex_stride());
-        _vao.declare(_vertex_declaration, _binding_index);
     }
 
     std::size_t vertex_buffer::vertex_count() const noexcept
@@ -43,12 +37,12 @@ namespace scener::graphics
         auto offset = (start_index   * _vertex_declaration.vertex_stride());
         auto size   = (element_count * _vertex_declaration.vertex_stride());
 
-        return _vbo.get_data(offset, size);
+        return _buffer.get_data(offset, size);
     }
 
     void vertex_buffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
     {
-        _vbo.set_data(_vertex_count * _vertex_declaration.vertex_stride(), data.data());
+        _buffer.set_data(_vertex_count * _vertex_declaration.vertex_stride(), data.data());
     }
 
     const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept
@@ -58,11 +52,9 @@ namespace scener::graphics
 
     void vertex_buffer::bind() noexcept
     {
-        _vao.bind();
     }
 
     void vertex_buffer::unbind() noexcept
     {
-        _vao.unbind();
     }
 }

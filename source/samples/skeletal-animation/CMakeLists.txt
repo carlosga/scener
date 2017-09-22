@@ -2,18 +2,10 @@ cmake_minimum_required (VERSION 3.2.2)
 project (scener::samples::skeletal-animation)
 enable_language (CXX)
 
-# pthread
-find_package (Threads REQUIRED)
-
-# OpenGL
-find_package (OpenGL REQUIRED)
-
-# X11
-find_package (X11 REQUIRED)
-
 # link directories
 link_directories (${SCENER_FRAMEWORK_LIB_DIRS})
 
+# content files ( models, shaders, textures, etc. )
 file (GLOB_RECURSE CONTENT_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/content/**)
 
 # content files
@@ -24,9 +16,6 @@ file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # add execlutable
 add_executable (skeletal-animation ${SOURCE_FILES})
-
-# enable 64 bit build
-#set_target_properties (skeletal-animation PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
 
 # include directories
 target_include_directories (skeletal-animation

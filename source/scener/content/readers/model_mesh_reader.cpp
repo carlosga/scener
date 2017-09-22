@@ -17,8 +17,7 @@
 #include "scener/graphics/texture2d.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
-#include "scener/graphics/opengl/vertex_array_object.hpp"
+#include "scener/graphics/vulkan/buffer.hpp"
 
 using nlohmann::json;
 using scener::math::matrix4;

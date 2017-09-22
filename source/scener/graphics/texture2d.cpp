@@ -23,13 +23,12 @@ namespace scener::graphics
         , _height        { height }
         , _width         { width }
         , _sampler_state { nullptr }
-        , _storage       { opengl::texture_target::texture_2d }
     {
     }
 
     std::uint32_t texture2d::id() const noexcept
     {
-        return _storage.id();
+        return 0;
     }
 
     surface_format texture2d::format() const noexcept
@@ -62,22 +61,18 @@ namespace scener::graphics
                            , std::size_t                          height
                            , const gsl::span<const std::uint8_t>& data) const noexcept
     {
-        _storage.set_data(_format, level, width, height, data);
     }
 
     void texture2d::declare_storage(std::size_t level_count) noexcept
     {
-        _storage.declare_storage(_format, level_count, _width, _height);
         _mipmap_levels = level_count;
     }
 
     void texture2d::bind() const noexcept
     {
-        _storage.bind();
     }
 
     void texture2d::unbind() const noexcept
     {
-        _storage.unbind();
     }
 }

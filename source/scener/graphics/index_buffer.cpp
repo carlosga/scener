@@ -3,20 +3,18 @@
 
 #include "scener/graphics/index_buffer.hpp"
 
-#include "scener/graphics/opengl/buffer_target.hpp"
-#include "scener/graphics/opengl/buffer_usage.hpp"
+#include "scener/graphics/vulkan/buffer_target.hpp"
 
 namespace scener::graphics
 {
-    using scener::graphics::opengl::buffer;
-    using scener::graphics::opengl::buffer_target;
-    using scener::graphics::opengl::buffer_usage;
+    using scener::graphics::vulkan::buffer;
+    using scener::graphics::vulkan::buffer_target;
 
     index_buffer::index_buffer(gsl::not_null<graphics_device*> device
                              , component_type                  index_element_type
                              , std::size_t                     index_count) noexcept
         : graphics_resource   { device }
-        , _buffer             { buffer_target::element_array_buffer, buffer_usage::static_draw }
+        , _buffer             { buffer_target::index_buffer }
         , _index_count        { index_count }
         , _index_element_type { index_element_type }
     {
@@ -69,11 +67,9 @@ namespace scener::graphics
 
     void index_buffer::bind() const noexcept
     {
-        _buffer.bind();
     }
 
     void index_buffer::unbind() const noexcept
     {
-        _buffer.unbind();
     }
 }

@@ -6,12 +6,12 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 
-namespace scener::graphics::opengl { class program; } 
+namespace scener::graphics::vulkan { class shader_module; }
 
 namespace scener::content::readers
 {
     template <>
-    class content_type_reader<graphics::opengl::program>
+    class content_type_reader<graphics::vulkan::shader_module>
     {
     public:
         content_type_reader() = default;

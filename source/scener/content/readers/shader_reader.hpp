@@ -6,21 +6,18 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 
-namespace scener::graphics::opengl { class shader; }
+namespace scener::graphics::vulkan { class shader; }
 
 namespace scener::content::readers
 {
     template <>
-    class content_type_reader<graphics::opengl::shader>
+    class content_type_reader<graphics::vulkan::shader>
     {
     public:
         content_type_reader() = default;
 
     public:
         auto read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
-
-    private:
-        std::string load_shader(content_reader* input, const std::string& uri) const noexcept;
     };
 }
 

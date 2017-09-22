@@ -13,7 +13,7 @@
 #include "scener/math/matrix.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::opengl { class constant_buffer; }
+namespace scener::graphics::vulkan { class constant_buffer; }
 
 namespace scener::graphics
 {
@@ -70,7 +70,7 @@ namespace scener::graphics
         std::size_t              _offset          { 0 };
         effect_parameter_class   _parameter_class { effect_parameter_class::scalar };
         effect_parameter_type    _parameter_type  { effect_parameter_type::single };
-        opengl::constant_buffer* _constant_buffer { nullptr };
+        vulkan::constant_buffer* _constant_buffer { nullptr };
         std::string              _name            { };
         std::string              _semantic        { };
         std::string              _value           { };

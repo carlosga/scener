@@ -12,7 +12,7 @@
 
 #include "scener/graphics/component_type.hpp"
 #include "scener/graphics/graphics_resource.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
+#include "scener/graphics/vulkan/buffer.hpp"
 
 namespace scener::graphics
 {
@@ -62,7 +62,7 @@ namespace scener::graphics
         void unbind() const noexcept;
 
     private:
-        scener::graphics::opengl::buffer _buffer;
+        scener::graphics::vulkan::buffer _buffer;
         std::size_t                      _index_count;
         component_type                   _index_element_type;
 

@@ -3,8 +3,6 @@
 
 #include "scener/graphics/viewport.hpp"
 
-#include "scener/graphics/opengl/platform.hpp"
-
 namespace scener::graphics
 {
     viewport::viewport() noexcept
@@ -24,7 +22,5 @@ namespace scener::graphics
 
     void viewport::update() const noexcept
     {
-        glViewportIndexedf(0, x, y, width, height);
-        glDepthRangeIndexed(0, min_depth, max_depth);
     }
 }

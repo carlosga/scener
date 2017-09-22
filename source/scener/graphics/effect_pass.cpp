@@ -4,8 +4,7 @@
 #include "scener/graphics/effect_pass.hpp"
 
 #include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/opengl/constant_buffer.hpp"
-#include "scener/graphics/opengl/program.hpp"
+#include "scener/graphics/vulkan/shader_module.hpp"
 
 namespace scener::graphics
 {
@@ -21,11 +20,9 @@ namespace scener::graphics
 
     void effect_pass::begin() noexcept
     {
-        _program->bind();
     }
 
     void effect_pass::end() noexcept
     {
-        _program->unbind();
     }
 }

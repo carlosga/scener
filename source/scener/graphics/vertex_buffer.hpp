@@ -10,8 +10,7 @@
 
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
-#include "scener/graphics/opengl/vertex_array_object.hpp"
+#include "scener/graphics/vulkan/buffer.hpp"
 
 namespace scener::graphics
 {
@@ -57,8 +56,7 @@ namespace scener::graphics
         std::uint32_t                _binding_index;
         std::size_t                  _vertex_count;
         graphics::vertex_declaration _vertex_declaration;
-        opengl::vertex_array_object  _vao;
-        opengl::buffer               _vbo;
+        vulkan::buffer               _buffer;
 
         friend class scener::graphics::graphics_device;
     };

@@ -45,22 +45,22 @@ namespace scener::graphics
 
     void graphics_device::clear(const math::color& color) const noexcept
     {
-        std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
+//        std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
-        glClearColor(color.r, color.g, color.b, color.a);
+//        glClearColor(color.r, color.g, color.b, color.a);
 
-        if (_depth_stencil_state.depth_buffer_enable)
-        {
-            bufferBits |= GL_DEPTH_BUFFER_BIT;
-            glClearDepth(1.0f);
-        }
-        if (_depth_stencil_state.stencil_enable)
-        {
-            bufferBits |= GL_STENCIL_BUFFER_BIT;
-            glClearStencil(1);
-        }
+//        if (_depth_stencil_state.depth_buffer_enable)
+//        {
+//            bufferBits |= GL_DEPTH_BUFFER_BIT;
+//            glClearDepth(1.0f);
+//        }
+//        if (_depth_stencil_state.stencil_enable)
+//        {
+//            bufferBits |= GL_STENCIL_BUFFER_BIT;
+//            glClearStencil(1);
+//        }
 
-        glClear(bufferBits);
+//        glClear(bufferBits);
     }
 
     void graphics_device::draw_indexed_primitives(primitive_type primitive_type
@@ -80,11 +80,11 @@ namespace scener::graphics
         vertex_buffer->bind();
         index_buffer->bind();
 
-        glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
-                               , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
-                               , static_cast<GLenum>(index_buffer->index_element_type())
-                               , reinterpret_cast<void*>(offset)
-                               , static_cast<GLint>(base_vertex));
+//        glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
+//                               , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
+//                               , static_cast<GLenum>(index_buffer->index_element_type())
+//                               , reinterpret_cast<void*>(offset)
+//                               , static_cast<GLint>(base_vertex));
 
         index_buffer->unbind();
         vertex_buffer->unbind();
@@ -101,9 +101,9 @@ namespace scener::graphics
         effect->begin();
         vertex_buffer->bind();
 
-        glDrawArrays(static_cast<GLenum>(primitive_type)
-                   , static_cast<GLint>(start_vertex)
-                   , static_cast<GLsizei>(primitive_count));
+//        glDrawArrays(static_cast<GLenum>(primitive_type)
+//                   , static_cast<GLint>(start_vertex)
+//                   , static_cast<GLsizei>(primitive_count));
 
         vertex_buffer->unbind();
         effect->end();

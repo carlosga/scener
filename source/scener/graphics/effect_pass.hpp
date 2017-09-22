@@ -11,7 +11,7 @@
 #include <gsl/gsl>
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::opengl { class program; }
+namespace scener::graphics::vulkan { class shader_module; }
 
 namespace scener::graphics
 {
@@ -40,7 +40,7 @@ namespace scener::graphics
     private:
         graphics_device*                               _graphics_device  { nullptr };
         std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-        std::shared_ptr<opengl::program>               _program          { nullptr };
+        std::shared_ptr<vulkan::shader_module>         _shader_module    { nullptr };
         std::string                                    _name             { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;

@@ -1,6 +1,7 @@
 #version 430 core
 
 #extension  GL_GOOGLE_include_directive : require
+#extension GL_ARB_separate_shader_objects : enable
 
 in vec3 v_normal;
 in vec2 v_texcoord0;

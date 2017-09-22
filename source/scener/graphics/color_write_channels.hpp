@@ -11,12 +11,14 @@ namespace scener::graphics
     /// Defines the color channels that can be chosen for a per-channel write to a render target color buffer
     enum class color_write_channels : std::uint32_t
     {
-        none  = 0                          ///< No channel selected.
-      , alpha = 1                          ///< Alpha channel of a buffer.
-      , blue  = 2                          ///< Blue channel of a buffer.
-      , green = 4                          ///< Green channel of a buffer.
-      , red   = 8                          ///< Red channel of a buffer.
-      , all   = red | green | blue | alpha ///< All buffer channels.
+        identity = 0                          ///< No channel selected.
+      , zero     = 1
+      , one      = 2
+      , red      = 3                          ///< Red channel of a buffer.
+      , green    = 4                          ///< Green channel of a buffer.
+      , blue     = 5                          ///< Blue channel of a buffer.
+      , alpha    = 6                          ///< Alpha channel of a buffer.
+      , all      = red | green | blue | alpha ///< All buffer channels.
     };
 
     inline constexpr color_write_channels operator&(const color_write_channels& lhs, const color_write_channels& rhs)

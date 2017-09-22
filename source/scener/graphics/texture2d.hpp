@@ -12,7 +12,6 @@
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/texture.hpp"
-#include "scener/graphics/opengl/texture_storage.hpp"
 
 namespace scener:: content::readers { template <typename T> class content_type_reader; }
 
@@ -91,7 +90,6 @@ namespace scener::graphics
         std::size_t                              _height;
         std::size_t                              _width;
         std::shared_ptr<graphics::sampler_state> _sampler_state;
-        opengl::texture_storage                  _storage;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

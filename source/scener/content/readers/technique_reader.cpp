@@ -11,9 +11,8 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/service_container.hpp"
-#include "scener/graphics/opengl/constant_buffer.hpp"
-#include "scener/graphics/opengl/platform.hpp"
-#include "scener/graphics/opengl/program.hpp"
+#include "scener/graphics/vulkan/constant_buffer.hpp"
+#include "scener/graphics/vulkan/shader_module.hpp"
 
 namespace scener::content::readers
 {
@@ -30,7 +29,7 @@ namespace scener::content::readers
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
-    using scener::graphics::opengl::program;
+    using scener::graphics::vulkan::shader_module;
     using namespace scener::content::gltf;
 
     auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& value) const noexcept
@@ -191,17 +190,17 @@ namespace scener::content::readers
                                                                 , effect_pass*       pass) const noexcept
     {
         // Pass program
-        pass->_program = input->read_object_instance<program>(name);
+        pass->_shader_module = input->read_object_instance<shader_module>(name);
 
         // Uniforms
-        auto offsets = pass->_program->get_uniform_offsets();
+        auto offsets = pass->_shader_module->query_uniform_offsets();
 
         for (const auto& parameter : pass->_parameters)
         {
             if (offsets.find(parameter->_uniform_name) != offsets.end())
             {
                 parameter->_offset          = offsets[parameter->_uniform_name];
-                parameter->_constant_buffer = pass->_program->constant_buffer();
+                parameter->_constant_buffer = pass->_shader_module->constant_buffer();
             }
         }
     }
@@ -278,131 +277,131 @@ namespace scener::content::readers
     {
         switch (type)
         {
-        case GL_BYTE:
+        case 0x1400:    // byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
             break;
 
-        case GL_UNSIGNED_BYTE:
+        case 0x1401:    // unsigned byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
             break;
 
-        case GL_SHORT:
+        case 0x1402:    // short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int16;
             break;
 
-        case GL_UNSIGNED_SHORT:
+        case 0x1403:    // unsigned short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint16;
             break;
 
-        case GL_INT:
+        case 0x1404:    // int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int32;
             break;
 
-        case GL_UNSIGNED_INT:
+        case 0x1405:    // unsigned int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint32;
             break;
 
-        case GL_FLOAT:
+        case 0x1406:    // float
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::single;
             break;
 
-        case GL_FLOAT_VEC2:
+        case 0x8B50:    // vec2f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
             break;
 
-        case GL_FLOAT_VEC3:
+        case 0x8B51:    // vec3f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
             break;
 
-        case GL_FLOAT_VEC4:
+        case 0x8B52:    // vec4f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
             break;
 
-        case GL_INT_VEC2:
+        case 0x8B53:    // vec2i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
             break;
 
-        case GL_INT_VEC3:
+        case 0x8B54:    // vec3i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
             break;
 
-        case GL_INT_VEC4:
+        case 0x8B55:    // vec4i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
             break;
 
-        case GL_BOOL:
+        case 0x8B56:    // bool
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             break;
 
-        case GL_BOOL_VEC2:
+        case 0x8B57:    // vec2b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
             break;
 
-        case GL_BOOL_VEC3:
+        case 0x8B58:    // vec3b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
             break;
 
-        case GL_BOOL_VEC4:
+        case 0x8B59:    // vec4b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
             break;
 
-        case GL_FLOAT_MAT2	: // mat2
+        case 0x8B5A	:   // mat2f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 2;
             parameter->_column_count    = 2;
             break;
 
-        case GL_FLOAT_MAT3	: // mat3
+        case 0x8B5B	:   // mat3f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 3;
             parameter->_column_count    = 3;
             break;
 
-        case GL_FLOAT_MAT4	: // mat4
+        case 0x8B5C	:   // mat4f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 4;
             parameter->_column_count    = 4;
             break;
 
-        case GL_SAMPLER_2D:
+        case 0x8B5E:    // sampler 2d
             parameter->_parameter_class = effect_parameter_class::object;
             parameter->_parameter_type  = effect_parameter_type::texture_2d;
             break;
