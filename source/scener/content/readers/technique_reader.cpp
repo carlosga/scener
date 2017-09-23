@@ -178,8 +178,8 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        auto vshader  = value[k_program][k_vertex_shader].get<std::string>();
-        auto fshader  = value[k_program][k_fragment_shader].get<std::string>();
+        auto vshader = value[k_program][k_vertex_shader].get<std::string>();
+        auto fshader = value[k_program][k_fragment_shader].get<std::string>();
 
         pass->_shaders.push_back(input->read_object<shader>(vshader));
         pass->_shaders.push_back(input->read_object<shader>(fshader));

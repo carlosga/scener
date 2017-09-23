@@ -652,57 +652,27 @@ namespace scener::graphics::vulkan
             // stencil
             .setStencilTestEnable(state.stencil_enable);
 
+        create_info
+            .setFront(
+                vk::StencilOpState()
+                    .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
+                    .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
+                    .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
+                    .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
+                    .setCompareMask(state.stencil_mask)
+                    .setWriteMask(state.stencil_write_mask)
+                    .setReference(state.reference_stencil)
+             );
+
         if (state.two_sided_stencil_mode)
         {
             create_info
-                .setFront(
-                    vk::StencilOpState()
-                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
-                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
-                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
-                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
-                        .setCompareMask(state.stencil_mask)
-                        .setWriteMask(state.stencil_write_mask)
-                        .setReference(state.reference_stencil)
-                 )
                 .setBack(
                     vk::StencilOpState()
-                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
-                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
-                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
-                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
-                        .setCompareMask(state.stencil_mask)
-                        .setWriteMask(state.stencil_write_mask)
-                        .setReference(state.reference_stencil)
-                 ); ;
-
-//            glStencilFuncSeparate(GL_FRONT, static_cast<GLenum>(stencil_function), reference_stencil, stencil_mask);
-
-//            glStencilFuncSeparate(GL_BACK
-//                                , static_cast<GLenum>(counter_clockwise_stencil_function)
-//                                , reference_stencil
-//                                , stencil_mask);
-
-//            glStencilOpSeparate(GL_FRONT
-//                              , static_cast<GLenum>(stencil_fail)
-//                              , static_cast<GLenum>(stencil_depth_buffer_fail)
-//                              , static_cast<GLenum>(stencil_pass));
-
-//            glStencilOpSeparate(GL_BACK
-//                              , static_cast<GLenum>(counter_clockwise_stencil_fail)
-//                              , static_cast<GLenum>(counter_clockwise_stencil_depth_buffer_fail)
-//                              , static_cast<GLenum>(counter_clockwise_stencil_pass));
-
-        }
-        else
-        {
-            create_info
-                .setFront(
-                    vk::StencilOpState()
-                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
-                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
-                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
-                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
+                        .setFailOp(static_cast<vk::StencilOp>(state.counter_clockwise_stencil_fail))
+                        .setPassOp(static_cast<vk::StencilOp>(state.counter_clockwise_stencil_pass))
+                        .setDepthFailOp(static_cast<vk::StencilOp>(state.counter_clockwise_stencil_depth_buffer_fail))
+                        .setCompareOp(static_cast<vk::CompareOp>(state.counter_clockwise_stencil_function))
                         .setCompareMask(state.stencil_mask)
                         .setWriteMask(state.stencil_write_mask)
                         .setReference(state.reference_stencil)
