@@ -597,28 +597,9 @@ namespace scener::graphics::vulkan
                       && state.alpha_source_blend      == graphics::blend::one
                       && state.alpha_destination_blend == graphics::blend::zero);
 
-        vk::ColorComponentFlags mask;
-
-        if ((state.color_write_channels_1 & graphics::color_write_channels::red) == graphics::color_write_channels::red)
-        {
-            mask |= vk::ColorComponentFlagBits::eR;
-        }
-        if ((state.color_write_channels_1 & graphics::color_write_channels::green) == graphics::color_write_channels::green)
-        {
-            mask |= vk::ColorComponentFlagBits::eG;
-        }
-        if ((state.color_write_channels_1 & graphics::color_write_channels::blue)  == graphics::color_write_channels::blue)
-        {
-            mask |= vk::ColorComponentFlagBits::eB;
-        }
-        if ((state.color_write_channels_1 & graphics::color_write_channels::alpha) == graphics::color_write_channels::alpha)
-        {
-            mask |= vk::ColorComponentFlagBits::eA;
-        }
-
         auto attachment = vk::PipelineColorBlendAttachmentState()
             .setBlendEnable(enabled)
-            .setColorWriteMask(mask)
+            .setColorWriteMask(static_cast<vk::ColorComponentFlagBits>(state.color_write_channels_1))
             .setAlphaBlendOp(static_cast<vk::BlendOp>(state.alpha_blend_function))
             .setSrcAlphaBlendFactor(static_cast<vk::BlendFactor>(state.alpha_source_blend))
             .setDstAlphaBlendFactor(static_cast<vk::BlendFactor>(state.alpha_destination_blend))
