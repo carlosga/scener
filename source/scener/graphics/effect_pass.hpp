@@ -26,13 +26,14 @@ namespace scener::graphics
         /// \returns The name of this pass.
         const std::string& name() const noexcept;
 
+        /// Gets the effect pass shaders.
+        /// \returns the effect pass shaders.
         const std::vector<std::shared_ptr<vulkan::shader>>& shaders() const noexcept;
 
     private:
-        graphics_device*                               _graphics_device  { nullptr };
-        std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-        std::vector<std::shared_ptr<vulkan::shader>>   _shaders          { };
-        std::string                                    _name             { };
+        std::vector<std::shared_ptr<effect_parameter>> _parameters { };
+        std::vector<std::shared_ptr<vulkan::shader>>   _shaders    { };
+        std::string                                    _name       { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };
