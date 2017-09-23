@@ -12,7 +12,6 @@
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/service_container.hpp"
 #include "scener/graphics/vulkan/constant_buffer.hpp"
-#include "scener/graphics/vulkan/shader_module.hpp"
 
 namespace scener::content::readers
 {
@@ -29,7 +28,7 @@ namespace scener::content::readers
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
-    using scener::graphics::vulkan::shader_module;
+    using scener::graphics::vulkan::shader;
     using namespace scener::content::gltf;
 
     auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& value) const noexcept
@@ -169,8 +168,7 @@ namespace scener::content::readers
                                                                , const nlohmann::json& value
                                                                , effect_technique*     effect) const noexcept
     {
-        auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto pass      = std::make_shared<effect_pass>(gdservice->device());
+        auto pass = std::make_shared<effect_pass>();
 
         pass->_name = "default_pass";
         pass->_parameters.reserve(effect->_parameters.size());
@@ -180,29 +178,13 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        read_pass_program(input, value[k_program].get<std::string>(), pass.get());
+        auto vshader  = value[k_program][k_vertex_shader].get<std::string>();
+        auto fshader  = value[k_program][k_fragment_shader].get<std::string>();
+
+        pass->_shaders.push_back(input->read_object<shader>(vshader));
+        pass->_shaders.push_back(input->read_object<shader>(fshader));
 
         effect->_passes.push_back(pass);
-    }
-
-    void content_type_reader<effect_technique>::read_pass_program(content_reader*    input
-                                                                , const std::string& name
-                                                                , effect_pass*       pass) const noexcept
-    {
-        // Pass program
-        pass->_shader_module = input->read_object_instance<shader_module>(name);
-
-        // Uniforms
-        auto offsets = pass->_shader_module->query_uniform_offsets();
-
-        for (const auto& parameter : pass->_parameters)
-        {
-            if (offsets.find(parameter->_uniform_name) != offsets.end())
-            {
-                parameter->_offset          = offsets[parameter->_uniform_name];
-                parameter->_constant_buffer = pass->_shader_module->constant_buffer();
-            }
-        }
     }
 
     void content_type_reader<effect_technique>::cache_parameters(effect_technique* technique) const noexcept

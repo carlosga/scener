@@ -5,11 +5,14 @@
 
 namespace scener::graphics::vulkan
 {
-    shader::shader(const std::string& name, shader_stage stage, std::vector<std::uint8_t>&& buffer) noexcept
+    shader::shader(const std::string& name, shader_stage stage, const std::vector<std::uint8_t>& buffer) noexcept
         : _name   { name }
         , _stage  { stage }
-        , _buffer { std::move(buffer)}
+        , _buffer { buffer.begin(), buffer.end() }
     {
+        _create_info = vk::ShaderModuleCreateInfo()
+            .setCodeSize(buffer.size())
+            .setPCode(_buffer.data());
     }
 
     const std::string& shader::name() const noexcept
@@ -22,8 +25,8 @@ namespace scener::graphics::vulkan
         return _stage;
     }
 
-    const std::vector<std::uint8_t>& shader::buffer() const noexcept
+    vk::ShaderModuleCreateInfo* shader::create_info() noexcept
     {
-        return _buffer;
+        return &_create_info;
     }
 }

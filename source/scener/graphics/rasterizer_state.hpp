@@ -6,20 +6,19 @@
 
 #include "scener/graphics/cull_mode.hpp"
 #include "scener/graphics/fill_mode.hpp"
-#include "scener/graphics/graphics_resource.hpp"
 
 namespace scener::graphics
 {
-    class graphics_device;
-    class graphics_device_manager;
-
     /// Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
-    class rasterizer_state final : public graphics_resource
+    class rasterizer_state final
     {
     public:
-        /// Initializes a new instance of the RasterizerState class.
-        /// \param device the graphics device associated with this RasterizerState.
-        rasterizer_state(gsl::not_null<graphics_device*> device) noexcept;
+        static const rasterizer_state cull_clockwise;
+        static const rasterizer_state cull_counter_clockwise;
+        static const rasterizer_state cull_none;
+
+    public:
+        rasterizer_state() = default;
 
     public:
         /// Specifies the conditions for culling or removing triangles. The default value is CullMode.CullCounterClockwiseFace.
@@ -46,9 +45,7 @@ namespace scener::graphics
         float slope_scale_depth_bias { 0.0f };
 
     private:
-        void apply() const noexcept;
-
-        friend class graphics_device_manager;
+        rasterizer_state(graphics::cull_mode cull) noexcept;
     };
 }
 

@@ -93,8 +93,8 @@ namespace scener::graphics
         _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
         _window          = std::make_unique<graphics::window>(this);
 
-        _device_manager->prepare_device_settings([&](presentation_parameters* params) -> void {
-            prepare_device_settings(params);
+        _device_manager->prepare_device_settings([&](graphics_device_information* device_info) -> void {
+            prepare_device_settings(device_info);
         });
     }
 
@@ -274,8 +274,9 @@ namespace scener::graphics
         _components.push_back(component);
     }
 
-    void renderer::prepare_device_settings(presentation_parameters* params) const noexcept
+    void renderer::prepare_device_settings(graphics_device_information* device_info) const noexcept
     {
-        params->device_window_handle = _window->display_surface();
+        device_info->adapter                                  = graphics_adapter::default_adapter();
+        device_info->presentation_params.device_window_handle = _window->display_surface();
     }
 }

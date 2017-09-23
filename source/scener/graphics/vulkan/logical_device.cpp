@@ -6,9 +6,11 @@
 
 #include <gsl/gsl>
 
+#include "scener/graphics/fill_mode.hpp"
+#include "scener/graphics/vulkan/image.hpp"
+#include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
-#include "scener/graphics/vulkan/image.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -200,9 +202,49 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void logical_device::create_graphics_pipeline() noexcept
+    void logical_device::create_graphics_pipeline(
+          const graphics::blend_state&                        color_blend_state
+        , const graphics::depth_stencil_state&                depth_stencil_state
+        , const graphics::rasterizer_state&                   rasterization_state
+        , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept
     {
+        // Shader stages
+        std::vector<vk::ShaderModule>                  shader_modules;
+        std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
 
+        for (const auto& shader : shaders)
+        {
+            vk::ShaderModule module;
+
+            _logical_device.createShaderModule(shader->create_info(), nullptr, &module);
+
+            shader_modules.push_back(module);
+
+            auto stage = vk::PipelineShaderStageCreateInfo()
+                    .setModule(module)
+                    .setStage(static_cast<vk::ShaderStageFlagBits>(shader->stage()))
+                    .setPName("main");
+
+            shader_stages.push_back(stage);
+        }
+
+        auto color_blend_state_create_info   = vk_color_blend_state(color_blend_state);
+        auto depth_stencil_state_create_info = vk_depth_stencil_state(depth_stencil_state);
+        auto rasterizer_state_create_info    = vk_rasterizer_state(rasterization_state);
+
+        // Graphics pipeline
+        auto pipeline_info = vk::GraphicsPipelineCreateInfo()
+            .setStageCount(shader_stages.size())
+            .setPStages(shader_stages.data())
+            .setPRasterizationState(&rasterizer_state_create_info)
+            .setPDepthStencilState(&depth_stencil_state_create_info)
+            .setPColorBlendState(&color_blend_state_create_info);
+
+        //_logical_device.createGraphicsPipeline()
+
+        std::for_each(shader_modules.begin(), shader_modules.end(), [&] (auto& module) {
+            _logical_device.destroyShaderModule(module, nullptr);
+        });
     }
 
     void logical_device::create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept
@@ -545,5 +587,162 @@ namespace scener::graphics::vulkan
         check_result(result);
 
         create_frame_buffers();
+    }
+
+    vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(const graphics::blend_state& state) const noexcept
+    {
+        auto enabled = !(state.color_source_blend      == graphics::blend::one
+                      && state.color_destination_blend == graphics::blend::zero
+                      && state.alpha_source_blend      == graphics::blend::one
+                      && state.alpha_destination_blend == graphics::blend::zero);
+
+        vk::ColorComponentFlags mask;
+
+        if ((state.color_write_channels_1 & graphics::color_write_channels::red) == graphics::color_write_channels::red)
+        {
+            mask |= vk::ColorComponentFlagBits::eR;
+        }
+        if ((state.color_write_channels_1 & graphics::color_write_channels::green) == graphics::color_write_channels::green)
+        {
+            mask |= vk::ColorComponentFlagBits::eG;
+        }
+        if ((state.color_write_channels_1 & graphics::color_write_channels::blue)  == graphics::color_write_channels::blue)
+        {
+            mask |= vk::ColorComponentFlagBits::eB;
+        }
+        if ((state.color_write_channels_1 & graphics::color_write_channels::alpha) == graphics::color_write_channels::alpha)
+        {
+            mask |= vk::ColorComponentFlagBits::eA;
+        }
+
+        auto attachment = vk::PipelineColorBlendAttachmentState()
+            .setBlendEnable(enabled)
+            .setColorWriteMask(mask)
+            .setAlphaBlendOp(static_cast<vk::BlendOp>(state.alpha_blend_function))
+            .setSrcAlphaBlendFactor(static_cast<vk::BlendFactor>(state.alpha_source_blend))
+            .setDstAlphaBlendFactor(static_cast<vk::BlendFactor>(state.alpha_destination_blend))
+            .setColorBlendOp(static_cast<vk::BlendOp>(state.color_blend_function))
+            .setSrcColorBlendFactor(static_cast<vk::BlendFactor>(state.color_source_blend))
+            .setDstColorBlendFactor(static_cast<vk::BlendFactor>(state.color_destination_blend));
+
+        auto create_info = vk::PipelineColorBlendStateCreateInfo()
+            .setLogicOpEnable(enabled)
+            .setLogicOp(vk::LogicOp::eAnd)
+            .setAttachmentCount(1)
+            .setPAttachments(&attachment)
+            .setBlendConstants({
+                state.blend_factor.r / 255
+              , state.blend_factor.g / 255
+              , state.blend_factor.b / 255
+              , state.blend_factor.a / 255
+             });
+
+        return create_info;
+    }
+
+    vk::PipelineDepthStencilStateCreateInfo logical_device::vk_depth_stencil_state(const graphics::depth_stencil_state& state) const noexcept
+    {
+        auto create_info = vk::PipelineDepthStencilStateCreateInfo()
+            // depth
+            .setDepthTestEnable(state.depth_buffer_enable)
+            .setDepthWriteEnable(state.depth_buffer_write_enable)
+            .setDepthCompareOp(static_cast<vk::CompareOp>(state.depth_buffer_function))
+            .setMinDepthBounds(0.0f)
+            .setMaxDepthBounds(1.0f)
+            // stencil
+            .setStencilTestEnable(state.stencil_enable);
+
+        if (state.two_sided_stencil_mode)
+        {
+            create_info
+                .setFront(
+                    vk::StencilOpState()
+                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
+                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
+                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
+                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
+                        .setCompareMask(state.stencil_mask)
+                        .setWriteMask(state.stencil_write_mask)
+                        .setReference(state.reference_stencil)
+                 )
+                .setBack(
+                    vk::StencilOpState()
+                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
+                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
+                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
+                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
+                        .setCompareMask(state.stencil_mask)
+                        .setWriteMask(state.stencil_write_mask)
+                        .setReference(state.reference_stencil)
+                 ); ;
+
+//            glStencilFuncSeparate(GL_FRONT, static_cast<GLenum>(stencil_function), reference_stencil, stencil_mask);
+
+//            glStencilFuncSeparate(GL_BACK
+//                                , static_cast<GLenum>(counter_clockwise_stencil_function)
+//                                , reference_stencil
+//                                , stencil_mask);
+
+//            glStencilOpSeparate(GL_FRONT
+//                              , static_cast<GLenum>(stencil_fail)
+//                              , static_cast<GLenum>(stencil_depth_buffer_fail)
+//                              , static_cast<GLenum>(stencil_pass));
+
+//            glStencilOpSeparate(GL_BACK
+//                              , static_cast<GLenum>(counter_clockwise_stencil_fail)
+//                              , static_cast<GLenum>(counter_clockwise_stencil_depth_buffer_fail)
+//                              , static_cast<GLenum>(counter_clockwise_stencil_pass));
+
+        }
+        else
+        {
+            create_info
+                .setFront(
+                    vk::StencilOpState()
+                        .setFailOp(static_cast<vk::StencilOp>(state.stencil_fail))
+                        .setPassOp(static_cast<vk::StencilOp>(state.stencil_pass))
+                        .setDepthFailOp(static_cast<vk::StencilOp>(state.stencil_depth_buffer_fail))
+                        .setCompareOp(static_cast<vk::CompareOp>(state.stencil_function))
+                        .setCompareMask(state.stencil_mask)
+                        .setWriteMask(state.stencil_write_mask)
+                        .setReference(state.reference_stencil)
+                 );
+        }
+
+        return create_info;
+    }
+
+    vk::PipelineRasterizationStateCreateInfo logical_device::vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept
+    {
+        auto create_info = vk::PipelineRasterizationStateCreateInfo()
+            .setPolygonMode(static_cast<vk::PolygonMode>(state.fill_mode))
+            .setDepthBiasClamp(state.scissor_test_enable)
+            .setDepthBiasEnable(state.depth_bias != 0.0f || state.slope_scale_depth_bias != 0.0f)
+            .setDepthBiasClamp(state.depth_bias)
+            .setDepthBiasConstantFactor(state.depth_bias)
+            .setDepthBiasSlopeFactor(state.slope_scale_depth_bias);
+
+        switch (state.cull_mode)
+        {
+        case graphics::cull_mode::cull_clockwise_face:
+            create_info
+                .setCullMode(vk::CullModeFlagBits::eFront)
+                .setFrontFace(vk::FrontFace::eClockwise);
+            break;
+
+        case graphics::cull_mode::cull_counter_clockwise_face:
+            create_info
+                .setCullMode(vk::CullModeFlagBits::eBack)
+                .setFrontFace(vk::FrontFace::eCounterClockwise);
+            break;
+
+        case graphics::cull_mode::none:
+            create_info
+                .setCullMode(vk::CullModeFlagBits::eFrontAndBack)
+                .setFrontFace(vk::FrontFace::eCounterClockwise);
+            break;
+        }
+
+        return create_info;
     }
 }

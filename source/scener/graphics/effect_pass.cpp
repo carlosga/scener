@@ -4,25 +4,17 @@
 #include "scener/graphics/effect_pass.hpp"
 
 #include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/vulkan/shader_module.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
 
 namespace scener::graphics
 {
-    effect_pass::effect_pass(gsl::not_null<graphics_device*> device) noexcept
-        : _graphics_device { device }
-    {
-    }
-
     const std::string& effect_pass::name() const noexcept
     {
         return _name;
     }
 
-    void effect_pass::begin() noexcept
+    const std::vector<std::shared_ptr<vulkan::shader>>& effect_pass::shaders() const noexcept
     {
-    }
-
-    void effect_pass::end() noexcept
-    {
+        return _shaders;
     }
 }

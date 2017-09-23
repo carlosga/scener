@@ -3,11 +3,12 @@
 
 #include "graphics_device.hpp"
 
-#include <gsl/gsl_assert>
+#include <gsl/gsl>
 
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/vulkan/physical_device.hpp"
 
@@ -18,10 +19,10 @@ namespace scener::graphics
         : effect                   { nullptr }
         , index_buffer             { nullptr }
         , vertex_buffer            { nullptr }
-        , _blend_state             { this }
-        , _depth_stencil_state     { this }
+        , _blend_state             { blend_state::opaque }
+        , _depth_stencil_state     { depth_stencil_state::default_stencil }
+        , _rasterizer_state        { rasterizer_state::cull_counter_clockwise }
         , _presentation_parameters { presentation_params }
-        , _rasterizer_state        { this }
         , _viewport                { }
         , _graphics_adapter        { adapter }
         , _adapter                 { }
@@ -142,5 +143,24 @@ namespace scener::graphics
     {
         _viewport = viewport;
         _viewport.update();
+    }
+
+    void graphics_device::create_graphics_pipeline(
+        const graphics::blend_state&         blend_state_
+      , const graphics::depth_stencil_state& depth_stencil_state_
+      , const graphics::rasterizer_state&    rasterizer_state_
+      , const graphics::effect_technique&    effect_technique_) noexcept
+    {
+        std::vector<std::shared_ptr<vulkan::shader>> shaders;
+
+        for (auto pass : effect_technique_.passes())
+        {
+            for (auto shader : pass->shaders())
+            {
+                shaders.push_back(shader);
+            }
+        }
+
+        _logical_device->create_graphics_pipeline(blend_state_, depth_stencil_state_, rasterizer_state_, shaders);
     }
 }

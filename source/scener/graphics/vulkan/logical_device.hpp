@@ -7,14 +7,18 @@
 
 #include <cstdint>
 
-#include <vulkan/vulkan.hpp>
+#include <gsl/gsl>
 #include <scener/math/basic_size.hpp>
 #include <scener/math/basic_color.hpp>
+#include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/sampler_state.hpp"
+#include "scener/graphics/blend_state.hpp"
+#include "scener/graphics/depth_stencil_state.hpp"
+#include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
 #include "scener/graphics/vulkan/memory_allocator.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -43,9 +47,13 @@ namespace scener::graphics::vulkan
 
     public:
         void create_swap_chain(const render_surface& surface) noexcept;
-        void create_graphics_pipeline() noexcept;
         void create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept;
         void record_command_buffers() const noexcept;
+        void create_graphics_pipeline(
+              const graphics::blend_state&                        color_blend_state
+            , const graphics::depth_stencil_state&                depth_stencil_state
+            , const graphics::rasterizer_state&                   rasterization_state
+            , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept;
 
     public:
         image create_image(const image_options& options) const noexcept;
@@ -59,6 +67,11 @@ namespace scener::graphics::vulkan
         void create_command_buffers() noexcept;
         void create_frame_buffers() noexcept;
         void create_render_pass() noexcept;
+
+    private:
+        vk::PipelineColorBlendStateCreateInfo vk_color_blend_state(const graphics::blend_state& state) const noexcept;
+        vk::PipelineDepthStencilStateCreateInfo vk_depth_stencil_state(const graphics::depth_stencil_state& state) const noexcept;
+        vk::PipelineRasterizationStateCreateInfo vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept;
 
     private:
         vk::Device                       _logical_device;

@@ -31,8 +31,6 @@ namespace scener::content::readers
 
         void add_default_pass(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 
-        void read_pass_program(content_reader* input, const std::string& name, graphics::effect_pass* pass) const noexcept;
-
         void cache_parameters(graphics::effect_technique* technique) const noexcept;
 
         void describe_parameter(graphics::effect_parameter* parameter, std::int32_t type) const noexcept;

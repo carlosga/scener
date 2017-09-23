@@ -29,7 +29,7 @@ namespace scener::graphics
 
         /// Raised when the graphics_device_manager is changing the graphics_device settings
         /// (during reset or recreation of the GraphicsDevice).
-        virtual nod::connection prepare_device_settings(std::function<void(presentation_parameters*)>&& slot) noexcept = 0;
+        virtual nod::connection prepare_device_settings(std::function<void(graphics_device_information*)>&& slot) noexcept = 0;
     };
 }
 

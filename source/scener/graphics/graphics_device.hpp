@@ -120,6 +120,12 @@ namespace scener::graphics
         /// Sets the viewport identifying the portion of the render target to receive draw calls.
         void viewport(const graphics::viewport& viewport) noexcept;
 
+        void create_graphics_pipeline(
+              const graphics::blend_state&         blend_state_
+            , const graphics::depth_stencil_state& depth_stencil_state_
+            , const graphics::rasterizer_state&    rasterizer_state_
+            , const graphics::effect_technique&    effect_technique_) noexcept;
+
     public:
         /// Gets or sets the effect used before drawing.
         effect_technique* effect;
@@ -133,8 +139,8 @@ namespace scener::graphics
     private:
         graphics::blend_state                    _blend_state;
         graphics::depth_stencil_state            _depth_stencil_state;
-        graphics::presentation_parameters        _presentation_parameters;
         graphics::rasterizer_state               _rasterizer_state;
+        graphics::presentation_parameters        _presentation_parameters;
         graphics::viewport                       _viewport;
         graphics_adapter                         _graphics_adapter;
         std::unique_ptr<vulkan::adapter>         _adapter;

@@ -44,9 +44,4 @@ namespace skeletal::animation
 
         renderer::draw(time);
     }
-
-    void sample_renderer::prepare_device_settings(presentation_parameters* params) const noexcept
-    {
-        renderer::prepare_device_settings(params);
-    }
 }

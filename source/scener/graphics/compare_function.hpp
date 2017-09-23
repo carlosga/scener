@@ -6,20 +6,22 @@
 
 #include <cstdint>
 
+#include <vulkan/vulkan.h>
+
 namespace scener::graphics
 {
     /// Specifies the functions used to compare each incoming pixel depth value
     /// with the depth value present in the depth buffer.
     enum class compare_function : std::uint32_t
     {
-        always        = 0x0207  ///< Always passes.
-      , equal         = 0x0202  ///< Passes if the incoming depth value is equal to the stored depth value.
-      , greater       = 0x0204  ///< Passes if the incoming depth value is greater than the stored depth value.
-      , greater_equal = 0x0206  ///< Passes if the incoming depth value is greater than or equal to the stored depth value.
-      , less          = 0x0201  ///< Passes if the incoming depth value is less than the stored depth value.
-      , less_equal    = 0x0203  ///< Passes if the incoming depth value is less than or equal to the stored depth value.
-      , never         = 0x0200  ///< Never passes.
-      , not_equal     = 0x0205  ///< Passes if the incoming depth value is not equal to the stored depth value.
+        never         = 0  ///< Never passes.
+      , less          = 1  ///< Passes if the incoming depth value is less than the stored depth value.
+      , equal         = 2  ///< Passes if the incoming depth value is equal to the stored depth value.
+      , less_equal    = 3  ///< Passes if the incoming depth value is less than or equal to the stored depth value.
+      , greater       = 4  ///< Passes if the incoming depth value is greater than the stored depth value.
+      , not_equal     = 5  ///< Passes if the incoming depth value is not equal to the stored depth value.
+      , greater_equal = 6  ///< Passes if the incoming depth value is greater than or equal to the stored depth value.
+      , always        = 7  ///< Always passes.
     };
 }
 

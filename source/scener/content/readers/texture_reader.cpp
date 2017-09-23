@@ -39,7 +39,7 @@ namespace scener::content::readers
 
         instance->_sampler_state = input->read_object<sampler_state>(value[k_sampler].get<std::string>());
         instance->_sampler_state->max_mip_level = instance->level_count();
-        instance->_sampler_state->apply(instance->id());
+        //instance->_sampler_state->apply(instance->id());
 
         return instance;
     }

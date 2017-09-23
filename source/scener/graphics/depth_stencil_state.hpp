@@ -8,20 +8,19 @@
 
 #include "scener/graphics/compare_function.hpp"
 #include "scener/graphics/stencil_operation.hpp"
-#include "scener/graphics/graphics_resource.hpp"
 
 namespace scener::graphics
 {
-    class graphics_device;
-    class graphics_device_manager;
-
     /// Contains depth-stencil state for the graphics device
-    class depth_stencil_state final : graphics_resource
+    class depth_stencil_state final
     {
     public:
-        /// Initializes a new instance of the DepthStencilState class with the given GraphcisDevice
-        /// \param device the graphics device associated with this depth stencil state.
-        depth_stencil_state(gsl::not_null<graphics_device*> device) noexcept;
+        static const depth_stencil_state default_stencil;
+        static const depth_stencil_state depth_read;
+        static const depth_stencil_state none;
+
+    public:
+        depth_stencil_state() = default;
 
     public:
         /// Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer
@@ -76,9 +75,7 @@ namespace scener::graphics
         bool two_sided_stencil_mode { false };
 
     private:
-        void apply() const noexcept;
-
-        friend class graphics_device_manager;
+        depth_stencil_state(bool depth_buffer_enabled, bool depth_buffer_write_enabled) noexcept;
     };
 }
 

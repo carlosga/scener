@@ -11,7 +11,7 @@
 #include <gsl/gsl>
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::vulkan { class shader_module; }
+namespace scener::graphics::vulkan { class shader; }
 
 namespace scener::graphics
 {
@@ -22,25 +22,16 @@ namespace scener::graphics
     class effect_pass final
     {
     public:
-        /// Initializes a new instance of the EffectPass class.
-        /// \param device The GraphicsDevice associated with this EffectPass.
-        effect_pass(gsl::not_null<graphics_device*> device) noexcept;
-
-    public:
         /// Gets the name of this pass.
         /// \returns The name of this pass.
         const std::string& name() const noexcept;
 
-        /// Begins this pass.
-        void begin() noexcept;
-
-        /// Ends this pass.
-        void end() noexcept;
+        const std::vector<std::shared_ptr<vulkan::shader>>& shaders() const noexcept;
 
     private:
         graphics_device*                               _graphics_device  { nullptr };
         std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-        std::shared_ptr<vulkan::shader_module>         _shader_module    { nullptr };
+        std::vector<std::shared_ptr<vulkan::shader>>   _shaders          { };
         std::string                                    _name             { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;

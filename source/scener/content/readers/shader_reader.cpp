@@ -19,7 +19,7 @@ namespace scener::content::readers
         auto stage  = static_cast<shader_stage>(value[k_type].get<std::int32_t>());
         auto buffer = input->read_external_reference(value[k_uri].get<std::string>());
 
-        return std::make_shared<shader>(key, stage, std::move(buffer));
+        return std::make_shared<shader>(key, stage, buffer);
     }
 }
 

@@ -10,6 +10,7 @@
 
 #include <gsl/gsl>
 
+#include "scener/graphics/graphics_device_information.hpp"
 #include "scener/graphics/igraphics_device_manager.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 
@@ -60,7 +61,7 @@ namespace scener::graphics
         /// Raised when the graphics_device_manager is changing the graphics_device settings
         /// (during reset or recreation of the GraphicsDevice).
         nod::connection prepare_device_settings(
-            std::function<void(presentation_parameters*)>&& slot) noexcept;
+            std::function<void(graphics_device_information*)>&& slot) noexcept;
 
     private:
         std::unique_ptr<graphics_device> _graphics_device;
@@ -68,7 +69,7 @@ namespace scener::graphics
 
     private:
         /// Signals
-        nod::signal<void(presentation_parameters*)> _prepare_device_settings_signal;
+        nod::signal<void(graphics_device_information*)> _prepare_device_settings_signal;
     };
 }
 

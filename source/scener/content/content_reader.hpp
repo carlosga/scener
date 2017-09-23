@@ -209,13 +209,6 @@ namespace scener::content
         return read_object<graphics::vulkan::shader>(key, _root["shaders"][key]);
     }
 
-    // Programs (aka vulkan shader modules)
-    template<>
-    inline std::shared_ptr<graphics::vulkan::shader_module> content_reader::read_object_instance(const std::string& key) noexcept
-    {
-        return read_object_instance<graphics::vulkan::shader_module>(key, _root["programs"][key]);
-    }
-
     // Textures
     template<>
     inline std::shared_ptr<graphics::texture2d> content_reader::read_object(const std::string& key) noexcept

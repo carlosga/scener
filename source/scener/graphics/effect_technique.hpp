@@ -31,8 +31,8 @@ namespace scener::graphics
     class effect_technique final : public graphics_resource, public ieffect_matrices, public ieffect_lights
     {
     public:
-        /// Initializes a new instance of the EffectTechnique class
-        /// \param device the graphics device associated with this EffectTechnique.
+        /// Initializes a new instance of the effect_technique class
+        /// \param device the graphics device associated with this effect_technique.
         effect_technique(gsl::not_null<graphics_device*> device) noexcept;
 
     public:
@@ -131,6 +131,9 @@ namespace scener::graphics
 
         /// Sets an array of bone transform matrices for a SkinnedEffect.
         void bone_transforms(const std::vector<math::matrix4>& boneTransforms) noexcept;
+
+    public:
+        const std::vector<std::shared_ptr<effect_pass>>& passes() const noexcept;
 
     public:
         /// Starts the application of the effect state just prior to rendering the effect.

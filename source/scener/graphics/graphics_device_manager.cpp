@@ -30,15 +30,15 @@ namespace scener::graphics
 
     void graphics_device_manager::create_device() noexcept
     {
-        auto params = presentation_parameters();
+        graphics_device_information device_info;
 
-        params.back_buffer_width  = preferred_back_buffer_width;
-        params.back_buffer_height = preferred_back_buffer_height;
-        params.full_screen        = full_screen;
+        device_info.presentation_params.back_buffer_width  = preferred_back_buffer_width;
+        device_info.presentation_params.back_buffer_height = preferred_back_buffer_height;
+        device_info.presentation_params.full_screen        = full_screen;
 
-        _prepare_device_settings_signal(&params);
+        _prepare_device_settings_signal(&device_info);
 
-        _graphics_device = std::make_unique<graphics_device>(graphics_adapter::default_adapter(), params);
+        _graphics_device = std::make_unique<graphics_device>(device_info.adapter, device_info.presentation_params);
 
 //        _graphics_device->blend_state().apply();
 //        _graphics_device->rasterizer_state().apply();
@@ -50,7 +50,7 @@ namespace scener::graphics
         return _graphics_device.get();
     }
 
-    nod::connection graphics_device_manager::prepare_device_settings(std::function<void(presentation_parameters*)>&& slot) noexcept
+    nod::connection graphics_device_manager::prepare_device_settings(std::function<void(graphics_device_information*)>&& slot) noexcept
     {
         return _prepare_device_settings_signal.connect(std::move(slot));
     }
