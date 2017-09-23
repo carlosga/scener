@@ -29,6 +29,10 @@ namespace scener::graphics::vulkan
         /// \returns the name of the shader.
         const std::string& name() const noexcept;
 
+        /// Gets the name of shader entry point function.
+        /// \returns the name of shader entry point function.
+        const std::string& entry_point() const noexcept;
+
         /// Gets the the shader stage.
         /// \returns the the shader stage.
         shader_stage stage () const noexcept;
@@ -37,10 +41,12 @@ namespace scener::graphics::vulkan
         /// \returns the shader contents
         const std::vector<std::uint8_t>& buffer() const noexcept;
 
+
         vk::ShaderModuleCreateInfo* create_info() noexcept;
 
     private:
         std::string                _name;
+        std::string                _entry_point;
         shader_stage               _stage;
         std::vector<std::uint32_t> _buffer;
         vk::ShaderModuleCreateInfo _create_info;

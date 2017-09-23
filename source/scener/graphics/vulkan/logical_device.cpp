@@ -4,6 +4,7 @@
 
 #include "scener/graphics/vulkan/logical_device.hpp"
 
+#include <string>
 #include <gsl/gsl>
 
 #include "scener/graphics/fill_mode.hpp"
@@ -223,7 +224,7 @@ namespace scener::graphics::vulkan
             auto stage = vk::PipelineShaderStageCreateInfo()
                     .setModule(module)
                     .setStage(static_cast<vk::ShaderStageFlagBits>(shader->stage()))
-                    .setPName("main");
+                    .setPName(shader->entry_point().c_str());
 
             shader_stages.push_back(stage);
         }
