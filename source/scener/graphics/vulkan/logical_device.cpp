@@ -105,7 +105,6 @@ namespace scener::graphics::vulkan
     void logical_device::create_swap_chain(const render_surface& surface) noexcept
     {
         // https://www.fasterthan.life/blog/2017/7/12/i-am-graphics-and-so-can-you-part-3-breaking-ground
-
         auto extent     = surface.extent(_surface_capabilities);
         auto chain_info = vk::SwapchainCreateInfoKHR()
             .setClipped(VK_TRUE)
@@ -521,7 +520,7 @@ namespace scener::graphics::vulkan
         std::vector<vk::AttachmentDescription> attachments(2);
 
         // For the color attachment, we'll simply be using the swapchain images.
-        auto colorAttachment = vk::AttachmentDescription()
+        auto color_attachment = vk::AttachmentDescription()
             .setFormat(_surface_format.format)
             // Sample count goes from 1 - 64
             .setSamples(vk::SampleCountFlagBits::e1)
@@ -534,10 +533,10 @@ namespace scener::graphics::vulkan
             // It better be ready to present to the user when we're done with the renderpass.
             .setFinalLayout(vk::ImageLayout::ePresentSrcKHR);
 
-        attachments.push_back(colorAttachment);
+        attachments.push_back(color_attachment);
 
         // For the depth attachment, we'll be using the device depth format.
-        auto depthAttachment = vk::AttachmentDescription()
+        auto depth_attachment = vk::AttachmentDescription()
             .setFormat(_depth_format)
             .setSamples(vk::SampleCountFlagBits::e1)
             .setLoadOp(vk::AttachmentLoadOp::eDontCare)
@@ -545,14 +544,14 @@ namespace scener::graphics::vulkan
             .setInitialLayout(vk::ImageLayout::eUndefined)
             .setFinalLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal);
 
-        attachments.push_back(depthAttachment);
+        attachments.push_back(depth_attachment);
 
         // Now we enumerate the attachments for a subpass.  We have to have at least one subpass.
-        auto colorRef = vk::AttachmentReference()
+        auto color_ref = vk::AttachmentReference()
             .setAttachment(0)
             .setLayout(vk::ImageLayout::eColorAttachmentOptimal);
 
-        auto depthRef = vk::AttachmentReference()
+        auto depth_ref = vk::AttachmentReference()
             .setAttachment(1)
             .setLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal);
 
@@ -560,17 +559,17 @@ namespace scener::graphics::vulkan
         auto subpass = vk::SubpassDescription()
             .setPipelineBindPoint(vk::PipelineBindPoint::eGraphics)
             .setColorAttachmentCount(1)
-            .setPColorAttachments(&colorRef)
-            .setPDepthStencilAttachment(&depthRef);
+            .setPColorAttachments(&color_ref)
+            .setPDepthStencilAttachment(&depth_ref);
 
-        auto renderPassCreateInfo = vk::RenderPassCreateInfo()
+        auto render_pass_create_info = vk::RenderPassCreateInfo()
             .setAttachmentCount(attachments.size())
             .setPAttachments(attachments.data())
             .setSubpassCount(1)
             .setPSubpasses(&subpass)
             .setDependencyCount(0);
 
-        auto result = _logical_device.createRenderPass(&renderPassCreateInfo, NULL, &_render_pass);
+        auto result = _logical_device.createRenderPass(&render_pass_create_info, NULL, &_render_pass);
 
         check_result(result);
     }

@@ -4,10 +4,9 @@
 #include "skeletal-animation/earthshaker.hpp"
 
 #include <scener/content/content_manager.hpp>
-#include <scener/graphics/effect_technique.hpp>
 #include <scener/graphics/model.hpp>
 #include <scener/graphics/model_mesh.hpp>
-#include <scener/graphics/steptime.hpp>
+#include <scener/graphics/model_mesh_part.hpp>
 #include <scener/graphics/window.hpp>
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
@@ -43,13 +42,13 @@ namespace skeletal::animation
     {
         _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
-        for (const auto& mesh : _model->meshes())
+        std::for_each(_model->meshes().begin(), _model->meshes().end(), [] (auto mesh) -> void
         {
-            for (const auto& effect : mesh->effects())
+            std::for_each(mesh->mesh_parts().begin(), mesh->mesh_parts().end(), [] (auto part) -> void
             {
-                effect->texture_enabled(true);
-            }
-        }
+                part->effect->texture_enabled(true);
+            });
+        });
     }
 
     void earthshaker::unload_content() noexcept

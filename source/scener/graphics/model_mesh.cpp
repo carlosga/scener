@@ -12,6 +12,8 @@
 
 namespace scener::graphics
 {
+    using scener::math::matrix4;
+
     const math::bounding_sphere& model_mesh::bounding_sphere() const noexcept
     {
         return _bounding_sphere;
@@ -20,24 +22,6 @@ namespace scener::graphics
     const std::string& model_mesh::name() const noexcept
     {
         return _name;
-    }
-
-    std::vector<effect_technique*> model_mesh::effects() const noexcept
-    {
-        std::vector<effect_technique*> effects;
-
-        effects.reserve(_mesh_parts.size());
-
-        std::for_each(_mesh_parts.begin(), mesh_parts().end(), [&effects] (const auto& meshPart) -> void
-        {
-            auto effect = meshPart->effect.get();
-
-            Ensures(effect != nullptr);
-
-            effects.push_back(effect);
-        });
-
-        return effects;
     }
 
     const std::vector<std::shared_ptr<model_mesh_part>>& model_mesh::mesh_parts() const noexcept
@@ -50,26 +34,51 @@ namespace scener::graphics
         return _skeleton.get();
     }
 
-    void model_mesh::draw() noexcept
+    void model_mesh::update(const steptime &time) noexcept
     {
-        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (const auto& meshPart) -> void
+        if (_skeleton != nullptr)
         {
-            auto device = meshPart->vertex_buffer()->device();
+            _skeleton->update(time.elapsed_render_time);
+        }
+    }
 
-            if (meshPart->effect.get() != nullptr)
+    void model_mesh::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
+    {
+        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [&] (auto& part) -> void
+        {
+            if (_skeleton.get() != nullptr)
             {
-                device->effect = meshPart->effect.get();
+                part->effect->bone_transforms(_skeleton->skin_transforms());
             }
 
-            device->index_buffer  = meshPart->index_buffer();
-            device->vertex_buffer = meshPart->vertex_buffer();
+            part->effect->world(world);
+            part->effect->view(view);
+            part->effect->projection(projection);
+        });
 
-            device->draw_indexed_primitives(meshPart->primitive_type()
-                                          , meshPart->vertex_offset()
+        draw();
+    }
+
+    void model_mesh::draw() noexcept
+    {
+        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (auto& part) -> void
+        {
+            auto device = part->vertex_buffer()->device();
+
+            if (part->effect.get() != nullptr)
+            {
+                device->effect = part->effect.get();
+            }
+
+            device->index_buffer  = part->index_buffer();
+            device->vertex_buffer = part->vertex_buffer();
+
+            device->draw_indexed_primitives(part->primitive_type()
+                                          , part->vertex_offset()
                                           , 0
-                                          , meshPart->vertex_count()
-                                          , meshPart->start_index()
-                                          , meshPart->primitive_count());
+                                          , part->vertex_count()
+                                          , part->start_index()
+                                          , part->primitive_count());
         });
     }
 }

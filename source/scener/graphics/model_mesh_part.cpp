@@ -3,10 +3,6 @@
 
 #include "scener/graphics/model_mesh_part.hpp"
 
-#include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/index_buffer.hpp"
-#include "scener/graphics/vertex_buffer.hpp"
-
 namespace scener::graphics
 {
     index_buffer* model_mesh_part::index_buffer() const noexcept

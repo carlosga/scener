@@ -8,16 +8,15 @@
 #include <memory>
 #include <string>
 
+#include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/primitive_type.hpp"
+#include "scener/graphics/vertex_buffer.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
 
 namespace scener::graphics
 {
-    class effect_technique;
-    class index_buffer;
-    class vertex_buffer;
-
     /// Represents a batch of geometry information to submit to the graphics device during rendering.
     /// Each ModelMeshPart is a subdivision of a ModelMesh object. The ModelMesh class is split into
     /// multiple ModelMeshPart objects, typically based on material information.

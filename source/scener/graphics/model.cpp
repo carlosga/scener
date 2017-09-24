@@ -5,11 +5,6 @@
 
 #include <algorithm>
 
-#include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/model_mesh.hpp"
-#include "scener/graphics/skeleton.hpp"
-#include "scener/graphics/steptime.hpp"
-
 namespace scener::graphics
 {
     using scener::math::matrix4;
@@ -32,32 +27,11 @@ namespace scener::graphics
 
     void model::update(const steptime& time) noexcept
     {
-        std::for_each(_meshes.begin(), _meshes.end(), [&time] (const auto& mesh) -> void
-        {
-            if (mesh->skeleton() != nullptr)
-            {
-                mesh->skeleton()->update(time.elapsed_render_time);
-            }
-        });
+        std::for_each(_meshes.begin(), _meshes.end(), [&time] (auto& mesh) -> void { mesh->update(time); });
     }
 
     void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
     {
-        for (const auto& mesh : _meshes)
-        {
-            for (const auto& effect : mesh->effects())
-            {
-                if (mesh->skeleton() != nullptr)
-                {
-                    effect->bone_transforms(mesh->skeleton()->skin_transforms());
-                }
-
-                effect->world(world);
-                effect->view(view);
-                effect->projection(projection);
-            }
-
-            mesh->draw();
-        }
+        std::for_each(_meshes.begin(), _meshes.end(), [&] (auto& mesh) -> void { mesh->draw(world, view, projection); });
     }
 }

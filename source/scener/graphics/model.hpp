@@ -8,15 +8,14 @@
 #include <string>
 #include <vector>
 
+#include "scener/graphics/model_mesh.hpp"
+#include "scener/graphics/steptime.hpp"
 #include "scener/math/basic_matrix.hpp"
 
 namespace scener::content { class content_reader; }
 
 namespace scener::graphics
 {
-    class  model_mesh;
-    struct steptime;
-
     /// Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
     class model final
     {

@@ -8,16 +8,16 @@
 #include <vector>
 #include <string>
 
+#include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/skeleton.hpp"
+#include "scener/graphics/steptime.hpp"
 #include "scener/math/bounding_sphere.hpp"
+#include "scener/math/basic_matrix.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
 
 namespace scener::graphics
 {
-    class effect_technique;
-    class model_mesh_part;
-
     /// Represents a mesh that is part of a Model.
     class model_mesh final
     {
@@ -30,14 +30,6 @@ namespace scener::graphics
         /// \returns The name of this mesh.
         const std::string& name() const noexcept;
 
-        /// Gets a collection of effects associated with this mesh.
-        /// ModelMesh.Effects is a collection of all the Effect properties of the for the MeshParts of this ModelMesh.
-        /// Each ModelMeshPart has a single Effect which is a reference to one of the Effects of the parent ModelMesh
-        /// property. By updating all the effects of the ModelMesh all of the effects of each ModelMeshPart are updated
-        /// as well.
-        /// \returns a collection of effects associated with this mesh.
-        std::vector<effect_technique*> effects() const noexcept;
-
         /// Gets the ModelMeshPart objects that make up this mesh. Each part of a mesh is composed of a set of primitives
         /// that share the same material.
         /// \returns the ModelMeshPart objects that make up this mesh.
@@ -47,7 +39,18 @@ namespace scener::graphics
         /// \returns the skeleton associated to this mesh.
         graphics::skeleton* skeleton() const noexcept;
 
-    public:
+        /// Updates the model animation and skin state.
+        /// \param time snapshot of the rendering timing state.
+        void update(const steptime& time) noexcept;
+
+        /// Render a model after applying the given matrix transformations.
+        /// \param world the world matrix
+        /// \param view the view matrix
+        /// \param projection the projection matrix
+        void draw(const scener::math::matrix4& world
+                , const scener::math::matrix4& view
+                , const scener::math::matrix4& projection) noexcept;
+
         /// Draws all of the ModelMeshPart objects in this mesh.
         void draw() noexcept;
 
