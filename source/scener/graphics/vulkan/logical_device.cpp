@@ -58,25 +58,29 @@ namespace scener::graphics::vulkan
 
     logical_device::~logical_device() noexcept
     {
-        // Syunc primitives
+        // Sync primitives
         destroy_sync_primitives();
 
-        // command buffers
+        // Render pass
+        _logical_device.destroyRenderPass(_render_pass, nullptr);
+
+        // Command buffers
         destroy_command_buffers();
 
-        // Command Pools
+        // Command pools
         _logical_device.destroyCommandPool(_command_pool, nullptr);
 
-        // Framebuffers
+        // Frame buffers
         destroy_frame_buffers();
 
         // Swapchain image views
         destroy_swapchain_views();
 
+        // Swapchain images
+        _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
+
         // Swapchains
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
-
-        _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
 
         // Logical devices
         _logical_device.destroy(nullptr);
@@ -580,7 +584,8 @@ namespace scener::graphics::vulkan
 
         _frame_buffers.reserve(_swap_chain_image_views.size());
 
-        std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void {
+        std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void
+        {
             auto create_info = vk::FramebufferCreateInfo()
                 .setRenderPass(_render_pass)
                 .setWidth(extent.width)

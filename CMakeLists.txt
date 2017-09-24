@@ -35,8 +35,9 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 # compiler flags
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
 
+# common ompile options
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-terminate")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-terminate -Wno-unused-parameter")
     # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"
 endif ()
 
@@ -57,13 +58,13 @@ elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
     endif()
 
 else ()
-  message ("-> unknown compiler ...")
+    message ("-> unknown compiler ...")
 endif ()
 
 # SceneR
-set (SCENER_INCLUDE_DIRS  ${CMAKE_SOURCE_DIR}/source)
-set (SCENER_LIB_DIRS      ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-set (SCENER_LIBRARIES     scener)
+set (SCENER_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/source)
+set (SCENER_LIB_DIRS     ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (SCENER_LIBRARIES    scener)
 
 # global definitions
 # set (VK_USE_PLATFORM_WAYLAND_KHR "1")
