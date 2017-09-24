@@ -4,6 +4,8 @@
 #ifndef SCENER_GRAPHICS_GRAPHICS_PIPELINE_STATES
 #define SCENER_GRAPHICS_GRAPHICS_PIPELINE_STATES
 
+#include <vulkan/vulkan.hpp>
+
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
@@ -14,7 +16,7 @@ namespace scener::graphics
 {
     class graphics_device;
 
-    class graphics_pipeline final : public graphics_resource
+    class graphics_pipeline final
     {
     public:
         /// Initializes a new instance of the graphics_pipeline class
@@ -30,10 +32,12 @@ namespace scener::graphics
         void create() noexcept;
 
     private:
+        graphics_device*    _device;
         blend_state         _blend_state;
         depth_stencil_state _depth_stencil_state;
         rasterizer_state    _rasterizer_state;
         effect_technique    _effect_technique;
+        vk::UniquePipeline  _pipeline;
     };
 }
 

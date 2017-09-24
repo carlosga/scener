@@ -6,6 +6,7 @@
 #define SCENER_GRAPHICS_VULKAN_DEVICE_HPP
 
 #include <cstdint>
+#include <memory>
 
 #include <gsl/gsl>
 #include <scener/math/basic_size.hpp>
@@ -15,6 +16,7 @@
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
+#include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
 #include "scener/graphics/vulkan/memory_allocator.hpp"
@@ -47,10 +49,9 @@ namespace scener::graphics::vulkan
 
     public:
         void create_swap_chain(const render_surface& surface) noexcept;
-        void create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept;
-        void record_command_buffers() const noexcept;
-        void create_graphics_pipeline(
-              const graphics::blend_state&                        color_blend_state
+        vk::UniquePipeline create_graphics_pipeline(
+              const graphics::viewport&                           viewport_state
+            , const graphics::blend_state&                        color_blend_state
             , const graphics::depth_stencil_state&                depth_stencil_state
             , const graphics::rasterizer_state&                   rasterization_state
             , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept;
@@ -65,11 +66,17 @@ namespace scener::graphics::vulkan
         void destroy_sync_primitives() noexcept;
         void create_command_pool() noexcept;
         void create_command_buffers() noexcept;
-        void create_frame_buffers() noexcept;
         void create_render_pass() noexcept;
+        void create_frame_buffers(vk::Extent2D extent) noexcept;
+        void record_command_buffers() const noexcept;
+        void destroy_command_buffers() noexcept;
+        void destroy_swapchain_views() noexcept;
+        void destroy_frame_buffers() noexcept;
 
     private:
-        vk::PipelineColorBlendStateCreateInfo vk_color_blend_state(const graphics::blend_state& state) const noexcept;
+        vk::PipelineColorBlendStateCreateInfo vk_color_blend_state(
+            const graphics::blend_state&           state
+          , vk::PipelineColorBlendAttachmentState& attachment) const noexcept;
         vk::PipelineDepthStencilStateCreateInfo vk_depth_stencil_state(const graphics::depth_stencil_state& state) const noexcept;
         vk::PipelineRasterizationStateCreateInfo vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept;
 

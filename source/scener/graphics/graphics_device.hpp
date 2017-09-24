@@ -7,6 +7,8 @@
 #include <cstddef>
 #include <memory>
 
+#include <vulkan/vulkan.hpp>
+
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/graphics_adapter.hpp"
@@ -120,7 +122,7 @@ namespace scener::graphics
         /// Sets the viewport identifying the portion of the render target to receive draw calls.
         void viewport(const graphics::viewport& viewport) noexcept;
 
-        void create_graphics_pipeline(
+        vk::UniquePipeline create_graphics_pipeline(
               const graphics::blend_state&         blend_state_
             , const graphics::depth_stencil_state& depth_stencil_state_
             , const graphics::rasterizer_state&    rasterizer_state_

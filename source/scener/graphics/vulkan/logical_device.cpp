@@ -58,27 +58,27 @@ namespace scener::graphics::vulkan
 
     logical_device::~logical_device() noexcept
     {
+        // Syunc primitives
         destroy_sync_primitives();
 
-        if (_command_buffers.size() > 0)
-        {
-            _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
-            _command_buffers.clear();
-        }
+        // command buffers
+        destroy_command_buffers();
 
+        // Command Pools
         _logical_device.destroyCommandPool(_command_pool, nullptr);
 
-        for (std::uint32_t i = 0; i < _swap_chain_image_views.size(); ++i)
-        {
-            _logical_device.destroyImageView(_swap_chain_image_views[i], nullptr);
-        }
+        // Framebuffers
+        destroy_frame_buffers();
 
-        _swap_chain_image_views.clear();
+        // Swapchain image views
+        destroy_swapchain_views();
 
+        // Swapchains
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
 
         _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
 
+        // Logical devices
         _logical_device.destroy(nullptr);
     }
 
@@ -201,10 +201,17 @@ namespace scener::graphics::vulkan
 
             check_result(result);
         }
+
+        // Render pass
+        create_render_pass();
+
+        // Frame buffers
+        create_frame_buffers(extent);
     }
 
-    void logical_device::create_graphics_pipeline(
-          const graphics::blend_state&                        color_blend_state
+    vk::UniquePipeline logical_device::create_graphics_pipeline(
+          const graphics::viewport&                           viewport_state
+        , const graphics::blend_state&                        color_blend_state
         , const graphics::depth_stencil_state&                depth_stencil_state
         , const graphics::rasterizer_state&                   rasterization_state
         , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept
@@ -229,103 +236,87 @@ namespace scener::graphics::vulkan
             shader_stages.push_back(stage);
         }
 
-        auto color_blend_state_create_info   = vk_color_blend_state(color_blend_state);
+        // Viewport
+        auto viewport = vk::Viewport()
+            .setX(viewport_state.rect.x())
+            .setY(viewport_state.rect.y())
+            .setWidth(viewport_state.rect.width())
+            .setHeight(viewport_state.rect.height())
+            .setMinDepth(viewport_state.min_depth)
+            .setMaxDepth(viewport_state.max_depth);
+
+        auto scissor = vk::Rect2D()
+            .setOffset({ static_cast<std::int32_t>(viewport_state.rect.x())
+                       , static_cast<std::int32_t>(viewport_state.rect.y()) })
+            .setExtent({ viewport_state.rect.width(), viewport_state.rect.height() });
+
+        auto viewport_state_create_info = vk::PipelineViewportStateCreateInfo()
+            .setViewportCount(1)
+            .setPViewports(&viewport)
+            .setScissorCount(1)
+            .setPScissors(&scissor);
+
+        // Color blend, depth stencil and rasterier states
+        auto blend_attachment = vk::PipelineColorBlendAttachmentState();
+
+        auto color_blend_state_create_info   = vk_color_blend_state(color_blend_state, blend_attachment);
         auto depth_stencil_state_create_info = vk_depth_stencil_state(depth_stencil_state);
         auto rasterizer_state_create_info    = vk_rasterizer_state(rasterization_state);
 
+        // Multisampling state
+        auto multisampling_create_info = vk::PipelineMultisampleStateCreateInfo()
+            .setSampleShadingEnable(rasterization_state.multi_sample_anti_alias)
+            .setRasterizationSamples(vk::SampleCountFlagBits::e1)
+            .setMinSampleShading(1.0f)
+            .setPSampleMask(nullptr)
+            .setAlphaToCoverageEnable(false)
+            .setAlphaToOneEnable(false);
+
+        // Dynamic states
+        vk::DynamicState dynamic_states[] = {
+            vk::DynamicState::eViewport
+          , vk::DynamicState::eLineWidth
+        };
+
+        auto dynamic_states_create_info = vk::PipelineDynamicStateCreateInfo()
+            .setDynamicStateCount(2)
+            .setPDynamicStates(dynamic_states);
+
+        // Pipeline layout
+        auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
+            .setSetLayoutCount(0)
+            .setPSetLayouts(nullptr)
+            .setPushConstantRangeCount(0)
+            .setPPushConstantRanges(nullptr);
+
+        vk::PipelineLayout pipeline_layout;
+
+        auto result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &pipeline_layout);
+
+        check_result(result);
+
         // Graphics pipeline
-        auto pipeline_info = vk::GraphicsPipelineCreateInfo()
+        auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
             .setStageCount(shader_stages.size())
             .setPStages(shader_stages.data())
-            .setPRasterizationState(&rasterizer_state_create_info)
+            .setRenderPass(_render_pass)
+            .setSubpass(0)
+            .setLayout(pipeline_layout)
+            .setPColorBlendState(&color_blend_state_create_info)
             .setPDepthStencilState(&depth_stencil_state_create_info)
-            .setPColorBlendState(&color_blend_state_create_info);
+            .setPRasterizationState(&rasterizer_state_create_info)
+            .setPMultisampleState(&multisampling_create_info)
+            .setPViewportState(&viewport_state_create_info)
+            .setPDynamicState(&dynamic_states_create_info);
 
-        //_logical_device.createGraphicsPipeline()
+        auto cache    = vk::PipelineCache();
+        auto pipeline = _logical_device.createGraphicsPipelineUnique(cache, pipeline_create_info, nullptr);
 
         std::for_each(shader_modules.begin(), shader_modules.end(), [&] (auto& module) {
             _logical_device.destroyShaderModule(module, nullptr);
         });
-    }
 
-    void logical_device::create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept
-    {
-    }
-
-    void logical_device::record_command_buffers() const noexcept
-    {
-        auto begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
-
-        auto clear_color = vk::ClearColorValue()
-            .setFloat32(_clear_color.components);
-
-        auto image_subresource_range = vk::ImageSubresourceRange()
-            .setBaseMipLevel(0)
-            .setLevelCount(1)
-            .setBaseArrayLayer(0)
-            .setLayerCount(1);
-
-        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
-        {
-            const auto& command_buffer   = _command_buffers[i];
-            const auto& swap_chain_image = _swap_chain_images[i];
-
-            auto barrier_from_present_to_clear = vk::ImageMemoryBarrier()
-                .setSrcAccessMask(vk::AccessFlagBits::eMemoryRead)
-                .setDstAccessMask(vk::AccessFlagBits::eMemoryWrite)
-                .setNewLayout(vk::ImageLayout::eTransferDstOptimal)
-                .setImage(swap_chain_image)
-                .setSubresourceRange(image_subresource_range);
-
-            auto barrier_from_clear_to_present = vk::ImageMemoryBarrier()
-                .setSrcAccessMask(vk::AccessFlagBits::eTransferWrite)
-                .setDstAccessMask(vk::AccessFlagBits::eMemoryRead)
-                .setOldLayout(vk::ImageLayout::eTransferDstOptimal)
-                .setNewLayout(vk::ImageLayout::ePresentSrcKHR)
-                .setImage(swap_chain_image)
-                .setSubresourceRange(image_subresource_range);
-
-            auto result = command_buffer.begin(&begin_info);
-
-            check_result(result);
-
-            // present -> clear
-            command_buffer.pipelineBarrier(
-                vk::PipelineStageFlagBits::eTransfer
-              , vk::PipelineStageFlagBits::eTransfer
-              , vk::DependencyFlagBits::eViewLocalKHX
-              , 0                                       // Memory barriers count
-              , nullptr                                 // Memory barriers
-              , 0                                       // Memory barriers buffer count
-              , nullptr                                 // Memory barriers buffers
-              , 1                                       // Image memory barriers count
-              , &barrier_from_present_to_clear          // Image memory barriers
-            );
-
-            command_buffer.clearColorImage(
-                swap_chain_image
-              , vk::ImageLayout::eTransferDstOptimal
-              , &clear_color
-              , 1
-              , &image_subresource_range
-            );
-
-            // clear -> present
-            command_buffer.pipelineBarrier(
-                vk::PipelineStageFlagBits::eTransfer
-              , vk::PipelineStageFlagBits::eBottomOfPipe
-              , vk::DependencyFlagBits::eViewLocalKHX
-              , 0                                       // Memory barriers count
-              , nullptr                                 // Memory barriers
-              , 0                                       // Memory barriers buffer count
-              , nullptr                                 // Memory barriers buffers
-              , 1                                       // Image memory barriers count
-              , &barrier_from_clear_to_present          // Image memory barriers
-            );
-
-            command_buffer.end();
-        }
+        return pipeline;
     }
 
     image logical_device::create_image(const image_options& options) const noexcept
@@ -525,10 +516,6 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    void logical_device::create_frame_buffers() noexcept
-    {
-    }
-
     void logical_device::create_render_pass() noexcept
     {
         std::vector<vk::AttachmentDescription> attachments(2);
@@ -586,18 +573,146 @@ namespace scener::graphics::vulkan
         auto result = _logical_device.createRenderPass(&renderPassCreateInfo, NULL, &_render_pass);
 
         check_result(result);
-
-        create_frame_buffers();
     }
 
-    vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(const graphics::blend_state& state) const noexcept
+    void logical_device::create_frame_buffers(vk::Extent2D extent) noexcept
+    {
+        destroy_frame_buffers();
+
+        _frame_buffers.reserve(_swap_chain_image_views.size());
+
+        std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void {
+            auto create_info = vk::FramebufferCreateInfo()
+                .setRenderPass(_render_pass)
+                .setWidth(extent.width)
+                .setHeight(extent.height)
+                .setAttachmentCount(1)
+                .setPAttachments(&view)
+                .setLayers(1);
+
+            vk::Framebuffer buffer;
+
+            auto result = _logical_device.createFramebuffer(&create_info, nullptr, &buffer);
+
+            check_result(result);
+        });
+    }
+
+    void logical_device::record_command_buffers() const noexcept
+    {
+        auto begin_info = vk::CommandBufferBeginInfo()
+            .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
+
+        auto clear_color = vk::ClearColorValue()
+            .setFloat32(_clear_color.components);
+
+        auto image_subresource_range = vk::ImageSubresourceRange()
+            .setBaseMipLevel(0)
+            .setLevelCount(1)
+            .setBaseArrayLayer(0)
+            .setLayerCount(1);
+
+        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
+        {
+            const auto& command_buffer   = _command_buffers[i];
+            const auto& swap_chain_image = _swap_chain_images[i];
+
+            auto barrier_from_present_to_clear = vk::ImageMemoryBarrier()
+                .setSrcAccessMask(vk::AccessFlagBits::eMemoryRead)
+                .setDstAccessMask(vk::AccessFlagBits::eMemoryWrite)
+                .setNewLayout(vk::ImageLayout::eTransferDstOptimal)
+                .setImage(swap_chain_image)
+                .setSubresourceRange(image_subresource_range);
+
+            auto barrier_from_clear_to_present = vk::ImageMemoryBarrier()
+                .setSrcAccessMask(vk::AccessFlagBits::eTransferWrite)
+                .setDstAccessMask(vk::AccessFlagBits::eMemoryRead)
+                .setOldLayout(vk::ImageLayout::eTransferDstOptimal)
+                .setNewLayout(vk::ImageLayout::ePresentSrcKHR)
+                .setImage(swap_chain_image)
+                .setSubresourceRange(image_subresource_range);
+
+            auto result = command_buffer.begin(&begin_info);
+
+            check_result(result);
+
+            // present -> clear
+            command_buffer.pipelineBarrier(
+                vk::PipelineStageFlagBits::eTransfer
+              , vk::PipelineStageFlagBits::eTransfer
+              , vk::DependencyFlagBits::eViewLocalKHX
+              , 0                                       // Memory barriers count
+              , nullptr                                 // Memory barriers
+              , 0                                       // Memory barriers buffer count
+              , nullptr                                 // Memory barriers buffers
+              , 1                                       // Image memory barriers count
+              , &barrier_from_present_to_clear          // Image memory barriers
+            );
+
+            command_buffer.clearColorImage(
+                swap_chain_image
+              , vk::ImageLayout::eTransferDstOptimal
+              , &clear_color
+              , 1
+              , &image_subresource_range
+            );
+
+            // clear -> present
+            command_buffer.pipelineBarrier(
+                vk::PipelineStageFlagBits::eTransfer
+              , vk::PipelineStageFlagBits::eBottomOfPipe
+              , vk::DependencyFlagBits::eViewLocalKHX
+              , 0                                       // Memory barriers count
+              , nullptr                                 // Memory barriers
+              , 0                                       // Memory barriers buffer count
+              , nullptr                                 // Memory barriers buffers
+              , 1                                       // Image memory barriers count
+              , &barrier_from_clear_to_present          // Image memory barriers
+            );
+
+            command_buffer.end();
+        }
+    }
+
+    void logical_device::destroy_command_buffers() noexcept
+    {
+        if (_command_buffers.size() > 0)
+        {
+            _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
+        }
+
+        _command_buffers.clear();
+    }
+
+    void logical_device::destroy_swapchain_views() noexcept
+    {
+        std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const auto& view) -> void {
+            _logical_device.destroyImageView(view, nullptr);
+        });
+
+        _swap_chain_image_views.clear();
+    }
+
+    void logical_device::destroy_frame_buffers() noexcept
+    {
+        // Frame buffers
+        std::for_each(_frame_buffers.begin(), _frame_buffers.end(), [&] (const auto& buffer) -> void {
+            _logical_device.destroyFramebuffer(buffer, nullptr);
+        });
+
+        _frame_buffers.clear();
+    }
+
+    vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(
+        const graphics::blend_state&           state
+      , vk::PipelineColorBlendAttachmentState& attachment) const noexcept
     {
         auto enabled = !(state.color_source_blend      == graphics::blend::one
                       && state.color_destination_blend == graphics::blend::zero
                       && state.alpha_source_blend      == graphics::blend::one
                       && state.alpha_destination_blend == graphics::blend::zero);
 
-        auto attachment = vk::PipelineColorBlendAttachmentState()
+        attachment
             .setBlendEnable(enabled)
             .setColorWriteMask(static_cast<vk::ColorComponentFlagBits>(state.color_write_channels_1))
             .setAlphaBlendOp(static_cast<vk::BlendOp>(state.alpha_blend_function))
@@ -608,8 +723,8 @@ namespace scener::graphics::vulkan
             .setDstColorBlendFactor(static_cast<vk::BlendFactor>(state.color_destination_blend));
 
         auto create_info = vk::PipelineColorBlendStateCreateInfo()
-            .setLogicOpEnable(enabled)
-            .setLogicOp(vk::LogicOp::eAnd)
+            .setLogicOpEnable(false)
+            .setLogicOp(vk::LogicOp::eCopy)
             .setAttachmentCount(1)
             .setPAttachments(&attachment)
             .setBlendConstants({
@@ -667,7 +782,10 @@ namespace scener::graphics::vulkan
     vk::PipelineRasterizationStateCreateInfo logical_device::vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept
     {
         auto create_info = vk::PipelineRasterizationStateCreateInfo()
+             // If rasterizerDiscardEnable is set to true, then geometry never passes through the rasterizer stage.
+            .setRasterizerDiscardEnable(false)
             .setPolygonMode(static_cast<vk::PolygonMode>(state.fill_mode))
+            .setLineWidth(1.0f)
             .setDepthBiasClamp(state.scissor_test_enable)
             .setDepthBiasEnable(state.depth_bias != 0.0f || state.slope_scale_depth_bias != 0.0f)
             .setDepthBiasClamp(state.depth_bias)

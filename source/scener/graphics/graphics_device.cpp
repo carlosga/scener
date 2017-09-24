@@ -142,10 +142,9 @@ namespace scener::graphics
     void graphics_device::viewport(const graphics::viewport& viewport) noexcept
     {
         _viewport = viewport;
-        _viewport.update();
     }
 
-    void graphics_device::create_graphics_pipeline(
+    vk::UniquePipeline graphics_device::create_graphics_pipeline(
         const graphics::blend_state&         blend_state_
       , const graphics::depth_stencil_state& depth_stencil_state_
       , const graphics::rasterizer_state&    rasterizer_state_
@@ -161,6 +160,11 @@ namespace scener::graphics
             }
         }
 
-        _logical_device->create_graphics_pipeline(blend_state_, depth_stencil_state_, rasterizer_state_, shaders);
+        return _logical_device->create_graphics_pipeline(
+            _viewport
+          , blend_state_
+          , depth_stencil_state_
+          , rasterizer_state_
+          , shaders);
     }
 }

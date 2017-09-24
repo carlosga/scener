@@ -8,7 +8,7 @@
 namespace scener::graphics
 {
     graphics_pipeline::graphics_pipeline(gsl::not_null<graphics_device*> device) noexcept
-        : graphics_resource    { device }
+        : _device              { device }
         , _blend_state         { }
         , _depth_stencil_state { }
         , _rasterizer_state    { }
@@ -35,7 +35,7 @@ namespace scener::graphics
 
     void graphics_pipeline::create() noexcept
     {
-        graphics_resource::device()->create_graphics_pipeline(
+        _pipeline = _device->create_graphics_pipeline(
             _blend_state
           , _depth_stencil_state
           , _rasterizer_state

@@ -59,9 +59,7 @@ namespace scener::graphics
             _resize_connection.disconnect();
         });
         _resize_connection = _display_surface->connect_resize([&](std::uint32_t width, std::uint32_t height) {
-            _renderer->device()->viewport().width  = width;
-            _renderer->device()->viewport().height = height;
-            _renderer->device()->viewport().update();
+            _renderer->device()->viewport().rect = { 0, 0, width, height };
         });
     }
 
