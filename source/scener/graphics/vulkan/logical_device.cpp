@@ -7,6 +7,9 @@
 #include <string>
 #include <gsl/gsl>
 
+#define VMA_IMPLEMENTATION
+#include <vk_mem_alloc.h>
+
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
@@ -27,7 +30,7 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { logical_device }
-        , _allocator                   { physical_device, logical_device }
+        , _allocator                   { nullptr }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -50,6 +53,7 @@ namespace scener::graphics::vulkan
         , _image_ownership_semaphores  { surface_capabilities.minImageCount }
         , _clear_color                 { basic_color<float>::black() }
     {
+        create_allocator(physical_device, logical_device);
         get_device_queues();
         create_command_pool();
         create_command_buffers();
@@ -82,6 +86,13 @@ namespace scener::graphics::vulkan
         // Swapchains
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
 
+        // Memory allocators
+        if (_allocator != nullptr)
+        {
+            vmaDestroyAllocator(_allocator.get());
+            _allocator = nullptr;
+        }
+
         // Logical devices
         _logical_device.destroy(nullptr);
     }
@@ -104,6 +115,61 @@ namespace scener::graphics::vulkan
     void logical_device::clear_color(const scener::math::basic_color<float>& color) noexcept
     {
         _clear_color = color;
+    }
+
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(uint32_t size) noexcept
+    {
+        return create_buffer(buffer_usage::vertex_buffer, size);
+    }
+
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_index_buffer(uint32_t size) noexcept
+    {
+        return create_buffer(buffer_usage::index_buffer, size);
+    }
+
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(buffer_usage usage, uint32_t size) noexcept
+    {
+        VmaAllocation      allocation;
+        VkBufferCreateInfo buffer_create_info = {
+            VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO
+          , nullptr
+          , 0
+          , size
+          , static_cast<VkBufferUsageFlagBits>(usage)
+          , VK_SHARING_MODE_EXCLUSIVE
+          , 0
+          , nullptr
+        };
+
+        VmaAllocationCreateInfo allocation_create_info = {
+            0                           // VmaAllocationCreateFlagBits
+          , VMA_MEMORY_USAGE_GPU_ONLY
+          , 0                           // VkMemoryPropertyFlags
+          , 0                           // VkMemoryPropertyFlags
+          , nullptr                     // pUserData
+          , VK_NULL_HANDLE              // Memory Pool
+        };
+
+        vk::Buffer vkbuffer;
+        auto result = vmaCreateBuffer(
+            _allocator.get()
+          , &buffer_create_info
+          , &allocation_create_info
+          , reinterpret_cast<VkBuffer*>(&vkbuffer)
+          , &allocation
+          , nullptr);
+
+        Ensures(result == VK_SUCCESS);
+
+        // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
+        return std::unique_ptr<buffer, buffer_deleter>(new buffer(usage, size, vkbuffer, allocation), { std::any(
+            _allocator.get())
+          , [] (const std::any& allocator, const buffer& vkbuffer) -> void {
+                VmaAllocator  memory_allocator  = std::any_cast<VmaAllocator>(allocator);
+                VmaAllocation memory_allocation = std::any_cast<VmaAllocation>(vkbuffer.allocation());
+                vmaDestroyBuffer(memory_allocator, vkbuffer.handle(), memory_allocation);
+            }
+        });
     }
 
     void logical_device::create_swap_chain(const render_surface& surface) noexcept
@@ -363,7 +429,28 @@ namespace scener::graphics::vulkan
         image_create_info.setSharingMode(vk::SharingMode::eExclusive);
 
         // Create the image
-        vk::Image image = _allocator.allocate_image(image_create_info);
+        VmaAllocationCreateInfo allocation_create_info = {
+            VMA_ALLOCATION_CREATE_OWN_MEMORY_BIT
+          , VMA_MEMORY_USAGE_CPU_ONLY
+          , 0
+          , 0
+          , nullptr
+          , nullptr
+        };
+
+        vk::Image     image      { };
+        VmaAllocation allocation { };
+
+        // TODO: Image destroy
+        auto create_image_result = vmaCreateImage(
+            _allocator.get()
+          , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
+          , &allocation_create_info
+          , reinterpret_cast<VkImage*>(&image)
+          , &allocation
+          , nullptr);
+
+        Ensures(create_image_result == VK_SUCCESS);
 
         // Create Image View
         // As mentioned in Part 3 ( again in the swapchain function ) views are how you interface with a given image.
@@ -403,7 +490,6 @@ namespace scener::graphics::vulkan
     {
         auto create_info = vk::SamplerCreateInfo();
 
-
 //        /// Gets or sets the texture-address mode for the u-coordinate.
 //        texture_address_mode address_u { texture_address_mode::wrap };
 
@@ -435,6 +521,20 @@ namespace scener::graphics::vulkan
         check_result(result);
 
         return sampler;
+    }
+
+    void logical_device::create_allocator(const vk::PhysicalDevice& physical_device
+                                        , const vk::Device&         logical_device) noexcept
+    {
+        VmaAllocatorCreateInfo allocatorInfo = { };
+        allocatorInfo.physicalDevice = physical_device;
+        allocatorInfo.device         = logical_device;
+
+        auto allocator = _allocator.get();
+
+        auto result = vmaCreateAllocator(&allocatorInfo, &allocator);
+
+        Ensures(result == VK_SUCCESS);
     }
 
     void logical_device::get_device_queues() noexcept

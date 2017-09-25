@@ -63,22 +63,22 @@ namespace scener::graphics
     {
         std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (auto& part) -> void
         {
-            auto device = part->vertex_buffer()->device();
+//            auto device = part->vertex_buffer()->device();
 
-            if (part->effect.get() != nullptr)
-            {
-                device->effect = part->effect.get();
-            }
+//            if (part->effect.get() != nullptr)
+//            {
+//                device->effect = part->effect.get();
+//            }
 
-            device->index_buffer  = part->index_buffer();
-            device->vertex_buffer = part->vertex_buffer();
+//            device->index_buffer  = part->index_buffer();
+//            device->vertex_buffer = part->vertex_buffer();
 
-            device->draw_indexed_primitives(part->primitive_type()
-                                          , part->vertex_offset()
-                                          , 0
-                                          , part->vertex_count()
-                                          , part->start_index()
-                                          , part->primitive_count());
+//            device->draw_indexed_primitives(part->primitive_type()
+//                                          , part->vertex_offset()
+//                                          , 0
+//                                          , part->vertex_count()
+//                                          , part->start_index()
+//                                          , part->primitive_count());
         });
     }
 }

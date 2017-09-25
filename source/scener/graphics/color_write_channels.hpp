@@ -50,11 +50,11 @@ namespace scener::graphics
         return lhs;
     }
 
-    inline color_write_channels& operator|=(color_write_channels& lhss, const color_write_channels& rhs)
+    inline color_write_channels& operator|=(color_write_channels& lhs, const color_write_channels& rhs)
     {
-        lhss = lhss | rhs;
+        lhs = lhs | rhs;
 
-        return lhss;
+        return lhs;
     }
 }
 

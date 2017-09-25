@@ -16,10 +16,7 @@ namespace scener::graphics
 {
     graphics_device::graphics_device(const graphics_adapter&                  adapter
                                    , const graphics::presentation_parameters& presentation_params) noexcept
-        : effect                   { nullptr }
-        , index_buffer             { nullptr }
-        , vertex_buffer            { nullptr }
-        , _blend_state             { blend_state::opaque }
+        : _blend_state             { blend_state::opaque }
         , _depth_stencil_state     { depth_stencil_state::default_stencil }
         , _rasterizer_state        { rasterizer_state::cull_counter_clockwise }
         , _presentation_parameters { presentation_params }
@@ -75,11 +72,9 @@ namespace scener::graphics
         // Expects(vertex_buffer != nullptr)
         // Expects(effect        != nullptr)
 
-        auto offset = start_index * index_buffer->element_size_in_bytes();
+//        auto offset = start_index * index_buffer->element_size_in_bytes();
 
-        effect->begin();
-        vertex_buffer->bind();
-        index_buffer->bind();
+//        effect->begin();
 
 //        glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
 //                               , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
@@ -87,27 +82,23 @@ namespace scener::graphics
 //                               , reinterpret_cast<void*>(offset)
 //                               , static_cast<GLint>(base_vertex));
 
-        index_buffer->unbind();
-        vertex_buffer->unbind();
-        effect->end();
+//        effect->end();
     }
 
     void graphics_device::draw_primitives(primitive_type primitive_type
                                         , std::size_t    start_vertex
                                         , std::size_t    primitive_count) const noexcept
     {
-        Expects(vertex_buffer != nullptr);
-        Expects(effect        != nullptr);
+//        Expects(vertex_buffer != nullptr);
+//        Expects(effect        != nullptr);
 
-        effect->begin();
-        vertex_buffer->bind();
+//        effect->begin();
 
 //        glDrawArrays(static_cast<GLenum>(primitive_type)
 //                   , static_cast<GLint>(start_vertex)
 //                   , static_cast<GLsizei>(primitive_count));
 
-        vertex_buffer->unbind();
-        effect->end();
+//        effect->end();
     }
 
     void graphics_device::present() noexcept
@@ -166,5 +157,17 @@ namespace scener::graphics
           , depth_stencil_state_
           , rasterizer_state_
           , shaders);
+    }
+
+    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    graphics_device::create_index_buffer(std::uint32_t size) const noexcept
+    {
+        return _logical_device->create_index_buffer(size);
+    }
+
+    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    graphics_device::create_vertex_buffer(std::uint32_t size) const noexcept
+    {
+        return _logical_device->create_vertex_buffer(size);
     }
 }

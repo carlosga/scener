@@ -3,13 +3,10 @@
 
 #include "scener/graphics/vulkan/constant_buffer.hpp"
 
-#include "scener/graphics/vulkan/buffer_target.hpp"
-
 namespace scener::graphics::vulkan
 {
     constant_buffer::constant_buffer(const std::string& name, std::uint32_t program_id) noexcept
-        : _buffer_object { buffer_target::uniform_buffer }
-        , _index         { 0 }
+        : _index         { 0 }
         , _binding_point { 0 }
         , _size          { 0 }
         , _name          { name }
@@ -38,9 +35,11 @@ namespace scener::graphics::vulkan
 
     std::vector<std::uint8_t> constant_buffer::get_data(std::size_t offset, std::size_t count) const noexcept
     {
-        Ensures(count <= _size);
+        return { };
 
-        return _buffer_object.get_data(offset, count);
+//        Ensures(count <= _size);
+
+//        return _buffer.get_data(offset, count);
     }
 
     void constant_buffer::set_data(gsl::not_null<const void*> data) const noexcept
@@ -50,8 +49,8 @@ namespace scener::graphics::vulkan
 
     void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
     {
-        Ensures((offset + count) <= _size);
+//        Ensures((offset + count) <= _size);
 
-        _buffer_object.set_data(offset, count, data);
+//        _buffer.set_data(offset, count, data);
     }
 }

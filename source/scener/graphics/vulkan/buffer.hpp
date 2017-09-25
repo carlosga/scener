@@ -4,13 +4,17 @@
 #ifndef SCENER_GRAPHICS_OPENGL_BUFFER_HPP
 #define SCENER_GRAPHICS_OPENGL_BUFFER_HPP
 
+#include <any>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <memory>
 #include <vector>
 
 #include <gsl/gsl>
+#include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/vulkan/buffer_target.hpp"
+#include "scener/graphics/vulkan/buffer_usage.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -19,15 +23,21 @@ namespace scener::graphics::vulkan
     {
     public:
         /// Initializes a new instance of the Buffer class.
-        /// \param target the buffer target.
-        buffer(buffer_target target) noexcept;
+        /// \param usage the buffer usage.
+        /// \param size the buffer size.
+        /// \param buffer the vulkan buffer.
+        buffer(buffer_usage      usage
+             , std::size_t       size
+             , const vk::Buffer& buffer
+             , const std::any&   allocation) noexcept;
 
     public:
-        /// Gets the buffer object identifier.
-        std::uint32_t id() const noexcept;
+        const vk::Buffer& handle() const noexcept;
 
-        /// Gets the buffer object target.
-        buffer_target target() const noexcept;
+        const std::any& allocation() const noexcept;
+
+        /// Gets the buffer usage.
+        buffer_usage usage() const noexcept;
 
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
@@ -54,8 +64,34 @@ namespace scener::graphics::vulkan
         void invalidate(std::size_t offset, std::size_t count) const noexcept;
 
     private:
-        std::uint32_t _id;
-        buffer_target _target;
+        buffer_usage _usage;
+        std::size_t  _size;
+        vk::Buffer   _buffer;
+        std::any     _allocation;
+    };
+
+    class buffer_deleter final
+    {
+    public:
+        buffer_deleter() {}
+
+        buffer_deleter(const std::any& allocator, const std::function<void(const std::any&, const buffer&)>& deleter)
+            : _allocator { allocator }
+            , _deleter   { deleter }
+        {
+        }
+
+        void operator()(buffer* vkbuffer)
+        {
+            if (vkbuffer != nullptr)
+            {
+                _deleter(_allocator, *vkbuffer);
+            }
+        }
+
+    private:
+        std::any                                            _allocator;
+        std::function<void(const std::any&, const buffer&)> _deleter;
     };
 }
 

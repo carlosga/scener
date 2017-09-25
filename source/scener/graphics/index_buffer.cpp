@@ -3,20 +3,17 @@
 
 #include "scener/graphics/index_buffer.hpp"
 
-#include "scener/graphics/vulkan/buffer_target.hpp"
+#include "scener/graphics/graphics_device.hpp"
 
 namespace scener::graphics
 {
-    using scener::graphics::vulkan::buffer;
-    using scener::graphics::vulkan::buffer_target;
-
     index_buffer::index_buffer(gsl::not_null<graphics_device*> device
                              , component_type                  index_element_type
                              , std::size_t                     index_count) noexcept
         : graphics_resource   { device }
-        , _buffer             { buffer_target::index_buffer }
-        , _index_count        { index_count }
         , _index_element_type { index_element_type }
+        , _index_count        { index_count }
+        , _buffer             { nullptr }
     {
     }
 
@@ -54,22 +51,26 @@ namespace scener::graphics
 
     std::vector<std::uint8_t> index_buffer::get_data(std::size_t start_index, std::size_t element_count) const noexcept
     {
+        if (_buffer.get() == nullptr)
+        {
+            return { };
+        }
+
         auto offset = (start_index * element_size_in_bytes());
         auto size   = (element_count * element_size_in_bytes());
 
-        return _buffer.get_data(offset, size);
+        return _buffer->get_data(offset, size);
     }
 
-    void index_buffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
+    void index_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        _buffer.set_data(_index_count * element_size_in_bytes(), data.data());
-    }
+        auto size = _index_count * element_size_in_bytes();
 
-    void index_buffer::bind() const noexcept
-    {
-    }
+        if (_buffer.get() == nullptr)
+        {
+            _buffer = device()->create_index_buffer(size);
+        }
 
-    void index_buffer::unbind() const noexcept
-    {
+        _buffer->set_data(_index_count * element_size_in_bytes(), data.data());
     }
 }

@@ -9,18 +9,20 @@
 #include <memory>
 
 #include <gsl/gsl>
-#include <scener/math/basic_size.hpp>
-#include <scener/math/basic_color.hpp>
 #include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
+#include "scener/graphics/vulkan/buffer.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
-#include "scener/graphics/vulkan/memory_allocator.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
+#include "scener/math/basic_size.hpp"
+#include "scener/math/basic_color.hpp"
+
+struct VmaAllocator_T;
 
 namespace scener::graphics::vulkan
 {
@@ -48,6 +50,11 @@ namespace scener::graphics::vulkan
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
+        std::unique_ptr<buffer, buffer_deleter> create_vertex_buffer(std::uint32_t size) noexcept;
+        std::unique_ptr<buffer, buffer_deleter> create_index_buffer(std::uint32_t size) noexcept;
+        std::unique_ptr<buffer, buffer_deleter> create_buffer(buffer_usage usage, std::uint32_t size) noexcept;
+
+    public:
         void create_swap_chain(const render_surface& surface) noexcept;
         vk::UniquePipeline create_graphics_pipeline(
               const graphics::viewport&                           viewport_state
@@ -61,6 +68,7 @@ namespace scener::graphics::vulkan
         vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
 
     private:
+        void create_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;
         void get_device_queues() noexcept;
         void create_sync_primitives() noexcept;
         void destroy_sync_primitives() noexcept;
@@ -82,7 +90,7 @@ namespace scener::graphics::vulkan
 
     private:
         vk::Device                       _logical_device;
-        memory_allocator                 _allocator;
+        std::unique_ptr<VmaAllocator_T>  _allocator;
         std::uint32_t                    _graphics_queue_family_index;
         vk::Queue                        _graphics_queue;
         std::uint32_t                    _present_queue_family_index;

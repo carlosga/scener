@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 #include <gsl/gsl>
@@ -55,16 +56,12 @@ namespace scener::graphics
 
         /// Sets the indices buffer data.
         /// \param data the new indices buffer data.
-        void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
+        void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
-        void bind() const noexcept;
-        void unbind() const noexcept;
-
-    private:
-        scener::graphics::vulkan::buffer _buffer;
-        std::size_t                      _index_count;
-        component_type                   _index_element_type;
+        component_type                                          _index_element_type;
+        std::size_t                                             _index_count;
+        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
 
         friend class scener::graphics::graphics_device;
     };

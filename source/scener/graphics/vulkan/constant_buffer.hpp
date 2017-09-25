@@ -12,6 +12,7 @@
 #include <gsl/gsl>
 
 #include "scener/graphics/vulkan/buffer.hpp"
+#include "scener/graphics/vulkan/buffer_usage.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -53,7 +54,6 @@ namespace scener::graphics::vulkan
         void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
 
      private:
-        buffer        _buffer_object;
         std::uint32_t _index;
         std::uint32_t _binding_point;
         std::size_t   _size;

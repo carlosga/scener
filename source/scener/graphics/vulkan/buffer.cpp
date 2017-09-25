@@ -5,27 +5,35 @@
 
 namespace scener::graphics::vulkan
 {
-    buffer::buffer(buffer_target target) noexcept
-        : _id     { 0 }
-        , _target { target }
+    buffer::buffer(buffer_usage      usage
+                 , std::size_t       size
+                 , const vk::Buffer& buffer
+                 , const std::any&   allocation) noexcept
+        : _usage      { usage }
+        , _size       { size }
+        , _buffer     { buffer }
+        , _allocation { allocation }
     {
     }
 
-    std::uint32_t buffer::id() const noexcept
+    const vk::Buffer& buffer::handle() const noexcept
     {
-        return _id;
+        return _buffer;
     }
 
-    buffer_target buffer::target() const noexcept
+    const std::any& buffer::allocation() const noexcept
     {
-        return _target;
+        return _allocation;
+    }
+
+    buffer_usage buffer::usage() const noexcept
+    {
+        return _usage;
     }
 
     std::vector<std::uint8_t> buffer::get_data(std::size_t offset, std::size_t count) const noexcept
     {
         auto data = std::vector<std::uint8_t>(count, 0);
-
-        // glGetNamedBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count), data.data());
 
         return data;
     }

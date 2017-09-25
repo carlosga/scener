@@ -122,23 +122,26 @@ namespace scener::graphics
         /// Sets the viewport identifying the portion of the render target to receive draw calls.
         void viewport(const graphics::viewport& viewport) noexcept;
 
+        /// Creates a new graphics pipeline.
+        /// \param blend_state_ the color blend state params.
+        /// \param depth_stencil_state_ the depth stencil state params.
+        /// \param rasterizer_state_ the rasterization state params.
+        /// \param effect_technique_ the effect technoque holding the shaders used by the ghraphics pipeline.
         vk::UniquePipeline create_graphics_pipeline(
               const graphics::blend_state&         blend_state_
             , const graphics::depth_stencil_state& depth_stencil_state_
             , const graphics::rasterizer_state&    rasterizer_state_
             , const graphics::effect_technique&    effect_technique_) noexcept;
 
-    public:
-        /// Gets or sets the effect used before drawing.
-        effect_technique* effect;
+        /// Creates a new index buffer with the given size.
+        /// \para size the buffer size.
+        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> create_index_buffer(std::uint32_t size) const noexcept;
 
-        /// Gets or sets the index buffer.
-        graphics::index_buffer* index_buffer;
+        /// Creates a new vertex buffer with the given size.
+        /// \para size the buffer size.
+        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>create_vertex_buffer(std::uint32_t size) const noexcept;
 
-        /// Gets or sets the vertex buffer.
-        graphics::vertex_buffer* vertex_buffer;
-
-    private:
+   private:
         graphics::blend_state                    _blend_state;
         graphics::depth_stencil_state            _depth_stencil_state;
         graphics::rasterizer_state               _rasterizer_state;
