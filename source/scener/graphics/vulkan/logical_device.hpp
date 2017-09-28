@@ -90,7 +90,7 @@ namespace scener::graphics::vulkan
 
     private:
         vk::Device                       _logical_device;
-        std::unique_ptr<VmaAllocator_T>  _allocator;
+        VmaAllocator_T*                  _allocator;
         std::uint32_t                    _graphics_queue_family_index;
         vk::Queue                        _graphics_queue;
         std::uint32_t                    _present_queue_family_index;

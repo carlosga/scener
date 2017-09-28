@@ -89,7 +89,7 @@ namespace scener::graphics::vulkan
         // Memory allocators
         if (_allocator != nullptr)
         {
-            vmaDestroyAllocator(_allocator.get());
+            vmaDestroyAllocator(_allocator);
             _allocator = nullptr;
         }
 
@@ -152,7 +152,7 @@ namespace scener::graphics::vulkan
 
         vk::Buffer vkbuffer;
         auto result = vmaCreateBuffer(
-            _allocator.get()
+            _allocator
           , &buffer_create_info
           , &allocation_create_info
           , reinterpret_cast<VkBuffer*>(&vkbuffer)
@@ -163,7 +163,7 @@ namespace scener::graphics::vulkan
 
         // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
         return std::unique_ptr<buffer, buffer_deleter>(new buffer(usage, size, vkbuffer, allocation), { std::any(
-            _allocator.get())
+            _allocator)
           , [] (const std::any& allocator, const buffer& vkbuffer) -> void {
                 VmaAllocator  memory_allocator  = std::any_cast<VmaAllocator>(allocator);
                 VmaAllocation memory_allocation = std::any_cast<VmaAllocation>(vkbuffer.allocation());
@@ -443,7 +443,7 @@ namespace scener::graphics::vulkan
 
         // TODO: Image destroy
         auto create_image_result = vmaCreateImage(
-            _allocator.get()
+            _allocator
           , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
           , &allocation_create_info
           , reinterpret_cast<VkImage*>(&image)
@@ -530,9 +530,7 @@ namespace scener::graphics::vulkan
         allocatorInfo.physicalDevice = physical_device;
         allocatorInfo.device         = logical_device;
 
-        auto allocator = _allocator.get();
-
-        auto result = vmaCreateAllocator(&allocatorInfo, &allocator);
+        auto result = vmaCreateAllocator(&allocatorInfo, &_allocator);
 
         Ensures(result == VK_SUCCESS);
     }
