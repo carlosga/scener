@@ -11,7 +11,8 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/service_container.hpp"
-#include "scener/graphics/vulkan/constant_buffer.hpp"
+#include "scener/graphics/vulkan/program.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
 
 namespace scener::content::readers
 {
@@ -28,6 +29,7 @@ namespace scener::content::readers
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
+    using scener::graphics::vulkan::program;
     using scener::graphics::vulkan::shader;
     using namespace scener::content::gltf;
 
@@ -178,11 +180,26 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        auto vshader = value[k_program][k_vertex_shader].get<std::string>();
-        auto fshader = value[k_program][k_fragment_shader].get<std::string>();
+        // Pass program
+        auto pass_program = input->read_object_instance<program>(value[k_program].get<std::string>());
 
-        pass->_shaders.push_back(input->read_object<shader>(vshader));
-        pass->_shaders.push_back(input->read_object<shader>(fshader));
+        pass->_shaders.reserve(pass_program->shaders().size());
+
+        std::for_each(pass_program->shaders().begin(), pass_program->shaders().end(), [&] (const auto& shader) {
+            pass->_shaders.push_back(shader);
+        });
+
+        // Uniforms
+//        auto offsets = pass->_program->get_uniform_offsets();
+
+//        for (const auto& parameter : pass->_parameters)
+//        {
+//            if (offsets.find(parameter->_uniform_name) != offsets.end())
+//            {
+//                parameter->_offset          = offsets[parameter->_uniform_name];
+//                parameter->_constant_buffer = pass->_program->constant_buffer();
+//            }
+//        }
 
         effect->_passes.push_back(pass);
     }

@@ -24,8 +24,6 @@
 namespace scener::graphics
 {
     class effect_technique;
-    class index_buffer;
-    class vertex_buffer;
 
     /// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels,
     /// and creates shaders.

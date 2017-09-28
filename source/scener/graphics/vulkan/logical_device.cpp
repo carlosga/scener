@@ -119,15 +119,24 @@ namespace scener::graphics::vulkan
 
     std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(uint32_t size) noexcept
     {
-        return create_buffer(buffer_usage::vertex_buffer, size);
+        return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_source
+                           , size
+                           , VMA_MEMORY_USAGE_CPU_TO_GPU
+                           , vk::SharingMode::eExclusive);
     }
 
     std::unique_ptr<buffer, buffer_deleter> logical_device::create_index_buffer(uint32_t size) noexcept
     {
-        return create_buffer(buffer_usage::index_buffer, size);
+        return create_buffer(buffer_usage::index_buffer | buffer_usage::transfer_destination
+                           , size
+                           , VMA_MEMORY_USAGE_CPU_TO_GPU
+                           , vk::SharingMode::eExclusive);
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(buffer_usage usage, uint32_t size) noexcept
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(buffer_usage    usage
+                                                                        , uint32_t        size
+                                                                        , std::uint32_t   memory_usage
+                                                                        , vk::SharingMode sharing_mode) noexcept
     {
         VmaAllocation      allocation;
         VkBufferCreateInfo buffer_create_info = {
@@ -136,14 +145,14 @@ namespace scener::graphics::vulkan
           , 0
           , size
           , static_cast<VkBufferUsageFlagBits>(usage)
-          , VK_SHARING_MODE_EXCLUSIVE
+          , static_cast<VkSharingMode>(sharing_mode)
           , 0
           , nullptr
         };
 
         VmaAllocationCreateInfo allocation_create_info = {
             0                           // VmaAllocationCreateFlagBits
-          , VMA_MEMORY_USAGE_GPU_ONLY
+          , static_cast<VmaMemoryUsage>(memory_usage)
           , 0                           // VkMemoryPropertyFlags
           , 0                           // VkMemoryPropertyFlags
           , nullptr                     // pUserData

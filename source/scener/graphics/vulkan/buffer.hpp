@@ -86,6 +86,7 @@ namespace scener::graphics::vulkan
             if (vkbuffer != nullptr)
             {
                 _deleter(_allocator, *vkbuffer);
+                vkbuffer = nullptr;
             }
         }
 

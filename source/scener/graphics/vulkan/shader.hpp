@@ -35,7 +35,7 @@ namespace scener::graphics::vulkan
 
         /// Gets the the shader stage.
         /// \returns the the shader stage.
-        shader_stage stage () const noexcept;
+        shader_stage stage() const noexcept;
 
         /// Get the shader contents
         /// \returns the shader contents
