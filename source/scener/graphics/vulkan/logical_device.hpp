@@ -50,12 +50,13 @@ namespace scener::graphics::vulkan
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
-        std::unique_ptr<buffer, buffer_deleter> create_vertex_buffer(std::uint32_t size) noexcept;
-        std::unique_ptr<buffer, buffer_deleter> create_index_buffer(std::uint32_t size) noexcept;
-        std::unique_ptr<buffer, buffer_deleter> create_buffer(buffer_usage    buffer_usage
-                                                            , std::uint32_t   size
-                                                            , std::uint32_t   memory_usage
-                                                            , vk::SharingMode sharing_mode) noexcept;
+        std::unique_ptr<buffer, buffer_deleter> create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+        std::unique_ptr<buffer, buffer_deleter> create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+        std::unique_ptr<buffer, buffer_deleter>
+        create_buffer(
+              buffer_usage                         usage
+            , vk::SharingMode                      sharing_mode
+            , const gsl::span<const std::uint8_t>& data) noexcept;
 
     public:
         void create_swap_chain(const render_surface& surface) noexcept;

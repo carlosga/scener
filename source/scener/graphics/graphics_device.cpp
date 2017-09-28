@@ -3,8 +3,6 @@
 
 #include "graphics_device.hpp"
 
-#include <gsl/gsl>
-
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/effect_technique.hpp"
@@ -160,14 +158,14 @@ namespace scener::graphics
     }
 
     std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
-    graphics_device::create_index_buffer(std::uint32_t size) const noexcept
+    graphics_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
     {
-        return _logical_device->create_index_buffer(size);
+        return _logical_device->create_index_buffer(data);
     }
 
     std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
-    graphics_device::create_vertex_buffer(std::uint32_t size) const noexcept
+    graphics_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
     {
-        return _logical_device->create_vertex_buffer(size);
+        return _logical_device->create_vertex_buffer(data);
     }
 }

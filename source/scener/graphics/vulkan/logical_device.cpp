@@ -117,66 +117,100 @@ namespace scener::graphics::vulkan
         _clear_color = color;
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(uint32_t size) noexcept
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(
+        const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_source
-                           , size
-                           , VMA_MEMORY_USAGE_CPU_TO_GPU
-                           , vk::SharingMode::eExclusive);
+                           , vk::SharingMode::eExclusive
+                           , data);
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_index_buffer(uint32_t size) noexcept
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_index_buffer(
+        const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::index_buffer | buffer_usage::transfer_destination
-                           , size
-                           , VMA_MEMORY_USAGE_CPU_TO_GPU
-                           , vk::SharingMode::eExclusive);
+                           , vk::SharingMode::eExclusive
+                           , data);
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(buffer_usage    usage
-                                                                        , uint32_t        size
-                                                                        , std::uint32_t   memory_usage
-                                                                        , vk::SharingMode sharing_mode) noexcept
+    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(
+        buffer_usage                         usage
+      , vk::SharingMode                      sharing_mode
+      , const gsl::span<const std::uint8_t>& data) noexcept
     {
-        VmaAllocation      allocation;
         VkBufferCreateInfo buffer_create_info = {
-            VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO
-          , nullptr
-          , 0
-          , size
-          , static_cast<VkBufferUsageFlagBits>(usage)
-          , static_cast<VkSharingMode>(sharing_mode)
-          , 0
-          , nullptr
+            VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO        // VkStructureType
+          , nullptr                                     // pNext
+          , 0                                           // flags
+          , static_cast<std::uint64_t>(data.size())     // size
+          , VK_BUFFER_USAGE_TRANSFER_SRC_BIT            // usage
+          , static_cast<VkSharingMode>(sharing_mode)    // sharingMode
+          , 0                                           // queueFamilyIndexCount
+          , nullptr                                     // pQueueFamilyIndices
         };
 
         VmaAllocationCreateInfo allocation_create_info = {
-            0                           // VmaAllocationCreateFlagBits
-          , static_cast<VmaMemoryUsage>(memory_usage)
-          , 0                           // VkMemoryPropertyFlags
-          , 0                           // VkMemoryPropertyFlags
-          , nullptr                     // pUserData
-          , VK_NULL_HANDLE              // Memory Pool
+            VMA_ALLOCATION_CREATE_PERSISTENT_MAP_BIT    // VmaAllocationCreateFlagBits
+          , VMA_MEMORY_USAGE_CPU_ONLY                   // VmaMemoryUsage
+          , 0                                           // VkMemoryPropertyFlags
+          , 0                                           // VkMemoryPropertyFlags
+          , nullptr                                     // pUserData
+          , VK_NULL_HANDLE                              // Memory Pool
         };
 
-        vk::Buffer vkbuffer;
+        vk::Buffer        staging_buffer            = { };
+        VmaAllocation     staging_buffer_allocation = VK_NULL_HANDLE;
+        VmaAllocationInfo staging_buffer_alloc_info = { };
         auto result = vmaCreateBuffer(
             _allocator
           , &buffer_create_info
           , &allocation_create_info
-          , reinterpret_cast<VkBuffer*>(&vkbuffer)
-          , &allocation
+          , reinterpret_cast<VkBuffer*>(&staging_buffer)
+          , &staging_buffer_allocation
+          , &staging_buffer_alloc_info);
+
+        Ensures(result == VK_SUCCESS);
+
+        std::copy_n(data.data(), data.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
+
+        vk::Buffer    memory_buffer            = { };
+        VmaAllocation memory_buffer_allocation = VK_NULL_HANDLE;
+
+        buffer_create_info.usage     = static_cast<VkBufferUsageFlags>(usage);
+        allocation_create_info.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+        allocation_create_info.flags = 0;
+
+        result = vmaCreateBuffer(
+            _allocator
+          , &buffer_create_info
+          , &allocation_create_info
+          , reinterpret_cast<VkBuffer*>(&memory_buffer)
+          , &memory_buffer_allocation
           , nullptr);
 
         Ensures(result == VK_SUCCESS);
 
         // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
-        return std::unique_ptr<buffer, buffer_deleter>(new buffer(usage, size, vkbuffer, allocation), { std::any(
+        auto wrapper = new buffer(
+            usage
+          , data.size()
+          , staging_buffer
+          , staging_buffer_allocation
+          , memory_buffer
+          , memory_buffer_allocation);
+
+        return std::unique_ptr<buffer, buffer_deleter>(wrapper, { std::any(
             _allocator)
-          , [] (const std::any& allocator, const buffer& vkbuffer) -> void {
+          , [] (const std::any& allocator, const buffer& memory_buffer) -> void {
                 VmaAllocator  memory_allocator  = std::any_cast<VmaAllocator>(allocator);
-                VmaAllocation memory_allocation = std::any_cast<VmaAllocation>(vkbuffer.allocation());
-                vmaDestroyBuffer(memory_allocator, vkbuffer.handle(), memory_allocation);
+
+                // Destroy the real buffer
+                auto memory_allocation = std::any_cast<VmaAllocation>(memory_buffer.memory_buffer_allocation());
+                vmaDestroyBuffer(memory_allocator, memory_buffer.memory_buffer(), memory_allocation);
+
+                // Destroy the staging buffer
+                auto staging_allocation = std::any_cast<VmaAllocation>(memory_buffer.staging_buffer_allocation());
+                vmaDestroyBuffer(memory_allocator, memory_buffer.staging_buffer(), staging_allocation);
             }
         });
     }

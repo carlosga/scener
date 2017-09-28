@@ -64,13 +64,13 @@ namespace scener::graphics
 
     void index_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        auto size = _index_count * element_size_in_bytes();
-
         if (_buffer.get() == nullptr)
         {
-            _buffer = device()->create_index_buffer(size);
+            _buffer = device()->create_index_buffer(data);
         }
-
-        _buffer->set_data(_index_count * element_size_in_bytes(), data.data());
+        else
+        {
+            _buffer->set_data(data);
+        }
     }
 }

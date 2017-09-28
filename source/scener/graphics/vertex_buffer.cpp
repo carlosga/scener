@@ -44,14 +44,16 @@ namespace scener::graphics
 
     void vertex_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        auto size = _vertex_count * _vertex_declaration.vertex_stride();
+        // std::uint64_t size = _vertex_count * _vertex_declaration.vertex_stride();
 
         if (_buffer.get() == nullptr)
         {
-            _buffer = device()->create_vertex_buffer(size);
+            _buffer = device()->create_vertex_buffer(data);
         }
-
-        _buffer->set_data(size, data.data());
+        else
+        {
+            _buffer->set_data(data);
+        }
     }
 
     const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept

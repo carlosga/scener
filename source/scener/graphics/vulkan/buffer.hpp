@@ -28,13 +28,17 @@ namespace scener::graphics::vulkan
         /// \param buffer the vulkan buffer.
         buffer(buffer_usage      usage
              , std::size_t       size
-             , const vk::Buffer& buffer
-             , const std::any&   allocation) noexcept;
+             , const vk::Buffer& staging_buffer
+             , const std::any&   staging_buffer_allocation
+             , const vk::Buffer& memory_buffer
+             , const std::any&   memory_buffer_allocation) noexcept;
 
     public:
-        const vk::Buffer& handle() const noexcept;
+        const vk::Buffer& staging_buffer() const noexcept;
+        const std::any& staging_buffer_allocation() const noexcept;
 
-        const std::any& allocation() const noexcept;
+        const vk::Buffer& memory_buffer() const noexcept;
+        const std::any& memory_buffer_allocation() const noexcept;
 
         /// Gets the buffer usage.
         buffer_usage usage() const noexcept;
@@ -45,15 +49,8 @@ namespace scener::graphics::vulkan
         std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
         /// Creates and initializes the buffer object data store.
-        /// \param size specifies the size in bytes of the buffer object's new data store.
-        /// \param data specifies a pointer to data that will be copied into the data store for initialization.
-        void set_data(std::size_t size, gsl::not_null<const void*> data) const noexcept;
-
-        /// Updates a subset of a buffer object's data store.
-        /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
-        /// \param count specifies the size in bytes of the data store region being replaced.
-        /// \param data specifies a pointer to the new data that will be copied into the data store.
-        void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
+        /// \param data specifies a span of data that will be copied into the data store for initialization.
+        void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
 
         /// Invalidates the content of a buffer object's data store
         void invalidate() const noexcept;
@@ -66,8 +63,10 @@ namespace scener::graphics::vulkan
     private:
         buffer_usage _usage;
         std::size_t  _size;
-        vk::Buffer   _buffer;
-        std::any     _allocation;
+        vk::Buffer   _staging_buffer;
+        std::any     _staging_buffer_allocation;
+        vk::Buffer   _memory_buffer;
+        std::any     _memory_buffer_allocation;
     };
 
     class buffer_deleter final
@@ -86,6 +85,7 @@ namespace scener::graphics::vulkan
             if (vkbuffer != nullptr)
             {
                 _deleter(_allocator, *vkbuffer);
+                delete vkbuffer;
                 vkbuffer = nullptr;
             }
         }

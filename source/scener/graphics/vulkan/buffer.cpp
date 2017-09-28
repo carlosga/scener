@@ -7,23 +7,37 @@ namespace scener::graphics::vulkan
 {
     buffer::buffer(buffer_usage      usage
                  , std::size_t       size
-                 , const vk::Buffer& buffer
-                 , const std::any&   allocation) noexcept
-        : _usage      { usage }
-        , _size       { size }
-        , _buffer     { buffer }
-        , _allocation { allocation }
+                 , const vk::Buffer& staging_buffer
+                 , const std::any&   staging_buffer_allocation
+                 , const vk::Buffer& memory_buffer
+                 , const std::any&   memory_buffer_allocation) noexcept
+        : _usage                     { usage }
+        , _size                      { size }
+        , _staging_buffer            { staging_buffer }
+        , _staging_buffer_allocation { staging_buffer_allocation }
+        , _memory_buffer             { memory_buffer }
+        , _memory_buffer_allocation  { memory_buffer_allocation }
     {
     }
 
-    const vk::Buffer& buffer::handle() const noexcept
+    const vk::Buffer& buffer::staging_buffer() const noexcept
     {
-        return _buffer;
+        return _staging_buffer;
     }
 
-    const std::any& buffer::allocation() const noexcept
+    const std::any& buffer::staging_buffer_allocation() const noexcept
     {
-        return _allocation;
+        return _staging_buffer_allocation;
+    }
+
+    const vk::Buffer& buffer::memory_buffer() const noexcept
+    {
+        return _memory_buffer;
+    }
+
+    const std::any& buffer::memory_buffer_allocation() const noexcept
+    {
+        return _memory_buffer_allocation;
     }
 
     buffer_usage buffer::usage() const noexcept
@@ -38,11 +52,7 @@ namespace scener::graphics::vulkan
         return data;
     }
 
-    void buffer::set_data(std::size_t count, gsl::not_null<const void*> data) const noexcept
-    {
-    }
-
-    void buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
+    void buffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
     {
     }
 
