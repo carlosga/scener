@@ -40,8 +40,6 @@ namespace skeletal::animation
 
     void sample_renderer::draw(const steptime& time) noexcept
     {
-        device()->clear(color::black());
-
         renderer::draw(time);
     }
 }

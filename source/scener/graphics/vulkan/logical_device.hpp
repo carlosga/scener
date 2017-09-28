@@ -50,6 +50,17 @@ namespace scener::graphics::vulkan
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
+        /// Starts the drawing of a frame
+        bool begin_draw([[maybe_unused]] const render_surface& surface) noexcept;
+
+        /// Called by the renderer at the end of drawing; presents the final rendering.
+        void end_draw([[maybe_unused]] const render_surface& surface) noexcept;
+
+        /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
+        /// graphics_device.
+        void present([[maybe_unused]] const render_surface& surface) noexcept;
+
+    public:
         std::unique_ptr<buffer, buffer_deleter> create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
         std::unique_ptr<buffer, buffer_deleter> create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
         std::unique_ptr<buffer, buffer_deleter>
@@ -60,6 +71,7 @@ namespace scener::graphics::vulkan
 
     public:
         void create_swap_chain(const render_surface& surface) noexcept;
+        void recreate_swap_chain(const render_surface& surface) noexcept;
         vk::UniquePipeline create_graphics_pipeline(
               const graphics::viewport&                           viewport_state
             , const graphics::blend_state&                        color_blend_state
@@ -84,6 +96,7 @@ namespace scener::graphics::vulkan
         void destroy_command_buffers() noexcept;
         void destroy_swapchain_views() noexcept;
         void destroy_frame_buffers() noexcept;
+        void destroy_swap_chain() noexcept;
 
     private:
         vk::PipelineColorBlendStateCreateInfo vk_color_blend_state(
@@ -116,6 +129,8 @@ namespace scener::graphics::vulkan
         std::vector<vk::Semaphore>       _draw_complete_semaphores;
         std::vector<vk::Semaphore>       _image_ownership_semaphores;
         scener::math::basic_color<float> _clear_color;
+        std::uint64_t                    _next_command_buffer_index;
+        std::uint32_t                    _acquired_image_index;
     };
 }
 

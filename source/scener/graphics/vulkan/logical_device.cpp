@@ -1,4 +1,4 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+﻿// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
@@ -15,6 +15,7 @@
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
+#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -52,6 +53,8 @@ namespace scener::graphics::vulkan
         , _draw_complete_semaphores    { surface_capabilities.minImageCount }
         , _image_ownership_semaphores  { surface_capabilities.minImageCount }
         , _clear_color                 { basic_color<float>::black() }
+        , _next_command_buffer_index   { 0 }
+        , _acquired_image_index        { 0 }
     {
         create_allocator(physical_device, logical_device);
         get_device_queues();
@@ -62,29 +65,14 @@ namespace scener::graphics::vulkan
 
     logical_device::~logical_device() noexcept
     {
-        // Sync primitives
-        destroy_sync_primitives();
-
-        // Render pass
-        _logical_device.destroyRenderPass(_render_pass, nullptr);
+        // Swapchain
+        destroy_swap_chain();
 
         // Command buffers
         destroy_command_buffers();
 
         // Command pools
         _logical_device.destroyCommandPool(_command_pool, nullptr);
-
-        // Frame buffers
-        destroy_frame_buffers();
-
-        // Swapchain image views
-        destroy_swapchain_views();
-
-        // Swapchain images
-        _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
-
-        // Swapchains
-        _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
 
         // Memory allocators
         if (_allocator != nullptr)
@@ -115,6 +103,105 @@ namespace scener::graphics::vulkan
     void logical_device::clear_color(const scener::math::basic_color<float>& color) noexcept
     {
         _clear_color = color;
+    }
+
+    bool logical_device::begin_draw(const render_surface& surface) noexcept
+    {
+        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+        auto command_buffer       = _command_buffers[command_buffer_index];
+
+        check_result(_logical_device.waitForFences(_fences[command_buffer_index], VK_TRUE, UINT64_MAX));
+
+        _logical_device.resetFences(_fences[command_buffer_index]);
+
+        auto begin_info = vk::CommandBufferBeginInfo()
+            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
+
+        // Begin main command bufferconst render_surface& surface
+        command_buffer.begin(&begin_info);
+
+        // Acquire swapchain image
+        _acquired_image_index = 0;
+        auto result = _logical_device.acquireNextImageKHR(
+            _swap_chain
+          , UINT64_MAX
+          , _image_acquired_semaphores[command_buffer_index]
+          , _fences[command_buffer_index]
+          , &_acquired_image_index);
+
+//        if (result == vk::Result::eErrorOutOfDateKHR)
+//        {
+//            recreate_swap_chain(surface);
+//        }
+//        else
+//        {
+            check_result(result);
+//        }
+
+        const auto clear_color = vk::ClearValue()
+            .setColor({ _clear_color.components })
+            .setDepthStencil({ 1.0f, 0 });
+
+        auto render_area = vk::Rect2D()
+            .setOffset({ 0, 0 })
+            .setExtent(surface.extent(_surface_capabilities));
+
+        auto render_pass_begin_info = vk::RenderPassBeginInfo()
+            .setRenderPass(_render_pass)
+            .setFramebuffer(_frame_buffers[_acquired_image_index])
+            .setRenderArea(render_area)
+            .setClearValueCount(1)
+            .setPClearValues(&clear_color);
+
+        command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
+
+        return false;
+    }
+
+    void logical_device::end_draw(const render_surface& surface) noexcept
+    {
+        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+        auto command_buffer       = _command_buffers[command_buffer_index];
+
+        command_buffer.endRenderPass();
+        command_buffer.end();
+
+        _next_command_buffer_index++;
+    }
+
+    void logical_device::present(const render_surface& surface) noexcept
+    {
+        // Submit command buffer
+        static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
+
+        auto submit_info = vk::SubmitInfo()
+            .setWaitSemaphoreCount(_image_ownership_semaphores.size())
+            .setPWaitSemaphores(_image_ownership_semaphores.data())
+            .setPWaitDstStageMask(submit_wait_stages)
+            .setSignalSemaphoreCount(_draw_complete_semaphores.size())
+            .setPWaitSemaphores(_draw_complete_semaphores.data())
+            .setCommandBufferCount(_command_buffers.size())
+            .setPCommandBuffers(_command_buffers.data());
+
+        check_result(_graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]));
+
+        auto present_info = vk::PresentInfoKHR()
+            .setWaitSemaphoreCount(_draw_complete_semaphores.size())
+            .setPWaitSemaphores(_draw_complete_semaphores.data())
+            .setSwapchainCount(1)
+            .setPSwapchains(&_swap_chain)
+            .setPImageIndices(&_acquired_image_index);
+
+        auto result = _graphics_queue.presentKHR(&present_info);
+
+//        if (result == vk::Result::eErrorOutOfDateKHR)
+//        {
+//            recreate_swap_chain(surface);
+//        }
+//        else
+//        {
+            check_result(result);
+//        }
     }
 
     std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(
@@ -319,6 +406,14 @@ namespace scener::graphics::vulkan
 
         // Frame buffers
         create_frame_buffers(extent);
+    }
+
+    void logical_device::recreate_swap_chain(const render_surface& surface) noexcept
+    {
+//        _logical_device.waitIdle();
+//        destroy_swap_chain(false);
+//        create_sync_primitives();
+//        create_swap_chain(surface);
     }
 
     vk::UniquePipeline logical_device::create_graphics_pipeline(
@@ -846,6 +941,27 @@ namespace scener::graphics::vulkan
         });
 
         _frame_buffers.clear();
+    }
+
+    void logical_device::destroy_swap_chain() noexcept
+    {
+        // Sync primitives
+        destroy_sync_primitives();
+
+        // Frame buffers
+        destroy_frame_buffers();
+
+        // Render pass
+        _logical_device.destroyRenderPass(_render_pass, nullptr);
+
+        // Swapchain images
+        _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver
+
+        // Swapchain image views
+        destroy_swapchain_views();
+
+        // Swapchains
+        _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
     }
 
     vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(

@@ -39,24 +39,25 @@ namespace scener::graphics
         _logical_device->create_swap_chain(*_render_surface);
     }
 
-    void graphics_device::clear(const math::color& color) const noexcept
+    bool graphics_device::begin_draw() noexcept
     {
-//        std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
+        Expects(_logical_device.get() != nullptr);
 
-//        glClearColor(color.r, color.g, color.b, color.a);
+        return _logical_device->begin_draw(*_render_surface);
+    }
 
-//        if (_depth_stencil_state.depth_buffer_enable)
-//        {
-//            bufferBits |= GL_DEPTH_BUFFER_BIT;
-//            glClearDepth(1.0f);
-//        }
-//        if (_depth_stencil_state.stencil_enable)
-//        {
-//            bufferBits |= GL_STENCIL_BUFFER_BIT;
-//            glClearStencil(1);
-//        }
+    void graphics_device::end_draw() noexcept
+    {
+        Expects(_logical_device.get() != nullptr);
 
-//        glClear(bufferBits);
+        _logical_device->end_draw(*_render_surface);
+    }
+
+    void graphics_device::present() noexcept
+    {
+        Expects(_logical_device.get() != nullptr);
+
+        _logical_device->present(*_render_surface);
     }
 
     void graphics_device::draw_indexed_primitives(primitive_type primitive_type
@@ -97,10 +98,6 @@ namespace scener::graphics
 //                   , static_cast<GLsizei>(primitive_count));
 
 //        effect->end();
-    }
-
-    void graphics_device::present() noexcept
-    {
     }
 
     blend_state& graphics_device::blend_state() noexcept

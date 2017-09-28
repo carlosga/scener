@@ -83,19 +83,7 @@ namespace scener::graphics
 
     bool renderer::begin_draw() noexcept
     {
-        return true;
-    }
-
-    void renderer::begin_run() noexcept
-    {
-        _services        = std::make_unique<service_container>();
-        _device_manager  = std::make_unique<graphics_device_manager>(this);
-        _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
-        _window          = std::make_unique<graphics::window>(this);
-
-        _device_manager->prepare_device_settings([&](graphics_device_information* device_info) -> void {
-            prepare_device_settings(device_info);
-        });
+        return _device_manager->begin_draw();
     }
 
     void renderer::draw(const steptime &time) noexcept
@@ -111,7 +99,19 @@ namespace scener::graphics
 
     void renderer::end_draw() noexcept
     {
-        _device_manager->device()->present();
+        _device_manager->end_draw();
+    }
+
+    void renderer::begin_run() noexcept
+    {
+        _services        = std::make_unique<service_container>();
+        _device_manager  = std::make_unique<graphics_device_manager>(this);
+        _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
+        _window          = std::make_unique<graphics::window>(this);
+
+        _device_manager->prepare_device_settings([&](graphics_device_information* device_info) -> void {
+            prepare_device_settings(device_info);
+        });
     }
 
     void renderer::end_run() noexcept

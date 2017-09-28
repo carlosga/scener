@@ -156,6 +156,12 @@ namespace scener::graphics::vulkan
 
     void display_surface::pool_events() noexcept
     {
+        xcb_generic_event_t *event;
+
+        while (_connection && (event = xcb_poll_for_queued_event(_connection)))
+        {
+            free(event);
+        }
     }
 
     void display_surface::destroy() noexcept

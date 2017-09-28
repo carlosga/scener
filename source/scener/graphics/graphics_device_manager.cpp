@@ -20,11 +20,16 @@ namespace scener::graphics
 
     bool graphics_device_manager::begin_draw() noexcept
     {
-        return true;
+        Expects(_graphics_device.get() != nullptr);
+
+        return _graphics_device->begin_draw();
     }
 
     void graphics_device_manager::end_draw() noexcept
     {
+        Expects(_graphics_device.get() != nullptr);
+
+        _graphics_device->end_draw();
         _graphics_device->present();
     }
 

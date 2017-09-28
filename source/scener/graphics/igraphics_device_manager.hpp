@@ -24,7 +24,7 @@ namespace scener::graphics
         /// Called to ensure that the device manager has created a valid device.
         virtual void create_device() noexcept = 0;
 
-        /// Called by the game at the end of drawing; presents the final rendering.
+        /// Called by the renderer at the end of drawing; presents the final rendering.
         virtual void end_draw() noexcept = 0;
 
         /// Raised when the graphics_device_manager is changing the graphics_device settings

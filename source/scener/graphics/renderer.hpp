@@ -65,14 +65,14 @@ namespace scener::graphics
         /// Starts the drawing of a frame. This method is followed by calls to draw and end_draw.
         virtual bool begin_draw() noexcept;
 
-        /// Called after all components are initialized but before the first update in the render loop.
-        virtual void begin_run() noexcept;
-
         /// Called when the renderer determines it is time to draw a frame.
         virtual void draw(const steptime& time) noexcept;
 
         /// Ends the drawing of a frame. This method is preceeded by calls to draw and begin_draw.
         virtual void end_draw() noexcept;
+
+        /// Called after all components are initialized but before the first update in the render loop.
+        virtual void begin_run() noexcept;
 
         /// Called after the renderer loop has stopped running before exiting.
         virtual void end_run() noexcept;

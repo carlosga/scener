@@ -67,8 +67,15 @@ namespace scener::graphics
                       , const graphics::presentation_parameters& presentation_params) noexcept;
 
     public:
-        /// Clears the resouce buffer
-        void clear(const math::color& color) const noexcept;
+        /// Starts the drawing of a frame
+        bool begin_draw() noexcept;
+
+        /// Called by the renderer at the end of drawing; presents the final rendering.
+        void end_draw() noexcept;
+
+        /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
+        /// graphics_device.
+        void present() noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         /// \param primitive_type   the primitive type.
@@ -97,10 +104,6 @@ namespace scener::graphics
         ///                        determined by the primitive type. If it is a line list, each primitive has two
         ///                        vertices. If it is a triangle list, each primitive has three vertices.
         void draw_primitives(primitive_type primitive_type, std::size_t start_vertex, std::size_t primitive_count) const noexcept;
-
-        /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
-        /// GraphicsDevice.
-        void present() noexcept;
 
         /// Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
         /// The default value is BlendState.Opaque.
