@@ -28,15 +28,10 @@ namespace scener::graphics::vulkan
         /// \param buffer the vulkan buffer.
         buffer(buffer_usage      usage
              , std::size_t       size
-             , const vk::Buffer& staging_buffer
-             , const std::any&   staging_buffer_allocation
              , const vk::Buffer& memory_buffer
              , const std::any&   memory_buffer_allocation) noexcept;
 
     public:
-        const vk::Buffer& staging_buffer() const noexcept;
-        const std::any& staging_buffer_allocation() const noexcept;
-
         const vk::Buffer& memory_buffer() const noexcept;
         const std::any& memory_buffer_allocation() const noexcept;
 
@@ -63,8 +58,6 @@ namespace scener::graphics::vulkan
     private:
         buffer_usage _usage;
         std::size_t  _size;
-        vk::Buffer   _staging_buffer;
-        std::any     _staging_buffer_allocation;
         vk::Buffer   _memory_buffer;
         std::any     _memory_buffer_allocation;
     };

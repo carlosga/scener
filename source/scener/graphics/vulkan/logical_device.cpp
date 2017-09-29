@@ -11,6 +11,9 @@
 #include <vk_mem_alloc.h>
 
 #include "scener/graphics/fill_mode.hpp"
+#include "scener/graphics/graphics_pipeline.hpp"
+#include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
@@ -42,13 +45,16 @@ namespace scener::graphics::vulkan
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
         , _command_pool                { }
+        , _single_time_command_pool    { }
         , _swap_chain                  { }
         , _render_pass                 { }
         , _swap_chain_images           { surface_capabilities.minImageCount }
         , _swap_chain_image_views      { surface_capabilities.minImageCount }
         , _frame_buffers               { surface_capabilities.minImageCount }
         , _command_buffers             { surface_capabilities.minImageCount }
+        , _single_time_command_buffer  { }
         , _fences                      { surface_capabilities.minImageCount }
+        , _single_time_command_fence   { }
         , _image_acquired_semaphores   { surface_capabilities.minImageCount }
         , _draw_complete_semaphores    { surface_capabilities.minImageCount }
         , _image_ownership_semaphores  { surface_capabilities.minImageCount }
@@ -58,7 +64,7 @@ namespace scener::graphics::vulkan
     {
         create_allocator(physical_device, logical_device);
         get_device_queues();
-        create_command_pool();
+        create_command_pools();
         create_command_buffers();
         create_sync_primitives();
     }
@@ -72,7 +78,7 @@ namespace scener::graphics::vulkan
         destroy_command_buffers();
 
         // Command pools
-        _logical_device.destroyCommandPool(_command_pool, nullptr);
+        destroy_command_pools();
 
         // Memory allocators
         if (_allocator != nullptr)
@@ -110,14 +116,12 @@ namespace scener::graphics::vulkan
         auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
         auto command_buffer       = _command_buffers[command_buffer_index];
 
-        check_result(_logical_device.waitForFences(_fences[command_buffer_index], VK_TRUE, UINT64_MAX));
-
-        _logical_device.resetFences(_fences[command_buffer_index]);
+        reset_fence(_fences[command_buffer_index]);
 
         auto begin_info = vk::CommandBufferBeginInfo()
             .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
 
-        // Begin main command bufferconst render_surface& surface
+        // Begin main command buffer
         command_buffer.begin(&begin_info);
 
         // Acquire swapchain image
@@ -156,6 +160,43 @@ namespace scener::graphics::vulkan
         command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
 
         return false;
+    }
+
+    void logical_device::bind_graphics_pipeline(const graphics::graphics_pipeline* pipeline) noexcept
+    {
+        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+        auto command_buffer       = _command_buffers[command_buffer_index];
+
+        command_buffer.bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline->_pipeline.get());
+    }
+
+    void logical_device::draw_indexed(graphics::primitive_type       primitive_type
+                                    , std::size_t                    base_vertex
+                                    , std::size_t                    min_vertex_index
+                                    , std::size_t                    num_vertices
+                                    , std::size_t                    start_index
+                                    , std::size_t                    primitive_count
+                                    , const graphics::vertex_buffer* vertex_buffer
+                                    , const graphics::index_buffer*  index_buffer) noexcept
+    {
+        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+        auto command_buffer       = _command_buffers[command_buffer_index];
+        auto index_element_type   = static_cast<vk::IndexType>(index_buffer->index_element_type());
+        auto offset               = start_index * index_buffer->element_size_in_bytes();
+
+        // Vertex buffer binding
+        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer->memory_buffer(), nullptr);
+
+        // Index buffer binding
+        command_buffer.bindIndexBuffer(index_buffer->_buffer->memory_buffer(), 0, index_element_type);
+
+        // Draw call
+        command_buffer.drawIndexed(
+            index_buffer->index_count()
+          , get_element_count(primitive_type, primitive_count)
+          , start_index
+          , offset
+          , base_vertex);
     }
 
     void logical_device::end_draw(const render_surface& surface) noexcept
@@ -207,7 +248,7 @@ namespace scener::graphics::vulkan
     std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(
         const gsl::span<const std::uint8_t>& data) noexcept
     {
-        return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_source
+        return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
                            , data);
     }
@@ -277,27 +318,34 @@ namespace scener::graphics::vulkan
 
         Ensures(result == VK_SUCCESS);
 
+        // Copy buffer contents from the staging buffer to the real buffer
+        begin_single_time_commands();
+
+        auto buffer_copy_region = vk::BufferCopy()
+            .setSrcOffset(0)
+            .setDstOffset(0)
+            .setSize(buffer_create_info.size);
+
+        _single_time_command_buffer.copyBuffer(staging_buffer, memory_buffer, 1, &buffer_copy_region);
+
+        end_single_time_commands();
+
+        // Destroy the staging buffer
+        vmaDestroyBuffer(_allocator, staging_buffer, staging_buffer_allocation);
+
         // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
         auto wrapper = new buffer(
             usage
           , data.size()
-          , staging_buffer
-          , staging_buffer_allocation
           , memory_buffer
           , memory_buffer_allocation);
 
         return std::unique_ptr<buffer, buffer_deleter>(wrapper, { std::any(
             _allocator)
           , [] (const std::any& allocator, const buffer& memory_buffer) -> void {
-                VmaAllocator  memory_allocator  = std::any_cast<VmaAllocator>(allocator);
-
-                // Destroy the real buffer
+                VmaAllocator  memory_allocator = std::any_cast<VmaAllocator>(allocator);
                 auto memory_allocation = std::any_cast<VmaAllocation>(memory_buffer.memory_buffer_allocation());
                 vmaDestroyBuffer(memory_allocator, memory_buffer.memory_buffer(), memory_allocation);
-
-                // Destroy the staging buffer
-                auto staging_allocation = std::any_cast<VmaAllocation>(memory_buffer.staging_buffer_allocation());
-                vmaDestroyBuffer(memory_allocator, memory_buffer.staging_buffer(), staging_allocation);
             }
         });
     }
@@ -429,9 +477,11 @@ namespace scener::graphics::vulkan
 
         for (const auto& shader : shaders)
         {
-            vk::ShaderModule module;
+            auto create_info = vk::ShaderModuleCreateInfo()
+                .setCodeSize(shader->buffer().size())
+                .setPCode(reinterpret_cast<const std::uint32_t*>(shader->buffer().data()));
 
-            _logical_device.createShaderModule(shader->create_info(), nullptr, &module);
+            auto module = _logical_device.createShaderModule(create_info, nullptr);
 
             shader_modules.push_back(module);
 
@@ -679,59 +729,75 @@ namespace scener::graphics::vulkan
         _logical_device.getQueue(_present_queue_family_index, 0, &_present_queue);
     }
 
+    void logical_device::begin_single_time_commands() noexcept
+    {
+        auto begin_info = vk::CommandBufferBeginInfo()
+            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
+
+        reset_fence(_single_time_command_fence);
+
+        auto result = _single_time_command_buffer.begin(&begin_info);
+
+        check_result(result);
+    }
+
+    void logical_device::end_single_time_commands() noexcept
+    {
+        _single_time_command_buffer.end();
+
+        auto submit_info = vk::SubmitInfo()
+            .setCommandBufferCount(1)
+            .setPCommandBuffers(&_single_time_command_buffer);
+
+        auto result = _graphics_queue.submit(1, &submit_info, _single_time_command_fence);
+
+        check_result(result);
+
+        _graphics_queue.waitIdle();
+    }
+
+    void logical_device::reset_fence(const vk::Fence& fence) const noexcept
+    {
+        check_result(_logical_device.waitForFences(fence, VK_TRUE, UINT64_MAX));
+        check_result(_logical_device.resetFences(1, &fence));
+    }
+
     void logical_device::create_sync_primitives() noexcept
     {
-        // Create semaphores to synchronize acquiring presentable buffers before
-        // rendering and waiting for drawing to be complete before presenting
-        const auto semaphoreCreateInfo = vk::SemaphoreCreateInfo();
+        const auto semaphore_create_info = vk::SemaphoreCreateInfo();
+        const auto fence_create_info     = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
 
         _fences.resize(_surface_capabilities.minImageCount);
         _image_acquired_semaphores.resize(_surface_capabilities.minImageCount);
         _draw_complete_semaphores.resize(_surface_capabilities.minImageCount);
         _image_ownership_semaphores.resize(_surface_capabilities.minImageCount);
 
-        // Create fences that we can use to throttle if we get too far
-        // ahead of the image presents
-        const auto fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
+        auto result = _logical_device.createFence(&fence_create_info, nullptr, &_single_time_command_fence);
+        check_result(result);
+
         for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
-            auto result = _logical_device.createFence(&fence_ci, nullptr, &_fences[i]);
+            // Create fences that we can use to throttle if we get too far
+            // ahead of the image presents
+            result = _logical_device.createFence(&fence_create_info, nullptr, &_fences[i]);
             check_result(result);
 
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_acquired_semaphores[i]);
+            // Create semaphores to synchronize acquiring presentable buffers before
+            // rendering and waiting for drawing to be complete before presenting
+            result = _logical_device.createSemaphore(&semaphore_create_info, nullptr, &_image_acquired_semaphores[i]);
             check_result(result);
 
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_draw_complete_semaphores[i]);
+            result = _logical_device.createSemaphore(&semaphore_create_info, nullptr, &_draw_complete_semaphores[i]);
             check_result(result);
 
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_ownership_semaphores[i]);
+            result = _logical_device.createSemaphore(&semaphore_create_info, nullptr, &_image_ownership_semaphores[i]);
             check_result(result);
         }
     }
 
-    void logical_device::destroy_sync_primitives() noexcept
+    void logical_device::create_command_pools() noexcept
     {
-        _logical_device.waitIdle();
-
-        // Wait for fences from present operations
-        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; i++)
-        {
-            _logical_device.waitForFences(1, &_fences[i], VK_TRUE, UINT64_MAX);
-            _logical_device.destroyFence(_fences[i], nullptr);
-            _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
-            _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
-            _logical_device.destroySemaphore(_image_ownership_semaphores[i], nullptr);
-        }
-
-        _fences.clear();
-        _image_acquired_semaphores.clear();
-        _draw_complete_semaphores.clear();
-        _draw_complete_semaphores.clear();
-        _image_ownership_semaphores.clear();
-    }
-
-    void logical_device::create_command_pool() noexcept
-    {
+        // Main command pool
         auto create_info = vk::CommandPoolCreateInfo()
             .setQueueFamilyIndex(_graphics_queue_family_index)
             .setFlags(vk::CommandPoolCreateFlagBits::eResetCommandBuffer);
@@ -739,10 +805,20 @@ namespace scener::graphics::vulkan
         auto result = _logical_device.createCommandPool(&create_info, nullptr, &_command_pool);
 
         check_result(result);
+
+        // Command pool for single time commands
+        auto st_create_info = vk::CommandPoolCreateInfo()
+            .setQueueFamilyIndex(_graphics_queue_family_index)
+            .setFlags(vk::CommandPoolCreateFlagBits::eResetCommandBuffer);
+
+        result = _logical_device.createCommandPool(&st_create_info, nullptr, &_single_time_command_pool);
+
+        check_result(result);
     }
 
     void logical_device::create_command_buffers() noexcept
     {
+        // Main command buffers
         auto allocate_info = vk::CommandBufferAllocateInfo()
             .setCommandPool(_command_pool)
             .setCommandBufferCount(_surface_capabilities.minImageCount)
@@ -751,6 +827,16 @@ namespace scener::graphics::vulkan
         _command_buffers.resize(_surface_capabilities.minImageCount);
 
         auto result = _logical_device.allocateCommandBuffers(&allocate_info, _command_buffers.data());
+
+        check_result(result);
+
+        // Command buffers for single time commands
+        auto st_allocate_info = vk::CommandBufferAllocateInfo()
+            .setCommandPool(_single_time_command_pool)
+            .setCommandBufferCount(1)
+            .setLevel(vk::CommandBufferLevel::ePrimary);
+
+        result = _logical_device.allocateCommandBuffers(&st_allocate_info, &_single_time_command_buffer);
 
         check_result(result);
     }
@@ -914,14 +1000,49 @@ namespace scener::graphics::vulkan
         }
     }
 
+    void logical_device::destroy_sync_primitives() noexcept
+    {
+        _logical_device.waitIdle();
+
+        _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, UINT64_MAX);
+        _logical_device.destroyFence(_single_time_command_fence, nullptr);
+
+        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; i++)
+        {
+            _logical_device.waitForFences(1, &_fences[i], VK_TRUE, UINT64_MAX);
+            _logical_device.destroyFence(_fences[i], nullptr);
+            _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
+            _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
+            _logical_device.destroySemaphore(_image_ownership_semaphores[i], nullptr);
+        }
+
+        _fences.clear();
+        _image_acquired_semaphores.clear();
+        _draw_complete_semaphores.clear();
+        _draw_complete_semaphores.clear();
+        _image_ownership_semaphores.clear();
+    }
+
     void logical_device::destroy_command_buffers() noexcept
     {
+        // Main command buffers
         if (_command_buffers.size() > 0)
         {
             _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
         }
-
         _command_buffers.clear();
+
+        // Single time command buffers
+        _logical_device.freeCommandBuffers(_single_time_command_pool, 1, &_single_time_command_buffer);
+    }
+
+    void logical_device::destroy_command_pools() noexcept
+    {
+        // Main command pool
+        _logical_device.destroyCommandPool(_command_pool, nullptr);
+
+        // Single time commands command pool
+        _logical_device.destroyCommandPool(_single_time_command_pool, nullptr);
     }
 
     void logical_device::destroy_swapchain_views() noexcept

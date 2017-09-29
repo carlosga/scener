@@ -13,6 +13,8 @@
 #include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
 
+namespace scener::graphics::vulkan { class logical_device; }
+
 namespace scener::graphics
 {
     class graphics_device;
@@ -54,7 +56,7 @@ namespace scener::graphics
         graphics::vertex_declaration                            _vertex_declaration;
         std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
 
-        friend class scener::graphics::graphics_device;
+        friend class scener::graphics::vulkan::logical_device;
     };
 }
 

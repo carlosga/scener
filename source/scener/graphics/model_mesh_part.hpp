@@ -9,6 +9,7 @@
 #include <string>
 
 #include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/graphics_pipeline.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
@@ -30,6 +31,9 @@ namespace scener::graphics
         /// Gets the vertex buffer for this mesh part.
         /// \returns the vertex buffer
         graphics::vertex_buffer* vertex_buffer() const noexcept;
+
+        /// Gets the mesh part graphics pipeline
+        graphics::graphics_pipeline* pipeline() const noexcept;
 
         /// Gets the location in the index array at which to start reading vertices.
         /// \returns location in the index array at which to start reading vertices.
@@ -57,13 +61,14 @@ namespace scener::graphics
         std::shared_ptr<effect_technique> effect = { nullptr };
 
     private:
-        std::unique_ptr<graphics::index_buffer>  _index_buffer       = { nullptr };
-        std::unique_ptr<graphics::vertex_buffer> _vertex_buffer      = { nullptr };
-        std::size_t                              _start_index        = { 0 };
-        std::size_t                              _vertex_offset      = { 0 };
-        std::size_t                              _vertex_count       = { 0 };
-        std::size_t                              _primitive_count    = { 0 };
-        graphics::primitive_type                 _primitive_type     = { primitive_type::triangle_list };
+        std::unique_ptr<graphics::index_buffer>      _index_buffer       = { nullptr };
+        std::unique_ptr<graphics::vertex_buffer>     _vertex_buffer      = { nullptr };
+        std::unique_ptr<graphics::graphics_pipeline> _graphics_pipeline  = { nullptr };
+        std::size_t                                  _start_index        = { 0 };
+        std::size_t                                  _vertex_offset      = { 0 };
+        std::size_t                                  _vertex_count       = { 0 };
+        std::size_t                                  _primitive_count    = { 0 };
+        graphics::primitive_type                     _primitive_type     = { primitive_type::triangle_list };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

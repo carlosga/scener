@@ -3,17 +3,16 @@
 
 #include "scener/graphics/vulkan/shader.hpp"
 
+#include <cmath>
+
 namespace scener::graphics::vulkan
 {
     shader::shader(const std::string& name, shader_stage stage, const std::vector<std::uint8_t>& buffer) noexcept
         : _name        { name }
         , _entry_point { "main" }
         , _stage       { stage }
-        , _buffer      { buffer.begin(), buffer.end() }
+        , _buffer      { buffer }
     {
-        _create_info = vk::ShaderModuleCreateInfo()
-            .setCodeSize(buffer.size())
-            .setPCode(_buffer.data());
     }
 
     const std::string& shader::name() const noexcept
@@ -31,8 +30,8 @@ namespace scener::graphics::vulkan
         return _stage;
     }
 
-    vk::ShaderModuleCreateInfo* shader::create_info() noexcept
+    const std::vector<uint8_t>& shader::buffer() const noexcept
     {
-        return &_create_info;
+        return _buffer;
     }
 }

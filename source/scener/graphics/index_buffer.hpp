@@ -11,9 +11,11 @@
 
 #include <gsl/gsl>
 
-#include "scener/graphics/component_type.hpp"
+#include "scener/graphics/index_type.hpp"
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
+
+namespace scener::graphics::vulkan { class logical_device; }
 
 namespace scener::graphics
 {
@@ -28,7 +30,7 @@ namespace scener::graphics
         /// \param index_element_type the type of each index.
         /// \param index_count the number of indices.
         index_buffer(gsl::not_null<graphics_device*> device
-                   , component_type                  index_element_type
+                   , index_type                      index_element_type
                    , std::size_t                     index_count) noexcept;
 
     public:
@@ -38,7 +40,7 @@ namespace scener::graphics
 
         /// Gets the type of each index.
         /// \returns the type of each index.
-        component_type index_element_type() const noexcept;
+        index_type index_element_type() const noexcept;
 
         /// Gets the size (in bytes) of each index.
         /// \returns the size (in bytes) of each index.
@@ -59,11 +61,11 @@ namespace scener::graphics
         void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
-        component_type                                          _index_element_type;
+        index_type                                              _index_element_type;
         std::size_t                                             _index_count;
         std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
 
-        friend class scener::graphics::graphics_device;
+        friend class scener::graphics::vulkan::logical_device;
     };
 }
 

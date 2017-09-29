@@ -13,7 +13,7 @@
 #include <gsl/span>
 
 #include "scener/content/gltf/attribute_type.hpp"
-#include "scener/graphics/component_type.hpp"
+#include "scener/content/gltf/component_type.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
 
@@ -35,7 +35,7 @@ namespace scener::content::gltf
 
         /// Gets the data type of the components referenced by this accessor.
         /// \returns the data type of the components referenced by this accessor.
-        graphics::component_type component_type() const noexcept;
+        gltf::component_type component_type() const noexcept;
 
         /// Gets the offset relative to the buffer-view in bytes.
         /// \returns the offset relative to the buffer-view in bytes.
@@ -126,23 +126,23 @@ namespace scener::content::gltf
         {
             switch (_component_type)
             {
-            case scener::graphics::component_type::byte:
-                return sizeof(std::int8_t);
-
-            case scener::graphics::component_type::int16:
-                return sizeof(std::int16_t);
-
-            case scener::graphics::component_type::single:
-                return sizeof(float);
-
-            case scener::graphics::component_type::ubyte:
-                return sizeof(std::uint8_t);
-
-            case scener::graphics::component_type::uint16:
+            case scener::content::gltf::component_type::uint16:
                 return sizeof(std::uint16_t);
 
+            case scener::content::gltf::component_type::int16:
+                return sizeof(std::int16_t);
+
+            case scener::content::gltf::component_type::single:
+                return sizeof(float);
+
+            case scener::content::gltf::component_type::ubyte:
+                return sizeof(std::uint8_t);
+
+            case scener::content::gltf::component_type::byte:
+                return sizeof(std::int8_t);
+
             default:
-                throw std::runtime_error("Unknown glTF component type.");
+                throw std::runtime_error("Unsupported glTF component type.");
             }
         }
 
@@ -153,7 +153,7 @@ namespace scener::content::gltf
         std::size_t                  _byte_offset;
         std::size_t                  _byte_length;
         std::size_t                  _byte_stride;
-        graphics::component_type     _component_type;
+        gltf::component_type     _component_type;
         std::vector<float>           _max;
         std::vector<float>           _min;
         std::string                  _name;

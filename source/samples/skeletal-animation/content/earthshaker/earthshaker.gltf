@@ -6102,11 +6102,11 @@
     "shaders": {
         "earthshaker0FS": {
             "type": 35632,
-            "uri": "earthshaker0FS.frag"
+            "uri": "earthshaker0FS.frag.spv"
         },
         "earthshaker0VS": {
             "type": 35633,
-            "uri": "earthshaker0VS.vert"
+            "uri": "earthshaker0VS.vert.spv"
         }
     },
     "skins": {

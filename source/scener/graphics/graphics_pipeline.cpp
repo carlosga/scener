@@ -9,37 +9,7 @@ namespace scener::graphics
 {
     graphics_pipeline::graphics_pipeline(gsl::not_null<graphics_device*> device) noexcept
         : _device              { device }
-        , _blend_state         { }
-        , _depth_stencil_state { }
-        , _rasterizer_state    { }
-        , _effect_technique    { device }
     {
     }
 
-    void graphics_pipeline::set_blend_state(const blend_state& state) noexcept
-    {
-        _blend_state = state;
-    }
-    void graphics_pipeline::set_depth_stencil_state(const depth_stencil_state& state) noexcept
-    {
-        _depth_stencil_state = state;
-    }
-    void graphics_pipeline::set_rasterizer_state(const rasterizer_state& state) noexcept
-    {
-        _rasterizer_state = state;
-    }
-    void graphics_pipeline::set_effect_technique(const effect_technique& technique) noexcept
-    {
-        _effect_technique = technique;
-    }
-
-    void graphics_pipeline::create() noexcept
-    {
-        _pipeline = _device->create_graphics_pipeline(
-            _blend_state
-          , _depth_stencil_state
-          , _rasterizer_state
-          , _effect_technique);
-    }
 }
-

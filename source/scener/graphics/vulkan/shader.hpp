@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-#include <vulkan/vulkan.hpp>
-
 #include "scener/graphics/vulkan/shader_stage.hpp"
 
 namespace scener::graphics::vulkan
@@ -41,15 +39,11 @@ namespace scener::graphics::vulkan
         /// \returns the shader contents
         const std::vector<std::uint8_t>& buffer() const noexcept;
 
-
-        vk::ShaderModuleCreateInfo* create_info() noexcept;
-
     private:
-        std::string                _name;
-        std::string                _entry_point;
-        shader_stage               _stage;
-        std::vector<std::uint32_t> _buffer;
-        vk::ShaderModuleCreateInfo _create_info;
+        std::string               _name;
+        std::string               _entry_point;
+        shader_stage              _stage;
+        std::vector<std::uint8_t> _buffer;
     };
 }
 

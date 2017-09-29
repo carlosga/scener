@@ -8,7 +8,7 @@
 namespace scener::graphics
 {
     index_buffer::index_buffer(gsl::not_null<graphics_device*> device
-                             , component_type                  index_element_type
+                             , index_type                      index_element_type
                              , std::size_t                     index_count) noexcept
         : graphics_resource   { device }
         , _index_element_type { index_element_type }
@@ -22,7 +22,7 @@ namespace scener::graphics
         return _index_count;
     }
 
-    component_type index_buffer::index_element_type() const noexcept
+    index_type index_buffer::index_element_type() const noexcept
     {
         return _index_element_type;
     }
@@ -31,16 +31,10 @@ namespace scener::graphics
     {
         switch (_index_element_type)
         {
-        case component_type::byte:
-        case component_type::ubyte:
-            return sizeof(std::uint8_t);
-        case component_type::int16:
-        case component_type::uint16:
+        case index_type::uint16:
             return sizeof(std::uint16_t);
-        case component_type::single:
-            return sizeof(float);
-        default:
-            throw std::runtime_error("Unknown component type.");
+        case index_type::uint32:
+            return sizeof(std::uint32_t);
         }
     }
 

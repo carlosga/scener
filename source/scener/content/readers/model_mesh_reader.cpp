@@ -9,8 +9,10 @@
 #include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/index_type.hpp"
 #include "scener/graphics/model_mesh.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/service_container.hpp"
@@ -46,25 +48,36 @@ namespace scener::content::readers
 
     std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& value) const noexcept
     {
-        auto instance       = std::make_shared<model_mesh_part>();
-        auto gdservice      = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto device         = gdservice->device();
-        auto accessors      = std::vector<std::shared_ptr<gltf::accessor>>();
-        auto elements       = std::vector<vertex_element>();
-        auto vertex_stride  = std::size_t { 0 };
-        auto vertex_count   = std::size_t { 0 };
-        auto indices        = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
-        auto component_type = indices->component_type();
-        auto index_count    = indices->attribute_count();
+        auto instance           = std::make_shared<model_mesh_part>();
+        auto gdservice          = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+        auto device             = gdservice->device();
+        auto accessors          = std::vector<std::shared_ptr<gltf::accessor>>();
+        auto elements           = std::vector<vertex_element>();
+        auto vertex_stride      = std::size_t { 0 };
+        auto vertex_count       = std::size_t { 0 };
+        auto indices            = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
+        auto index_count        = indices->attribute_count();
+        auto index_element_type = index_type::uint16;
+
+        // Index type
+        switch (indices->component_type())
+        {
+        case component_type::uint16:
+            index_element_type = index_type::uint16;
+            break;
+        default:
+            throw std::runtime_error("Unsupported index element type.");
+        }
 
         // Index buffer
-        instance->_index_buffer = std::make_unique<index_buffer>(device, component_type, index_count);
+        instance->_index_buffer = std::make_unique<index_buffer>(device, index_element_type, index_count);
         instance->_index_buffer->set_data(indices->get_data());
 
         // Vertex buffer
         accessors.reserve(value[k_attributes].size());
         elements.reserve(value[k_attributes].size());
 
+        // Vertex declaration
         for (auto it = value[k_attributes].begin(); it != value[k_attributes].end(); ++it)
         {
             const auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
@@ -135,6 +148,14 @@ namespace scener::content::readers
         {
             instance->effect = read_material(input, materialref);
         }
+
+        // Setup the graphics pipeline
+        instance->_graphics_pipeline            = std::make_unique<graphics_pipeline>(device);
+        instance->_graphics_pipeline->_pipeline = device->create_graphics_pipeline(
+            device->blend_state()
+          , device->depth_stencil_state()
+          , device->rasterizer_state()
+          , instance->effect.get());
 
         return instance;
     }

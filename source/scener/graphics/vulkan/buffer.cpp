@@ -7,27 +7,13 @@ namespace scener::graphics::vulkan
 {
     buffer::buffer(buffer_usage      usage
                  , std::size_t       size
-                 , const vk::Buffer& staging_buffer
-                 , const std::any&   staging_buffer_allocation
                  , const vk::Buffer& memory_buffer
                  , const std::any&   memory_buffer_allocation) noexcept
         : _usage                     { usage }
         , _size                      { size }
-        , _staging_buffer            { staging_buffer }
-        , _staging_buffer_allocation { staging_buffer_allocation }
         , _memory_buffer             { memory_buffer }
         , _memory_buffer_allocation  { memory_buffer_allocation }
     {
-    }
-
-    const vk::Buffer& buffer::staging_buffer() const noexcept
-    {
-        return _staging_buffer;
-    }
-
-    const std::any& buffer::staging_buffer_allocation() const noexcept
-    {
-        return _staging_buffer_allocation;
     }
 
     const vk::Buffer& buffer::memory_buffer() const noexcept

@@ -15,6 +15,11 @@ namespace scener::graphics
         return _vertex_buffer.get();
     }
 
+    graphics::graphics_pipeline* model_mesh_part::pipeline() const noexcept
+    {
+        return _graphics_pipeline.get();
+    }
+
     std::size_t model_mesh_part::start_index() const noexcept
     {
         return _start_index;

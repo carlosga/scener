@@ -8,7 +8,7 @@
 namespace scener::content::gltf
 {
     using scener::content::gltf::attribute_type;
-    using scener::graphics::component_type;
+    using scener::content::gltf::component_type;
 
     accessor::accessor() noexcept
         : _attribute_type  { attribute_type::scalar }

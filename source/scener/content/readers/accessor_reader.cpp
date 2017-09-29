@@ -10,8 +10,6 @@
 namespace scener::content::readers
 {
     using nlohmann::json;
-    using scener::graphics::component_type;   
-
     using namespace scener::content::gltf;
 
     auto content_type_reader<accessor>::read(content_reader* input, const std::string& key, const json& value) const noexcept

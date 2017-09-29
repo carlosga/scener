@@ -60,44 +60,30 @@ namespace scener::graphics
         _logical_device->present(*_render_surface);
     }
 
-    void graphics_device::draw_indexed_primitives(primitive_type primitive_type
-                                                , std::size_t    base_vertex
-                                                , std::size_t    min_vertex_index
-                                                , std::size_t    num_vertices
-                                                , std::size_t    start_index
-                                                , std::size_t    primitive_count) const noexcept
+    void graphics_device::draw_indexed_primitives(primitive_type     primitive_type
+                                                , std::size_t        base_vertex
+                                                , std::size_t        min_vertex_index
+                                                , std::size_t        num_vertices
+                                                , std::size_t        start_index
+                                                , std::size_t        primitive_count
+                                                , vertex_buffer*     vertex_buffer
+                                                , index_buffer*      index_buffer
+                                                , graphics_pipeline* pipeline) const noexcept
     {
-        // Expects(index_buffer  != nullptr);
-        // Expects(vertex_buffer != nullptr)
-        // Expects(effect        != nullptr)
+        Expects(index_buffer  != nullptr);
+        Expects(vertex_buffer != nullptr);
+        Expects(pipeline      != nullptr);
 
-//        auto offset = start_index * index_buffer->element_size_in_bytes();
-
-//        effect->begin();
-
-//        glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
-//                               , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
-//                               , static_cast<GLenum>(index_buffer->index_element_type())
-//                               , reinterpret_cast<void*>(offset)
-//                               , static_cast<GLint>(base_vertex));
-
-//        effect->end();
-    }
-
-    void graphics_device::draw_primitives(primitive_type primitive_type
-                                        , std::size_t    start_vertex
-                                        , std::size_t    primitive_count) const noexcept
-    {
-//        Expects(vertex_buffer != nullptr);
-//        Expects(effect        != nullptr);
-
-//        effect->begin();
-
-//        glDrawArrays(static_cast<GLenum>(primitive_type)
-//                   , static_cast<GLint>(start_vertex)
-//                   , static_cast<GLsizei>(primitive_count));
-
-//        effect->end();
+        _logical_device->bind_graphics_pipeline(pipeline);
+        _logical_device->draw_indexed(
+              primitive_type
+            , base_vertex
+            , min_vertex_index
+            , num_vertices
+            , start_index
+            , primitive_count
+            , vertex_buffer
+            , index_buffer);
     }
 
     blend_state& graphics_device::blend_state() noexcept
@@ -134,11 +120,13 @@ namespace scener::graphics
         const graphics::blend_state&         blend_state_
       , const graphics::depth_stencil_state& depth_stencil_state_
       , const graphics::rasterizer_state&    rasterizer_state_
-      , const graphics::effect_technique&    effect_technique_) noexcept
+      , const graphics::effect_technique*    effect_technique_) noexcept
     {
+        Expects(effect_technique_ != nullptr);
+
         std::vector<std::shared_ptr<vulkan::shader>> shaders;
 
-        for (auto pass : effect_technique_.passes())
+        for (auto pass : effect_technique_->passes())
         {
             for (auto shader : pass->shaders())
             {
