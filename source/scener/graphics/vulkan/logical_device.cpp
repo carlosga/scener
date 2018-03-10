@@ -278,6 +278,7 @@ namespace scener::graphics::vulkan
         VmaAllocationCreateInfo allocation_create_info = { };
 
         allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+        allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
 
         vk::Buffer        staging_buffer            = { };
         VmaAllocation     staging_buffer_allocation = VK_NULL_HANDLE;
