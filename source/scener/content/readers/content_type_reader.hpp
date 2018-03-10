@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 namespace scener::content { class content_reader; }
 

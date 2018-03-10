@@ -14,7 +14,6 @@
 #include "scener/graphics/graphics_pipeline.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
-#include "scener/graphics/vulkan/image.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
@@ -41,7 +40,6 @@ namespace scener::graphics::vulkan
         , _present_queue               { }
         , _surface_capabilities        { surface_capabilities }
         , _surface_format              { surface_format }
-        , _depth_format                { depth_format }
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
         , _command_pool                { }
@@ -61,6 +59,8 @@ namespace scener::graphics::vulkan
         , _clear_color                 { basic_color<float>::black() }
         , _next_command_buffer_index   { 0 }
         , _acquired_image_index        { 0 }
+        , _depth_format                { depth_format }
+        , _depth_buffer                { nullptr }
     {
         create_allocator(physical_device, logical_device);
         get_device_queues();
@@ -245,26 +245,24 @@ namespace scener::graphics::vulkan
 //        }
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_vertex_buffer(
-        const gsl::span<const std::uint8_t>& data) noexcept
+    std::unique_ptr<buffer, buffer_deleter>
+    logical_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
                            , data);
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_index_buffer(
-        const gsl::span<const std::uint8_t>& data) noexcept
+    std::unique_ptr<buffer, buffer_deleter>
+    logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::index_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
                            , data);
     }
 
-    std::unique_ptr<buffer, buffer_deleter> logical_device::create_buffer(
-        buffer_usage                         usage
-      , vk::SharingMode                      sharing_mode
-      , const gsl::span<const std::uint8_t>& data) noexcept
+    std::unique_ptr<buffer, buffer_deleter>
+    logical_device::create_buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data) noexcept
     {
         VkBufferCreateInfo buffer_create_info = {
             VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO        // VkStructureType
@@ -277,14 +275,9 @@ namespace scener::graphics::vulkan
           , nullptr                                     // pQueueFamilyIndices
         };
 
-        VmaAllocationCreateInfo allocation_create_info = {
-            VMA_ALLOCATION_CREATE_PERSISTENT_MAP_BIT    // VmaAllocationCreateFlagBits
-          , VMA_MEMORY_USAGE_CPU_ONLY                   // VmaMemoryUsage
-          , 0                                           // VkMemoryPropertyFlags
-          , 0                                           // VkMemoryPropertyFlags
-          , nullptr                                     // pUserData
-          , VK_NULL_HANDLE                              // Memory Pool
-        };
+        VmaAllocationCreateInfo allocation_create_info = { };
+
+        allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
 
         vk::Buffer        staging_buffer            = { };
         VmaAllocation     staging_buffer_allocation = VK_NULL_HANDLE;
@@ -340,8 +333,8 @@ namespace scener::graphics::vulkan
           , memory_buffer
           , memory_buffer_allocation);
 
-        return std::unique_ptr<buffer, buffer_deleter>(wrapper, { std::any(
-            _allocator)
+        return std::unique_ptr<buffer, buffer_deleter>(wrapper, {
+            std::any(_allocator)
           , [] (const std::any& allocator, const buffer& memory_buffer) -> void {
                 VmaAllocator  memory_allocator = std::any_cast<VmaAllocator>(allocator);
                 auto memory_allocation = std::any_cast<VmaAllocation>(memory_buffer.memory_buffer_allocation());
@@ -451,6 +444,9 @@ namespace scener::graphics::vulkan
 
         // Render pass
         create_render_pass();
+
+        // Depth buffer
+        create_depth_buffer(extent);
 
         // Frame buffers
         create_frame_buffers(extent);
@@ -576,7 +572,8 @@ namespace scener::graphics::vulkan
         return pipeline;
     }
 
-    image logical_device::create_image(const image_options& options) const noexcept
+    std::unique_ptr<image_storage, image_deleter>
+    logical_device::create_image(const image_options& options) const noexcept
     {
         // Images will always be sampled
         auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
@@ -593,6 +590,7 @@ namespace scener::graphics::vulkan
                    || options.target == texture_target::texture_cube_map_array);
 
         auto image_create_info = vk::ImageCreateInfo()
+            .setFormat(depth_image ? _depth_format : _surface_format.format)
             .setImageType(vk::ImageType::e2D)
             .setExtent(options.extent)
             .setMipLevels(options.mip_levels)
@@ -617,17 +615,12 @@ namespace scener::graphics::vulkan
         image_create_info.setSharingMode(vk::SharingMode::eExclusive);
 
         // Create the image
-        VmaAllocationCreateInfo allocation_create_info = {
-            VMA_ALLOCATION_CREATE_OWN_MEMORY_BIT
-          , VMA_MEMORY_USAGE_CPU_ONLY
-          , 0
-          , 0
-          , nullptr
-          , nullptr
-        };
+        VmaAllocationCreateInfo allocation_create_info = { };
 
-        vk::Image     image      { };
-        VmaAllocation allocation { };
+        allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+
+        vk::Image     image            { };
+        VmaAllocation image_allocation { };
 
         // TODO: Image destroy
         auto create_image_result = vmaCreateImage(
@@ -635,7 +628,7 @@ namespace scener::graphics::vulkan
           , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
           , &allocation_create_info
           , reinterpret_cast<VkImage*>(&image)
-          , &allocation
+          , &image_allocation
           , nullptr);
 
         Ensures(create_image_result == VK_SUCCESS);
@@ -671,7 +664,17 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        return { std::move(image), std::move(image_view) };
+        // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
+        auto wrapper = new image_storage(image, image_view, image_allocation);
+
+        return std::unique_ptr<image_storage, image_deleter>(wrapper, {
+            std::any(_allocator)
+          , [] (const std::any& allocator, const image_storage& image) -> void {
+                VmaAllocator  memory_allocator = std::any_cast<VmaAllocator>(allocator);
+                auto memory_allocation = std::any_cast<VmaAllocation>(image.image_allocation());
+                vmaDestroyImage(memory_allocator, image.image(), memory_allocation);
+            }
+        });
     }
 
     vk::Sampler logical_device::create_sampler(const gsl::not_null<sampler_state*> state) const noexcept
@@ -843,7 +846,7 @@ namespace scener::graphics::vulkan
 
     void logical_device::create_render_pass() noexcept
     {
-        std::vector<vk::AttachmentDescription> attachments(2);
+        std::vector<vk::AttachmentDescription> attachments;
 
         // For the color attachment, we'll simply be using the swapchain images.
         auto color_attachment = vk::AttachmentDescription()
@@ -898,6 +901,18 @@ namespace scener::graphics::vulkan
         auto result = _logical_device.createRenderPass(&render_pass_create_info, NULL, &_render_pass);
 
         check_result(result);
+    }
+
+    void logical_device::create_depth_buffer(vk::Extent2D extent) noexcept
+    {
+        image_options options;
+
+        options.usage      = vk::ImageUsageFlagBits::eDepthStencilAttachment;
+        options.extent     = vk::Extent3D(extent.width, extent.height, 1);
+        options.mip_levels = 1;
+
+        auto depth_image = create_image(options);
+
     }
 
     void logical_device::create_frame_buffers(vk::Extent2D extent) noexcept

@@ -35,6 +35,8 @@ namespace scener::graphics
             return sizeof(std::uint16_t);
         case index_type::uint32:
             return sizeof(std::uint32_t);
+        default:
+            throw std::runtime_error("Unknown index element type.");
         }
     }
 

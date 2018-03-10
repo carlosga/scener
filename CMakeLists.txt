@@ -16,7 +16,7 @@ set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 set (GSL_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/gsl/include)
 
 # json for modern C++
-set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
+set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/single_include)
 
 # nod/signals & slots (https://github.com/fr00b0/nod)
 set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
@@ -33,7 +33,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 # compiler flags
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++17")
 
 # common ompile options
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")

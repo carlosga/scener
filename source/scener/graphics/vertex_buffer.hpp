@@ -12,6 +12,7 @@
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
+#include "scener/graphics/vulkan/resource_deleter.hpp"
 
 namespace scener::graphics::vulkan { class logical_device; }
 

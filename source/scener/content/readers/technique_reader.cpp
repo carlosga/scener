@@ -267,7 +267,7 @@ namespace scener::content::readers
             }
             else
             {
-                std::cout << "unknown semantic " << parameter.second->_semantic << std::endl;
+                throw std::runtime_error("Unknown semantic.");
             }
         }
     }

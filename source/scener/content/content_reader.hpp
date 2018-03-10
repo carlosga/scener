@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 #include "scener/content/readers/content_type_reader.hpp"
 #include "scener/content/gltf/node.hpp"

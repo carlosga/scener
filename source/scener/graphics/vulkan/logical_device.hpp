@@ -16,8 +16,7 @@
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
-#include "scener/graphics/vulkan/buffer.hpp"
-#include "scener/graphics/vulkan/image.hpp"
+#include "scener/graphics/vulkan/resource_deleter.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
 #include "scener/math/basic_size.hpp"
@@ -112,8 +111,12 @@ namespace scener::graphics::vulkan
         void present([[maybe_unused]] const render_surface& surface) noexcept;
 
     public:
-        std::unique_ptr<buffer, buffer_deleter> create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
-        std::unique_ptr<buffer, buffer_deleter> create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+        std::unique_ptr<buffer, buffer_deleter>
+        create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+
+        std::unique_ptr<buffer, buffer_deleter>
+        create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+
         std::unique_ptr<buffer, buffer_deleter>
         create_buffer(
               buffer_usage                         usage
@@ -131,7 +134,9 @@ namespace scener::graphics::vulkan
             , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept;
 
     public:
-        image create_image(const image_options& options) const noexcept;
+        std::unique_ptr<image_storage, image_deleter>
+        create_image(const image_options& options) const noexcept;
+
         vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
 
     private:
@@ -144,6 +149,7 @@ namespace scener::graphics::vulkan
         void create_command_pools() noexcept;
         void create_command_buffers() noexcept;
         void create_render_pass() noexcept;
+        void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
         void record_command_buffers() const noexcept;
         void destroy_sync_primitives() noexcept;
@@ -169,7 +175,6 @@ namespace scener::graphics::vulkan
         vk::Queue                        _present_queue;
         vk::SurfaceCapabilitiesKHR       _surface_capabilities;
         vk::SurfaceFormatKHR             _surface_format;
-        vk::Format                       _depth_format;
         vk::PresentModeKHR               _present_mode;
         vk::FormatProperties             _format_properties;
         vk::CommandPool                  _command_pool;
@@ -189,6 +194,9 @@ namespace scener::graphics::vulkan
         scener::math::basic_color<float> _clear_color;
         std::uint64_t                    _next_command_buffer_index;
         std::uint32_t                    _acquired_image_index;
+
+        vk::Format                                    _depth_format;
+        std::unique_ptr<image_storage, image_deleter> _depth_buffer;
     };
 }
 
