@@ -33,13 +33,24 @@ git clone --recursive https://gitlab.com/carlosga/scener.git
 sudo apt-get install cmake xorg-dev libgl1-mesa-dev
 ```
 
-3. Configure the build (DEBUG)
+3. Configure the build 
+
+3.1 (GCC - DEBUG)
 
 ```
 cd scener
-mkdir build\debug
-cd build\debug
-cmake ..\.. -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+```
+
+3.2 (CLANG - DEBUG)
+
+```
+cd scener
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
 ```
 
 4. Build 

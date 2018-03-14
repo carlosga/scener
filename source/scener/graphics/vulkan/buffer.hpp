@@ -48,6 +48,11 @@ namespace scener::graphics::vulkan
             return _memory_buffer_allocation;
         }
 
+        std::size_t size() const noexcept
+        {
+            return _size;
+        }
+
         /// Gets the buffer usage.
         buffer_usage usage() const noexcept
         {

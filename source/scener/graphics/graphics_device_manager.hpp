@@ -61,7 +61,7 @@ namespace scener::graphics
         /// Raised when the graphics_device_manager is changing the graphics_device settings
         /// (during reset or recreation of the GraphicsDevice).
         nod::connection prepare_device_settings(
-            std::function<void(graphics_device_information*)>&& slot) noexcept;
+            std::function<void(graphics_device_information*)>&& slot) noexcept override;
 
     private:
         std::unique_ptr<graphics_device> _graphics_device;

@@ -29,7 +29,7 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    render_surface::~render_surface()
+    render_surface::~render_surface() noexcept
     {
         if (_adapter != nullptr)
         {

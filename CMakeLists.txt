@@ -37,7 +37,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++17")
 
 # common ompile options
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-terminate -Wno-unused-parameter")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter")
     # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"
 endif ()
 
@@ -54,7 +54,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
 
     if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnull-dereference -Wduplicated-cond -Wduplicated-branches -Wlogical-op")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-terminate -Wnull-dereference -Wduplicated-cond -Wduplicated-branches -Wlogical-op")
     endif()
 
 else ()
