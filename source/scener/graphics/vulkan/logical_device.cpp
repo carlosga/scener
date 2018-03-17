@@ -570,8 +570,9 @@ namespace scener::graphics::vulkan
     logical_device::create_image(const image_options& options) const noexcept
     {
         // Images will always be sampled
-        auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
+        const auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
         auto usage_flags = options.usage | vk::ImageUsageFlagBits::eSampled;
+
         if (!depth_image)
         {
             // For everything else we mark it as a transfer destination.
@@ -580,8 +581,8 @@ namespace scener::graphics::vulkan
         }
 
         // Create Image
-        auto cubic = (options.target == texture_target::texture_cube_map
-                   || options.target == texture_target::texture_cube_map_array);
+        const auto cubic = (options.target == texture_target::texture_cube_map
+                         || options.target == texture_target::texture_cube_map_array);
 
         auto image_create_info = vk::ImageCreateInfo()
             .setFormat(depth_image ? _depth_format : _surface_format.format)
@@ -628,18 +629,18 @@ namespace scener::graphics::vulkan
         Ensures(create_image_result == VK_SUCCESS);
 
         // Create Image View
-        // As mentioned in Part 3 ( again in the swapchain function ) views are how you interface with a given image.
-        // You can think of the VkImage as the actual data and VkImageView as your view into the image.
 
         vk::ImageView image_view;
 
+        const auto subresource_mask = depth_image ? vk::ImageAspectFlagBits::eDepth | vk::ImageAspectFlagBits::eStencil : vk::ImageAspectFlagBits::eColor;
+        const auto view_type = cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D;
+
         auto subresource_range = vk::ImageSubresourceRange()
-            .setAspectMask(depth_image ? vk::ImageAspectFlagBits::eDepth | vk::ImageAspectFlagBits::eStencil : vk::ImageAspectFlagBits::eColor)
+            .setAspectMask(subresource_mask)
             .setBaseMipLevel(0)
             .setLevelCount(options.mip_levels)
             .setBaseArrayLayer(0)
-            .setLayerCount(cubic ? 6 : 1)
-            .setBaseMipLevel(0);
+            .setLayerCount(cubic ? 6 : 1);
 
         auto component_mapping = vk::ComponentMapping()
             .setR(vk::ComponentSwizzle::eR)
@@ -649,8 +650,8 @@ namespace scener::graphics::vulkan
 
         auto view_create_info = vk::ImageViewCreateInfo()
             .setImage(image)
-            .setViewType(cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D)
-            .setFormat(_surface_format.format)
+            .setViewType(view_type)
+            .setFormat(depth_image ? _depth_format : _surface_format.format)
             .setComponents(component_mapping)
             .setSubresourceRange(subresource_range);
 
@@ -905,7 +906,6 @@ namespace scener::graphics::vulkan
         options.mip_levels = 1;
 
         auto depth_image = create_image(options);
-
     }
 
     void logical_device::create_frame_buffers(vk::Extent2D extent) noexcept
