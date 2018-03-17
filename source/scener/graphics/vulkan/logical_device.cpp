@@ -905,7 +905,7 @@ namespace scener::graphics::vulkan
         options.extent     = vk::Extent3D(extent.width, extent.height, 1);
         options.mip_levels = 1;
 
-        auto depth_image = create_image(options);
+        _depth_buffer = create_image(options);
     }
 
     void logical_device::create_frame_buffers(vk::Extent2D extent) noexcept
@@ -914,14 +914,21 @@ namespace scener::graphics::vulkan
 
         _frame_buffers.reserve(_swap_chain_image_views.size());
 
+        std::vector<vk::ImageView> attachments;
+
+        attachments.reserve(2);
+
         std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void
         {
+            attachments[0] = view;
+            attachments[1] = _depth_buffer->image_view();
+
             auto create_info = vk::FramebufferCreateInfo()
                 .setRenderPass(_render_pass)
                 .setWidth(extent.width)
                 .setHeight(extent.height)
-                .setAttachmentCount(1)
-                .setPAttachments(&view)
+                .setAttachmentCount(2)
+                .setPAttachments(attachments.data())
                 .setLayers(1);
 
             vk::Framebuffer buffer;
@@ -929,6 +936,8 @@ namespace scener::graphics::vulkan
             auto result = _logical_device.createFramebuffer(&create_info, nullptr, &buffer);
 
             check_result(result);
+
+            _frame_buffers.push_back(buffer);
         });
     }
 
