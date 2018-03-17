@@ -48,29 +48,17 @@ namespace scener::content::readers
 
     std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& value) const noexcept
     {
-        auto instance           = std::make_shared<model_mesh_part>();
-        auto gdservice          = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto device             = gdservice->device();
-        auto accessors          = std::vector<std::shared_ptr<gltf::accessor>>();
-        auto elements           = std::vector<vertex_element>();
-        auto vertex_stride      = std::size_t { 0 };
-        auto vertex_count       = std::size_t { 0 };
-        auto indices            = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
-        auto index_count        = indices->attribute_count();
-        auto index_element_type = index_type::uint16;
-
-        // Index type
-        switch (indices->component_type())
-        {
-        case component_type::uint16:
-            index_element_type = index_type::uint16;
-            break;
-        default:
-            throw std::runtime_error("Unsupported index element type.");
-        }
+        auto instance      = std::make_shared<model_mesh_part>();
+        auto gdservice     = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+        auto device        = gdservice->device();
+        auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
+        auto elements      = std::vector<vertex_element>();
+        auto vertex_stride = std::size_t { 0 };
+        auto vertex_count  = std::size_t { 0 };
+        auto indices       = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
 
         // Index buffer
-        instance->_index_buffer = std::make_unique<index_buffer>(device, index_element_type, index_count);
+        instance->_index_buffer = std::make_unique<index_buffer>(device, indices->attribute_count());
         instance->_index_buffer->set_data(indices->get_data());
 
         // Vertex buffer

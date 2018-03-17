@@ -7,6 +7,11 @@
 
 namespace scener::graphics
 {
+    index_buffer::index_buffer(gsl::not_null<graphics_device*> device, std::size_t index_count) noexcept
+        : index_buffer(device, index_type::uint16, index_count)
+    {
+    }
+
     index_buffer::index_buffer(gsl::not_null<graphics_device*> device
                              , index_type                      index_element_type
                              , std::size_t                     index_count) noexcept

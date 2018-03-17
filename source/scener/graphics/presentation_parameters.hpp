@@ -25,10 +25,10 @@ namespace scener::graphics
         bool full_screen;
 
         /// Gets or sets the height of a swap chain's back buffers, in pixels.
-        std::size_t back_buffer_height;
+        std::uint32_t back_buffer_height;
 
         /// Gets or sets the width of a swap chain's back buffers, in pixels.
-        std::size_t back_buffer_width;
+        std::uint32_t back_buffer_width;
 
         /// Gets or sets the number of sample locations during multisampling.
         std::uint32_t multi_sample_count;

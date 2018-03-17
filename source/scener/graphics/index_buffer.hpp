@@ -28,6 +28,11 @@ namespace scener::graphics
     public:
         /// Initializes a new instance of the IndexBuffer class.
         /// \param device the graphics device object to associate with the index buffer.
+        /// \param index_count the number of indices.
+        index_buffer(gsl::not_null<graphics_device*> device, std::size_t index_count) noexcept;
+
+        /// Initializes a new instance of the IndexBuffer class.
+        /// \param device the graphics device object to associate with the index buffer.
         /// \param index_element_type the type of each index.
         /// \param index_count the number of indices.
         index_buffer(gsl::not_null<graphics_device*> device

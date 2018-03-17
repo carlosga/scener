@@ -504,8 +504,7 @@ namespace scener::graphics::vulkan
             .setPScissors(&scissor);
 
         // Color blend, depth stencil and rasterier states
-        auto blend_attachment = vk::PipelineColorBlendAttachmentState();
-
+        auto blend_attachment                = vk::PipelineColorBlendAttachmentState();
         auto color_blend_state_create_info   = vk_color_blend_state(color_blend_state, blend_attachment);
         auto depth_stencil_state_create_info = vk_depth_stencil_state(depth_stencil_state);
         auto rasterizer_state_create_info    = vk_rasterizer_state(rasterization_state);

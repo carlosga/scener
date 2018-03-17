@@ -16,8 +16,32 @@ namespace scener::content::readers
 
     auto content_type_reader<shader>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
-        auto stage  = static_cast<shader_stage>(value[k_type].get<std::int32_t>());
+        auto type   = value[k_type].get<std::int32_t>();
         auto buffer = input->read_external_reference(value[k_uri].get<std::string>());
+        auto stage  = shader_stage::all;
+
+        switch (type)
+        {
+        case 0x8B30:       // FRAGMENT
+            stage = shader_stage::fragment;
+            break;
+
+        case 0x8B31:        // VERTEX
+            stage = shader_stage::vertex;
+            break;
+
+        case 0x8E88:        // TESS CONTROL
+            stage = shader_stage::tess_control;
+            break;
+
+        case 0x00000004:    // GEOMETRY
+            stage = shader_stage::geometry;
+            break;
+
+        case 0x00000010:    // TESS EVALUATION
+            stage = shader_stage::tess_evaluation;
+            break;
+        }
 
         return std::make_shared<shader>(key, stage, buffer);
     }

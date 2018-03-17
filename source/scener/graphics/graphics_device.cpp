@@ -18,7 +18,7 @@ namespace scener::graphics
         , _depth_stencil_state     { depth_stencil_state::default_stencil }
         , _rasterizer_state        { rasterizer_state::cull_counter_clockwise }
         , _presentation_parameters { presentation_params }
-        , _viewport                { }
+        , _viewport                { 0, 0, presentation_params.back_buffer_width, presentation_params.back_buffer_height }
         , _graphics_adapter        { adapter }
         , _adapter                 { }
         , _logical_device          { }
