@@ -235,14 +235,7 @@ namespace scener::graphics::vulkan
 
         auto result = _graphics_queue.presentKHR(&present_info);
 
-//        if (result == vk::Result::eErrorOutOfDateKHR)
-//        {
-//            recreate_swap_chain(surface);
-//        }
-//        else
-//        {
-            check_result(result);
-//        }
+        check_result(result);
     }
 
     std::unique_ptr<buffer, buffer_deleter>
@@ -578,7 +571,7 @@ namespace scener::graphics::vulkan
     {
         // Images will always be sampled
         auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        auto usage_flags = options.usage & vk::ImageUsageFlagBits::eSampled;
+        auto usage_flags = options.usage | vk::ImageUsageFlagBits::eSampled;
         if (!depth_image)
         {
             // For everything else we mark it as a transfer destination.
@@ -852,15 +845,12 @@ namespace scener::graphics::vulkan
         // For the color attachment, we'll simply be using the swapchain images.
         auto color_attachment = vk::AttachmentDescription()
             .setFormat(_surface_format.format)
-            // Sample count goes from 1 - 64
             .setSamples(vk::SampleCountFlagBits::e1)
-            // I don't care what you do with the image memory when you load it for use.
             .setLoadOp(vk::AttachmentLoadOp::eDontCare)
-            // Just store the image when you go to store it.
             .setStoreOp(vk::AttachmentStoreOp::eStore)
-            // I don't care what the initial layout of the image is.
+            .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
+            .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
             .setInitialLayout(vk::ImageLayout::eUndefined)
-            // It better be ready to present to the user when we're done with the renderpass.
             .setFinalLayout(vk::ImageLayout::ePresentSrcKHR);
 
         attachments.push_back(color_attachment);
@@ -870,7 +860,9 @@ namespace scener::graphics::vulkan
             .setFormat(_depth_format)
             .setSamples(vk::SampleCountFlagBits::e1)
             .setLoadOp(vk::AttachmentLoadOp::eDontCare)
-            .setStoreOp(vk::AttachmentStoreOp::eDontCare)
+            .setStoreOp(vk::AttachmentStoreOp::eStore)
+            .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
+            .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
             .setInitialLayout(vk::ImageLayout::eUndefined)
             .setFinalLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal);
 
@@ -982,7 +974,7 @@ namespace scener::graphics::vulkan
             command_buffer.pipelineBarrier(
                 vk::PipelineStageFlagBits::eTransfer
               , vk::PipelineStageFlagBits::eTransfer
-              , vk::DependencyFlagBits::eViewLocalKHX
+              , vk::DependencyFlagBits::eViewLocal
               , 0                                       // Memory barriers count
               , nullptr                                 // Memory barriers
               , 0                                       // Memory barriers buffer count
@@ -1003,7 +995,7 @@ namespace scener::graphics::vulkan
             command_buffer.pipelineBarrier(
                 vk::PipelineStageFlagBits::eTransfer
               , vk::PipelineStageFlagBits::eBottomOfPipe
-              , vk::DependencyFlagBits::eViewLocalKHX
+              , vk::DependencyFlagBits::eViewLocal
               , 0                                       // Memory barriers count
               , nullptr                                 // Memory barriers
               , 0                                       // Memory barriers buffer count
