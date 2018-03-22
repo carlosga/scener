@@ -15,9 +15,9 @@ namespace scener::graphics
         return _vertex_buffer.get();
     }
 
-    graphics::graphics_pipeline* model_mesh_part::pipeline() const noexcept
+    graphics::effect_technique* model_mesh_part::effect_technique() const noexcept
     {
-        return _graphics_pipeline.get();
+        return _effect.get();
     }
 
     std::size_t model_mesh_part::start_index() const noexcept

@@ -134,16 +134,8 @@ namespace scener::content::readers
         const auto& materialref = value[k_material].get<std::string>();
         if (!materialref.empty())
         {
-            instance->effect = read_material(input, materialref);
+            instance->_effect = read_material(input, materialref);
         }
-
-        // Setup the graphics pipeline
-        instance->_graphics_pipeline            = std::make_unique<graphics_pipeline>(device);
-        instance->_graphics_pipeline->_pipeline = device->create_graphics_pipeline(
-            device->blend_state()
-          , device->depth_stencil_state()
-          , device->rasterizer_state()
-          , instance->effect.get());
 
         return instance;
     }
@@ -195,13 +187,7 @@ namespace scener::content::readers
                 case effect_parameter_type::string:
                     parameter->set_value<std::string>(pvalue.get<std::string>());
                     break;
-
-                case effect_parameter_type::texture:
-                case effect_parameter_type::texture_1d:
-                case effect_parameter_type::texture_2d:
-                case effect_parameter_type::texture_3d:
-                case effect_parameter_type::texture_cube:
-                case effect_parameter_type::void_pointer:
+                default:
                     throw std::runtime_error("unknown parameter type");
                 }
             }

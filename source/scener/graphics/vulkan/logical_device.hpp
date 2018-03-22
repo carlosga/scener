@@ -91,7 +91,7 @@ namespace scener::graphics::vulkan
         /// Starts the drawing of a frame
         bool begin_draw([[maybe_unused]] const render_surface& surface) noexcept;
 
-        void bind_graphics_pipeline(const graphics::graphics_pipeline* pipeline) noexcept;
+        void bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         void draw_indexed(graphics::primitive_type       primitive_type

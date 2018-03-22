@@ -11,7 +11,6 @@
 #include <vk_mem_alloc.h>
 
 #include "scener/graphics/fill_mode.hpp"
-#include "scener/graphics/graphics_pipeline.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
@@ -133,14 +132,7 @@ namespace scener::graphics::vulkan
           , _fences[command_buffer_index]
           , &_acquired_image_index);
 
-//        if (result == vk::Result::eErrorOutOfDateKHR)
-//        {
-//            recreate_swap_chain(surface);
-//        }
-//        else
-//        {
-            check_result(result);
-//        }
+        check_result(result);
 
         const auto clear_color = vk::ClearValue()
             .setColor({ _clear_color.components })
@@ -162,12 +154,11 @@ namespace scener::graphics::vulkan
         return false;
     }
 
-    void logical_device::bind_graphics_pipeline(const graphics::graphics_pipeline* pipeline) noexcept
+    void logical_device::bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept
     {
-        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        auto command_buffer       = _command_buffers[command_buffer_index];
+        const auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
 
-        command_buffer.bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline->_pipeline.get());
+        _command_buffers[command_buffer_index].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline);
     }
 
     void logical_device::draw_indexed(graphics::primitive_type       primitive_type
@@ -917,10 +908,11 @@ namespace scener::graphics::vulkan
 
         attachments.reserve(2);
 
+        attachments[1] = _depth_buffer->image_view();
+
         std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void
         {
             attachments[0] = view;
-            attachments[1] = _depth_buffer->image_view();
 
             auto create_info = vk::FramebufferCreateInfo()
                 .setRenderPass(_render_pass)

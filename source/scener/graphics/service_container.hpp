@@ -34,7 +34,7 @@ namespace scener::graphics
         {
             if (!is_registered<T>())
             {
-                throw std::runtime_error("Service not registered");
+                return nullptr;
             }
 
             return (std::any_cast<T*>(_instance_map.find(get_type_name<T>())->second));

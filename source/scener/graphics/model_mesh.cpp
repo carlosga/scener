@@ -48,12 +48,12 @@ namespace scener::graphics
         {
             if (_skeleton.get() != nullptr)
             {
-                part->effect->bone_transforms(_skeleton->skin_transforms());
+                part->effect_technique()->bone_transforms(_skeleton->skin_transforms());
             }
 
-            part->effect->world(world);
-            part->effect->view(view);
-            part->effect->projection(projection);
+            part->effect_technique()->world(world);
+            part->effect_technique()->view(view);
+            part->effect_technique()->projection(projection);
         });
 
         draw();
@@ -73,7 +73,7 @@ namespace scener::graphics
                                           , part->primitive_count()
                                           , part->vertex_buffer()
                                           , part->index_buffer()
-                                          , part->pipeline());
+                                          , part->effect_technique());
         });
     }
 }

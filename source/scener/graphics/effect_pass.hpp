@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <gsl/gsl>
+#include <vulkan/vulkan.hpp>
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
 namespace scener::graphics::vulkan { class shader; }
@@ -26,14 +27,18 @@ namespace scener::graphics
         /// \returns The name of this pass.
         const std::string& name() const noexcept;
 
+        /// Gets the graphics pipeline
+        const vk::Pipeline& pipeline() const noexcept;
+
         /// Gets the effect pass shaders.
         /// \returns the effect pass shaders.
         const std::vector<std::shared_ptr<vulkan::shader>>& shaders() const noexcept;
 
     private:
-        std::vector<std::shared_ptr<effect_parameter>> _parameters { };
-        std::vector<std::shared_ptr<vulkan::shader>>   _shaders    { };
-        std::string                                    _name       { };
+        std::vector<std::shared_ptr<effect_parameter>> _parameters = { };
+        std::vector<std::shared_ptr<vulkan::shader>>   _shaders    = { };
+        std::string                                    _name       = { };
+        vk::UniquePipeline                             _pipeline;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

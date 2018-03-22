@@ -10,6 +10,7 @@
 #include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
+#include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/service_container.hpp"
 #include "scener/graphics/vulkan/program.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
@@ -28,6 +29,7 @@ namespace scener::content::readers
     using scener::graphics::effect_parameter_type;
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
+    using scener::graphics::graphics_pipeline;
     using scener::graphics::service_container;
     using scener::graphics::vulkan::program;
     using scener::graphics::vulkan::shader;
@@ -134,13 +136,7 @@ namespace scener::content::readers
                 case effect_parameter_type::single:
                     parameter->set_value<float>(pvalue.get<float>());
                     break;
-                case effect_parameter_type::string:
-                case effect_parameter_type::texture:
-                case effect_parameter_type::texture_1d:
-                case effect_parameter_type::texture_2d:
-                case effect_parameter_type::texture_3d:
-                case effect_parameter_type::texture_cube:
-                case effect_parameter_type::void_pointer:
+                default:
                     throw std::runtime_error("unknown parameter type");
                 }
             }
@@ -170,7 +166,9 @@ namespace scener::content::readers
                                                                , const nlohmann::json& value
                                                                , effect_technique*     effect) const noexcept
     {
-        auto pass = std::make_shared<effect_pass>();
+        auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+        auto device    = gdservice->device();
+        auto pass      = std::make_shared<effect_pass>();
 
         pass->_name = "default_pass";
         pass->_parameters.reserve(effect->_parameters.size());
@@ -200,6 +198,9 @@ namespace scener::content::readers
 //                parameter->_constant_buffer = pass->_program->constant_buffer();
 //            }
 //        }
+
+        // Graphics pipeline for the current pass
+        pass->_pipeline = device->create_graphics_pipeline(pass.get());
 
         effect->_passes.push_back(pass);
     }

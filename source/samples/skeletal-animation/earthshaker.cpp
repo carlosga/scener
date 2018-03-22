@@ -46,7 +46,7 @@ namespace skeletal::animation
         {
             std::for_each(mesh->mesh_parts().begin(), mesh->mesh_parts().end(), [] (auto part) -> void
             {
-                part->effect->texture_enabled(true);
+                part->effect_technique()->texture_enabled(true);
             });
         });
     }

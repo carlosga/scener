@@ -68,13 +68,16 @@ namespace scener::graphics
                                                 , std::size_t        primitive_count
                                                 , vertex_buffer*     vertex_buffer
                                                 , index_buffer*      index_buffer
-                                                , graphics_pipeline* pipeline) const noexcept
+                                                , effect_technique*  technique) const noexcept
     {
         Expects(index_buffer  != nullptr);
         Expects(vertex_buffer != nullptr);
-        Expects(pipeline      != nullptr);
+        Expects(technique     != nullptr);
 
-        _logical_device->bind_graphics_pipeline(pipeline);
+        std::for_each(technique->passes().begin(), technique->passes().end(), [&](auto& pass) {
+            _logical_device->bind_graphics_pipeline(pass->pipeline());
+        });
+
         _logical_device->draw_indexed(
               primitive_type
             , base_vertex
@@ -116,30 +119,29 @@ namespace scener::graphics
         _viewport = viewport;
     }
 
-    vk::UniquePipeline graphics_device::create_graphics_pipeline(
-        const graphics::blend_state&         blend_state_
-      , const graphics::depth_stencil_state& depth_stencil_state_
-      , const graphics::rasterizer_state&    rasterizer_state_
-      , const graphics::effect_technique*    effect_technique_) noexcept
+    vk::UniquePipeline graphics_device::create_graphics_pipeline(const graphics::effect_pass* effect_pass) noexcept
     {
-        Expects(effect_technique_ != nullptr);
+        return create_graphics_pipeline(
+            _blend_state
+          , _depth_stencil_state
+          , _rasterizer_state
+          , effect_pass);
+    }
 
-        std::vector<std::shared_ptr<vulkan::shader>> shaders;
-
-        for (auto pass : effect_technique_->passes())
-        {
-            for (auto shader : pass->shaders())
-            {
-                shaders.push_back(shader);
-            }
-        }
+    vk::UniquePipeline graphics_device::create_graphics_pipeline(
+        const graphics::blend_state&         blend
+      , const graphics::depth_stencil_state& depth_stencil
+      , const graphics::rasterizer_state&    rasterizer
+      , const graphics::effect_pass*         effect_pass) noexcept
+    {
+        Expects(effect_pass != nullptr);
 
         return _logical_device->create_graphics_pipeline(
             _viewport
-          , blend_state_
-          , depth_stencil_state_
-          , rasterizer_state_
-          , shaders);
+          , blend
+          , depth_stencil
+          , rasterizer
+          , effect_pass->shaders());
     }
 
     std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>

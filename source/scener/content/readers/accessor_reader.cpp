@@ -62,17 +62,15 @@ namespace scener::content::readers
 
         if (value.count(k_max) != 0)
         {
-            for (const auto& item : value[k_max].get<std::vector<float>>())
-            {
-                instance->_max.push_back(item);
-            }
+            const auto& source = value[k_max].get<std::vector<float>>();
+
+            std::for_each(source.begin(), source.end(), [&](const auto& value) { instance->_max.push_back(value); });
         }
         if (value.count(k_min) != 0)
         {
-            for (const auto& item : value[k_min].get<std::vector<float>>())
-            {
-                instance->_min.push_back(item);
-            }
+            const auto& source = value[k_min].get<std::vector<float>>();
+
+            std::for_each(source.begin(), source.end(), [&](const auto& value) { instance->_max.push_back(value); });
         }
 
         return instance;

@@ -13,7 +13,6 @@
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/graphics_adapter.hpp"
-#include "scener/graphics/graphics_pipeline.hpp"
 #include "scener/graphics/presentation_parameters.hpp"
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
@@ -26,6 +25,7 @@
 namespace scener::graphics
 {
     class effect_technique;
+    class effect_pass;
     class vertex_buffer;
     class index_buffer;
 
@@ -60,15 +60,15 @@ namespace scener::graphics
         /// \param start_index      location in the index array at which to start reading vertices.
         /// \param primitive_count  number of primitives to render. The number of vertices used is a function of
         ///                         primitiveCount and primitiveType.
-        void draw_indexed_primitives(primitive_type     primitive_type
-                                   , std::size_t        base_vertex
-                                   , std::size_t        min_vertex_index
-                                   , std::size_t        num_vertices
-                                   , std::size_t        start_index
-                                   , std::size_t        primitive_count
-                                   , vertex_buffer*     vertex_buffer
-                                   , index_buffer*      index_buffer
-                                   , graphics_pipeline* pipeline) const noexcept;
+        void draw_indexed_primitives(primitive_type    primitive_type
+                                   , std::size_t       base_vertex
+                                   , std::size_t       min_vertex_index
+                                   , std::size_t       num_vertices
+                                   , std::size_t       start_index
+                                   , std::size_t       primitive_count
+                                   , vertex_buffer*    vertex_buffer
+                                   , index_buffer*     index_buffer
+                                   , effect_technique* technique) const noexcept;
 
         /// Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
         /// The default value is BlendState.Opaque.
@@ -90,15 +90,19 @@ namespace scener::graphics
         void viewport(const graphics::viewport& viewport) noexcept;
 
         /// Creates a new graphics pipeline.
-        /// \param blend_state_ the color blend state params.
-        /// \param depth_stencil_state_ the depth stencil state params.
-        /// \param rasterizer_state_ the rasterization state params.
-        /// \param effect_technique_ the effect technoque holding the shaders used by the ghraphics pipeline.
+        /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
+        vk::UniquePipeline create_graphics_pipeline(const graphics::effect_pass* effect_pass) noexcept;
+
+        /// Creates a new graphics pipeline.
+        /// \param blend the color blend state params.
+        /// \param depth_stencil the depth stencil state params.
+        /// \param rasterizer the rasterization state params.
+        /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
         vk::UniquePipeline create_graphics_pipeline(
-              const graphics::blend_state&         blend_state_
-            , const graphics::depth_stencil_state& depth_stencil_state_
-            , const graphics::rasterizer_state&    rasterizer_state_
-            , const graphics::effect_technique*    effect_technique_) noexcept;
+              const graphics::blend_state&         blend
+            , const graphics::depth_stencil_state& depth_stencil
+            , const graphics::rasterizer_state&    rasterizer
+            , const graphics::effect_pass*         effect_pass) noexcept;
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.
