@@ -14,7 +14,7 @@ namespace scener::content::readers
     using scener::graphics::vulkan::shader_stage;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<shader>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<shader>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto type   = value[k_type].get<std::int32_t>();
         auto buffer = input->read_external_reference(value[k_uri].get<std::string>());

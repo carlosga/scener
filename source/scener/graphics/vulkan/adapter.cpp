@@ -16,14 +16,14 @@
 namespace scener::graphics::vulkan
 {
     std::uint32_t adapter::debug_report_callback(
-        VkDebugReportFlagsEXT      flags
-      , VkDebugReportObjectTypeEXT objType
-      , std::uint64_t              object
-      , std::size_t                location
-      , std::int32_t               code
-      , const char*                pLayerPrefix
-      , const char*                pMessage
-      , void*                      userData)
+        VkDebugReportFlagsEXT                       flags
+      , [[maybe_unused]] VkDebugReportObjectTypeEXT objType
+      , [[maybe_unused]] std::uint64_t              object
+      , [[maybe_unused]] std::size_t                location
+      , [[maybe_unused]] std::int32_t               code
+      , [[maybe_unused]] const char*                pLayerPrefix
+      , [[maybe_unused]] const char*                pMessage
+      , [[maybe_unused]] void*                      userData)
     {
         std::string sflags;
 

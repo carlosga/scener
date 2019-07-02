@@ -22,10 +22,10 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
+        auto read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const nlohmann::json& value) const noexcept;
 
     private:
-        void read_parameters(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
+        void read_parameters([[maybe_unused]] content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 
         void set_parameter_values(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 

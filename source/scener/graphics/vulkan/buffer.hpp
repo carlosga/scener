@@ -62,14 +62,14 @@ namespace scener::graphics::vulkan
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
         /// \param count specifies the size in bytes of the data store to be obtained.
-        std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept
+        std::vector<std::uint8_t> get_data([[maybe_unused]] std::size_t offset, [[maybe_unused]] std::size_t count) const noexcept
         {
             return {};
         }
 
         /// Creates and initializes the buffer object data store.
         /// \param data specifies a span of data that will be copied into the data store for initialization.
-        void set_data(const gsl::span<const std::uint8_t>& data) const noexcept
+        void set_data([[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
         {
         }
 

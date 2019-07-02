@@ -54,7 +54,7 @@ namespace scener::graphics::vulkan
 
     bool physical_device::has_graphics_queue() const noexcept
     {
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
+        for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {

@@ -17,7 +17,7 @@ namespace scener::content::readers
     using scener::graphics::skeleton;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<skeleton>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<skeleton>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<skeleton>();
         auto accessor = input->read_object<gltf::accessor>(value[k_inverse_bind_matrices].get<std::string>());

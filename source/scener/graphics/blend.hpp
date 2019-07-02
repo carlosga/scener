@@ -27,11 +27,11 @@ namespace scener::graphics
                                         ///< value of the destination.
       , inverse_destination_alpha = 9   ///< Each component of the color is multiplied by the inverse
                                         ///< of the alpha value of the destination.
-      , blend_factor              = 1   ///< Each component of the color is multiplied by a constant
+      , blend_factor              = 10  ///< Each component of the color is multiplied by a constant
                                         ///< set in BlendFactor.
-      , inverse_blend_factor      = 1   ///< Each component of the color is multiplied by the
+      , inverse_blend_factor      = 11  ///< Each component of the color is multiplied by the
                                         ///< inverse of a constant set in BlendFactor.
-      , source_alpha_saturation   = 1   ///< Each component of the color is multiplied by either the
+      , source_alpha_saturation   = 14  ///< Each component of the color is multiplied by either the
                                         ///< alpha of the source color, or the inverse of the alpha of
                                         ///< the source color, whichever is greater.
     };

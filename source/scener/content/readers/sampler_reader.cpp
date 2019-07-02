@@ -15,7 +15,7 @@ namespace scener::content::readers
     using scener::graphics::texture_filter;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<sampler_state>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<sampler_state>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto sampler = std::make_shared<sampler_state>();
 

@@ -47,7 +47,7 @@ namespace scener::graphics
         bool depth_buffer_write_enable { true };
 
         /// Gets or sets a reference value to use for the stencil test.
-        std::int32_t reference_stencil { 0 };
+        std::uint32_t reference_stencil { 0 };
 
         /// Gets or sets the stencil operation to perform if the stencil test passes and the depth-test fails.
         stencil_operation stencil_depth_buffer_fail { stencil_operation::keep };

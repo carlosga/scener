@@ -154,7 +154,7 @@ namespace scener::content::gltf
         std::size_t                  _byte_offset;
         std::size_t                  _byte_length;
         std::size_t                  _byte_stride;
-        gltf::component_type     _component_type;
+        gltf::component_type         _component_type;
         std::vector<float>           _max;
         std::vector<float>           _min;
         std::string                  _name;

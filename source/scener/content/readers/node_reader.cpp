@@ -27,7 +27,7 @@ namespace scener::content::readers
 
     using namespace scener::content::gltf;
 
-    auto content_type_reader<node>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<node>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<node>();
 

@@ -12,7 +12,7 @@ namespace scener::content::readers
     using nlohmann::json;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<accessor>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<accessor>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto        instance = std::make_shared<accessor>();
         const auto& type     = value[k_type].get<std::string>();

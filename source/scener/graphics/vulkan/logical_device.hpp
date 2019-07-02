@@ -45,9 +45,6 @@ namespace scener::graphics::vulkan
             case primitive_type::line_list:
                 return primitive_count * 2;
 
-            case primitive_type::line_loop:
-                return primitive_count;
-
             case primitive_type::line_strip:
                 return primitive_count + 1;
 
@@ -63,8 +60,9 @@ namespace scener::graphics::vulkan
             case primitive_type::triangle_strip:
                 return primitive_count + 2;
 
+            case primitive_type::line_loop:
             default:
-                throw std::runtime_error("Unknown primitive type");
+                return primitive_count;
             }
         }
 

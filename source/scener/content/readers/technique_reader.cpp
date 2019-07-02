@@ -35,7 +35,7 @@ namespace scener::content::readers
     using scener::graphics::vulkan::shader;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<effect_technique>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto instance  = std::make_shared<effect_technique>(gdservice->device());
@@ -50,7 +50,7 @@ namespace scener::content::readers
         return instance;
     }
 
-    void content_type_reader<effect_technique>::read_parameters(content_reader*   input
+    void content_type_reader<effect_technique>::read_parameters([[maybe_unused]] content_reader*   input
                                                               , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
@@ -167,7 +167,6 @@ namespace scener::content::readers
                                                                , effect_technique*     effect) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto device    = gdservice->device();
         auto pass      = std::make_shared<effect_pass>();
 
         pass->_name = "default_pass";
@@ -188,19 +187,19 @@ namespace scener::content::readers
         });
 
         // Uniforms
-//        auto offsets = pass->_program->get_uniform_offsets();
+        auto offsets = pass_program->get_uniform_offsets();
 
-//        for (const auto& parameter : pass->_parameters)
-//        {
-//            if (offsets.find(parameter->_uniform_name) != offsets.end())
-//            {
-//                parameter->_offset          = offsets[parameter->_uniform_name];
-//                parameter->_constant_buffer = pass->_program->constant_buffer();
-//            }
-//        }
+        for (const auto& parameter : pass->_parameters)
+        {
+            if (offsets.find(parameter->_uniform_name) != offsets.end())
+            {
+                parameter->_offset          = offsets[parameter->_uniform_name];
+                parameter->_constant_buffer = pass_program->constant_buffer();
+            }
+        }
 
         // Graphics pipeline for the current pass
-        pass->_pipeline = device->create_graphics_pipeline(pass.get());
+        // pass->_pipeline = device->create_graphics_pipeline(pass.get());
 
         effect->_passes.push_back(pass);
     }

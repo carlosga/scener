@@ -13,7 +13,7 @@ namespace scener::content::readers
     using scener::content::dds::surface;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<surface>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<surface>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<surface>();
 

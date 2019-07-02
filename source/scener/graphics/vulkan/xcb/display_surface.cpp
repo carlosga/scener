@@ -81,7 +81,7 @@ namespace scener::graphics::vulkan
         std::uint32_t value_list[32];
 
         /* Open the connection to the X server. */
-        c = xcb_connect(NULL, &count);
+        c = xcb_connect(nullptr, &count);
 
         setup = xcb_get_setup(c);
 
@@ -124,10 +124,10 @@ namespace scener::graphics::vulkan
 
         /* Redirect Close */
         xcb_intern_atom_cookie_t cookie  = xcb_intern_atom(c, 1, 12, "WM_PROTOCOLS");
-        xcb_intern_atom_reply_t* reply   = xcb_intern_atom_reply(c, cookie, NULL);
+        xcb_intern_atom_reply_t* reply   = xcb_intern_atom_reply(c, cookie, nullptr);
         xcb_intern_atom_cookie_t cookie2 = xcb_intern_atom(c, 0, 16, "WM_DELETE_WINDOW");
 
-        _atom_wm_delete_window = xcb_intern_atom_reply(c, cookie2, NULL);
+        _atom_wm_delete_window = xcb_intern_atom_reply(c, cookie2, nullptr);
 
         xcb_change_property(c, XCB_PROP_MODE_REPLACE, w, (*reply).atom, 4, 32, 1, &(*_atom_wm_delete_window).atom);
 

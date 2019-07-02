@@ -265,7 +265,7 @@ namespace scener::graphics::vulkan
         allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
 
         vk::Buffer        staging_buffer            = { };
-        VmaAllocation     staging_buffer_allocation = VK_NULL_HANDLE;
+        VmaAllocation     staging_buffer_allocation;
         VmaAllocationInfo staging_buffer_alloc_info = { };
         auto result = vmaCreateBuffer(
             _allocator
@@ -279,8 +279,8 @@ namespace scener::graphics::vulkan
 
         std::copy_n(data.data(), data.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
 
-        vk::Buffer    memory_buffer            = { };
-        VmaAllocation memory_buffer_allocation = VK_NULL_HANDLE;
+        vk::Buffer    memory_buffer = { };
+        VmaAllocation memory_buffer_allocation;
 
         buffer_create_info.usage     = static_cast<VkBufferUsageFlags>(usage);
         allocation_create_info.usage = VMA_MEMORY_USAGE_GPU_ONLY;
@@ -314,7 +314,7 @@ namespace scener::graphics::vulkan
         // TODO: Ugly hack to release the vulkan buffer and its memory allocation at the same time
         auto wrapper = new buffer(
             usage
-          , data.size()
+          , static_cast<std::uint32_t>(data.size())
           , memory_buffer
           , memory_buffer_allocation);
 
@@ -466,10 +466,12 @@ namespace scener::graphics::vulkan
 
             shader_modules.push_back(module);
 
+            const auto stageFlags = static_cast<vk::ShaderStageFlagBits>(shader->stage());
+
             auto stage = vk::PipelineShaderStageCreateInfo()
-                    .setModule(module)
-                    .setStage(static_cast<vk::ShaderStageFlagBits>(shader->stage()))
-                    .setPName(shader->entry_point().c_str());
+                .setModule(module)
+                .setStage(stageFlags)
+                .setPName(shader->entry_point().c_str());
 
             shader_stages.push_back(stage);
         }
@@ -534,7 +536,7 @@ namespace scener::graphics::vulkan
 
         // Graphics pipeline
         auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
-            .setStageCount(shader_stages.size())
+            .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
             .setPStages(shader_stages.data())
             .setRenderPass(_render_pass)
             .setSubpass(0)

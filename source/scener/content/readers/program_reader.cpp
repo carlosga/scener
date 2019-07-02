@@ -15,7 +15,7 @@ namespace scener::content::readers
     using scener::graphics::vulkan::shader;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<program>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<program>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<program>();
         auto vshader  = value[k_vertex_shader].get<std::string>();

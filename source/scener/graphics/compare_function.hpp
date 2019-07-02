@@ -6,8 +6,6 @@
 
 #include <cstdint>
 
-#include <vulkan/vulkan.h>
-
 namespace scener::graphics
 {
     /// Specifies the functions used to compare each incoming pixel depth value

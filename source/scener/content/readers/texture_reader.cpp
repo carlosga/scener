@@ -23,7 +23,7 @@ namespace scener::content::readers
     using scener::graphics::texture2d;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<texture2d>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto dds       = input->read_object<surface>(value[k_source].get<std::string>());
