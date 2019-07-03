@@ -248,6 +248,14 @@ namespace scener::graphics::vulkan
     }
 
     std::unique_ptr<buffer, buffer_deleter>
+    logical_device::create_uniform_buffer(std::uint32_t size) noexcept
+    {
+        return create_buffer(buffer_usage::uniform_buffer | buffer_usage::transfer_destination
+                           , vk::SharingMode::eExclusive
+                           , { });
+    }
+
+    std::unique_ptr<buffer, buffer_deleter>
     logical_device::create_buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data) noexcept
     {
         VkBufferCreateInfo buffer_create_info = {
@@ -456,30 +464,6 @@ namespace scener::graphics::vulkan
         , const graphics::rasterizer_state&                   rasterization_state
         , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept
     {
-        // Shader stages
-        std::vector<vk::ShaderModule>                  shader_modules;
-        std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
-
-        for (const auto& shader : shaders)
-        {
-            auto create_info = vk::ShaderModuleCreateInfo()
-                .setCodeSize(shader->buffer().size())
-                .setPCode(reinterpret_cast<const std::uint32_t*>(shader->buffer().data()));
-
-            auto module = _logical_device.createShaderModule(create_info, nullptr);
-
-            shader_modules.push_back(module);
-
-            const auto stageFlags = static_cast<vk::ShaderStageFlagBits>(shader->stage());
-
-            auto stage = vk::PipelineShaderStageCreateInfo()
-                .setModule(module)
-                .setStage(stageFlags)
-                .setPName(shader->entry_point().c_str());
-
-            shader_stages.push_back(stage);
-        }
-
         // Viewport
         auto viewport = vk::Viewport()
             .setX(viewport_state.rect.x())
@@ -525,12 +509,39 @@ namespace scener::graphics::vulkan
             .setDynamicStateCount(2)
             .setPDynamicStates(dynamic_states);
 
+        // Shader stages
+        std::vector<vk::ShaderModule>                  shader_modules;
+        std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
+
+        for (const auto& shader : shaders)
+        {
+            auto create_info = vk::ShaderModuleCreateInfo()
+                .setCodeSize(shader->buffer().size())
+                .setPCode(reinterpret_cast<const std::uint32_t*>(shader->buffer().data()));
+
+            auto module = _logical_device.createShaderModule(create_info, nullptr);
+
+            shader_modules.push_back(module);
+
+            const auto stageFlags = static_cast<vk::ShaderStageFlagBits>(shader->stage());
+
+            auto stage = vk::PipelineShaderStageCreateInfo()
+                .setModule(module)
+                .setStage(stageFlags)
+                .setPName(shader->entry_point().c_str());
+
+            shader_stages.push_back(stage);
+        }
+
         // Pipeline layout
+        std::vector<vk::DescriptorSetLayout> pipelineLayouts;
+        std::vector<vk::PushConstantRange> constantRanges;
+
         auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
-            .setSetLayoutCount(0)
-            .setPSetLayouts(nullptr)
-            .setPushConstantRangeCount(0)
-            .setPPushConstantRanges(nullptr);
+            .setSetLayoutCount(static_cast<std::uint32_t>(pipelineLayouts.size()))
+            .setPSetLayouts(pipelineLayouts.data())
+            .setPushConstantRangeCount(static_cast<std::uint32_t>(constantRanges.size()))
+            .setPPushConstantRanges(constantRanges.data());
 
         vk::PipelineLayout pipeline_layout;
 
@@ -604,19 +615,19 @@ namespace scener::graphics::vulkan
 
         // Graphics pipeline
         auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
-            .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
-            .setPStages(shader_stages.data())
             .setRenderPass(_render_pass)
             .setSubpass(0)
+            .setPInputAssemblyState(&inputAssemblyState)
+            .setPVertexInputState(&pipelineVertexInput)
+            .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
+            .setPStages(shader_stages.data())
             .setLayout(pipeline_layout)
             .setPColorBlendState(&color_blend_state_create_info)
             .setPDepthStencilState(&depth_stencil_state_create_info)
             .setPRasterizationState(&rasterizer_state_create_info)
             .setPMultisampleState(&multisampling_create_info)
             .setPViewportState(&viewport_state_create_info)
-            .setPDynamicState(&dynamic_states_create_info)
-            .setPInputAssemblyState(&inputAssemblyState)
-            .setPVertexInputState(&pipelineVertexInput);
+            .setPDynamicState(&dynamic_states_create_info);
 
         // Graphics pipeline initialization
         auto cache    = vk::PipelineCache();

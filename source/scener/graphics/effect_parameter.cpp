@@ -4,13 +4,13 @@
 #include "scener/graphics/effect_parameter.hpp"
 
 #include "scener/graphics/texture.hpp"
-#include "scener/graphics/vulkan/constant_buffer.hpp"
+#include "scener/graphics/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"
 
 namespace scener::graphics
 {
-    using scener::graphics::vulkan::constant_buffer;
+    using scener::graphics::constant_buffer;
     using scener::math::matrix4;
     using scener::math::quaternion;
     using scener::math::vector2;

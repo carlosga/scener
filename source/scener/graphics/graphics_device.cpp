@@ -164,4 +164,10 @@ namespace scener::graphics
     {
         return _logical_device->create_vertex_buffer(data);
     }
+
+    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    graphics_device::create_uniform_buffer(std::uint32_t size) const noexcept
+    {
+        return _logical_device->create_uniform_buffer(size);
+    }
 }

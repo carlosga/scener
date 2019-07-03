@@ -29,7 +29,7 @@ namespace scener::graphics
         return get_data(0, _vertex_count);
     }
 
-    std::vector<std::uint8_t> vertex_buffer::get_data(std::size_t start_index, std::size_t element_count) const noexcept
+    std::vector<std::uint8_t> vertex_buffer::get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept
     {
         if (_buffer.get() == nullptr)
         {

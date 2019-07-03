@@ -42,7 +42,7 @@ namespace scener::graphics
         /// Gets a copy of the vertex buffer data, specifying the start index and number of elements.
         /// \param start_index index of the first element to get.
         /// \param element_count number of elements to get.
-        std::vector<std::uint8_t> get_data(std::size_t start_index, std::size_t element_count) const noexcept;
+        std::vector<std::uint8_t> get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept;
 
         /// Sets the vertex buffer data.
         /// \param data the new vertex buffer data.

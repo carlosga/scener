@@ -116,6 +116,9 @@ namespace scener::graphics::vulkan
         create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
         std::unique_ptr<buffer, buffer_deleter>
+        create_uniform_buffer(std::uint32_t size) noexcept;
+
+        std::unique_ptr<buffer, buffer_deleter>
         create_buffer(
               buffer_usage                         usage
             , vk::SharingMode                      sharing_mode

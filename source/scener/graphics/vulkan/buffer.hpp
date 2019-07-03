@@ -73,6 +73,14 @@ namespace scener::graphics::vulkan
         {
         }
 
+        /// Creates and initializes the buffer object data store.
+        /// \param data specifies a span of data that will be copied into the data store for initialization.
+        void set_data([[maybe_unused]] std::uint32_t offset
+                    , [[maybe_unused]] std::uint32_t count
+                    , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept
+        {
+        }
+
     private:
         buffer_usage  _usage;
         std::uint32_t _size;

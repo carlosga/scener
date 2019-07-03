@@ -13,10 +13,11 @@
 #include "scener/math/matrix.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::vulkan { class constant_buffer; }
 
 namespace scener::graphics
 {
+    class constant_buffer;
+
     /// Represents an EffectTechnique parameter.
     class effect_parameter final
     {
@@ -64,17 +65,17 @@ namespace scener::graphics
         void set_value_transpose(const T& value) const noexcept;
 
     private:
-        std::uint32_t            _column_count    { 0 };
-        std::uint32_t            _row_count       { 0 };
-        std::uint32_t            _count           { 0 };
-        std::uint32_t            _offset          { 0 };
-        effect_parameter_class   _parameter_class { effect_parameter_class::scalar };
-        effect_parameter_type    _parameter_type  { effect_parameter_type::single };
-        vulkan::constant_buffer* _constant_buffer { nullptr };
-        std::string              _name            { };
-        std::string              _semantic        { };
-        std::string              _value           { };
-        std::string              _uniform_name    { };
+        std::uint32_t          _column_count    { 0 };
+        std::uint32_t          _row_count       { 0 };
+        std::uint32_t          _count           { 0 };
+        std::uint32_t          _offset          { 0 };
+        effect_parameter_class _parameter_class { effect_parameter_class::scalar };
+        effect_parameter_type  _parameter_type  { effect_parameter_type::single };
+        constant_buffer*       _constant_buffer { nullptr };
+        std::string            _name            { };
+        std::string            _semantic        { };
+        std::string            _value           { };
+        std::string            _uniform_name    { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };
