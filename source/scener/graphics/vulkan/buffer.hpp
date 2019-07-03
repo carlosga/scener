@@ -16,76 +16,54 @@
 
 #include "scener/graphics/vulkan/buffer_usage.hpp"
 
+struct VmaAllocator_T;
+
 namespace scener::graphics::vulkan
 {
-    /// Represents an OpenGL buffer object.
-    struct buffer final
+    /// Represents a Vulkan buffer object.
+    class buffer final
     {
     public:
         /// Initializes a new instance of the Buffer class.
         /// \param usage the buffer usage.
         /// \param size the buffer size.
         /// \param buffer the vulkan buffer.
-        buffer(buffer_usage      usage
-             , std::uint32_t     size
-             , const vk::Buffer& memory_buffer
-             , const std::any&   memory_buffer_allocation) noexcept
-            : _usage                     { usage }
-            , _size                      { size }
-            , _memory_buffer             { memory_buffer }
-            , _memory_buffer_allocation  { memory_buffer_allocation }
-        {
-        }
+        buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data, VmaAllocator_T* allocator) noexcept;
+
+        ~buffer();
 
     public:
-        const vk::Buffer& memory_buffer() const noexcept
-        {
-            return _memory_buffer;
-        }
+        const vk::Buffer& memory_buffer() const noexcept;
 
-        const std::any& memory_buffer_allocation() const noexcept
-        {
-            return _memory_buffer_allocation;
-        }
+        const std::any& memory_buffer_allocation() const noexcept;
 
-        std::uint32_t size() const noexcept
-        {
-            return _size;
-        }
+        std::uint32_t size() const noexcept;
 
         /// Gets the buffer usage.
-        buffer_usage usage() const noexcept
-        {
-            return _usage;
-        }
+        buffer_usage usage() const noexcept;
 
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
         /// \param count specifies the size in bytes of the data store to be obtained.
-        std::vector<std::uint8_t> get_data([[maybe_unused]] std::uint32_t offset, [[maybe_unused]] std::uint32_t count) const noexcept
-        {
-            return {};
-        }
+        std::vector<std::uint8_t> get_data([[maybe_unused]] std::uint32_t offset, [[maybe_unused]] std::uint32_t count) const noexcept;
 
         /// Creates and initializes the buffer object data store.
         /// \param data specifies a span of data that will be copied into the data store for initialization.
-        void set_data([[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
-        {
-        }
+        void set_data([[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept;
 
         /// Creates and initializes the buffer object data store.
         /// \param data specifies a span of data that will be copied into the data store for initialization.
         void set_data([[maybe_unused]] std::uint32_t offset
                     , [[maybe_unused]] std::uint32_t count
-                    , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept
-        {
-        }
+                    , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept;
 
     private:
-        buffer_usage  _usage;
-        std::uint32_t _size;
-        vk::Buffer    _memory_buffer;
-        std::any      _memory_buffer_allocation;
+        buffer_usage    _usage;
+        vk::SharingMode _sharing_mode;
+        std::uint32_t   _size;
+        vk::Buffer      _memory_buffer;
+        std::any        _memory_buffer_allocation;
+        VmaAllocator_T* _allocator;
     };
 }
 

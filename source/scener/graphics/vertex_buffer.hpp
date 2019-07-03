@@ -12,7 +12,6 @@
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
-#include "scener/graphics/vulkan/resource_deleter.hpp"
 
 namespace scener::graphics::vulkan { class logical_device; }
 
@@ -53,10 +52,9 @@ namespace scener::graphics
         const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
     private:
-        std::uint32_t                                           _vertex_count;
-        std::uint32_t                                           _padding = 0;
-        graphics::vertex_declaration                            _vertex_declaration;
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
+        std::uint32_t                   _vertex_count;
+        graphics::vertex_declaration    _vertex_declaration;
+        std::unique_ptr<vulkan::buffer> _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };

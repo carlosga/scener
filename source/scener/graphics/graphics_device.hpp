@@ -8,7 +8,6 @@
 #include <memory>
 
 #include <gsl/gsl>
-#include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
@@ -111,17 +110,17 @@ namespace scener::graphics
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+        std::unique_ptr<vulkan::buffer>
         create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept;
 
         /// Creates a new vertex buffer with the given size.
         /// \para size the buffer size.
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+        std::unique_ptr<vulkan::buffer>
         create_vertex_buffer(const gsl::span<const std::uint8_t>& data) const noexcept;
 
         /// Creates a new vertex buffer with the given size.
         /// \para size the buffer size.
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+        std::unique_ptr<vulkan::buffer>
         create_uniform_buffer(std::uint32_t size) const noexcept;
 
    private:

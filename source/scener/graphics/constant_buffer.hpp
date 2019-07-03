@@ -14,7 +14,6 @@
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
 #include "scener/graphics/vulkan/buffer_usage.hpp"
-#include "scener/graphics/vulkan/resource_deleter.hpp"
 
 namespace scener::graphics::vulkan { class logical_device; }
 
@@ -63,12 +62,12 @@ namespace scener::graphics
         void set_data(std::uint32_t offset, std::uint32_t count, gsl::not_null<const void*> data) noexcept;
 
      private:
-        std::uint32_t _index;
-        std::uint32_t _binding_point;
-        std::uint32_t _size;
-        std::uint32_t _program_id;
-        std::string   _name;
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
+        std::uint32_t                   _index;
+        std::uint32_t                   _binding_point;
+        std::uint32_t                   _size;
+        std::uint32_t                   _program_id;
+        std::string                     _name;
+        std::unique_ptr<vulkan::buffer> _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };

@@ -109,16 +109,16 @@ namespace scener::graphics::vulkan
         void present([[maybe_unused]] const render_surface& surface) noexcept;
 
     public:
-        std::unique_ptr<buffer, buffer_deleter>
+        std::unique_ptr<buffer>
         create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
-        std::unique_ptr<buffer, buffer_deleter>
+        std::unique_ptr<buffer>
         create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
-        std::unique_ptr<buffer, buffer_deleter>
+        std::unique_ptr<buffer>
         create_uniform_buffer(std::uint32_t size) noexcept;
 
-        std::unique_ptr<buffer, buffer_deleter>
+        std::unique_ptr<buffer>
         create_buffer(
               buffer_usage                         usage
             , vk::SharingMode                      sharing_mode

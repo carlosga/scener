@@ -153,19 +153,19 @@ namespace scener::graphics
           , effect_pass->shaders());
     }
 
-    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    std::unique_ptr<vulkan::buffer>
     graphics_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
     {
         return _logical_device->create_index_buffer(data);
     }
 
-    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    std::unique_ptr<vulkan::buffer>
     graphics_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
     {
         return _logical_device->create_vertex_buffer(data);
     }
 
-    std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter>
+    std::unique_ptr<vulkan::buffer>
     graphics_device::create_uniform_buffer(std::uint32_t size) const noexcept
     {
         return _logical_device->create_uniform_buffer(size);

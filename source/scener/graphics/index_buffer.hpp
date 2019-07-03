@@ -14,7 +14,6 @@
 #include "scener/graphics/index_type.hpp"
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vulkan/buffer.hpp"
-#include "scener/graphics/vulkan/resource_deleter.hpp"
 
 namespace scener::graphics::vulkan { class logical_device; }
 
@@ -67,9 +66,9 @@ namespace scener::graphics
         void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
-        index_type                                              _index_element_type;
-        std::uint32_t                                           _index_count;
-        std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
+        index_type                      _index_element_type;
+        std::uint32_t                   _index_count;
+        std::unique_ptr<vulkan::buffer> _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };
