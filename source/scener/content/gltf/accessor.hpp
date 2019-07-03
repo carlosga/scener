@@ -40,20 +40,20 @@ namespace scener::content::gltf
 
         /// Gets the offset relative to the buffer-view in bytes.
         /// \returns the offset relative to the buffer-view in bytes.
-        std::size_t byte_offset() const noexcept;
+        std::uint32_t byte_offset() const noexcept;
 
         /// Gets the size, in bytes, of the data referenced by this accessor.
         /// \returns the size, in bytes, of the data referenced by this accessor.
-        std::size_t byte_length() const noexcept;
+        std::uint32_t byte_length() const noexcept;
 
         /// Gets the stride, in bytes, between attributes referenced by this accessor.
         /// \returns the stride, in bytes, between attributes referenced by this accessor.
-        std::size_t byte_stride() const noexcept;
+        std::uint32_t byte_stride() const noexcept;
 
         /// Gets the number of attributes referenced by this accessor, not to be confused with the number of bytes or
         /// number of components.
         /// \returns the number of attributes referenced by this accessor.
-        std::size_t attribute_count() const noexcept;
+        std::uint32_t attribute_count() const noexcept;
 
         /// Gets the maximum value of each component in this attribute.
         /// \returns the maximum value of each component in this attribute.
@@ -74,13 +74,13 @@ namespace scener::content::gltf
         /// Gets a view to the accessor data.
         /// \param offset specifies the element offset.
         /// \param count specifies the size in bytes of the data store region being replaced.
-        gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
+        gsl::span<const std::uint8_t> get_data(std::uint32_t offset, std::uint32_t count) const noexcept;
 
         /// Gets the element at the given offset from the accessor buffer.
         /// \param offset the offset of the element to return.
         /// \returns the requested element.
         template <typename T, typename = std::enable_if_t<std::is_constructible<T>::value>>
-        inline T get_element(std::size_t offset) const noexcept
+        inline T get_element(std::uint32_t offset) const noexcept
         {
             T    result;
             auto buffer = get_data(offset, 1);
@@ -93,7 +93,7 @@ namespace scener::content::gltf
         }
 
     private:
-        constexpr std::size_t get_attribute_type_count() const noexcept
+        constexpr std::uint32_t get_attribute_type_count() const noexcept
         {
             switch (_attribute_type)
             {
@@ -123,7 +123,7 @@ namespace scener::content::gltf
             }
         }
 
-        constexpr std::size_t get_component_size_in_bytes() const noexcept
+        constexpr std::uint32_t get_component_size_in_bytes() const noexcept
         {
             switch (_component_type)
             {
@@ -149,11 +149,11 @@ namespace scener::content::gltf
 
     private:
         gltf::attribute_type         _attribute_type;
-        std::size_t                  _attribute_count;
+        std::uint32_t                _attribute_count;
         std::shared_ptr<buffer_view> _buffer_view;
-        std::size_t                  _byte_offset;
-        std::size_t                  _byte_length;
-        std::size_t                  _byte_stride;
+        std::uint32_t                _byte_offset;
+        std::uint32_t                _byte_length;
+        std::uint32_t                _byte_stride;
         gltf::component_type         _component_type;
         std::vector<float>           _max;
         std::vector<float>           _min;

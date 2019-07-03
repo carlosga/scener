@@ -27,7 +27,7 @@ namespace scener::graphics::vulkan
         /// \param size the buffer size.
         /// \param buffer the vulkan buffer.
         buffer(buffer_usage      usage
-             , std::size_t       size
+             , std::uint32_t     size
              , const vk::Buffer& memory_buffer
              , const std::any&   memory_buffer_allocation) noexcept
             : _usage                     { usage }
@@ -48,7 +48,7 @@ namespace scener::graphics::vulkan
             return _memory_buffer_allocation;
         }
 
-        std::size_t size() const noexcept
+        std::uint32_t size() const noexcept
         {
             return _size;
         }
@@ -62,7 +62,7 @@ namespace scener::graphics::vulkan
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
         /// \param count specifies the size in bytes of the data store to be obtained.
-        std::vector<std::uint8_t> get_data([[maybe_unused]] std::size_t offset, [[maybe_unused]] std::size_t count) const noexcept
+        std::vector<std::uint8_t> get_data([[maybe_unused]] std::uint32_t offset, [[maybe_unused]] std::uint32_t count) const noexcept
         {
             return {};
         }
@@ -74,10 +74,10 @@ namespace scener::graphics::vulkan
         }
 
     private:
-        buffer_usage _usage;
-        std::size_t  _size;
-        vk::Buffer   _memory_buffer;
-        std::any     _memory_buffer_allocation;
+        buffer_usage  _usage;
+        std::uint32_t _size;
+        vk::Buffer    _memory_buffer;
+        std::any      _memory_buffer_allocation;
     };
 }
 

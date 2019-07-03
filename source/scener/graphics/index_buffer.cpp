@@ -7,14 +7,14 @@
 
 namespace scener::graphics
 {
-    index_buffer::index_buffer(gsl::not_null<graphics_device*> device, std::size_t index_count) noexcept
+    index_buffer::index_buffer(gsl::not_null<graphics_device*> device, std::uint32_t index_count) noexcept
         : index_buffer(device, index_type::uint16, index_count)
     {
     }
 
     index_buffer::index_buffer(gsl::not_null<graphics_device*> device
                              , index_type                      index_element_type
-                             , std::size_t                     index_count) noexcept
+                             , std::uint32_t                   index_count) noexcept
         : graphics_resource   { device }
         , _index_element_type { index_element_type }
         , _index_count        { index_count }
@@ -22,7 +22,7 @@ namespace scener::graphics
     {
     }
 
-    std::size_t index_buffer::index_count() const noexcept
+    std::uint32_t index_buffer::index_count() const noexcept
     {
         return _index_count;
     }
@@ -32,7 +32,7 @@ namespace scener::graphics
         return _index_element_type;
     }
 
-    std::size_t index_buffer::element_size_in_bytes() const noexcept
+    std::uint32_t index_buffer::element_size_in_bytes() const noexcept
     {
         switch (_index_element_type)
         {
@@ -50,7 +50,7 @@ namespace scener::graphics
         return get_data(0, _index_count);
     }
 
-    std::vector<std::uint8_t> index_buffer::get_data(std::size_t start_index, std::size_t element_count) const noexcept
+    std::vector<std::uint8_t> index_buffer::get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept
     {
         if (_buffer.get() == nullptr)
         {

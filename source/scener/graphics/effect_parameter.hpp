@@ -64,10 +64,10 @@ namespace scener::graphics
         void set_value_transpose(const T& value) const noexcept;
 
     private:
-        std::size_t              _column_count    { 0 };
-        std::size_t              _row_count       { 0 };
-        std::size_t              _count           { 0 };
-        std::size_t              _offset          { 0 };
+        std::uint32_t            _column_count    { 0 };
+        std::uint32_t            _row_count       { 0 };
+        std::uint32_t            _count           { 0 };
+        std::uint32_t            _offset          { 0 };
         effect_parameter_class   _parameter_class { effect_parameter_class::scalar };
         effect_parameter_type    _parameter_type  { effect_parameter_type::single };
         vulkan::constant_buffer* _constant_buffer { nullptr };

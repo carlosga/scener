@@ -186,6 +186,7 @@ namespace scener::content::readers
             pass->_shaders.push_back(shader);
         });
 
+        /*
         // Uniforms
         auto offsets = pass_program->get_uniform_offsets();
 
@@ -197,6 +198,7 @@ namespace scener::content::readers
                 parameter->_constant_buffer = pass_program->constant_buffer();
             }
         }
+        */
 
         // Graphics pipeline for the current pass
         // pass->_pipeline = device->create_graphics_pipeline(pass.get());

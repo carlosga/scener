@@ -19,7 +19,7 @@ namespace scener::content::readers
 
         instance->_name        = key;
         instance->_uri         = uri;
-        instance->_byte_length = value[k_byte_length].get<std::size_t>();
+        instance->_byte_length = value[k_byte_length].get<std::uint32_t>();
 
         instance->set_data(input->read_external_reference(uri));
 

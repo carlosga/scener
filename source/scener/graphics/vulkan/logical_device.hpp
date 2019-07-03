@@ -38,7 +38,7 @@ namespace scener::graphics::vulkan
     class logical_device final
     {
     private:
-        static constexpr std::size_t get_element_count(graphics::primitive_type type, std::size_t primitive_count) noexcept
+        static constexpr std::uint32_t get_element_count(graphics::primitive_type type, std::size_t primitive_count) noexcept
         {
             switch (type)
             {
@@ -93,11 +93,11 @@ namespace scener::graphics::vulkan
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         void draw_indexed(graphics::primitive_type       primitive_type
-                        , std::size_t                    base_vertex
-                        , std::size_t                    min_vertex_index
-                        , std::size_t                    num_vertices
-                        , std::size_t                    start_index
-                        , std::size_t                    primitive_count
+                        , std::uint32_t                  base_vertex
+                        , std::uint32_t                  min_vertex_index
+                        , std::uint32_t                  num_vertices
+                        , std::uint32_t                  start_index
+                        , std::uint32_t                  primitive_count
                         , const graphics::vertex_buffer* vertex_buffer
                         , const graphics::index_buffer*  index_buffer) noexcept;
 

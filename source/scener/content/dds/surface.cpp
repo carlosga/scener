@@ -15,9 +15,9 @@ namespace scener::content::dds
     {
         Expects(scener::io::file::exists(filename));
 
-        auto        stream     = file_stream(filename);
-        header      dds_header = { };
-        std::size_t block_size = 16;
+        auto      stream     = file_stream(filename);
+        header    dds_header = { };
+        size_type block_size = 16;
 
         Ensures(stream.length() >= sizeof dds_header);
 
@@ -92,8 +92,8 @@ namespace scener::content::dds
 
             _mipmaps.push_back({ level, mipmap_width, mipmap_height, view });
 
-            mipmap_width  = std::max<std::size_t>(1, mipmap_width  >> 1);
-            mipmap_height = std::max<std::size_t>(1, mipmap_height >> 1);
+            mipmap_width  = std::max<size_type>(1, mipmap_width  >> 1);
+            mipmap_height = std::max<size_type>(1, mipmap_height >> 1);
 
             position += size;
         }

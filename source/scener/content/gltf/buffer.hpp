@@ -33,21 +33,21 @@ namespace scener::content::gltf
 
         /// Gets the length in bytes of the buffer data.
         /// \returns the length in bytes of the buffer data.
-        std::size_t byte_length() const noexcept;
+        std::uint32_t byte_length() const noexcept;
 
         /// Gets a view to the buffer data.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin,
         ///               measured in bytes.
         /// \param count specifies the size in bytes of the data store region being replaced.
         /// \returns a view to the buffer data.
-        gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
+        gsl::span<const std::uint8_t> get_data(std::uint32_t offset, std::uint32_t count) const noexcept;
 
         /// Sets the buffer data.
         /// \param data the buffer data.
         void set_data(const std::vector<std::uint8_t>& data) noexcept;
 
     private:
-        std::size_t                   _byte_length { 0 };
+        std::uint32_t                 _byte_length { 0 };
         std::vector<std::uint8_t>     _data        { };
         gsl::span<const std::uint8_t> _span        { };
         std::string                   _name        { };

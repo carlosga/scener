@@ -33,7 +33,7 @@ namespace scener::graphics::vulkan
         std::uint32_t index() const noexcept;
 
         /// Gets the constant buffer block data size.
-        std::size_t size() const noexcept;
+        std::uint32_t size() const noexcept;
 
     public:
         /// Gets the constant buffer data.
@@ -42,7 +42,7 @@ namespace scener::graphics::vulkan
         /// Gets a subset of the constant buffer data.
         /// \param offset specifies the offset into the constant buffer object's data store.
         /// \param count specifies the size in bytes of the data store to be obtained.
-        std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
+        std::vector<std::uint8_t> get_data(std::uint32_t offset, std::uint32_t count) const noexcept;
 
         /// Sets the constant buffer data.
         void set_data(gsl::not_null<const void*> data) const noexcept;
@@ -51,12 +51,12 @@ namespace scener::graphics::vulkan
         /// \param offset specifies the offset into the constant buffer object's data store where data replacement will begin, measured in bytes.
         /// \param count specifies the size in bytes of the data store region being replaced.
         /// \param data specifies a pointer to the new data that will be copied into the data store.
-        void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
+        void set_data(std::uint32_t offset, std::uint32_t count, gsl::not_null<const void*> data) const noexcept;
 
      private:
         std::uint32_t _index;
         std::uint32_t _binding_point;
-        std::size_t   _size;
+        std::uint32_t _size;
         std::string   _name;
     };
 }

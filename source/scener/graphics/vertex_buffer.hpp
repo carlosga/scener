@@ -29,12 +29,12 @@ namespace scener::graphics
         /// \param vertex_count the number of vertices.
         /// \param vertex_declaration the vertex declaration, which describes per-vertex data.
         vertex_buffer(gsl::not_null<graphics_device*>     device
-                    , std::size_t                         vertex_count
+                    , std::uint32_t                       vertex_count
                     , const graphics::vertex_declaration& vertex_declaration) noexcept;
 
     public:
         /// Gets the number of vertex for the current buffer.
-        std::size_t vertex_count() const noexcept;
+        std::uint32_t vertex_count() const noexcept;
 
         /// Returns a copy of the vertex buffer data.
         std::vector<std::uint8_t> get_data() const noexcept;
@@ -53,7 +53,8 @@ namespace scener::graphics
         const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
     private:
-        std::size_t                                             _vertex_count;
+        std::uint32_t                                           _vertex_count;
+        std::uint32_t                                           _padding = 0;
         graphics::vertex_declaration                            _vertex_declaration;
         std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
 

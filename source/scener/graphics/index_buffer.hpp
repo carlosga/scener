@@ -29,7 +29,7 @@ namespace scener::graphics
         /// Initializes a new instance of the IndexBuffer class.
         /// \param device the graphics device object to associate with the index buffer.
         /// \param index_count the number of indices.
-        index_buffer(gsl::not_null<graphics_device*> device, std::size_t index_count) noexcept;
+        index_buffer(gsl::not_null<graphics_device*> device, std::uint32_t index_count) noexcept;
 
         /// Initializes a new instance of the IndexBuffer class.
         /// \param device the graphics device object to associate with the index buffer.
@@ -37,12 +37,12 @@ namespace scener::graphics
         /// \param index_count the number of indices.
         index_buffer(gsl::not_null<graphics_device*> device
                    , index_type                      index_element_type
-                   , std::size_t                     index_count) noexcept;
+                   , std::uint32_t                   index_count) noexcept;
 
     public:
         /// Gets the number of indices in the buffer.
         /// \returns the number of indices.
-        std::size_t index_count() const noexcept;
+        std::uint32_t index_count() const noexcept;
 
         /// Gets the type of each index.
         /// \returns the type of each index.
@@ -50,7 +50,7 @@ namespace scener::graphics
 
         /// Gets the size (in bytes) of each index.
         /// \returns the size (in bytes) of each index.
-        std::size_t element_size_in_bytes() const noexcept;
+        std::uint32_t element_size_in_bytes() const noexcept;
 
         /// Gets a copy of the index buffer data.
         /// \returns a copy of the index buffer data.
@@ -60,7 +60,7 @@ namespace scener::graphics
         /// \param start_index index of the first element to get.
         /// \param element_count number of elements to get.
         /// \returns a copy of the index buffer data.
-        std::vector<std::uint8_t> get_data(std::size_t start_index, std::size_t element_count) const noexcept;
+        std::vector<std::uint8_t> get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept;
 
         /// Sets the indices buffer data.
         /// \param data the new indices buffer data.
@@ -68,7 +68,7 @@ namespace scener::graphics
 
     private:
         index_type                                              _index_element_type;
-        std::size_t                                             _index_count;
+        std::uint32_t                                           _index_count;
         std::unique_ptr<vulkan::buffer, vulkan::buffer_deleter> _buffer;
 
         friend class scener::graphics::vulkan::logical_device;

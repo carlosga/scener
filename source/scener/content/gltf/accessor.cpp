@@ -34,22 +34,22 @@ namespace scener::content::gltf
         return _component_type;
     }
 
-    std::size_t accessor::byte_offset() const noexcept
+    std::uint32_t accessor::byte_offset() const noexcept
     {
         return _byte_offset;
     }
 
-    std::size_t accessor::byte_length() const noexcept
+    std::uint32_t accessor::byte_length() const noexcept
     {
         return _byte_length;
     }
 
-    std::size_t accessor::byte_stride() const noexcept
+    std::uint32_t accessor::byte_stride() const noexcept
     {
         return ((_byte_stride > 0) ? _byte_stride : get_attribute_type_count() * get_component_size_in_bytes());
     }
 
-    std::size_t accessor::attribute_count() const noexcept
+    std::uint32_t accessor::attribute_count() const noexcept
     {
         return _attribute_count;
     }
@@ -74,7 +74,7 @@ namespace scener::content::gltf
         return get_data(0, _attribute_count);
     }
 
-    gsl::span<const std::uint8_t> accessor::get_data(std::size_t offset, std::size_t count) const noexcept
+    gsl::span<const std::uint8_t> accessor::get_data(std::uint32_t offset, std::uint32_t count) const noexcept
     {
         return _buffer_view->get_data(_byte_offset + (offset * byte_stride()), count * byte_stride());
     }

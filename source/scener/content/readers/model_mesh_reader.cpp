@@ -53,8 +53,8 @@ namespace scener::content::readers
         auto device        = gdservice->device();
         auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
         auto elements      = std::vector<vertex_element>();
-        auto vertex_stride = std::size_t { 0 };
-        auto vertex_count  = std::size_t { 0 };
+        auto vertex_stride = std::uint32_t { 0 };
+        auto vertex_count  = std::uint32_t { 0 };
         auto indices       = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
 
         // Index buffer
@@ -115,7 +115,7 @@ namespace scener::content::readers
         auto data     = std::vector<std::uint8_t>(vertex_stride * vertex_count, 0);
         auto position = data.begin();
 
-        for (std::size_t i = 0; i < vertex_count; ++i)
+        for (std::uint32_t i = 0; i < vertex_count; ++i)
         {
             for (const auto& accessor : accessors)
             {

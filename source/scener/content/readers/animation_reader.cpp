@@ -45,7 +45,7 @@ namespace scener::content::readers
 
         instance->_keyframes.reserve(count);
 
-        for (std::size_t i = 0; i < count; ++i)
+        for (std::uint32_t i = 0; i < count; ++i)
         {
             quaternion rotation    = quaternion::identity();
             vector3    scale       = vector3::one();

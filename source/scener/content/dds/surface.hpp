@@ -18,7 +18,7 @@ namespace scener::content::dds
     class surface final
     {
     public:
-        typedef std::size_t size_type;
+        typedef std::uint32_t size_type;
 
     public:
         /// Initializes a new instance of the Surface class.

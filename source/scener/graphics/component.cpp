@@ -20,7 +20,7 @@ namespace scener::graphics
         return _renderer;
     }
 
-    void component::update(const steptime& time) noexcept
+    void component::update([[maybe_unused]] const steptime& time) noexcept
     {
     }
 

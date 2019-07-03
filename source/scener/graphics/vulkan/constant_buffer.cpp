@@ -23,7 +23,7 @@ namespace scener::graphics::vulkan
         return _index;
     }
 
-    std::size_t constant_buffer::size() const noexcept
+    std::uint32_t constant_buffer::size() const noexcept
     {
         return _size;
     }
@@ -33,7 +33,7 @@ namespace scener::graphics::vulkan
         return get_data(0, _size);
     }
 
-    std::vector<std::uint8_t> constant_buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+    std::vector<std::uint8_t> constant_buffer::get_data(std::uint32_t offset, std::uint32_t count) const noexcept
     {
         return { };
 
@@ -47,7 +47,7 @@ namespace scener::graphics::vulkan
         set_data(0, _size, data);
     }
 
-    void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
+    void constant_buffer::set_data(std::uint32_t offset, std::uint32_t count, gsl::not_null<const void*> data) const noexcept
     {
 //        Ensures((offset + count) <= _size);
 

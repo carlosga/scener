@@ -19,8 +19,8 @@ namespace scener::content::readers
 
         instance->_name        = key;
         instance->_buffer      = input->read_object<gltf::buffer>(value[k_buffer].get<std::string>());
-        instance->_byte_offset = value[k_byte_offset].get<std::size_t>();
-        instance->_byte_length = value[k_byte_length].get<std::size_t>();
+        instance->_byte_offset = value[k_byte_offset].get<std::uint32_t>();
+        instance->_byte_length = value[k_byte_length].get<std::uint32_t>();
 
         return instance;
     }

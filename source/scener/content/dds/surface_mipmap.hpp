@@ -15,8 +15,8 @@ namespace scener::content::dds
     /// Represents a DirectDraw surface mipmap.
     class surface_mipmap final
     {
-        typedef std::size_t index_type;
-        typedef std::size_t size_type;
+        typedef std::uint32_t index_type;
+        typedef std::uint32_t size_type;
 
     public:
         /// Initializes a new instance of the SurfaceMipmap class.

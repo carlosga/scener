@@ -15,12 +15,12 @@ namespace scener::content::gltf
         return _uri;
     }
 
-    std::size_t buffer::byte_length() const noexcept
+    std::uint32_t buffer::byte_length() const noexcept
     {
         return _byte_length;
     }
 
-    gsl::span<const std::uint8_t> buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+    gsl::span<const std::uint8_t> buffer::get_data(std::uint32_t offset, std::uint32_t count) const noexcept
     {
         return _span.subspan(offset, count);
     }

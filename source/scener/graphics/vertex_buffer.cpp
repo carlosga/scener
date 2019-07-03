@@ -10,7 +10,7 @@ namespace scener::graphics
     using scener::graphics::vulkan::buffer;
 
     vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
-                               , std::size_t                         vertex_count
+                               , std::uint32_t                       vertex_count
                                , const graphics::vertex_declaration& vertex_declaration) noexcept
         : graphics_resource   { device }
         , _vertex_count       { vertex_count }
@@ -19,7 +19,7 @@ namespace scener::graphics
     {
     }
 
-    std::size_t vertex_buffer::vertex_count() const noexcept
+    std::uint32_t vertex_buffer::vertex_count() const noexcept
     {
         return _vertex_count;
     }

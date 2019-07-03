@@ -48,8 +48,8 @@ namespace scener::content::readers
 
         instance->_name            = key;
         instance->_component_type  = static_cast<component_type>(value[k_component_type].get<std::int32_t>());
-        instance->_byte_offset     = value[k_byte_offset].get<std::size_t>();
-        instance->_attribute_count = value[k_count].get<std::size_t>();
+        instance->_byte_offset     = value[k_byte_offset].get<std::uint32_t>();
+        instance->_attribute_count = value[k_count].get<std::uint32_t>();
         instance->_buffer_view     = input->read_object<buffer_view>(value[k_buffer_view].get<std::string>());
         instance->_byte_length     = instance->_attribute_count
                                    * instance->get_attribute_type_count()
@@ -57,7 +57,7 @@ namespace scener::content::readers
 
         if (value.count(k_byte_stride) != 0)
         {
-            instance->_byte_stride = value[k_byte_stride].get<std::size_t>();
+            instance->_byte_stride = value[k_byte_stride].get<std::uint32_t>();
         }
 
         if (value.count(k_max) != 0)

@@ -20,10 +20,10 @@ namespace scener::content::readers
         auto sampler = std::make_shared<sampler_state>();
 
         // sampler->name       = key;
-        sampler->mag_filter = static_cast<texture_filter>(value[k_mag_filter].get<std::int32_t>());
-        sampler->min_filter = static_cast<texture_filter>(value[k_min_filter].get<std::int32_t>());
-        sampler->address_u  = static_cast<texture_address_mode>(value[k_wrap_s].get<std::int32_t>());
-        sampler->address_v  = static_cast<texture_address_mode>(value[k_wrap_t].get<std::int32_t>());
+        sampler->mag_filter = static_cast<texture_filter>(value[k_mag_filter].get<std::uint32_t>());
+        sampler->min_filter = static_cast<texture_filter>(value[k_min_filter].get<std::uint32_t>());
+        sampler->address_u  = static_cast<texture_address_mode>(value[k_wrap_s].get<std::uint32_t>());
+        sampler->address_v  = static_cast<texture_address_mode>(value[k_wrap_t].get<std::uint32_t>());
 
         return sampler;
     }

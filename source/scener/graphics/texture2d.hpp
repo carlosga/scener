@@ -28,7 +28,7 @@ namespace scener::graphics
         /// \param device the graphics device associated with this texture.
         /// \param width the texture width, in pixels
         /// \param height the texture height, in pixels
-        texture2d(gsl::not_null<graphics_device*> device, std::size_t width, std::size_t height) noexcept;
+        texture2d(gsl::not_null<graphics_device*> device, std::uint32_t width, std::uint32_t height) noexcept;
 
         /// Creates a new instance of the Texture2D class.
         /// \param device the graphics device associated with this texture.
@@ -36,8 +36,8 @@ namespace scener::graphics
         /// \param height the texture height, in pixels
         /// \param format texture data format
         texture2d(gsl::not_null<graphics_device*> device
-                , std::size_t                     width
-                , std::size_t                     height
+                , std::uint32_t                   width
+                , std::uint32_t                   height
                 , surface_format                  format) noexcept;
 
     public:
@@ -51,15 +51,15 @@ namespace scener::graphics
 
         /// Gets the texture height, in pixels.
         /// \returns the texture height, in pixels.
-        std::size_t height() const noexcept;
+        std::uint32_t height() const noexcept;
 
         /// Gets the number of texture levels in a multilevel texture.
         /// \returns the number of texture levels in a multilevel texture.
-        std::size_t level_count() const noexcept override;
+        std::uint32_t level_count() const noexcept override;
 
         /// Gets the texture width, in pixels.
         /// \returns the texture width, in pixels.
-        std::size_t width() const noexcept;
+        std::uint32_t width() const noexcept;
 
         /// Gets the texure sampler state.
         /// \returns the texure sampler state.
@@ -70,9 +70,9 @@ namespace scener::graphics
         /// \param width the mipmap width, in pixels.
         /// \param height the mipmap height, in pixels.
         /// \param data pointer with the mipmap data.
-        void set_data(std::size_t                          level
-                    , std::size_t                          width
-                    , std::size_t                          height
+        void set_data(std::uint32_t                        level
+                    , std::uint32_t                        width
+                    , std::uint32_t                        height
                     , const gsl::span<const std::uint8_t>& data) const noexcept;
 
         /// Activates the texture object.
@@ -82,13 +82,13 @@ namespace scener::graphics
         void unbind() const noexcept override;
 
     private:
-        void declare_storage(std::size_t level_count) noexcept;
+        void declare_storage(std::uint32_t level_count) noexcept;
 
     private:
         surface_format                           _format;
-        std::size_t                              _mipmap_levels;
-        std::size_t                              _height;
-        std::size_t                              _width;
+        std::uint32_t                            _mipmap_levels;
+        std::uint32_t                            _height;
+        std::uint32_t                            _width;
         std::shared_ptr<graphics::sampler_state> _sampler_state;
 
         template <typename T> friend class scener::content::readers::content_type_reader;

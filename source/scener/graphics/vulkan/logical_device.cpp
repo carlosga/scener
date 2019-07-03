@@ -162,11 +162,11 @@ namespace scener::graphics::vulkan
     }
 
     void logical_device::draw_indexed(graphics::primitive_type       primitive_type
-                                    , std::size_t                    base_vertex
-                                    , std::size_t                    min_vertex_index
-                                    , std::size_t                    num_vertices
-                                    , std::size_t                    start_index
-                                    , std::size_t                    primitive_count
+                                    , std::uint32_t                  base_vertex
+                                    , std::uint32_t                  min_vertex_index
+                                    , std::uint32_t                  num_vertices
+                                    , std::uint32_t                  start_index
+                                    , std::uint32_t                  primitive_count
                                     , const graphics::vertex_buffer* vertex_buffer
                                     , const graphics::index_buffer*  index_buffer) noexcept
     {
@@ -201,7 +201,7 @@ namespace scener::graphics::vulkan
         _next_command_buffer_index++;
     }
 
-    void logical_device::present(const render_surface& surface) noexcept
+    void logical_device::present( const render_surface& surface) noexcept
     {
         // Submit command buffer
         static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
@@ -884,7 +884,7 @@ namespace scener::graphics::vulkan
             .setPSubpasses(&subpass)
             .setDependencyCount(0);
 
-        auto result = _logical_device.createRenderPass(&render_pass_create_info, NULL, &_render_pass);
+        auto result = _logical_device.createRenderPass(&render_pass_create_info, nullptr, &_render_pass);
 
         check_result(result);
     }
