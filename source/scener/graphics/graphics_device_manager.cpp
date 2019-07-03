@@ -44,10 +44,6 @@ namespace scener::graphics
         _prepare_device_settings_signal(&device_info);
 
         _graphics_device = std::make_unique<graphics_device>(device_info.adapter, device_info.presentation_params);
-
-//        _graphics_device->blend_state().apply();
-//        _graphics_device->rasterizer_state().apply();
-//        _graphics_device->depth_stencil_state().apply();
     }
 
     graphics_device* graphics_device_manager::device() const noexcept

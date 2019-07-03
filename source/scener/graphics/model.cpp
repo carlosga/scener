@@ -32,6 +32,6 @@ namespace scener::graphics
 
     void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
     {
-        std::for_each(_meshes.begin(), _meshes.end(), [&] (auto& mesh) -> void { mesh->draw(world, view, projection); });
+        std::for_each(_meshes.begin(), _meshes.end(), [&] (const auto& mesh) -> void { mesh->draw(world, view, projection); });
     }
 }

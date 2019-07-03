@@ -45,9 +45,6 @@ namespace scener::graphics
         /// Gets or sets a value indicating whether to allow the user to resize the device window.
         bool allow_user_resizing { false };
 
-        /// Gets or sets the device window title.
-        std::string window_title;
-
         /// Gets or sets a value that indicates whether the device should start in full-screen mode.
         bool full_screen { false };
 
@@ -56,6 +53,9 @@ namespace scener::graphics
 
         /// Gets or sets the preferred back-buffer height.
         std::uint32_t preferred_back_buffer_height { 0 };
+
+        /// Gets or sets the device window title.
+        std::string window_title;
 
     public:
         /// Raised when the graphics_device_manager is changing the graphics_device settings

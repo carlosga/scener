@@ -61,11 +61,11 @@ namespace scener::graphics
         /// \param primitive_count  number of primitives to render. The number of vertices used is a function of
         ///                         primitiveCount and primitiveType.
         void draw_indexed_primitives(primitive_type    primitive_type
-                                   , std::size_t       base_vertex
-                                   , std::size_t       min_vertex_index
-                                   , std::size_t       num_vertices
-                                   , std::size_t       start_index
-                                   , std::size_t       primitive_count
+                                   , std::uint32_t     base_vertex
+                                   , std::uint32_t     min_vertex_index
+                                   , std::uint32_t     num_vertices
+                                   , std::uint32_t     start_index
+                                   , std::uint32_t     primitive_count
                                    , vertex_buffer*    vertex_buffer
                                    , index_buffer*     index_buffer
                                    , effect_technique* technique) const noexcept;
@@ -91,18 +91,23 @@ namespace scener::graphics
 
         /// Creates a new graphics pipeline.
         /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
-        vk::UniquePipeline create_graphics_pipeline(const graphics::effect_pass* effect_pass) noexcept;
+        vk::UniquePipeline create_graphics_pipeline(
+            graphics::primitive_type                      primitive_type
+          , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
+          , const graphics::effect_pass*                  effect_pass) noexcept;
 
         /// Creates a new graphics pipeline.
         /// \param blend the color blend state params.
-        /// \param depth_stencil the depth stencil state params.
+        /// \param depth_stencil the depth stencil state para^ms.
         /// \param rasterizer the rasterization state params.
         /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
         vk::UniquePipeline create_graphics_pipeline(
-              const graphics::blend_state&         blend
-            , const graphics::depth_stencil_state& depth_stencil
-            , const graphics::rasterizer_state&    rasterizer
-            , const graphics::effect_pass*         effect_pass) noexcept;
+              graphics::primitive_type                      primitive_type
+            , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
+            , const graphics::blend_state&                  blend
+            , const graphics::depth_stencil_state&          depth_stencil
+            , const graphics::rasterizer_state&             rasterizer
+            , const graphics::effect_pass*                  effect_pass) noexcept;
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.

@@ -50,7 +50,7 @@ namespace scener::content::readers
         return instance;
     }
 
-    void content_type_reader<effect_technique>::read_parameters([[maybe_unused]] content_reader*   input
+    void content_type_reader<effect_technique>::read_parameters([[maybe_unused]]  content_reader* input
                                                               , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
@@ -65,7 +65,7 @@ namespace scener::content::readers
 
             if (paramref.count(k_count) != 0)
             {
-                parameter->_count = paramref[k_count].get<std::size_t>();
+                parameter->_count = paramref[k_count].get<std::uint32_t>();
             }
             if (paramref.count(k_semantic) != 0)
             {
@@ -201,7 +201,7 @@ namespace scener::content::readers
         */
 
         // Graphics pipeline for the current pass
-        // pass->_pipeline = device->create_graphics_pipeline(pass.get());
+        //pass->_pipeline = gdservice->device()->create_graphics_pipeline(pass.get());
 
         effect->_passes.push_back(pass);
     }

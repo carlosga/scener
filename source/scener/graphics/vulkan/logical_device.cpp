@@ -12,6 +12,7 @@
 
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/vertex_element_format.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
@@ -20,6 +21,7 @@
 
 namespace scener::graphics::vulkan
 {
+    using scener::graphics::vertex_element_format;
     using scener::math::basic_color;
 
     logical_device::logical_device(const vk::PhysicalDevice&         physical_device
@@ -207,18 +209,18 @@ namespace scener::graphics::vulkan
         static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
 
         auto submit_info = vk::SubmitInfo()
-            .setWaitSemaphoreCount(_image_ownership_semaphores.size())
+            .setWaitSemaphoreCount(static_cast<std::uint32_t>(_image_ownership_semaphores.size()))
             .setPWaitSemaphores(_image_ownership_semaphores.data())
             .setPWaitDstStageMask(submit_wait_stages)
-            .setSignalSemaphoreCount(_draw_complete_semaphores.size())
+            .setSignalSemaphoreCount(static_cast<std::uint32_t>(_draw_complete_semaphores.size()))
             .setPWaitSemaphores(_draw_complete_semaphores.data())
-            .setCommandBufferCount(_command_buffers.size())
+            .setCommandBufferCount(static_cast<std::uint32_t>(_command_buffers.size()))
             .setPCommandBuffers(_command_buffers.data());
 
         check_result(_graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]));
 
         auto present_info = vk::PresentInfoKHR()
-            .setWaitSemaphoreCount(_draw_complete_semaphores.size())
+            .setWaitSemaphoreCount(static_cast<std::uint32_t>(_draw_complete_semaphores.size()))
             .setPWaitSemaphores(_draw_complete_semaphores.data())
             .setSwapchainCount(1)
             .setPSwapchains(&_swap_chain)
@@ -446,7 +448,9 @@ namespace scener::graphics::vulkan
     }
 
     vk::UniquePipeline logical_device::create_graphics_pipeline(
-          const graphics::viewport&                           viewport_state
+          graphics::primitive_type                            primitive_type
+        , const graphics::viewport&                           viewport_state
+        , const gsl::not_null<vertex_buffer*>                 vertex_buffer
         , const graphics::blend_state&                        color_blend_state
         , const graphics::depth_stencil_state&                depth_stencil_state
         , const graphics::rasterizer_state&                   rasterization_state
@@ -534,6 +538,70 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
+        // Assembly state
+        vk::PipelineInputAssemblyStateCreateInfo inputAssemblyState { };
+
+        inputAssemblyState.setTopology(static_cast<vk::PrimitiveTopology>(primitive_type));
+
+        // Vertex buffer
+        vk::PipelineVertexInputStateCreateInfo pipelineVertexInput { };
+
+        const auto& vertex_declaration = vertex_buffer->vertex_declaration();
+
+        vk::VertexInputBindingDescription vertexInputBinding { };
+
+        vertexInputBinding.setBinding(0);
+        vertexInputBinding.setStride(vertex_declaration.vertex_stride());
+        vertexInputBinding.setInputRate(vk::VertexInputRate::eVertex);
+
+        std::vector<vk::VertexInputAttributeDescription> vertexAttributes;
+
+        std::for_each(vertex_declaration.vertex_elements().begin()
+                    , vertex_declaration.vertex_elements().end()
+                    , [&] (const auto& element) {
+                        vk::VertexInputAttributeDescription attr;
+
+                        attr.setBinding(0);
+                        attr.setLocation(element.usage_index());
+                        attr.setOffset(element.offset());
+
+                        switch (element.format())
+                        {
+                        case vertex_element_format::single: ///< Single-component, 32-bit floating-point, expanded to (float, 0, 0, 1).
+                            attr.setFormat(vk::Format::eR32Sfloat);
+                            break;
+                        case vertex_element_format::vector2           : ///< Two-component, 32-bit floating-point, expanded to (float, float, 0, 1).
+                            attr.setFormat(vk::Format::eR32G32Sfloat);
+                            break;
+                        case vertex_element_format::vector3           : ///< Three-component, 32-bit floating point, expanded to (float, float, float, 1).
+                            attr.setFormat(vk::Format::eR32G32B32Sfloat);
+                            break;
+                        case vertex_element_format::vector4           : ///< Four-component, 32-bit floating point, expanded to (float, float, float, float).
+                            attr.setFormat(vk::Format::eR32G32B32A32Sfloat);
+                            break;
+                        case vertex_element_format::color             : ///< Four-component, packed, unsigned byte, mapped to 0 to 1 range.
+                            attr.setFormat(vk::Format::eR32G32B32A32Sfloat);
+                            break;
+                        case vertex_element_format::byte4             : ///< Four-component, unsigned byte.
+                            attr.setFormat(vk::Format::eR8Srgb);
+                            break;
+                        case vertex_element_format::short2            : ///< Two-component, signed short expanded to (value, value, 0, 1).
+                            attr.setFormat(vk::Format::eR16G16Sint);
+                            break;
+                        case vertex_element_format::short4            : ///< Four-component, signed short expanded to (value, value, value, value).
+                            attr.setFormat(vk::Format::eR16G16B16A16Sint);
+                            break;
+                        }
+
+                        vertexAttributes.push_back(attr);
+                      });
+
+        pipelineVertexInput.setPVertexBindingDescriptions(&vertexInputBinding);
+        pipelineVertexInput.setVertexBindingDescriptionCount(1);
+
+        pipelineVertexInput.setPVertexAttributeDescriptions(vertexAttributes.data());
+        pipelineVertexInput.setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
+
         // Graphics pipeline
         auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
             .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
@@ -546,8 +614,11 @@ namespace scener::graphics::vulkan
             .setPRasterizationState(&rasterizer_state_create_info)
             .setPMultisampleState(&multisampling_create_info)
             .setPViewportState(&viewport_state_create_info)
-            .setPDynamicState(&dynamic_states_create_info);
+            .setPDynamicState(&dynamic_states_create_info)
+            .setPInputAssemblyState(&inputAssemblyState)
+            .setPVertexInputState(&pipelineVertexInput);
 
+        // Graphics pipeline initialization
         auto cache    = vk::PipelineCache();
         auto pipeline = _logical_device.createGraphicsPipelineUnique(cache, pipeline_create_info, nullptr);
 

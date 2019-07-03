@@ -8,6 +8,7 @@
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/effect_parameter.hpp"
+#include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
@@ -135,6 +136,12 @@ namespace scener::content::readers
         if (!materialref.empty())
         {
             instance->_effect = read_material(input, materialref);
+
+            std::for_each(instance->_effect->passes().begin()
+                        , instance->_effect->passes().end()
+                        , [&] (const auto& pass) {
+                            pass->_pipeline = device->create_graphics_pipeline(instance->_primitive_type, instance->vertex_buffer(), pass.get());
+                          });
         }
 
         return instance;

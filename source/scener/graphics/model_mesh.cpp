@@ -44,7 +44,7 @@ namespace scener::graphics
 
     void model_mesh::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
     {
-        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [&] (auto& part) -> void
+        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [&] (const auto& part) -> void
         {
             if (_skeleton.get() != nullptr)
             {
@@ -61,7 +61,7 @@ namespace scener::graphics
 
     void model_mesh::draw() noexcept
     {
-        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (auto& part) -> void
+        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (const auto& part) -> void
         {
             auto device = part->vertex_buffer()->device();
 

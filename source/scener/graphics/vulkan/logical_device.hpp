@@ -125,7 +125,9 @@ namespace scener::graphics::vulkan
         void create_swap_chain(const render_surface& surface) noexcept;
         void recreate_swap_chain(const render_surface& surface) noexcept;
         vk::UniquePipeline create_graphics_pipeline(
-              const graphics::viewport&                           viewport_state
+              graphics::primitive_type                            primitive_type
+            , const graphics::viewport&                           viewport_state
+            , const gsl::not_null<vertex_buffer*>                 vertex_buffer
             , const graphics::blend_state&                        color_blend_state
             , const graphics::depth_stencil_state&                depth_stencil_state
             , const graphics::rasterizer_state&                   rasterization_state

@@ -45,7 +45,7 @@ namespace scener::graphics
     private:
         timespan              _current_time     { 0 };
         timespan              _duration         { 0 };
-        std::size_t           _current_keyframe { 0 };
+        std::uint32_t         _current_keyframe { 0 };
         std::vector<keyframe> _keyframes        { };
         std::string           _name             { };
 

@@ -26,9 +26,9 @@ void main(void)
 
     skin(vin, 4);
 
-    v_normal    	  = vin.Normal;
-    v_texcoord0 	  = a_texcoord0;
-    v_position 		  = vin.Position.xyz;
+    v_normal          = vin.Normal;
+    v_texcoord0       = a_texcoord0;
+    v_position        = vin.Position.xyz;
     v_light0Direction = u_light0Transform[3].xyz - vin.Position.xyz;
-    gl_Position 	  = u_projectionMatrix * vin.Position;
+    gl_Position       = u_projectionMatrix * vin.Position;
 }

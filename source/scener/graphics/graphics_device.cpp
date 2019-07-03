@@ -60,15 +60,15 @@ namespace scener::graphics
         _logical_device->present(*_render_surface);
     }
 
-    void graphics_device::draw_indexed_primitives(primitive_type     primitive_type
-                                                , std::size_t        base_vertex
-                                                , std::size_t        min_vertex_index
-                                                , std::size_t        num_vertices
-                                                , std::size_t        start_index
-                                                , std::size_t        primitive_count
-                                                , vertex_buffer*     vertex_buffer
-                                                , index_buffer*      index_buffer
-                                                , effect_technique*  technique) const noexcept
+    void graphics_device::draw_indexed_primitives(primitive_type    primitive_type
+                                                , std::uint32_t     base_vertex
+                                                , std::uint32_t     min_vertex_index
+                                                , std::uint32_t     num_vertices
+                                                , std::uint32_t     start_index
+                                                , std::uint32_t     primitive_count
+                                                , vertex_buffer*    vertex_buffer
+                                                , index_buffer*     index_buffer
+                                                , effect_technique* technique) const noexcept
     {
         Expects(index_buffer  != nullptr);
         Expects(vertex_buffer != nullptr);
@@ -119,25 +119,34 @@ namespace scener::graphics
         _viewport = viewport;
     }
 
-    vk::UniquePipeline graphics_device::create_graphics_pipeline(const graphics::effect_pass* effect_pass) noexcept
+    vk::UniquePipeline graphics_device::create_graphics_pipeline(
+        graphics::primitive_type                      primitive_type
+      , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
+      , const graphics::effect_pass*                  effect_pass) noexcept
     {
         return create_graphics_pipeline(
-            _blend_state
+            primitive_type
+          , vertex_buffer
+          , _blend_state
           , _depth_stencil_state
           , _rasterizer_state
           , effect_pass);
     }
 
     vk::UniquePipeline graphics_device::create_graphics_pipeline(
-        const graphics::blend_state&         blend
-      , const graphics::depth_stencil_state& depth_stencil
-      , const graphics::rasterizer_state&    rasterizer
-      , const graphics::effect_pass*         effect_pass) noexcept
+        graphics::primitive_type                      primitive_type
+      , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
+      , const graphics::blend_state&                  blend
+      , const graphics::depth_stencil_state&          depth_stencil
+      , const graphics::rasterizer_state&             rasterizer
+      , const graphics::effect_pass*                  effect_pass) noexcept
     {
         Expects(effect_pass != nullptr);
 
         return _logical_device->create_graphics_pipeline(
-            _viewport
+            primitive_type
+          , _viewport
+          , vertex_buffer
           , blend
           , depth_stencil
           , rasterizer
