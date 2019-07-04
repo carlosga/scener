@@ -202,7 +202,7 @@ namespace scener::graphics::vulkan
         _next_command_buffer_index++;
     }
 
-    void logical_device::present( const render_surface& surface) noexcept
+    void logical_device::present(const render_surface& surface) noexcept
     {
         // Submit command buffer
         static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
@@ -231,14 +231,6 @@ namespace scener::graphics::vulkan
     }
 
     std::unique_ptr<buffer>
-    logical_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept
-    {
-        return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_destination
-                           , vk::SharingMode::eExclusive
-                           , data);
-    }
-
-    std::unique_ptr<buffer>
     logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::index_buffer | buffer_usage::transfer_destination
@@ -247,17 +239,42 @@ namespace scener::graphics::vulkan
     }
 
     std::unique_ptr<buffer>
-    logical_device::create_uniform_buffer(std::uint32_t size) noexcept
+    logical_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        return create_buffer(buffer_usage::uniform_buffer | buffer_usage::transfer_destination
+        return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
-                           , { });
+                           , data);
+    }
+
+    std::unique_ptr<buffer>
+    logical_device::create_uniform_buffer(std::uint64_t count) noexcept
+    {
+        buffer buffer_instance { buffer_usage::uniform_buffer, vk::SharingMode::eConcurrent, count, _allocator };
+
+        return std::unique_ptr<buffer>(&buffer_instance);
     }
 
     std::unique_ptr<buffer>
     logical_device::create_buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data) noexcept
     {
-        buffer buffer_instance { usage, sharing_mode, data, _allocator };
+        buffer buffer_instance { usage, sharing_mode, static_cast<std::uint64_t>(data.size()), _allocator };
+
+        if (data.size() > 0)
+        {
+            if ((usage & buffer_usage::transfer_destination) == buffer_usage::transfer_destination)
+            {
+                // Copy buffer contents from the staging buffer to the real buffer
+                begin_single_time_commands();
+
+                buffer_instance.transfer_data(data, _single_time_command_buffer);
+
+                end_single_time_commands();
+            }
+            else
+            {
+                buffer_instance.set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
+            }
+        }
 
         return std::unique_ptr<buffer>(&buffer_instance);
     }

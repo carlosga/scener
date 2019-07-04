@@ -7,19 +7,21 @@
 
 namespace scener::graphics
 {
-    index_buffer::index_buffer(gsl::not_null<graphics_device*> device, std::uint32_t index_count) noexcept
-        : index_buffer(device, index_type::uint16, index_count)
+    index_buffer::index_buffer(gsl::not_null<graphics_device*> device, std::uint32_t index_count, const gsl::span<const std::uint8_t>& data) noexcept
+        : index_buffer(device, index_type::uint16, index_count, data)
     {
     }
 
-    index_buffer::index_buffer(gsl::not_null<graphics_device*> device
-                             , index_type                      index_element_type
-                             , std::uint32_t                   index_count) noexcept
+    index_buffer::index_buffer(gsl::not_null<graphics_device*>      device
+                             , index_type                           index_element_type
+                             , std::uint32_t                        index_count
+                             , const gsl::span<const std::uint8_t>& data) noexcept
         : graphics_resource   { device }
         , _index_element_type { index_element_type }
         , _index_count        { index_count }
         , _buffer             { nullptr }
     {
+        _buffer = device->create_index_buffer(data);
     }
 
     std::uint32_t index_buffer::index_count() const noexcept
@@ -65,13 +67,6 @@ namespace scener::graphics
 
     void index_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        if (_buffer.get() == nullptr)
-        {
-            _buffer = device()->create_index_buffer(data);
-        }
-        else
-        {
-            _buffer->set_data(data);
-        }
+        _buffer->set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
     }
 }

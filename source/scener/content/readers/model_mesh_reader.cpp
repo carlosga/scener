@@ -59,8 +59,7 @@ namespace scener::content::readers
         auto indices       = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
 
         // Index buffer
-        instance->_index_buffer = std::make_unique<index_buffer>(device, indices->attribute_count());
-        instance->_index_buffer->set_data(indices->get_data());
+        instance->_index_buffer = std::make_unique<index_buffer>(device, indices->attribute_count(), indices->get_data());
 
         // Vertex buffer
         accessors.reserve(value[k_attributes].size());
@@ -92,7 +91,6 @@ namespace scener::content::readers
         instance->_start_index     = 0;
         instance->_vertex_offset   = 0;
         instance->_primitive_count = 0;
-        instance->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertex_count, declaration);
 
         switch (instance->_primitive_type)
         {
@@ -129,7 +127,7 @@ namespace scener::content::readers
         }
 
         // Initialize vertex buffer
-        instance->_vertex_buffer->set_data({ data });
+        instance->_vertex_buffer = std::make_unique<vertex_buffer>(device, declaration, vertex_count, data);
 
         // Effect Material
         const auto& materialref = value[k_material].get<std::string>();

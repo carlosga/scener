@@ -9,14 +9,16 @@ namespace scener::graphics
 {
     using scener::graphics::vulkan::buffer;
 
-    vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
-                               , std::uint32_t                       vertex_count
-                               , const graphics::vertex_declaration& vertex_declaration) noexcept
+    vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>      device
+                               , const graphics::vertex_declaration&  vertex_declaration
+                               , std::uint32_t                        vertex_count
+                               , const gsl::span<const std::uint8_t>& data) noexcept
         : graphics_resource   { device }
         , _vertex_count       { vertex_count }
         , _vertex_declaration { vertex_declaration }
         , _buffer             { nullptr }
     {
+        _buffer = device->create_vertex_buffer(data);
     }
 
     std::uint32_t vertex_buffer::vertex_count() const noexcept
@@ -46,14 +48,7 @@ namespace scener::graphics
     {
         // std::uint64_t size = _vertex_count * _vertex_declaration.vertex_stride();
 
-        if (_buffer.get() == nullptr)
-        {
-            _buffer = device()->create_vertex_buffer(data);
-        }
-        else
-        {
-            _buffer->set_data(data);
-        }
+        _buffer->set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
     }
 
     const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept

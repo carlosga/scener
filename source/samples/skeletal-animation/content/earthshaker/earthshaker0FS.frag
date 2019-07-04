@@ -1,6 +1,6 @@
 #version 430 core
 
-#extension  GL_GOOGLE_include_directive : require
+#extension GL_GOOGLE_include_directive : require
 #extension GL_ARB_separate_shader_objects : enable
 
 in vec3 v_normal;
@@ -27,7 +27,7 @@ void main(void)
     vec3 diffuseLight = vec3(1., 1., 1.);
 
     vec3 specularLight = vec3(0., 0., 0.);
-    {
+
     float specularIntensity = 0.;
     float attenuation       = 1.0;
     float range             = length(v_light0Direction);
@@ -41,7 +41,6 @@ void main(void)
     specularIntensity = max(0., pow(phongTerm , u_shininess)) * attenuation;
     specularLight    += u_light0Color * specularIntensity;
     diffuseLight     += u_light0Color * max(dot(normal,l), 0.) * attenuation;
-    }
 
     specular.xyz *= specularLight;
     color.xyz    += specular.xyz;

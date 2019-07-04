@@ -110,13 +110,13 @@ namespace scener::graphics::vulkan
 
     public:
         std::unique_ptr<buffer>
-        create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
-
-        std::unique_ptr<buffer>
         create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
         std::unique_ptr<buffer>
-        create_uniform_buffer(std::uint32_t size) noexcept;
+        create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+
+        std::unique_ptr<buffer>
+        create_uniform_buffer(std::uint64_t count) noexcept;
 
         std::unique_ptr<buffer>
         create_buffer(

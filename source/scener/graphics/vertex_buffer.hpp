@@ -27,9 +27,10 @@ namespace scener::graphics
         /// \param device the graphics device associated with this vertex buffer.
         /// \param vertex_count the number of vertices.
         /// \param vertex_declaration the vertex declaration, which describes per-vertex data.
-        vertex_buffer(gsl::not_null<graphics_device*>     device
-                    , std::uint32_t                       vertex_count
-                    , const graphics::vertex_declaration& vertex_declaration) noexcept;
+        vertex_buffer(gsl::not_null<graphics_device*>      device
+                    , const graphics::vertex_declaration&  vertex_declaration
+                    , std::uint32_t                        vertex_count
+                    , const gsl::span<const std::uint8_t>& data) noexcept;
 
     public:
         /// Gets the number of vertex for the current buffer.
