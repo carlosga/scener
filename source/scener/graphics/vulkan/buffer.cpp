@@ -51,16 +51,6 @@ namespace scener::graphics::vulkan
         vmaDestroyBuffer(_allocator, _memory_buffer, memory_allocation);
     }
 
-    const vk::Buffer& buffer::memory_buffer() const noexcept
-    {
-        return _memory_buffer;
-    }
-
-    const std::any& buffer::memory_buffer_allocation() const noexcept
-    {
-        return _memory_buffer_allocation;
-    }
-
     std::uint64_t buffer::size() const noexcept
     {
         return _size;
@@ -70,6 +60,27 @@ namespace scener::graphics::vulkan
     buffer_usage buffer::usage() const noexcept
     {
         return _usage;
+    }
+
+    const vk::Buffer& buffer::memory_buffer() const noexcept
+    {
+        return _memory_buffer;
+    }
+
+    /// Gets a subset of data from a buffer object's data store.
+    /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
+    /// \param count specifies the size in bytes of the data store to be obtained.
+    std::vector<std::uint8_t> buffer::get_data([[maybe_unused]] std::uint64_t offset, [[maybe_unused]] std::uint64_t count) const noexcept
+    {
+        return {};
+    }
+
+    /// Sets the buffer data.
+    /// \param data specifies a span of data that will be copied into the data store for initialization.
+    void buffer::set_data([[maybe_unused]] std::uint64_t offset
+                        , [[maybe_unused]] std::uint64_t count
+                        , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept
+    {
     }
 
     void buffer::transfer_data(const gsl::span<const std::uint8_t>& data, const vk::CommandBuffer& command_buffer) noexcept
@@ -115,21 +126,5 @@ namespace scener::graphics::vulkan
 
         // Destroy the staging buffer
         vmaDestroyBuffer(_allocator, staging_buffer, staging_buffer_allocation);
-    }
-
-    /// Gets a subset of data from a buffer object's data store.
-    /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
-    /// \param count specifies the size in bytes of the data store to be obtained.
-    std::vector<std::uint8_t> buffer::get_data([[maybe_unused]] std::uint64_t offset, [[maybe_unused]] std::uint64_t count) const noexcept
-    {
-        return {};
-    }
-
-    /// Sets the buffer data.
-    /// \param data specifies a span of data that will be copied into the data store for initialization.
-    void buffer::set_data([[maybe_unused]] std::uint64_t offset
-                        , [[maybe_unused]] std::uint64_t count
-                        , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept
-    {
     }
 }

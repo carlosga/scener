@@ -34,16 +34,12 @@ namespace scener::graphics::vulkan
         ~buffer();
 
     public:
-        const vk::Buffer& memory_buffer() const noexcept;
-
-        const std::any& memory_buffer_allocation() const noexcept;
-
         std::uint64_t size() const noexcept;
 
         /// Gets the buffer usage.
         buffer_usage usage() const noexcept;
 
-        void transfer_data(const gsl::span<const std::uint8_t>& data, const vk::CommandBuffer& command_buffer) noexcept;
+        const vk::Buffer& memory_buffer() const noexcept;
 
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
@@ -55,6 +51,8 @@ namespace scener::graphics::vulkan
         void set_data([[maybe_unused]] std::uint64_t offset
                     , [[maybe_unused]] std::uint64_t count
                     , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept;
+
+        void transfer_data(const gsl::span<const std::uint8_t>& data, const vk::CommandBuffer& command_buffer) noexcept;
 
     private:
         buffer_usage     _usage;
