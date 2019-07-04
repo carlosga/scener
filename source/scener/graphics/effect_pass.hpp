@@ -16,6 +16,7 @@ namespace scener::graphics::vulkan { class shader; }
 
 namespace scener::graphics
 {
+    class constant_buffer;
     class effect_parameter;
     class graphics_device;
 
@@ -38,6 +39,7 @@ namespace scener::graphics
         std::vector<std::shared_ptr<effect_parameter>> _parameters = { };
         std::vector<std::shared_ptr<vulkan::shader>>   _shaders    = { };
         std::string                                    _name       = { };
+        std::unique_ptr<constant_buffer>               _constant_buffer { nullptr };
         vk::UniquePipeline                             _pipeline;
 
         template <typename T> friend class scener::content::readers::content_type_reader;

@@ -6,6 +6,8 @@
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/constants.hpp"
+#include "scener/graphics/constant_buffer.hpp"
+#include "scener/graphics/default_constant_buffer.hpp"
 #include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
@@ -15,6 +17,8 @@
 #include "scener/graphics/vulkan/program.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
 
+// #define offsetof(st, m) __builtin_offsetof(st, m)
+
 namespace scener::content::readers
 {
     using nlohmann::json;
@@ -23,6 +27,7 @@ namespace scener::content::readers
     using scener::math::vector3;
     using scener::math::vector4;
     using scener::content::gltf::node;
+    using scener::graphics::constant_buffer;
     using scener::graphics::effect_technique;
     using scener::graphics::effect_parameter;
     using scener::graphics::effect_parameter_class;
@@ -167,6 +172,7 @@ namespace scener::content::readers
                                                                , effect_technique*     effect) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+        auto device    = gdservice->device();
         auto pass      = std::make_shared<effect_pass>();
 
         pass->_name = "default_pass";
@@ -186,19 +192,50 @@ namespace scener::content::readers
             pass->_shaders.push_back(shader);
         });
 
-        /*
-        // Uniforms
-        auto offsets = pass_program->get_uniform_offsets();
+        std::uint32_t constant_buffer_size = sizeof(scener::graphics::default_constant_buffer);
 
+        pass->_constant_buffer = std::make_unique<constant_buffer>(device, "constant_buffer", constant_buffer_size);
+
+        // Uniforms
         for (const auto& parameter : pass->_parameters)
         {
-            if (offsets.find(parameter->_uniform_name) != offsets.end())
+            const auto& reference = parameter->_uniform_name;
+
+            std::int64_t offset = -1;
+
+            if (reference == "u_jointMat[57]")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+            else if (reference == "u_normalMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_normalMatrix);
+            else if (reference == "u_modelViewMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_modelViewMatrix);
+            else if (reference == "u_projectionMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_projectionMatrix);
+            else if (reference == "u_light0Transform")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
+            else if (reference == "u_ambient")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+            else if (reference == "u_emission")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+            else if (reference == "u_specular")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
+            else if (reference == "u_shininess")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
+            else if (reference == "u_light0ConstantAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
+            else if (reference == "u_light0LinearAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
+            else if (reference == "u_light0QuadraticAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
+            else if (reference == "u_light0Color")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+
+            if (offset != -1)
             {
-                parameter->_offset          = offsets[parameter->_uniform_name];
-                parameter->_constant_buffer = pass_program->constant_buffer();
+                parameter->_offset          = offset;
+                parameter->_constant_buffer = pass->_constant_buffer.get();
             }
         }
-        */
 
         // Graphics pipeline for the current pass
         //pass->_pipeline = gdservice->device()->create_graphics_pipeline(pass.get());

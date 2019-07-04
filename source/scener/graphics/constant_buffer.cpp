@@ -11,15 +11,15 @@ namespace scener::graphics
 
     constant_buffer::constant_buffer(gsl::not_null<graphics_device*> device
                                    , const std::string&              name
-                                   , std::uint32_t                   program_id) noexcept
-        : graphics_resource   { device }
-        , _index         { 0 }
-        , _binding_point { 0 }
-        , _size          { 0 }
-        , _program_id    { program_id }
-        , _name          { name }
-        , _buffer        { nullptr }
+                                   , std::uint32_t                   size) noexcept
+        : graphics_resource { device }
+        , _index            { 0 }
+        , _binding_point    { 0 }
+        , _size             { _size }
+        , _name             { name }
+        , _buffer           { nullptr }
     {
+        _buffer = device->create_uniform_buffer(size);
     }
 
     std::uint32_t constant_buffer::binding_point() const noexcept
@@ -67,13 +67,6 @@ namespace scener::graphics
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
 
-        if (_buffer.get() == nullptr)
-        {
-            _buffer = device()->create_uniform_buffer(count);
-        }
-        else
-        {
-            _buffer->set_data(offset, count, data);
-        }
+        _buffer->set_data(offset, count, data);
     }
 }

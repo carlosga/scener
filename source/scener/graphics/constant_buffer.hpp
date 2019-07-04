@@ -28,10 +28,10 @@ namespace scener::graphics
         /// Initializes a new instance of the constant_buffer class.
         /// \param device the graphics device associated with this vertex buffer.
         /// \param name the name of the constant buffer.
-        /// \param program_id the name of the opengl program used to initialize the constant buffer.
+        /// \param size the size of the constant buffer.
         constant_buffer(gsl::not_null<graphics_device*> device
-                      , const std::string& name
-                      , std::uint32_t program_id) noexcept;
+                      , const std::string&              name
+                      , std::uint32_t                   size) noexcept;
 
     public:
         /// Gets the constant buffer binding point.
@@ -65,7 +65,6 @@ namespace scener::graphics
         std::uint32_t                   _index;
         std::uint32_t                   _binding_point;
         std::uint32_t                   _size;
-        std::uint32_t                   _program_id;
         std::string                     _name;
         std::unique_ptr<vulkan::buffer> _buffer;
 
