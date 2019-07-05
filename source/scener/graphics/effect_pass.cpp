@@ -22,4 +22,9 @@ namespace scener::graphics
     {
         return _shaders;
     }
+
+    const std::vector<std::shared_ptr<effect_parameter>>& effect_pass::parameters() const noexcept
+    {
+        return _parameters;
+    }
 }

@@ -37,7 +37,7 @@ namespace scener::graphics
         return _parameter_type;
     }
 
-    std::size_t effect_parameter::row_count() const noexcept
+    std::uint32_t effect_parameter::row_count() const noexcept
     {
         return _row_count;
     }
@@ -45,6 +45,11 @@ namespace scener::graphics
     const std::string& effect_parameter::semantic() const noexcept
     {
         return _semantic;
+    }
+
+    std::uint32_t effect_parameter::offset() const noexcept
+    {
+        return _offset;
     }
 
     template <>

@@ -13,7 +13,7 @@
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/graphics_adapter.hpp"
 #include "scener/graphics/presentation_parameters.hpp"
-#include "scener/graphics/primitive_type.hpp"
+#include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/adapter.hpp"
@@ -89,24 +89,7 @@ namespace scener::graphics
         void viewport(const graphics::viewport& viewport) noexcept;
 
         /// Creates a new graphics pipeline.
-        /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
-        vk::UniquePipeline create_graphics_pipeline(
-            graphics::primitive_type                      primitive_type
-          , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
-          , const graphics::effect_pass*                  effect_pass) noexcept;
-
-        /// Creates a new graphics pipeline.
-        /// \param blend the color blend state params.
-        /// \param depth_stencil the depth stencil state para^ms.
-        /// \param rasterizer the rasterization state params.
-        /// \param effect_pass the effect pass holding the shaders used by the ghraphics pipeline.
-        vk::UniquePipeline create_graphics_pipeline(
-              graphics::primitive_type                      primitive_type
-            , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
-            , const graphics::blend_state&                  blend
-            , const graphics::depth_stencil_state&          depth_stencil
-            , const graphics::rasterizer_state&             rasterizer
-            , const graphics::effect_pass*                  effect_pass) noexcept;
+        vk::UniquePipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept;
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.

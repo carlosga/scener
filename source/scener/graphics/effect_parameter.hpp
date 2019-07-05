@@ -35,11 +35,14 @@ namespace scener::graphics
         effect_parameter_type parameter_type() const noexcept;
 
         /// Gets the number of rows in the parameter description.
-        std::size_t row_count() const noexcept;
+        std::uint32_t row_count() const noexcept;
 
         /// Gets the semantic meaning, or usage, of the parameter.
         /// \returns the semantic meaning, or usage, of the parameter.
         const std::string& semantic() const noexcept;
+
+        /// Gets the parameter offset
+        std::uint32_t offset() const noexcept;
 
     public:
         /// Get the effect parameter value.

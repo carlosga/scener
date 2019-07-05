@@ -12,7 +12,7 @@
 
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
-#include "scener/graphics/primitive_type.hpp"
+#include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/resource_deleter.hpp"
@@ -21,13 +21,6 @@
 #include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 #include "scener/math/basic_size.hpp"
 #include "scener/math/basic_color.hpp"
-
-namespace scener::graphics
-{
-    class graphics_pipeline;
-    class index_buffer;
-    class vertex_buffer;
-}
 
 namespace scener::graphics::vulkan
 {
@@ -120,14 +113,14 @@ namespace scener::graphics::vulkan
     public:
         void create_swap_chain(const render_surface& surface) noexcept;
         void recreate_swap_chain(const render_surface& surface) noexcept;
-        vk::UniquePipeline create_graphics_pipeline(
-              graphics::primitive_type                            primitive_type
-            , const graphics::viewport&                           viewport_state
-            , const gsl::not_null<vertex_buffer*>                 vertex_buffer
-            , const graphics::blend_state&                        color_blend_state
-            , const graphics::depth_stencil_state&                depth_stencil_state
-            , const graphics::rasterizer_state&                   rasterization_state
-            , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept;
+
+    public:
+        vk::UniquePipeline create_graphics_pipeline(                
+              const graphics::viewport&             viewport_state
+            , const graphics::blend_state&          color_blend_state
+            , const graphics::depth_stencil_state&  depth_stencil_state
+            , const graphics::rasterizer_state&     rasterization_state
+            , const graphics::model_mesh_part&      model_mesh_part) noexcept;
 
     public:
         std::unique_ptr<image_storage, image_deleter>

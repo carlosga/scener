@@ -138,7 +138,7 @@ namespace scener::content::readers
             std::for_each(instance->_effect->passes().begin()
                         , instance->_effect->passes().end()
                         , [&] (const auto& pass) {
-                            pass->_pipeline = device->create_graphics_pipeline(instance->_primitive_type, instance->vertex_buffer(), pass.get());
+                            pass->_pipeline = device->create_graphics_pipeline(*instance);
                           });
         }
 

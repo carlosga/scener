@@ -7,6 +7,9 @@
 #include <string>
 #include <gsl/gsl>
 
+#include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/effect_parameter.hpp"
+#include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_element_format.hpp"
@@ -428,13 +431,11 @@ namespace scener::graphics::vulkan
     }
 
     vk::UniquePipeline logical_device::create_graphics_pipeline(
-          graphics::primitive_type                            primitive_type
-        , const graphics::viewport&                           viewport_state
-        , const gsl::not_null<vertex_buffer*>                 vertex_buffer
-        , const graphics::blend_state&                        color_blend_state
-        , const graphics::depth_stencil_state&                depth_stencil_state
-        , const graphics::rasterizer_state&                   rasterization_state
-        , const std::vector<std::shared_ptr<vulkan::shader>>& shaders) noexcept
+          const graphics::viewport&             viewport_state
+        , const graphics::blend_state&          color_blend_state
+        , const graphics::depth_stencil_state&  depth_stencil_state
+        , const graphics::rasterizer_state&     rasterization_state
+        , const graphics::model_mesh_part&      model_mesh_part) noexcept
     {
         // Viewport
         auto viewport = vk::Viewport()
@@ -485,7 +486,9 @@ namespace scener::graphics::vulkan
         std::vector<vk::ShaderModule>                  shader_modules;
         std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
 
-        for (const auto& shader : shaders)
+        const auto effect_pass = model_mesh_part.effect_technique()->passes()[0];
+
+        for (const auto& shader : effect_pass->shaders())
         {
             auto create_info = vk::ShaderModuleCreateInfo()
                 .setCodeSize(shader->buffer().size())
@@ -506,30 +509,54 @@ namespace scener::graphics::vulkan
         }
 
         // Pipeline layout
-        std::vector<vk::DescriptorSetLayout> pipelineLayouts;
-        std::vector<vk::PushConstantRange> constantRanges;
+        auto descriptor_set_layout_binding = vk::DescriptorSetLayoutBinding()
+                .setBinding(0)
+                .setDescriptorType(vk::DescriptorType::eUniformBuffer)
+                .setDescriptorCount(1)
+                .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment);
 
-        auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
-            .setSetLayoutCount(static_cast<std::uint32_t>(pipelineLayouts.size()))
-            .setPSetLayouts(pipelineLayouts.data())
-            .setPushConstantRangeCount(static_cast<std::uint32_t>(constantRanges.size()))
-            .setPPushConstantRanges(constantRanges.data());
+        vk::DescriptorSetLayout descriptor_set_layout;
+        auto descriptor_set_layout_crate_info = vk::DescriptorSetLayoutCreateInfo()
+            .setPBindings(&descriptor_set_layout_binding)
+            .setBindingCount(1);
+
+        auto result = _logical_device.createDescriptorSetLayout(&descriptor_set_layout_crate_info, nullptr, &descriptor_set_layout);
+
+        check_result(result);
+
+        std::vector<vk::DescriptorSetLayout> descriptor_set_layouts;
+        std::vector<vk::PushConstantRange> constant_ranges;
+
+        descriptor_set_layouts.push_back(descriptor_set_layout);
+
+        for (const auto& effect_parameter : effect_pass->parameters())
+        {
+            auto constant_range = vk::PushConstantRange()
+                .setOffset(effect_parameter->offset());
+
+            constant_ranges.push_back({ constant_range });
+        }               
 
         vk::PipelineLayout pipeline_layout;
+        auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
+            .setSetLayoutCount(static_cast<std::uint32_t>(descriptor_set_layouts.size()))
+            .setPSetLayouts(descriptor_set_layouts.data())
+            .setPushConstantRangeCount(static_cast<std::uint32_t>(constant_ranges.size()))
+            .setPPushConstantRanges(constant_ranges.data());
 
-        auto result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &pipeline_layout);
+        result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &pipeline_layout);
 
         check_result(result);
 
         // Assembly state
         vk::PipelineInputAssemblyStateCreateInfo inputAssemblyState { };
 
-        inputAssemblyState.setTopology(static_cast<vk::PrimitiveTopology>(primitive_type));
+        inputAssemblyState.setTopology(static_cast<vk::PrimitiveTopology>(model_mesh_part.primitive_type()));
 
         // Vertex buffer
         vk::PipelineVertexInputStateCreateInfo pipelineVertexInput { };
 
-        const auto& vertex_declaration = vertex_buffer->vertex_declaration();
+        const auto& vertex_declaration = model_mesh_part.vertex_buffer()->vertex_declaration();
 
         vk::VertexInputBindingDescription vertexInputBinding { };
 
@@ -589,11 +616,11 @@ namespace scener::graphics::vulkan
         auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
             .setRenderPass(_render_pass)
             .setSubpass(0)
-            .setPInputAssemblyState(&inputAssemblyState)
-            .setPVertexInputState(&pipelineVertexInput)
             .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
             .setPStages(shader_stages.data())
             .setLayout(pipeline_layout)
+            .setPInputAssemblyState(&inputAssemblyState)
+            .setPVertexInputState(&pipelineVertexInput)
             .setPColorBlendState(&color_blend_state_create_info)
             .setPDepthStencilState(&depth_stencil_state_create_info)
             .setPRasterizationState(&rasterizer_state_create_info)
@@ -932,7 +959,7 @@ namespace scener::graphics::vulkan
             .setPDepthStencilAttachment(&depth_ref);
 
         auto render_pass_create_info = vk::RenderPassCreateInfo()
-            .setAttachmentCount(attachments.size())
+            .setAttachmentCount(static_cast<std::uint32_t>(attachments.size()))
             .setPAttachments(attachments.data())
             .setSubpassCount(1)
             .setPSubpasses(&subpass)

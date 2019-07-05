@@ -119,38 +119,14 @@ namespace scener::graphics
         _viewport = viewport;
     }
 
-    vk::UniquePipeline graphics_device::create_graphics_pipeline(
-        graphics::primitive_type                      primitive_type
-      , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
-      , const graphics::effect_pass*                  effect_pass) noexcept
+    vk::UniquePipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
     {
-        return create_graphics_pipeline(
-            primitive_type
-          , vertex_buffer
+        return _logical_device->create_graphics_pipeline(
+            _viewport
           , _blend_state
           , _depth_stencil_state
           , _rasterizer_state
-          , effect_pass);
-    }
-
-    vk::UniquePipeline graphics_device::create_graphics_pipeline(
-        graphics::primitive_type                      primitive_type
-      , const gsl::not_null<graphics::vertex_buffer*> vertex_buffer
-      , const graphics::blend_state&                  blend
-      , const graphics::depth_stencil_state&          depth_stencil
-      , const graphics::rasterizer_state&             rasterizer
-      , const graphics::effect_pass*                  effect_pass) noexcept
-    {
-        Expects(effect_pass != nullptr);
-
-        return _logical_device->create_graphics_pipeline(
-            primitive_type
-          , _viewport
-          , vertex_buffer
-          , blend
-          , depth_stencil
-          , rasterizer
-          , effect_pass->shaders());
+          , model_mesh_part);
     }
 
     vulkan::buffer graphics_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept

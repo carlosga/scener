@@ -35,6 +35,10 @@ namespace scener::graphics
         /// \returns the effect pass shaders.
         const std::vector<std::shared_ptr<vulkan::shader>>& shaders() const noexcept;
 
+        /// Gets the effect pass parameters.
+        /// \returns the effect pass parameters.
+        const std::vector<std::shared_ptr<effect_parameter>>& parameters() const noexcept;
+
     private:
         std::vector<std::shared_ptr<effect_parameter>> _parameters      = { };
         std::vector<std::shared_ptr<vulkan::shader>>   _shaders         = { };

@@ -34,7 +34,6 @@ namespace scener::content::readers
     using scener::graphics::effect_parameter_type;
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
-    using scener::graphics::graphics_pipeline;
     using scener::graphics::service_container;
     using scener::graphics::vulkan::program;
     using scener::graphics::vulkan::shader;
@@ -236,9 +235,6 @@ namespace scener::content::readers
                 parameter->_constant_buffer = pass->_constant_buffer.get();
             }
         }
-
-        // Graphics pipeline for the current pass
-        //pass->_pipeline = gdservice->device()->create_graphics_pipeline(pass.get());
 
         effect->_passes.push_back(pass);
     }
