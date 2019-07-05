@@ -200,21 +200,16 @@ namespace scener::graphics::vulkan
 
     void logical_device::end_draw(const render_surface& surface) noexcept
     {
+        // Submit command buffer
+        static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
+
         auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
         auto command_buffer       = _command_buffers[command_buffer_index];
 
         command_buffer.endRenderPass();
         command_buffer.end();
-    }
 
-    void logical_device::present(const render_surface& surface) noexcept
-    {
-        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        auto command_buffer       = _command_buffers[command_buffer_index];
-
-        // Submit command buffer
-        static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
-
+        /*
         auto submit_info = vk::SubmitInfo()
             .setPWaitDstStageMask(submit_wait_stages)
             .setWaitSemaphoreCount(static_cast<std::uint32_t>(_image_ownership_semaphores.size()))
@@ -225,7 +220,13 @@ namespace scener::graphics::vulkan
             .setPCommandBuffers(&command_buffer);
 
         check_result(_graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]));
+        */
 
+        _next_command_buffer_index++;
+    }
+
+    void logical_device::present(const render_surface& surface) noexcept
+    {
         auto present_info = vk::PresentInfoKHR()
             .setWaitSemaphoreCount(static_cast<std::uint32_t>(_draw_complete_semaphores.size()))
             .setPWaitSemaphores(_draw_complete_semaphores.data())
@@ -236,8 +237,6 @@ namespace scener::graphics::vulkan
         auto result = _graphics_queue.presentKHR(&present_info);
 
         check_result(result);
-
-        _next_command_buffer_index++;
     }
 
     buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
