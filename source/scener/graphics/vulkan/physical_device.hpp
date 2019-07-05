@@ -10,6 +10,11 @@
 
 #include <vulkan/vulkan.hpp>
 
+namespace scener::graphics
+{
+    struct viewport;
+}
+
 namespace scener::graphics::vulkan
 {
     class render_surface;
@@ -33,7 +38,8 @@ namespace scener::graphics::vulkan
         bool is_cpu_gpu() const noexcept;
 
     public:
-        std::unique_ptr<logical_device> create_logical_device(const render_surface& surface) const noexcept;
+        std::unique_ptr<logical_device> create_logical_device(const render_surface& surface
+                                                            , const graphics::viewport& viewport) const noexcept;
 
     private:
         void identify_layers() noexcept;

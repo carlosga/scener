@@ -60,6 +60,7 @@ namespace scener::graphics::vulkan
     public:
         logical_device(const vk::PhysicalDevice&         physical_device
                      , const vk::Device&                 logical_device
+                     , const graphics::viewport&         viewport
                      , std::uint32_t                     graphics_queue_family_index
                      , std::uint32_t                     present_queue_family_index
                      , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -77,10 +78,11 @@ namespace scener::graphics::vulkan
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
+        /// Binds the given graphics pipeline
+        void bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept;
+
         /// Starts the drawing of a frame
         bool begin_draw([[maybe_unused]] const render_surface& surface) noexcept;
-
-        void bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         void draw_indexed(graphics::primitive_type       primitive_type
@@ -116,11 +118,10 @@ namespace scener::graphics::vulkan
 
     public:
         vk::UniquePipeline create_graphics_pipeline(                
-              const graphics::viewport&             viewport_state
-            , const graphics::blend_state&          color_blend_state
-            , const graphics::depth_stencil_state&  depth_stencil_state
-            , const graphics::rasterizer_state&     rasterization_state
-            , const graphics::model_mesh_part&      model_mesh_part) noexcept;
+              const graphics::blend_state&         color_blend_state
+            , const graphics::depth_stencil_state& depth_stencil_state
+            , const graphics::rasterizer_state&    rasterization_state
+            , const graphics::model_mesh_part&     model_mesh_part) noexcept;
 
     public:
         std::unique_ptr<image_storage, image_deleter>
@@ -129,6 +130,7 @@ namespace scener::graphics::vulkan
         vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
 
     private:
+        void create_viewport(const graphics::viewport& viewport);
         void create_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;
         void get_device_queues() noexcept;
         void begin_single_time_commands() noexcept;
@@ -157,6 +159,7 @@ namespace scener::graphics::vulkan
 
     private:
         vk::Device                                    _logical_device;
+        vk::Viewport                                  _viewport;
         std::uint32_t                                 _graphics_queue_family_index;
         vk::Queue                                     _graphics_queue;
         std::uint32_t                                 _present_queue_family_index;

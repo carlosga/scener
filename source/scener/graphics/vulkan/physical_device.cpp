@@ -85,7 +85,8 @@ namespace scener::graphics::vulkan
         return _physical_device.getProperties().deviceType == vk::PhysicalDeviceType::eCpu;
     }
 
-    std::unique_ptr<logical_device> physical_device::create_logical_device(const render_surface& surface) const noexcept
+    std::unique_ptr<logical_device> physical_device::create_logical_device(const render_surface& surface
+                                                                         , const graphics::viewport& viewport) const noexcept
     {
         auto graphics_queue_family_index = get_graphics_queue_family_index();
         auto present_queue_family_index  = get_present_queue_family_index(surface);
@@ -140,6 +141,7 @@ namespace scener::graphics::vulkan
         return std::make_unique<logical_device>(
             _physical_device
           , device
+          , viewport
           , graphics_queue_family_index
           , present_queue_family_index
           , surface_caps

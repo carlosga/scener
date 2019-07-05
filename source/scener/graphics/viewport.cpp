@@ -12,6 +12,8 @@ namespace scener::graphics
 
     viewport::viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept
         : rect { vx, vy, vwidth, vheight }
+        , min_depth { 0 }
+        , max_depth { 1 }
     {
     }
 }

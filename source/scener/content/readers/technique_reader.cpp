@@ -58,18 +58,24 @@ namespace scener::content::readers
                                                               , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
+        std::uint32_t offset = 0;
+
         for (auto it = value[k_uniforms].begin(); it != value[k_uniforms].end(); ++it)
         {
-            const auto  uniform_name = it.value().get<std::string>();
-            const auto& paramref     = value[k_parameters][uniform_name];
-            auto        parameter    = std::make_shared<effect_parameter>();
+            const auto    uniform_name = it.value().get<std::string>();
+            const auto&   paramref     = value[k_parameters][uniform_name];
+            auto          parameter    = std::make_shared<effect_parameter>();
 
             parameter->_name         = uniform_name;
-            parameter->_uniform_name = it.key();
+            parameter->_uniform_name = it.key();            
 
             if (paramref.count(k_count) != 0)
             {
                 parameter->_count = paramref[k_count].get<std::uint32_t>();
+            }
+            else
+            {
+                parameter->_count = 1;
             }
             if (paramref.count(k_semantic) != 0)
             {
@@ -77,6 +83,35 @@ namespace scener::content::readers
             }
 
             describe_parameter(parameter.get(), paramref[k_type].get<std::int32_t>());
+
+            if (parameter->_uniform_name == "u_jointMat")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+            else if (parameter->_uniform_name == "u_normalMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_normalMatrix);
+            else if (parameter->_uniform_name == "u_modelViewMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_modelViewMatrix);
+            else if (parameter->_uniform_name == "u_projectionMatrix")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_projectionMatrix);
+            else if (parameter->_uniform_name == "u_light0Transform")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
+            else if (parameter->_uniform_name == "u_ambient")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+            else if (parameter->_uniform_name == "u_emission")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+            else if (parameter->_uniform_name == "u_specular")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
+            else if (parameter->_uniform_name == "u_shininess")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
+            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
+            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
+            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
+            else if (parameter->_uniform_name == "u_light0Color")
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+
+            parameter->_offset = offset;
 
             effect->_parameters[parameter->_name] = parameter;
         }
@@ -174,11 +209,13 @@ namespace scener::content::readers
         auto device    = gdservice->device();
         auto pass      = std::make_shared<effect_pass>();
 
-        pass->_name = "default_pass";
+        pass->_name            = "default_pass";
+        pass->_constant_buffer = std::make_shared<constant_buffer>(device, "constant_buffer", sizeof(graphics::default_constant_buffer));
         pass->_parameters.reserve(effect->_parameters.size());
 
         for (const auto& param : effect->_parameters)
         {
+            param.second->_constant_buffer = pass->_constant_buffer.get();
             pass->_parameters.push_back(param.second);
         }
 
@@ -189,52 +226,7 @@ namespace scener::content::readers
 
         std::for_each(pass_program->shaders().begin(), pass_program->shaders().end(), [&] (const auto& shader) {
             pass->_shaders.push_back(shader);
-        });
-
-        std::uint32_t constant_buffer_size = sizeof(scener::graphics::default_constant_buffer);
-
-        pass->_constant_buffer = std::make_shared<constant_buffer>(device, "constant_buffer", constant_buffer_size);
-
-        // Uniforms
-        for (const auto& parameter : pass->_parameters)
-        {
-            const auto& reference = parameter->_uniform_name;
-
-            std::int64_t offset = -1;
-
-            if (reference == "u_jointMat[57]")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
-            else if (reference == "u_normalMatrix")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_normalMatrix);
-            else if (reference == "u_modelViewMatrix")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_modelViewMatrix);
-            else if (reference == "u_projectionMatrix")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_projectionMatrix);
-            else if (reference == "u_light0Transform")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
-            else if (reference == "u_ambient")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
-            else if (reference == "u_emission")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
-            else if (reference == "u_specular")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
-            else if (reference == "u_shininess")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
-            else if (reference == "u_light0ConstantAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
-            else if (reference == "u_light0LinearAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
-            else if (reference == "u_light0QuadraticAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
-            else if (reference == "u_light0Color")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
-
-            if (offset != -1)
-            {
-                parameter->_offset          = static_cast<std::uint32_t>(offset);
-                parameter->_constant_buffer = pass->_constant_buffer.get();
-            }
-        }
+        });              
 
         effect->_passes.push_back(pass);
     }
@@ -308,42 +300,49 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::describe_parameter(effect_parameter* parameter, std::int32_t type) const noexcept
-    {
+    {        
         switch (type)
         {
         case 0x1400:    // byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
+            parameter->_size            = sizeof (std::int8_t) * parameter->_count;
             break;
 
         case 0x1401:    // unsigned byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
+            parameter->_size            = sizeof (std::uint8_t) * parameter->_count;
             break;
 
         case 0x1402:    // short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int16;
+            parameter->_size            = sizeof (std::int16_t) * parameter->_count;
             break;
 
         case 0x1403:    // unsigned short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint16;
+            parameter->_size            = sizeof (std::uint16_t) * parameter->_count;
             break;
 
         case 0x1404:    // int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int32;
+            parameter->_size            = sizeof (std::int32_t) * parameter->_count;
             break;
 
         case 0x1405:    // unsigned int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint32;
+            parameter->_size            = sizeof (std::uint32_t) * parameter->_count;
             break;
 
         case 0x1406:    // float
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::single;
+            parameter->_size            = sizeof (float) * parameter->_count;
             break;
 
         case 0x8B50:    // vec2f
@@ -351,6 +350,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::vector2) * parameter->_count;
             break;
 
         case 0x8B51:    // vec3f
@@ -358,6 +358,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::vector3) * parameter->_count;
             break;
 
         case 0x8B52:    // vec4f
@@ -365,6 +366,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::vector4) * parameter->_count;
             break;
 
         case 0x8B53:    // vec2i
@@ -372,6 +374,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::vector2i) * parameter->_count;
             break;
 
         case 0x8B54:    // vec3i
@@ -379,6 +382,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::vector3i) * parameter->_count;
             break;
 
         case 0x8B55:    // vec4i
@@ -386,11 +390,13 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::vector4i) * parameter->_count;
             break;
 
         case 0x8B56:    // bool
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::boolean;
+            parameter->_size            = sizeof (bool) * parameter->_count;
             break;
 
         case 0x8B57:    // vec2b
@@ -398,6 +404,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (bool) * 2 * parameter->_count;
             break;
 
         case 0x8B58:    // vec3b
@@ -405,6 +412,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (bool) * 3 * parameter->_count;
             break;
 
         case 0x8B59:    // vec4b
@@ -412,6 +420,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (bool) * 4 * parameter->_count;
             break;
 
         case 0x8B5A	:   // mat2f
@@ -419,6 +428,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 2;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::matrix2) * 2 * parameter->_count;
             break;
 
         case 0x8B5B	:   // mat3f
@@ -426,6 +436,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 3;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::matrix3) * 2 * parameter->_count;
             break;
 
         case 0x8B5C	:   // mat4f
@@ -433,6 +444,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 4;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::matrix4) * 2 * parameter->_count;
             break;
 
         case 0x8B5E:    // sampler 2d

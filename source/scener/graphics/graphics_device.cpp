@@ -34,7 +34,7 @@ namespace scener::graphics
         // Physical device
         const auto& gpu = _adapter->get_physical_device(_graphics_adapter.device_id());
         // Logical device (Vulkan)
-        _logical_device = gpu.create_logical_device(*_render_surface);
+        _logical_device = gpu.create_logical_device(*_render_surface, _viewport);
         // Swap chain
         _logical_device->create_swap_chain(*_render_surface);
     }
@@ -122,8 +122,7 @@ namespace scener::graphics
     vk::UniquePipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
     {
         return _logical_device->create_graphics_pipeline(
-            _viewport
-          , _blend_state
+            _blend_state
           , _depth_stencil_state
           , _rasterizer_state
           , model_mesh_part);

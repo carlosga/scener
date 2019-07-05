@@ -41,8 +41,11 @@ namespace scener::graphics
         /// \returns the semantic meaning, or usage, of the parameter.
         const std::string& semantic() const noexcept;
 
-        /// Gets the parameter offset
+        /// Gets the parameter offset in bytes
         std::uint32_t offset() const noexcept;
+
+        /// Gets the parameter offset in bytes
+        std::uint32_t size() const noexcept;
 
     public:
         /// Get the effect parameter value.
@@ -72,6 +75,7 @@ namespace scener::graphics
         std::uint32_t          _row_count       { 0 };
         std::uint32_t          _count           { 0 };
         std::uint32_t          _offset          { 0 };
+        std::uint32_t          _size            { 0 };
         effect_parameter_class _parameter_class { effect_parameter_class::scalar };
         effect_parameter_type  _parameter_type  { effect_parameter_type::single };
         constant_buffer*       _constant_buffer { nullptr };

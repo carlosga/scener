@@ -52,6 +52,11 @@ namespace scener::graphics
         return _offset;
     }
 
+    std::uint32_t effect_parameter::size() const noexcept
+    {
+        return _size;
+    }
+
     template <>
     std::vector<bool> effect_parameter::get_value() const noexcept
     {

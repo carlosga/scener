@@ -22,10 +22,12 @@
 namespace scener::graphics::vulkan
 {
     using scener::graphics::vertex_element_format;
+    using scener::graphics::viewport;
     using scener::math::basic_color;
 
     logical_device::logical_device(const vk::PhysicalDevice&         physical_device
                                  , const vk::Device&                 logical_device
+                                 , const viewport&                   viewport
                                  , std::uint32_t                     graphics_queue_family_index
                                  , std::uint32_t                     present_queue_family_index
                                  , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -34,6 +36,7 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { logical_device }
+        , _viewport                    { }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -63,6 +66,7 @@ namespace scener::graphics::vulkan
         , _depth_buffer                { nullptr }
         , _allocator                   { }
     {
+        create_viewport(viewport);
         create_allocator(physical_device, logical_device);
         get_device_queues();
         create_command_pools();
@@ -108,6 +112,13 @@ namespace scener::graphics::vulkan
         _clear_color = color;
     }
 
+    void logical_device::bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept
+    {
+        const auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+
+        _command_buffers[command_buffer_index].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline);
+    }
+
     bool logical_device::begin_draw(const render_surface& surface) noexcept
     {
         auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
@@ -119,11 +130,16 @@ namespace scener::graphics::vulkan
             .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
 
         // Begin main command buffer
-        command_buffer.begin(&begin_info);
+        auto result = command_buffer.begin(&begin_info);
+
+        check_result(result);
+
+        // Set the viewport
+        command_buffer.setViewport(0, 1, &_viewport);
 
         // Acquire swapchain image
         _acquired_image_index = 0;
-        auto result = _logical_device.acquireNextImageKHR(
+        result = _logical_device.acquireNextImageKHR(
             _swap_chain
           , UINT64_MAX
           , _image_acquired_semaphores[command_buffer_index]
@@ -149,14 +165,7 @@ namespace scener::graphics::vulkan
 
         command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
 
-        return false;
-    }
-
-    void logical_device::bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept
-    {
-        const auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-
-        _command_buffers[command_buffer_index].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline);
+        return true;
     }
 
     void logical_device::draw_indexed(graphics::primitive_type       primitive_type
@@ -172,9 +181,10 @@ namespace scener::graphics::vulkan
         auto command_buffer       = _command_buffers[command_buffer_index];
         auto index_element_type   = static_cast<vk::IndexType>(index_buffer->index_element_type());
         auto offset               = start_index * index_buffer->element_size_in_bytes();
+        VkDeviceSize offsets[]    = { 0 };
 
         // Vertex buffer binding
-        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.memory_buffer(), nullptr);
+        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.memory_buffer(), offsets);
 
         // Index buffer binding
         command_buffer.bindIndexBuffer(index_buffer->_buffer.memory_buffer(), 0, index_element_type);
@@ -195,23 +205,24 @@ namespace scener::graphics::vulkan
 
         command_buffer.endRenderPass();
         command_buffer.end();
-
-        _next_command_buffer_index++;
     }
 
     void logical_device::present(const render_surface& surface) noexcept
     {
+        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
+        auto command_buffer       = _command_buffers[command_buffer_index];
+
         // Submit command buffer
         static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
 
         auto submit_info = vk::SubmitInfo()
+            .setPWaitDstStageMask(submit_wait_stages)
             .setWaitSemaphoreCount(static_cast<std::uint32_t>(_image_ownership_semaphores.size()))
             .setPWaitSemaphores(_image_ownership_semaphores.data())
-            .setPWaitDstStageMask(submit_wait_stages)
             .setSignalSemaphoreCount(static_cast<std::uint32_t>(_draw_complete_semaphores.size()))
-            .setPWaitSemaphores(_draw_complete_semaphores.data())
-            .setCommandBufferCount(static_cast<std::uint32_t>(_command_buffers.size()))
-            .setPCommandBuffers(_command_buffers.data());
+            .setPSignalSemaphores(_draw_complete_semaphores.data())
+            .setCommandBufferCount(1)
+            .setPCommandBuffers(&command_buffer);
 
         check_result(_graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]));
 
@@ -225,6 +236,8 @@ namespace scener::graphics::vulkan
         auto result = _graphics_queue.presentKHR(&present_info);
 
         check_result(result);
+
+        _next_command_buffer_index++;
     }
 
     buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
@@ -431,29 +444,20 @@ namespace scener::graphics::vulkan
     }
 
     vk::UniquePipeline logical_device::create_graphics_pipeline(
-          const graphics::viewport&             viewport_state
-        , const graphics::blend_state&          color_blend_state
+          const graphics::blend_state&          color_blend_state
         , const graphics::depth_stencil_state&  depth_stencil_state
         , const graphics::rasterizer_state&     rasterization_state
         , const graphics::model_mesh_part&      model_mesh_part) noexcept
     {
-        // Viewport
-        auto viewport = vk::Viewport()
-            .setX(viewport_state.rect.x())
-            .setY(viewport_state.rect.y())
-            .setWidth(viewport_state.rect.width())
-            .setHeight(viewport_state.rect.height())
-            .setMinDepth(viewport_state.min_depth)
-            .setMaxDepth(viewport_state.max_depth);
-
         auto scissor = vk::Rect2D()
-            .setOffset({ static_cast<std::int32_t>(viewport_state.rect.x())
-                       , static_cast<std::int32_t>(viewport_state.rect.y()) })
-            .setExtent({ viewport_state.rect.width(), viewport_state.rect.height() });
+            .setOffset({ static_cast<std::int32_t>(_viewport.x)
+                       , static_cast<std::int32_t>(_viewport.y) })
+            .setExtent({ static_cast<std::uint32_t>(_viewport.width)
+                       , static_cast<std::uint32_t>(_viewport.height) });
 
         auto viewport_state_create_info = vk::PipelineViewportStateCreateInfo()
             .setViewportCount(1)
-            .setPViewports(&viewport)
+            .setPViewports(&_viewport)
             .setScissorCount(1)
             .setPScissors(&scissor);
 
@@ -509,13 +513,15 @@ namespace scener::graphics::vulkan
         }
 
         // Pipeline layout
+        std::vector<vk::DescriptorSetLayout> descriptor_set_layouts;
+        vk::DescriptorSetLayout descriptor_set_layout;
+
         auto descriptor_set_layout_binding = vk::DescriptorSetLayoutBinding()
                 .setBinding(0)
                 .setDescriptorType(vk::DescriptorType::eUniformBuffer)
                 .setDescriptorCount(1)
                 .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment);
 
-        vk::DescriptorSetLayout descriptor_set_layout;
         auto descriptor_set_layout_crate_info = vk::DescriptorSetLayoutCreateInfo()
             .setPBindings(&descriptor_set_layout_binding)
             .setBindingCount(1);
@@ -524,25 +530,12 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        std::vector<vk::DescriptorSetLayout> descriptor_set_layouts;
-        std::vector<vk::PushConstantRange> constant_ranges;
-
         descriptor_set_layouts.push_back(descriptor_set_layout);
-
-        for (const auto& effect_parameter : effect_pass->parameters())
-        {
-            auto constant_range = vk::PushConstantRange()
-                .setOffset(effect_parameter->offset());
-
-            constant_ranges.push_back({ constant_range });
-        }               
 
         vk::PipelineLayout pipeline_layout;
         auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
             .setSetLayoutCount(static_cast<std::uint32_t>(descriptor_set_layouts.size()))
-            .setPSetLayouts(descriptor_set_layouts.data())
-            .setPushConstantRangeCount(static_cast<std::uint32_t>(constant_ranges.size()))
-            .setPPushConstantRanges(constant_ranges.data());
+            .setPSetLayouts(descriptor_set_layouts.data());
 
         result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &pipeline_layout);
 
@@ -780,6 +773,17 @@ namespace scener::graphics::vulkan
         check_result(result);
 
         return sampler;
+    }
+
+    void logical_device::create_viewport(const viewport& viewport)
+    {
+        _viewport
+            .setX(viewport.rect.x())
+            .setY(viewport.rect.y())
+            .setWidth(viewport.rect.width())
+            .setHeight(viewport.rect.height())
+            .setMinDepth(viewport.min_depth)
+            .setMaxDepth(viewport.max_depth);
     }
 
     void logical_device::create_allocator(const vk::PhysicalDevice& physical_device
