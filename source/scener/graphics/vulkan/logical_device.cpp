@@ -31,7 +31,6 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { logical_device }
-        , _allocator                   { }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -59,6 +58,7 @@ namespace scener::graphics::vulkan
         , _acquired_image_index        { 0 }
         , _depth_format                { depth_format }
         , _depth_buffer                { nullptr }
+        , _allocator                   { }
     {
         create_allocator(physical_device, logical_device);
         get_device_queues();

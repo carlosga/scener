@@ -194,7 +194,7 @@ namespace scener::content::readers
 
         std::uint32_t constant_buffer_size = sizeof(scener::graphics::default_constant_buffer);
 
-        pass->_constant_buffer = std::make_unique<constant_buffer>(device, "constant_buffer", constant_buffer_size);
+        pass->_constant_buffer = std::make_shared<constant_buffer>(device, "constant_buffer", constant_buffer_size);
 
         // Uniforms
         for (const auto& parameter : pass->_parameters)
@@ -232,7 +232,7 @@ namespace scener::content::readers
 
             if (offset != -1)
             {
-                parameter->_offset          = offset;
+                parameter->_offset          = static_cast<std::uint32_t>(offset);
                 parameter->_constant_buffer = pass->_constant_buffer.get();
             }
         }

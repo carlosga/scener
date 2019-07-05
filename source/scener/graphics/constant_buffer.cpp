@@ -19,7 +19,6 @@ namespace scener::graphics
         , _binding_point    { 0 }
         , _size             { size }
         , _name             { name }
-        , _staging_buffer   ( size )
         , _buffer           { device->create_uniform_buffer(size) }
     {
     }
@@ -63,10 +62,6 @@ namespace scener::graphics
         Ensures(offset <= _size);
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
-
-        // auto offset_address = _staging_buffer.data() + offset;
-
-        // memcpy(offset_address, data, count);
 
         _buffer.set_data(offset, count, data);
     }

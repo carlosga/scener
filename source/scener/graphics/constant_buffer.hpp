@@ -62,12 +62,11 @@ namespace scener::graphics
         void set_data(std::uint32_t offset, std::uint32_t count, gsl::not_null<const void*> data) noexcept;
 
      private:
-        std::uint32_t             _index;
-        std::uint32_t             _binding_point;
-        std::uint32_t             _size;
-        std::string               _name;
-        std::vector<std::uint8_t> _staging_buffer;
-        vulkan::buffer            _buffer;
+        std::uint32_t  _index;
+        std::uint32_t  _binding_point;
+        std::uint32_t  _size;
+        std::string    _name;
+        vulkan::buffer _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };

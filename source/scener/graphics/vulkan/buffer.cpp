@@ -25,7 +25,16 @@ namespace scener::graphics::vulkan
         buffer_create_info.size        = count;
 
         VmaAllocationCreateInfo allocation_create_info = { };
-        allocation_create_info.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+
+        if ((usage & buffer_usage::uniform_buffer) == buffer_usage::uniform_buffer)
+        {
+            allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+            allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
+        }
+        else
+        {
+            allocation_create_info.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+        }
 
         auto result = vmaCreateBuffer(
             *_allocator
@@ -77,12 +86,9 @@ namespace scener::graphics::vulkan
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
 
-        void* mappedData = nullptr;
-        auto map_result = vmaMapMemory(*_allocator, _memory_buffer_allocation, &mappedData);
-        Ensures(map_result == VK_SUCCESS);
-        memcpy(mappedData, data, count);
-        vmaUnmapMemory(*_allocator, _memory_buffer_allocation);
+        auto mapped_data = reinterpret_cast<char*>(_memory_buffer_allocation_info.pMappedData) + offset;
 
-        // memcpy(_memory_buffer_allocation_info->pMappedData, &data, count);
+        // Buffer is already mapped.
+        memcpy(mapped_data + offset, &data, count);
     }
 }

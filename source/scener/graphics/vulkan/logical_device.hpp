@@ -163,36 +163,35 @@ namespace scener::graphics::vulkan
         vk::PipelineRasterizationStateCreateInfo vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept;
 
     private:
-        vk::Device                       _logical_device;
-        VmaAllocator                     _allocator;
-        std::uint32_t                    _graphics_queue_family_index;
-        vk::Queue                        _graphics_queue;
-        std::uint32_t                    _present_queue_family_index;
-        vk::Queue                        _present_queue;
-        vk::SurfaceCapabilitiesKHR       _surface_capabilities;
-        vk::SurfaceFormatKHR             _surface_format;
-        vk::PresentModeKHR               _present_mode;
-        vk::FormatProperties             _format_properties;
-        vk::CommandPool                  _command_pool;
-        vk::CommandPool                  _single_time_command_pool;
-        vk::SwapchainKHR                 _swap_chain;
-        vk::RenderPass                   _render_pass;
-        std::vector<vk::Image>           _swap_chain_images;
-        std::vector<vk::ImageView>       _swap_chain_image_views;
-        std::vector<vk::Framebuffer>     _frame_buffers;
-        std::vector<vk::CommandBuffer>   _command_buffers;
-        vk::CommandBuffer                _single_time_command_buffer;
-        std::vector<vk::Fence>           _fences;
-        vk::Fence                        _single_time_command_fence;
-        std::vector<vk::Semaphore>       _image_acquired_semaphores;
-        std::vector<vk::Semaphore>       _draw_complete_semaphores;
-        std::vector<vk::Semaphore>       _image_ownership_semaphores;
-        scener::math::basic_color<float> _clear_color;
-        std::uint64_t                    _next_command_buffer_index;
-        std::uint32_t                    _acquired_image_index;
-
+        vk::Device                                    _logical_device;
+        std::uint32_t                                 _graphics_queue_family_index;
+        vk::Queue                                     _graphics_queue;
+        std::uint32_t                                 _present_queue_family_index;
+        vk::Queue                                     _present_queue;
+        vk::SurfaceCapabilitiesKHR                    _surface_capabilities;
+        vk::SurfaceFormatKHR                          _surface_format;
+        vk::PresentModeKHR                            _present_mode;
+        vk::FormatProperties                          _format_properties;
+        vk::CommandPool                               _command_pool;
+        vk::CommandPool                               _single_time_command_pool;
+        vk::SwapchainKHR                              _swap_chain;
+        vk::RenderPass                                _render_pass;
+        std::vector<vk::Image>                        _swap_chain_images;
+        std::vector<vk::ImageView>                    _swap_chain_image_views;
+        std::vector<vk::Framebuffer>                  _frame_buffers;
+        std::vector<vk::CommandBuffer>                _command_buffers;
+        vk::CommandBuffer                             _single_time_command_buffer;
+        std::vector<vk::Fence>                        _fences;
+        vk::Fence                                     _single_time_command_fence;
+        std::vector<vk::Semaphore>                    _image_acquired_semaphores;
+        std::vector<vk::Semaphore>                    _draw_complete_semaphores;
+        std::vector<vk::Semaphore>                    _image_ownership_semaphores;
+        scener::math::basic_color<float>              _clear_color;
+        std::uint64_t                                 _next_command_buffer_index;
+        std::uint32_t                                 _acquired_image_index;
         vk::Format                                    _depth_format;
         std::unique_ptr<image_storage, image_deleter> _depth_buffer;
+        VmaAllocator                                  _allocator;
     };
 }
 
