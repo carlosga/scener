@@ -1,23 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_OPENGL_BUFFER_HPP
-#define SCENER_GRAPHICS_OPENGL_BUFFER_HPP
-
-#include <any>
-#include <cstddef>
-#include <cstdint>
-#include <functional>
-#include <memory>
-#include <vector>
+#ifndef SCENER_GRAPHICS_VULKAN_BUFFER_HPP
+#define SCENER_GRAPHICS_VULKAN_BUFFER_HPP
 
 #include <gsl/gsl>
 #include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/vulkan/buffer_usage.hpp"
-
-struct VmaAllocator_T;
-struct VmaAllocation_T;
+#include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -29,7 +20,7 @@ namespace scener::graphics::vulkan
         /// \param usage the buffer usage.
         /// \param size the buffer size.
         /// \param buffer the vulkan buffer.
-        buffer(buffer_usage usage, vk::SharingMode sharing_mode, std::uint64_t count, VmaAllocator_T* allocator) noexcept;
+        buffer(buffer_usage usage, vk::SharingMode sharing_mode, std::uint64_t count, VmaAllocator* allocator) noexcept;
 
         ~buffer();
 
@@ -50,18 +41,17 @@ namespace scener::graphics::vulkan
         /// \param data specifies a span of data that will be copied into the data store for initialization.
         void set_data([[maybe_unused]] std::uint64_t offset
                     , [[maybe_unused]] std::uint64_t count
-                    , [[maybe_unused]] const gsl::not_null<const void*> data) const noexcept;
-
-        void transfer_data(const gsl::span<const std::uint8_t>& data, const vk::CommandBuffer& command_buffer) noexcept;
+                    , [[maybe_unused]] gsl::not_null<const void*> data) const noexcept;
 
     private:
-        buffer_usage     _usage;
-        vk::SharingMode  _sharing_mode;
-        std::uint64_t    _size;
-        vk::Buffer       _memory_buffer;
-        VmaAllocation_T* _memory_buffer_allocation;
-        VmaAllocator_T*  _allocator;
+        buffer_usage      _usage;
+        vk::SharingMode   _sharing_mode;
+        std::uint64_t     _size;
+        vk::Buffer        _memory_buffer;
+        VmaAllocation     _memory_buffer_allocation;
+        VmaAllocationInfo _memory_buffer_allocation_info;
+        VmaAllocator*     _allocator;
     };
 }
 
-#endif // SCENER_GRAPHICS_OPENGL_BUFFER_HPP
+#endif // SCENER_GRAPHICS_VULKAN_BUFFER_HPP

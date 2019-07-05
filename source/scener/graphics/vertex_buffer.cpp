@@ -16,9 +16,8 @@ namespace scener::graphics
         : graphics_resource   { device }
         , _vertex_count       { vertex_count }
         , _vertex_declaration { vertex_declaration }
-        , _buffer             { nullptr }
+        , _buffer             { device->create_vertex_buffer(data) }
     {
-        _buffer = device->create_vertex_buffer(data);
     }
 
     std::uint32_t vertex_buffer::vertex_count() const noexcept
@@ -33,22 +32,17 @@ namespace scener::graphics
 
     std::vector<std::uint8_t> vertex_buffer::get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept
     {
-        if (_buffer.get() == nullptr)
-        {
-            return { };
-        }
-
         auto offset = (start_index   * _vertex_declaration.vertex_stride());
         auto size   = (element_count * _vertex_declaration.vertex_stride());
 
-        return _buffer->get_data(offset, size);
+        return _buffer.get_data(offset, size);
     }
 
     void vertex_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
         // std::uint64_t size = _vertex_count * _vertex_declaration.vertex_stride();
 
-        _buffer->set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
+        _buffer.set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
     }
 
     const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept

@@ -7,8 +7,6 @@
 #include <string>
 #include <gsl/gsl>
 
-#include <vk_mem_alloc.h>
-
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_element_format.hpp"
@@ -33,7 +31,7 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { logical_device }
-        , _allocator                   { nullptr }
+        , _allocator                   { }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -81,11 +79,7 @@ namespace scener::graphics::vulkan
         destroy_command_pools();
 
         // Memory allocators
-        if (_allocator != nullptr)
-        {
-            vmaDestroyAllocator(_allocator);
-            _allocator = nullptr;
-        }
+        vmaDestroyAllocator(_allocator);
 
         // Logical devices
         _logical_device.destroy(nullptr);
@@ -177,10 +171,10 @@ namespace scener::graphics::vulkan
         auto offset               = start_index * index_buffer->element_size_in_bytes();
 
         // Vertex buffer binding
-        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer->memory_buffer(), nullptr);
+        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.memory_buffer(), nullptr);
 
         // Index buffer binding
-        command_buffer.bindIndexBuffer(index_buffer->_buffer->memory_buffer(), 0, index_element_type);
+        command_buffer.bindIndexBuffer(index_buffer->_buffer.memory_buffer(), 0, index_element_type);
 
         // Draw call
         command_buffer.drawIndexed(
@@ -230,45 +224,82 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    std::unique_ptr<buffer>
-    logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
+    buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::index_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
                            , data);
     }
 
-    std::unique_ptr<buffer>
-    logical_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept
+    buffer logical_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept
     {
         return create_buffer(buffer_usage::vertex_buffer | buffer_usage::transfer_destination
                            , vk::SharingMode::eExclusive
                            , data);
     }
 
-    std::unique_ptr<buffer>
-    logical_device::create_uniform_buffer(std::uint64_t count) noexcept
+    buffer logical_device::create_uniform_buffer(std::uint64_t count) noexcept
     {
-        buffer buffer_instance { buffer_usage::uniform_buffer, vk::SharingMode::eConcurrent, count, _allocator };
+        buffer buffer_instance { buffer_usage::uniform_buffer | buffer_usage::transfer_destination
+                               , vk::SharingMode::eExclusive, count, &_allocator };
 
-        return std::unique_ptr<buffer>(&buffer_instance);
+        return buffer_instance;
     }
 
-    std::unique_ptr<buffer>
-    logical_device::create_buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data) noexcept
+    buffer logical_device::create_buffer(buffer_usage usage, vk::SharingMode sharing_mode, const gsl::span<const std::uint8_t>& data) noexcept
     {
-        buffer buffer_instance { usage, sharing_mode, static_cast<std::uint64_t>(data.size()), _allocator };
+        buffer buffer_instance { usage, sharing_mode, static_cast<std::uint64_t>(data.size()), &_allocator };
 
         if (data.size() > 0)
         {
             if ((usage & buffer_usage::transfer_destination) == buffer_usage::transfer_destination)
             {
+                VkBufferCreateInfo buffer_create_info = {
+                    VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO        // VkStructureType
+                  , nullptr                                     // pNext
+                  , 0                                           // flags
+                  , buffer_instance.size()                      // size
+                  , VK_BUFFER_USAGE_TRANSFER_SRC_BIT            // usage
+                  , static_cast<VkSharingMode>(sharing_mode)    // sharingMode
+                  , 0                                           // queueFamilyIndexCount
+                  , nullptr                                     // pQueueFamilyIndices
+                };
+
+                VmaAllocationCreateInfo allocation_create_info = { };
+
+                allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+                allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
+
+                vk::Buffer        staging_buffer            = { };
+                VmaAllocation     staging_buffer_allocation;
+                VmaAllocationInfo staging_buffer_alloc_info = { };
+                auto result = vmaCreateBuffer(
+                    _allocator
+                  , &buffer_create_info
+                  , &allocation_create_info
+                  , reinterpret_cast<VkBuffer*>(&staging_buffer)
+                  , &staging_buffer_allocation
+                  , &staging_buffer_alloc_info);
+
+                Ensures(result == VK_SUCCESS);
+
+                std::copy_n(data.data(), data.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
+
+                // Copy buffer contents from the staging buffer to the real buffer
+                auto buffer_copy_region = vk::BufferCopy()
+                    .setSrcOffset(0)
+                    .setDstOffset(0)
+                    .setSize(buffer_create_info.size);
+
                 // Copy buffer contents from the staging buffer to the real buffer
                 begin_single_time_commands();
 
-                buffer_instance.transfer_data(data, _single_time_command_buffer);
+                _single_time_command_buffer.copyBuffer(staging_buffer, buffer_instance.memory_buffer(), 1, &buffer_copy_region);
 
                 end_single_time_commands();
+
+                // Destroy the staging buffer
+                vmaDestroyBuffer(_allocator, staging_buffer, staging_buffer_allocation);
             }
             else
             {
@@ -276,7 +307,7 @@ namespace scener::graphics::vulkan
             }
         }
 
-        return std::unique_ptr<buffer>(&buffer_instance);
+        return buffer_instance;
     }
 
     void logical_device::create_swap_chain(const render_surface& surface) noexcept

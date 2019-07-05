@@ -9,7 +9,6 @@
 #include <memory>
 
 #include <gsl/gsl>
-#include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
@@ -19,10 +18,9 @@
 #include "scener/graphics/vulkan/resource_deleter.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
+#include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 #include "scener/math/basic_size.hpp"
 #include "scener/math/basic_color.hpp"
-
-struct VmaAllocator_T;
 
 namespace scener::graphics
 {
@@ -109,20 +107,15 @@ namespace scener::graphics::vulkan
         void present([[maybe_unused]] const render_surface& surface) noexcept;
 
     public:
-        std::unique_ptr<buffer>
-        create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+        buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
-        std::unique_ptr<buffer>
-        create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
+        buffer create_vertex_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
-        std::unique_ptr<buffer>
-        create_uniform_buffer(std::uint64_t count) noexcept;
+        buffer create_uniform_buffer(std::uint64_t count) noexcept;
 
-        std::unique_ptr<buffer>
-        create_buffer(
-              buffer_usage                         usage
-            , vk::SharingMode                      sharing_mode
-            , const gsl::span<const std::uint8_t>& data) noexcept;
+        buffer create_buffer(buffer_usage                         usage
+                           , vk::SharingMode                      sharing_mode
+                           , const gsl::span<const std::uint8_t>& data) noexcept;
 
     public:
         void create_swap_chain(const render_surface& surface) noexcept;
@@ -171,7 +164,7 @@ namespace scener::graphics::vulkan
 
     private:
         vk::Device                       _logical_device;
-        VmaAllocator_T*                  _allocator;
+        VmaAllocator                     _allocator;
         std::uint32_t                    _graphics_queue_family_index;
         vk::Queue                        _graphics_queue;
         std::uint32_t                    _present_queue_family_index;

@@ -14,13 +14,13 @@ add_library (scener SHARED ${SOURCE_FILES} ${HEADER_FILES})
 
 # include directories
 target_include_directories (scener
-                            PUBLIC  ${VULKAN_INCLUDE_DIR}
-                            PRIVATE ${AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS}
-                            PRIVATE ${JSON_INCLUDE_DIRS}
-                            PRIVATE ${GSL_INCLUDE_DIRS}
-                            PRIVATE ${NOD_INCLUDE_DIRS}
-                            PRIVATE ${SCENER_MATH_INCLUDE_DIRS}
-                            PRIVATE ${SCENER_INCLUDE_DIRS})
+                            PUBLIC ${VULKAN_INCLUDE_DIR}
+                            PUBLIC ${AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS}
+                            PUBLIC ${JSON_INCLUDE_DIRS}
+                            PUBLIC ${GSL_INCLUDE_DIRS}
+                            PUBLIC ${NOD_INCLUDE_DIRS}
+                            PUBLIC ${SCENER_MATH_INCLUDE_DIRS}
+                            PUBLIC ${SCENER_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (scener ${VULKAN_LIBRARIES})

@@ -6,7 +6,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <vector>
 
 #include <gsl/gsl>
@@ -67,9 +66,9 @@ namespace scener::graphics
         void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
-        index_type                      _index_element_type;
-        std::uint32_t                   _index_count;
-        std::unique_ptr<vulkan::buffer> _buffer;
+        index_type     _index_element_type;
+        std::uint32_t  _index_count;
+        vulkan::buffer _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };

@@ -3,6 +3,8 @@
 
 #include "scener/graphics/constant_buffer.hpp"
 
+#include <algorithm>
+
 #include "scener/graphics/graphics_device.hpp"
 
 namespace scener::graphics
@@ -15,11 +17,11 @@ namespace scener::graphics
         : graphics_resource { device }
         , _index            { 0 }
         , _binding_point    { 0 }
-        , _size             { _size }
+        , _size             { size }
         , _name             { name }
-        , _buffer           { nullptr }
+        , _staging_buffer   ( size )
+        , _buffer           { device->create_uniform_buffer(size) }
     {
-        _buffer = device->create_uniform_buffer(size);
     }
 
     std::uint32_t constant_buffer::binding_point() const noexcept
@@ -48,12 +50,7 @@ namespace scener::graphics
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
 
-        if (_buffer.get() == nullptr)
-        {
-            return { };
-        }
-
-        return _buffer->get_data(offset, count);
+        return _buffer.get_data(offset, count);
     }
 
     void constant_buffer::set_data(gsl::not_null<const void*> data) noexcept
@@ -67,6 +64,10 @@ namespace scener::graphics
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
 
-        _buffer->set_data(offset, count, data);
+        // auto offset_address = _staging_buffer.data() + offset;
+
+        // memcpy(offset_address, data, count);
+
+        _buffer.set_data(offset, count, data);
     }
 }

@@ -6,7 +6,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <vector>
 
 #include "scener/graphics/graphics_resource.hpp"
@@ -53,9 +52,9 @@ namespace scener::graphics
         const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
     private:
-        std::uint32_t                   _vertex_count;
-        graphics::vertex_declaration    _vertex_declaration;
-        std::unique_ptr<vulkan::buffer> _buffer;
+        std::uint32_t                _vertex_count;
+        graphics::vertex_declaration _vertex_declaration;
+        vulkan::buffer               _buffer;
 
         friend class scener::graphics::vulkan::logical_device;
     };
