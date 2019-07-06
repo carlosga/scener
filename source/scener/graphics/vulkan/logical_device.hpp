@@ -99,6 +99,9 @@ namespace scener::graphics::vulkan
         /// graphics_device.
         void present() noexcept;
 
+        /// Binds the given graphics pipeline
+        void bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept;
+
     public:
         buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
 
@@ -115,9 +118,6 @@ namespace scener::graphics::vulkan
         void recreate_swap_chain(const render_surface& surface) noexcept;
 
     public:
-        /// Binds the given graphics pipeline
-        void bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept;
-
         graphics_pipeline create_graphics_pipeline(
               const graphics::blend_state&         color_blend_state
             , const graphics::depth_stencil_state& depth_stencil_state

@@ -120,10 +120,7 @@ namespace scener::graphics::vulkan
     }
 
     bool logical_device::begin_draw() noexcept
-    {
-        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        auto command_buffer       = _command_buffers[command_buffer_index];
-
+    {       
         const auto clear_color_value = vk::ClearColorValue()
             .setFloat32(_clear_color.components);
 
@@ -131,47 +128,80 @@ namespace scener::graphics::vulkan
             .setColor(clear_color_value)
             .setDepthStencil({ 1.0f, 0 });
 
-        // Render area
         const auto render_area = vk::Rect2D()
             .setOffset({ static_cast<std::int32_t>(static_cast<std::uint32_t>(_viewport.x))
                        , static_cast<std::int32_t>(_viewport.y) })
             .setOffset({ static_cast<std::int32_t>(static_cast<std::uint32_t>(_viewport.width))
                        , static_cast<std::int32_t>(_viewport.height) });
 
-        // Reset fences
-        reset_fence(_fences[command_buffer_index]);
+        auto image_subresource_range = vk::ImageSubresourceRange()
+             .setAspectMask(vk::ImageAspectFlagBits::eColor)
+             .setBaseMipLevel(0)
+             .setLevelCount(1)
+             .setBaseArrayLayer(0)
+             .setLayerCount(1);
 
-        // Acquire swapchain image
-        _acquired_image_index = 0;
-        auto result = _logical_device.acquireNextImageKHR(
-            _swap_chain
-          , UINT64_MAX
-          , _image_acquired_semaphores[command_buffer_index]
-          , _fences[command_buffer_index]
-          , &_acquired_image_index);
+        for (std::uint32_t i = 0; i < _command_buffers.size(); ++i)
+        {
+            const auto& command_buffer   = _command_buffers[i];
+            const auto& swap_chain_image = _swap_chain_images[i];
 
-        check_result(result);
+            auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
+                .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
 
-        auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
+            reset_fence(_fences[i]);
 
-        // Begin main command buffer
-        result = command_buffer.begin(&command_buffer_begin_info);
+            if (_present_queue != _graphics_queue)
+            {
+                auto barrier_from_present_to_draw = vk::ImageMemoryBarrier()
+                    .setSrcAccessMask(vk::AccessFlagBits::eMemoryRead)
+                    .setDstAccessMask(vk::AccessFlagBits::eColorAttachmentWrite)
+                    .setOldLayout(vk::ImageLayout::ePresentSrcKHR)
+                    .setNewLayout(vk::ImageLayout::ePresentSrcKHR)
+                    .setSrcQueueFamilyIndex(_present_queue_family_index)
+                    .setDstQueueFamilyIndex(_graphics_queue_family_index)
+                    .setImage(swap_chain_image)
+                    .setSubresourceRange(image_subresource_range);
 
-        check_result(result);
+                command_buffer.pipelineBarrier(
+                    vk::PipelineStageFlagBits::eTransfer
+                  , vk::PipelineStageFlagBits::eTransfer
+                  , vk::DependencyFlagBits::eViewLocal
+                  , 0                                       // Memory barriers count
+                  , nullptr                                 // Memory barriers
+                  , 0                                       // Memory barriers buffer count
+                  , nullptr                                 // Memory barriers buffers
+                  , 1                                       // Image memory barriers count
+                  , &barrier_from_present_to_draw           // Image memory barriers
+                );
+            }
 
-        // Begin render pass
-        auto render_pass_begin_info = vk::RenderPassBeginInfo()
-            .setRenderPass(_render_pass)
-            .setFramebuffer(_frame_buffers[_acquired_image_index])
-            .setClearValueCount(1)
-            .setPClearValues(&clear_color)
-            .setRenderArea(render_area);
+            // Begin main command buffer
+            auto result = command_buffer.begin(&command_buffer_begin_info);
 
-        command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
+            check_result(result);
 
-        // Set the viewport
-        command_buffer.setViewport(0, 1, &_viewport);
+            command_buffer.clearColorImage(
+                swap_chain_image
+              , vk::ImageLayout::eTransferDstOptimal
+              , &clear_color.color
+              , 1
+              , &image_subresource_range
+            );
+
+            // Begin render pass
+            auto render_pass_begin_info = vk::RenderPassBeginInfo()
+                .setRenderPass(_render_pass)
+                .setFramebuffer(_frame_buffers[i])
+                .setClearValueCount(1)
+                .setPClearValues(&clear_color)
+                .setRenderArea(render_area);
+
+            command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
+
+            // Set the viewport
+            command_buffer.setViewport(0, 1, &_viewport);
+        }
 
         return true;
     }
@@ -185,25 +215,27 @@ namespace scener::graphics::vulkan
                                     , const graphics::vertex_buffer* vertex_buffer
                                     , const graphics::index_buffer*  index_buffer) noexcept
     {
-        const auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        const auto command_buffer       = _command_buffers[command_buffer_index];
-        const auto index_element_type   = static_cast<vk::IndexType>(index_buffer->index_element_type());
-        const auto offset               = start_index * index_buffer->element_size_in_bytes();
-        vk::DeviceSize offsets[]    = { 0 };
+        for (std::uint32_t i = 0; i < _command_buffers.size(); ++i)
+        {
+            const auto& command_buffer     = _command_buffers[i];
+            const auto  index_element_type = static_cast<vk::IndexType>(index_buffer->index_element_type());
+            const auto  offset             = start_index * index_buffer->element_size_in_bytes();
+            vk::DeviceSize offsets[]       = { 0 };
 
-        // Vertex buffer binding
-        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.memory_buffer(), offsets);
+            // Vertex buffer binding
+            command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.memory_buffer(), offsets);
 
-        // Index buffer binding
-        command_buffer.bindIndexBuffer(index_buffer->_buffer.memory_buffer(), 0, index_element_type);
+            // Index buffer binding
+            command_buffer.bindIndexBuffer(index_buffer->_buffer.memory_buffer(), 0, index_element_type);
 
-        // Draw call
-        command_buffer.drawIndexed(
-            index_buffer->index_count()
-          , get_element_count(primitive_type, primitive_count)
-          , start_index
-          , offset
-          , base_vertex);
+            // Draw call
+            command_buffer.drawIndexed(
+                index_buffer->index_count()
+              , get_element_count(primitive_type, primitive_count)
+              , start_index
+              , offset
+              , base_vertex);
+        }
     }
 
     void logical_device::end_draw() noexcept
@@ -211,26 +243,59 @@ namespace scener::graphics::vulkan
         // Submit command buffer
         static const vk::PipelineStageFlags submit_wait_stages[] = { vk::PipelineStageFlagBits::eColorAttachmentOutput };
 
-        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        auto command_buffer       = _command_buffers[command_buffer_index];
+        auto image_subresource_range = vk::ImageSubresourceRange()
+             .setBaseMipLevel(0)
+             .setLevelCount(1)
+             .setBaseArrayLayer(0)
+             .setLayerCount(1);
 
-        command_buffer.endRenderPass();
-        command_buffer.end();
+        for (std::uint32_t i = 0; i < _command_buffers.size(); ++i)
+        {
+            const auto& command_buffer   = _command_buffers[i];
+            const auto& swap_chain_image = _swap_chain_images[i];
 
-        auto submit_info = vk::SubmitInfo()
-            .setPWaitDstStageMask(submit_wait_stages)
-            .setWaitSemaphoreCount(static_cast<std::uint32_t>(_image_ownership_semaphores.size()))
-            .setPWaitSemaphores(_image_ownership_semaphores.data())
-            .setSignalSemaphoreCount(static_cast<std::uint32_t>(_draw_complete_semaphores.size()))
-            .setPSignalSemaphores(_draw_complete_semaphores.data())
-            .setCommandBufferCount(1)
-            .setPCommandBuffers(&command_buffer);
+            command_buffer.endRenderPass();
 
-//        auto result = _graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]);
+            if (_present_queue != _graphics_queue)
+            {
+                auto barrier_from_draw_to_present = vk::ImageMemoryBarrier()
+                    .setSrcAccessMask(vk::AccessFlagBits::eColorAttachmentWrite)
+                    .setDstAccessMask(vk::AccessFlagBits::eMemoryRead)
+                    .setOldLayout(vk::ImageLayout::ePresentSrcKHR)
+                    .setNewLayout(vk::ImageLayout::ePresentSrcKHR)
+                    .setSrcQueueFamilyIndex(_present_queue_family_index)
+                    .setDstQueueFamilyIndex(_graphics_queue_family_index)
+                    .setImage(swap_chain_image)
+                    .setSubresourceRange(image_subresource_range);
 
-//        check_result(result);
+                command_buffer.pipelineBarrier(
+                    vk::PipelineStageFlagBits::eTransfer
+                  , vk::PipelineStageFlagBits::eTransfer
+                  , vk::DependencyFlagBits::eViewLocal
+                  , 0                                       // Memory barriers count
+                  , nullptr                                 // Memory barriers
+                  , 0                                       // Memory barriers buffer count
+                  , nullptr                                 // Memory barriers buffers
+                  , 1                                       // Image memory barriers count
+                  , &barrier_from_draw_to_present           // Image memory barriers
+                );
+            }
 
-        _next_command_buffer_index++;
+            command_buffer.end();
+
+//            auto submit_info = vk::SubmitInfo()
+//                .setPWaitDstStageMask(submit_wait_stages)
+//                .setWaitSemaphoreCount(1)
+//                .setPWaitSemaphores(&_image_ownership_semaphores[i])
+//                .setSignalSemaphoreCount(1)
+//                .setPSignalSemaphores(&_draw_complete_semaphores[i])
+//                .setCommandBufferCount(1)
+//                .setPCommandBuffers(&_command_buffers[i]);
+
+//            auto result = _graphics_queue.submit(1, &submit_info, _fences[i]);
+
+//            check_result(result);
+        }
     }
 
     void logical_device::present() noexcept
@@ -245,6 +310,26 @@ namespace scener::graphics::vulkan
         auto result = _graphics_queue.presentKHR(&present_info);
 
         check_result(result);
+    }
+
+    void logical_device::bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept
+    {
+        std::uint32_t offsets[] = { 0 };
+
+        for (std::uint32_t i = 0; i < _command_buffers.size(); ++i)
+        {
+            const auto& command_buffer = _command_buffers[i];
+
+            //        command_buffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics
+            //                                        , pipeline.pipeline_layout()
+            //                                        , 0
+            //                                        , 1
+            //                                        , &pipeline.descriptor_set()
+            //                                        , 1
+            //                                        , offsets);
+
+            command_buffer.bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
+        }
     }
 
     buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
@@ -335,18 +420,34 @@ namespace scener::graphics::vulkan
 
     void logical_device::create_swap_chain(const render_surface& surface) noexcept
     {
+        vk::ImageUsageFlags image_usage = vk::ImageUsageFlagBits::eColorAttachment;
+        if (_surface_capabilities.supportedUsageFlags & vk::ImageUsageFlagBits::eTransferDst)
+        {
+            image_usage |= vk::ImageUsageFlagBits::eTransferDst;
+        }
+
+        vk::SurfaceTransformFlagBitsKHR pre_transform;
+        if (_surface_capabilities.supportedTransforms & vk::SurfaceTransformFlagBitsKHR::eIdentity)
+        {
+            pre_transform = vk::SurfaceTransformFlagBitsKHR::eIdentity;
+        }
+        else
+        {
+            pre_transform = _surface_capabilities.currentTransform;
+        }
+
         // https://www.fasterthan.life/blog/2017/7/12/i-am-graphics-and-so-can-you-part-3-breaking-ground
         auto extent     = surface.extent(_surface_capabilities);
         auto chain_info = vk::SwapchainCreateInfoKHR()
             .setClipped(VK_TRUE)
             .setCompositeAlpha(vk::CompositeAlphaFlagBitsKHR::eOpaque)
-            .setImageUsage(vk::ImageUsageFlagBits::eColorAttachment | vk::ImageUsageFlagBits::eTransferSrc)
+            .setImageUsage(image_usage)
             .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
             .setImageExtent(extent)
             .setImageFormat(_surface_format.format)
             .setMinImageCount(_surface_capabilities.minImageCount)
             .setPresentMode(_present_mode)
-            .setPreTransform(_surface_capabilities.currentTransform)
+            .setPreTransform(pre_transform)
             .setSurface(surface.surface());
 
         std::vector<uint32_t> queue_indices = { _graphics_queue_family_index, _present_queue_family_index };
@@ -415,23 +516,6 @@ namespace scener::graphics::vulkan
 //        create_swap_chain(surface);
     }
 
-    void logical_device::bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept
-    {
-        auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
-        auto command_buffer       = _command_buffers[command_buffer_index];
-        std::uint32_t offsets[]   = { 0 };
-
-//        command_buffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics
-//                                        , pipeline.pipeline_layout()
-//                                        , 0
-//                                        , 1
-//                                        , &pipeline.descriptor_set()
-//                                        , 1
-//                                        , offsets);
-
-        command_buffer.bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
-    }
-
     graphics_pipeline logical_device::create_graphics_pipeline(
           const graphics::blend_state&         color_blend_state
         , const graphics::depth_stencil_state& depth_stencil_state
@@ -476,9 +560,14 @@ namespace scener::graphics::vulkan
             .setDynamicStateCount(2)
             .setPDynamicStates(dynamic_states);
 
+        // Assembly state
+        vk::PipelineInputAssemblyStateCreateInfo input_assembly_state_create_info { };
+
+        input_assembly_state_create_info.setTopology(static_cast<vk::PrimitiveTopology>(model_mesh_part.primitive_type()));
+
         // Shader stages
         std::vector<vk::ShaderModule>                  shader_modules;
-        std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
+        std::vector<vk::PipelineShaderStageCreateInfo> shader_stages_create_infos;
 
         for (const auto& shader : effect_pass.shader_module()->shaders())
         {
@@ -486,27 +575,23 @@ namespace scener::graphics::vulkan
                 .setCodeSize(shader->buffer().size())
                 .setPCode(reinterpret_cast<const std::uint32_t*>(shader->buffer().data()));
 
-            auto module = _logical_device.createShaderModule(create_info, nullptr);
+            auto shader_module = _logical_device.createShaderModule(create_info, nullptr);
 
-            shader_modules.push_back(module);
+            shader_modules.push_back(shader_module);
 
             const auto stageFlags = static_cast<vk::ShaderStageFlagBits>(shader->stage());
 
             auto stage = vk::PipelineShaderStageCreateInfo()
-                .setModule(module)
+                .setModule(shader_module)
                 .setStage(stageFlags)
                 .setPName(shader->entry_point().c_str());
 
-            shader_stages.push_back(stage);
+            shader_stages_create_infos.push_back(stage);
         }
 
-        // Assembly state
-        vk::PipelineInputAssemblyStateCreateInfo inputAssemblyState { };
-
-        inputAssemblyState.setTopology(static_cast<vk::PrimitiveTopology>(model_mesh_part.primitive_type()));
+        // Uniform buffer descriptor
 
         // Vertex buffer
-        vk::PipelineVertexInputStateCreateInfo pipelineVertexInput { };
 
         const auto& vertex_declaration = model_mesh_part.vertex_buffer()->vertex_declaration();
 
@@ -558,13 +643,11 @@ namespace scener::graphics::vulkan
                         vertexAttributes.push_back(attr);
                       });
 
-        pipelineVertexInput.setPVertexBindingDescriptions(&vertexInputBinding);
-        pipelineVertexInput.setVertexBindingDescriptionCount(1);
-
-        pipelineVertexInput.setPVertexAttributeDescriptions(vertexAttributes.data());
-        pipelineVertexInput.setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
-
-        // Uniform buffer descriptor
+        auto pipeline_vertex_input_create_info = vk::PipelineVertexInputStateCreateInfo()
+            .setPVertexBindingDescriptions(&vertexInputBinding)
+            .setVertexBindingDescriptionCount(1)
+            .setPVertexAttributeDescriptions(vertexAttributes.data())
+            .setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
 
         // Pipeline layout
         vk::DescriptorSetLayout descriptor_set_layout;
@@ -597,11 +680,11 @@ namespace scener::graphics::vulkan
         auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
             .setRenderPass(_render_pass)
             .setSubpass(0)
-            .setStageCount(static_cast<std::uint32_t>(shader_stages.size()))
-            .setPStages(shader_stages.data())
+            .setStageCount(static_cast<std::uint32_t>(shader_stages_create_infos.size()))
+            .setPStages(shader_stages_create_infos.data())
             .setLayout(pipeline_layout)
-            .setPInputAssemblyState(&inputAssemblyState)
-            .setPVertexInputState(&pipelineVertexInput)
+            .setPInputAssemblyState(&input_assembly_state_create_info)
+            .setPVertexInputState(&pipeline_vertex_input_create_info)
             .setPColorBlendState(&color_blend_state_create_info)
             .setPDepthStencilState(&depth_stencil_state_create_info)
             .setPRasterizationState(&rasterizer_state_create_info)
@@ -846,44 +929,44 @@ namespace scener::graphics::vulkan
 
     void logical_device::create_command_pools() noexcept
     {
-        // Main command pool
-        auto create_info = vk::CommandPoolCreateInfo()
-            .setQueueFamilyIndex(_graphics_queue_family_index)
-            .setFlags(vk::CommandPoolCreateFlagBits::eResetCommandBuffer);
-
-        auto result = _logical_device.createCommandPool(&create_info, nullptr, &_command_pool);
-
-        check_result(result);
-
         // Command pool for single time commands
         auto st_create_info = vk::CommandPoolCreateInfo()
             .setQueueFamilyIndex(_graphics_queue_family_index)
             .setFlags(vk::CommandPoolCreateFlagBits::eResetCommandBuffer);
 
-        result = _logical_device.createCommandPool(&st_create_info, nullptr, &_single_time_command_pool);
+        auto result = _logical_device.createCommandPool(&st_create_info, nullptr, &_single_time_command_pool);
+
+        check_result(result);
+
+        // Main command pool
+        auto create_info = vk::CommandPoolCreateInfo()
+            .setQueueFamilyIndex(_present_queue_family_index)
+            .setFlags(vk::CommandPoolCreateFlagBits::eResetCommandBuffer);
+
+        result = _logical_device.createCommandPool(&create_info, nullptr, &_command_pool);
 
         check_result(result);
     }
 
     void logical_device::create_command_buffers() noexcept
     {
-        // Main command buffers
-        auto allocate_info = vk::CommandBufferAllocateInfo()
-            .setCommandPool(_command_pool)
-            .setCommandBufferCount(_surface_capabilities.minImageCount)
-            .setLevel(vk::CommandBufferLevel::ePrimary);
-
-        auto result = _logical_device.allocateCommandBuffers(&allocate_info, _command_buffers.data());
-
-        check_result(result);
-
         // Command buffers for single time commands
         auto st_allocate_info = vk::CommandBufferAllocateInfo()
             .setCommandPool(_single_time_command_pool)
             .setCommandBufferCount(1)
             .setLevel(vk::CommandBufferLevel::ePrimary);
 
-        result = _logical_device.allocateCommandBuffers(&st_allocate_info, &_single_time_command_buffer);
+        auto result = _logical_device.allocateCommandBuffers(&st_allocate_info, &_single_time_command_buffer);
+
+        check_result(result);
+
+        // Main command buffers
+        auto allocate_info = vk::CommandBufferAllocateInfo()
+            .setCommandPool(_command_pool)
+            .setCommandBufferCount(static_cast<std::uint32_t>(_swap_chain_images.size()))
+            .setLevel(vk::CommandBufferLevel::ePrimary);
+
+        result = _logical_device.allocateCommandBuffers(&allocate_info, _command_buffers.data());
 
         check_result(result);
     }
@@ -972,6 +1055,30 @@ namespace scener::graphics::vulkan
             .setAttachment(1)
             .setLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal);
 
+        // Dependencies
+        std::vector<vk::SubpassDependency> subpass_dependencies(2);
+
+        auto subpass_dependency1 = vk::SubpassDependency()
+            .setSrcSubpass(VK_SUBPASS_EXTERNAL)
+            .setDstSubpass(0)
+            .setSrcStageMask(vk::PipelineStageFlagBits::eBottomOfPipe)
+            .setDstStageMask(vk::PipelineStageFlagBits::eColorAttachmentOutput)
+            .setSrcAccessMask(vk::AccessFlagBits::eMemoryRead)
+            .setDstAccessMask(vk::AccessFlagBits::eColorAttachmentWrite)
+            .setDependencyFlags(vk::DependencyFlagBits::eByRegion);
+
+        auto subpass_dependency2 = vk::SubpassDependency()
+            .setSrcSubpass(0)
+            .setDstSubpass(VK_SUBPASS_EXTERNAL)
+            .setSrcStageMask(vk::PipelineStageFlagBits::eColorAttachmentOutput)
+            .setDstStageMask(vk::PipelineStageFlagBits::eBottomOfPipe)
+            .setSrcAccessMask(vk::AccessFlagBits::eColorAttachmentWrite)
+            .setDstAccessMask(vk::AccessFlagBits::eMemoryRead)
+            .setDependencyFlags(vk::DependencyFlagBits::eByRegion);
+
+        subpass_dependencies.push_back(subpass_dependency1);
+        subpass_dependencies.push_back(subpass_dependency2);
+
         // Basically is this graphics or compute
         auto subpass = vk::SubpassDescription()
             .setPipelineBindPoint(vk::PipelineBindPoint::eGraphics)
@@ -984,7 +1091,8 @@ namespace scener::graphics::vulkan
             .setPAttachments(attachments.data())
             .setSubpassCount(1)
             .setPSubpasses(&subpass)
-            .setDependencyCount(0);
+            .setDependencyCount(static_cast<std::uint32_t>(subpass_dependencies.size()))
+            .setPDependencies(subpass_dependencies.data());
 
         auto result = _logical_device.createRenderPass(&render_pass_create_info, nullptr, &_render_pass);
 
@@ -1014,7 +1122,7 @@ namespace scener::graphics::vulkan
 
         std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void
         {
-            attachments[0] = view;
+            attachments[0] = view;                       
 
             auto create_info = vk::FramebufferCreateInfo()
                 .setRenderPass(_render_pass)
