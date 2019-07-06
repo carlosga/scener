@@ -17,6 +17,7 @@
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/adapter.hpp"
+#include "scener/graphics/vulkan/graphics_pipeline.hpp"
 #include "scener/graphics/vulkan/logical_device.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/math/color.hpp"
@@ -89,7 +90,7 @@ namespace scener::graphics
         void viewport(const graphics::viewport& viewport) noexcept;
 
         /// Creates a new graphics pipeline.
-        vk::UniquePipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept;
+        vulkan::graphics_pipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept;
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.

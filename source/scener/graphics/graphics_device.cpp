@@ -43,21 +43,21 @@ namespace scener::graphics
     {
         Expects(_logical_device.get() != nullptr);
 
-        return _logical_device->begin_draw(*_render_surface);
+        return _logical_device->begin_draw();
     }
 
     void graphics_device::end_draw() noexcept
     {
         Expects(_logical_device.get() != nullptr);
 
-        _logical_device->end_draw(*_render_surface);
+        _logical_device->end_draw();
     }
 
     void graphics_device::present() noexcept
     {
         Expects(_logical_device.get() != nullptr);
 
-        _logical_device->present(*_render_surface);
+        _logical_device->present();
     }
 
     void graphics_device::draw_indexed_primitives(primitive_type    primitive_type
@@ -119,7 +119,7 @@ namespace scener::graphics
         _viewport = viewport;
     }
 
-    vk::UniquePipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
+    vulkan::graphics_pipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
     {
         return _logical_device->create_graphics_pipeline(
             _blend_state

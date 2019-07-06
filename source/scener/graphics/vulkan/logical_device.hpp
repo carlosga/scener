@@ -15,8 +15,9 @@
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
-#include "scener/graphics/vulkan/resource_deleter.hpp"
+#include "scener/graphics/vulkan/graphics_pipeline.hpp"
 #include "scener/graphics/vulkan/image_options.hpp"
+#include "scener/graphics/vulkan/image_storage.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
 #include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 #include "scener/math/basic_size.hpp"
@@ -78,11 +79,8 @@ namespace scener::graphics::vulkan
         void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
-        /// Binds the given graphics pipeline
-        void bind_graphics_pipeline(const vk::Pipeline& pipeline) noexcept;
-
         /// Starts the drawing of a frame
-        bool begin_draw([[maybe_unused]] const render_surface& surface) noexcept;
+        bool begin_draw() noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         void draw_indexed(graphics::primitive_type       primitive_type
@@ -95,11 +93,11 @@ namespace scener::graphics::vulkan
                         , const graphics::index_buffer*  index_buffer) noexcept;
 
         /// Called by the renderer at the end of drawing; presents the final rendering.
-        void end_draw([[maybe_unused]] const render_surface& surface) noexcept;
+        void end_draw() noexcept;
 
         /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
         /// graphics_device.
-        void present([[maybe_unused]] const render_surface& surface) noexcept;
+        void present() noexcept;
 
     public:
         buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
@@ -117,16 +115,17 @@ namespace scener::graphics::vulkan
         void recreate_swap_chain(const render_surface& surface) noexcept;
 
     public:
-        vk::UniquePipeline create_graphics_pipeline(                
+        /// Binds the given graphics pipeline
+        void bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept;
+
+        graphics_pipeline create_graphics_pipeline(
               const graphics::blend_state&         color_blend_state
             , const graphics::depth_stencil_state& depth_stencil_state
             , const graphics::rasterizer_state&    rasterization_state
-            , const graphics::model_mesh_part&     model_mesh_part) noexcept;
+            , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
 
     public:
-        std::unique_ptr<image_storage, image_deleter>
-        create_image(const image_options& options) const noexcept;
-
+        image_storage create_image(const image_options& options) noexcept;
         vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
 
     private:
@@ -142,6 +141,7 @@ namespace scener::graphics::vulkan
         void create_render_pass() noexcept;
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
+        void create_descriptor_pool() noexcept;
         void record_command_buffers() const noexcept;
         void destroy_sync_primitives() noexcept;
         void destroy_command_buffers() noexcept;
@@ -158,36 +158,38 @@ namespace scener::graphics::vulkan
         vk::PipelineRasterizationStateCreateInfo vk_rasterizer_state(const graphics::rasterizer_state& state) const noexcept;
 
     private:
-        vk::Device                                    _logical_device;
-        vk::Viewport                                  _viewport;
-        std::uint32_t                                 _graphics_queue_family_index;
-        vk::Queue                                     _graphics_queue;
-        std::uint32_t                                 _present_queue_family_index;
-        vk::Queue                                     _present_queue;
-        vk::SurfaceCapabilitiesKHR                    _surface_capabilities;
-        vk::SurfaceFormatKHR                          _surface_format;
-        vk::PresentModeKHR                            _present_mode;
-        vk::FormatProperties                          _format_properties;
-        vk::CommandPool                               _command_pool;
-        vk::CommandPool                               _single_time_command_pool;
-        vk::SwapchainKHR                              _swap_chain;
-        vk::RenderPass                                _render_pass;
-        std::vector<vk::Image>                        _swap_chain_images;
-        std::vector<vk::ImageView>                    _swap_chain_image_views;
-        std::vector<vk::Framebuffer>                  _frame_buffers;
-        std::vector<vk::CommandBuffer>                _command_buffers;
-        vk::CommandBuffer                             _single_time_command_buffer;
-        std::vector<vk::Fence>                        _fences;
-        vk::Fence                                     _single_time_command_fence;
-        std::vector<vk::Semaphore>                    _image_acquired_semaphores;
-        std::vector<vk::Semaphore>                    _draw_complete_semaphores;
-        std::vector<vk::Semaphore>                    _image_ownership_semaphores;
-        scener::math::basic_color<float>              _clear_color;
-        std::uint64_t                                 _next_command_buffer_index;
-        std::uint32_t                                 _acquired_image_index;
-        vk::Format                                    _depth_format;
-        std::unique_ptr<image_storage, image_deleter> _depth_buffer;
-        VmaAllocator                                  _allocator;
+        vk::Device                       _logical_device;
+        vk::Viewport                     _viewport;
+        std::uint32_t                    _graphics_queue_family_index;
+        vk::Queue                        _graphics_queue;
+        std::uint32_t                    _present_queue_family_index;
+        vk::Queue                        _present_queue;
+        vk::SurfaceCapabilitiesKHR       _surface_capabilities;
+        vk::SurfaceFormatKHR             _surface_format;
+        vk::PresentModeKHR               _present_mode;
+        vk::FormatProperties             _format_properties;
+        vk::CommandPool                  _command_pool;
+        vk::CommandPool                  _single_time_command_pool;
+        vk::SwapchainKHR                 _swap_chain;
+        vk::RenderPass                   _render_pass;
+        std::vector<vk::Image>           _swap_chain_images;
+        std::vector<vk::ImageView>       _swap_chain_image_views;
+        std::vector<vk::Framebuffer>     _frame_buffers;
+        std::vector<vk::CommandBuffer>   _command_buffers;
+        vk::CommandBuffer                _single_time_command_buffer;
+        std::vector<vk::Fence>           _fences;
+        vk::Fence                        _single_time_command_fence;
+        std::vector<vk::Semaphore>       _image_acquired_semaphores;
+        std::vector<vk::Semaphore>       _draw_complete_semaphores;
+        std::vector<vk::Semaphore>       _image_ownership_semaphores;
+        scener::math::basic_color<float> _clear_color;
+        std::uint64_t                    _next_command_buffer_index;
+        std::uint32_t                    _acquired_image_index;
+        vk::Format                       _depth_format;
+        image_storage                    _depth_buffer;
+        vk::PipelineCache                _pipeline_cache;
+        vk::DescriptorPool               _descriptor_pool;
+        VmaAllocator                     _allocator;
     };
 }
 

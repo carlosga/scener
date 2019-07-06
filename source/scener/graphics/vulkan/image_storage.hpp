@@ -9,40 +9,30 @@
 
 #include <vulkan/vulkan.hpp>
 
-#include <scener/graphics/texture_target.hpp>
+#include "scener/graphics/texture_target.hpp"
+#include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 
 namespace scener::graphics::vulkan
 {
     struct image_storage final
     {
     public:
-        image_storage(const vk::Image& image, const vk::ImageView& view, const std::any& image_allocation)
-            : _image            { image }
-            , _image_view       { view  }
-            , _image_allocation { image_allocation }
-        {
-        }
+        image_storage() noexcept;
+        image_storage(const vk::Image& image, const vk::ImageView& view, const VmaAllocation& image_allocation, VmaAllocator* allocator) noexcept;
 
     public:
-        const vk::Image& image() const noexcept
-        {
-            return _image;
-        }
+        void destroy() noexcept;
 
-        const vk::ImageView& image_view() const noexcept
-        {
-            return _image_view;
-        }
-
-        const std::any& image_allocation() const noexcept
-        {
-            return _image_allocation;
-        }
+    public:
+        const vk::Image& image() const noexcept;
+        const vk::ImageView& image_view() const noexcept;
+        const VmaAllocation& image_allocation() const noexcept;
 
     private:
         vk::Image     _image;
         vk::ImageView _image_view;
-        std::any      _image_allocation;
+        VmaAllocation _image_allocation;
+        VmaAllocator* _allocator;
     };
 }
 

@@ -13,9 +13,9 @@ namespace scener::graphics
         return _name;
     }
 
-    const vk::Pipeline& effect_pass::pipeline() const noexcept
+    const vulkan::graphics_pipeline& effect_pass::pipeline() const noexcept
     {
-        return _pipeline.get();
+        return _pipeline;
     }
 
     const std::vector<std::shared_ptr<vulkan::shader>>& effect_pass::shaders() const noexcept
