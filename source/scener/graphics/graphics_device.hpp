@@ -90,7 +90,8 @@ namespace scener::graphics
         void viewport(const graphics::viewport& viewport) noexcept;
 
         /// Creates a new graphics pipeline.
-        vulkan::graphics_pipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept;
+        vulkan::graphics_pipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part
+                                                         , const effect_pass&    effect_pass) noexcept;
 
         /// Creates a new index buffer with the given size.
         /// \para size the buffer size.

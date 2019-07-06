@@ -119,13 +119,15 @@ namespace scener::graphics
         _viewport = viewport;
     }
 
-    vulkan::graphics_pipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
+    vulkan::graphics_pipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part
+                                                                      , const effect_pass&     effect_pass) noexcept
     {
         return _logical_device->create_graphics_pipeline(
             _blend_state
           , _depth_stencil_state
           , _rasterizer_state
-          , model_mesh_part);
+          , model_mesh_part
+          , effect_pass);
     }
 
     vulkan::buffer graphics_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept

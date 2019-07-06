@@ -122,7 +122,8 @@ namespace scener::graphics::vulkan
               const graphics::blend_state&         color_blend_state
             , const graphics::depth_stencil_state& depth_stencil_state
             , const graphics::rasterizer_state&    rasterization_state
-            , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
+            , const graphics::model_mesh_part&     model_mesh_part
+            , const effect_pass&                   effect_pass) const noexcept;
 
     public:
         image_storage create_image(const image_options& options) noexcept;

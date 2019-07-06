@@ -436,7 +436,8 @@ namespace scener::graphics::vulkan
           const graphics::blend_state&         color_blend_state
         , const graphics::depth_stencil_state& depth_stencil_state
         , const graphics::rasterizer_state&    rasterization_state
-        , const graphics::model_mesh_part&     model_mesh_part) const noexcept
+        , const graphics::model_mesh_part&     model_mesh_part
+        , const effect_pass&                   effect_pass) const noexcept
     {
         auto scissor = vk::Rect2D()
             .setOffset({ static_cast<std::int32_t>(_viewport.x)
@@ -479,9 +480,7 @@ namespace scener::graphics::vulkan
         std::vector<vk::ShaderModule>                  shader_modules;
         std::vector<vk::PipelineShaderStageCreateInfo> shader_stages;
 
-        const auto effect_pass = model_mesh_part.effect_technique()->passes()[0];
-
-        for (const auto& shader : effect_pass->shader_module()->shaders())
+        for (const auto& shader : effect_pass.shader_module()->shaders())
         {
             auto create_info = vk::ShaderModuleCreateInfo()
                 .setCodeSize(shader->buffer().size())
@@ -566,10 +565,6 @@ namespace scener::graphics::vulkan
         pipelineVertexInput.setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
 
         // Uniform buffer descriptor
-        for (const auto &effect_pass : model_mesh_part.effect_technique()->passes())
-        {
-            // const auto constant_buffer = effect_pass->
-        }
 
         // Pipeline layout
         vk::DescriptorSetLayout descriptor_set_layout;
