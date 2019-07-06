@@ -14,6 +14,8 @@
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_element_format.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
+#include "scener/graphics/vulkan/shader_module.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
@@ -59,7 +61,7 @@ namespace scener::graphics::vulkan
         , _image_acquired_semaphores   { surface_capabilities.minImageCount }
         , _draw_complete_semaphores    { surface_capabilities.minImageCount }
         , _image_ownership_semaphores  { surface_capabilities.minImageCount }
-        , _clear_color                 { basic_color<float>::black() }
+        , _clear_color                 { 0, 0, 0, 1 }
         , _next_command_buffer_index   { 0 }
         , _acquired_image_index        { 0 }
         , _depth_format                { depth_format }
@@ -122,19 +124,26 @@ namespace scener::graphics::vulkan
         auto command_buffer_index = _next_command_buffer_index % _swap_chain_images.size();
         auto command_buffer       = _command_buffers[command_buffer_index];
 
+        const auto clear_color_value = vk::ClearColorValue()
+            .setFloat32(_clear_color.components);
+
+        const auto clear_color = vk::ClearValue()
+            .setColor(clear_color_value)
+            .setDepthStencil({ 1.0f, 0 });
+
+        // Render area
+        const auto render_area = vk::Rect2D()
+            .setOffset({ static_cast<std::int32_t>(static_cast<std::uint32_t>(_viewport.x))
+                       , static_cast<std::int32_t>(_viewport.y) })
+            .setOffset({ static_cast<std::int32_t>(static_cast<std::uint32_t>(_viewport.width))
+                       , static_cast<std::int32_t>(_viewport.height) });
+
+        // Reset fences
         reset_fence(_fences[command_buffer_index]);
-
-        auto begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
-
-        // Begin main command buffer
-        auto result = command_buffer.begin(&begin_info);
-
-        check_result(result);
 
         // Acquire swapchain image
         _acquired_image_index = 0;
-        result = _logical_device.acquireNextImageKHR(
+        auto result = _logical_device.acquireNextImageKHR(
             _swap_chain
           , UINT64_MAX
           , _image_acquired_semaphores[command_buffer_index]
@@ -143,19 +152,21 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        const auto clear_color_value = vk::ClearColorValue()
-                .setFloat32(_clear_color.components);
+        auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
+            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
 
-        const auto clear_color = vk::ClearValue()
-            .setColor(clear_color_value)
-            .setDepthStencil({ 1.0f, 0 });
+        // Begin main command buffer
+        result = command_buffer.begin(&command_buffer_begin_info);
+
+        check_result(result);
 
         // Begin render pass
         auto render_pass_begin_info = vk::RenderPassBeginInfo()
             .setRenderPass(_render_pass)
             .setFramebuffer(_frame_buffers[_acquired_image_index])
             .setClearValueCount(1)
-            .setPClearValues(&clear_color);
+            .setPClearValues(&clear_color)
+            .setRenderArea(render_area);
 
         command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
 
@@ -206,7 +217,6 @@ namespace scener::graphics::vulkan
         command_buffer.endRenderPass();
         command_buffer.end();
 
-        /*
         auto submit_info = vk::SubmitInfo()
             .setPWaitDstStageMask(submit_wait_stages)
             .setWaitSemaphoreCount(static_cast<std::uint32_t>(_image_ownership_semaphores.size()))
@@ -216,8 +226,9 @@ namespace scener::graphics::vulkan
             .setCommandBufferCount(1)
             .setPCommandBuffers(&command_buffer);
 
-        check_result(_graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]));
-        */
+//        auto result = _graphics_queue.submit(1, &submit_info, _fences[_acquired_image_index]);
+
+//        check_result(result);
 
         _next_command_buffer_index++;
     }
@@ -381,48 +392,7 @@ namespace scener::graphics::vulkan
         check_result(result);
 
         // Image Views
-        //
-        // Much like the logical device is an interface to the physical device,
-        // image views are interfaces to actual images.  Think of it as this.
-        // The image exists outside of you.  But the view is your personal view
-        // ( how you perceive ) the image.
-        for (std::uint32_t i = 0; i < num_images; ++i)
-        {
-            auto sub_resource_range = vk::ImageSubresourceRange()
-                // There are only 4x aspect bits.  And most people will only use 3x.
-                // These determine what is affected by your image operations.
-                // VK_IMAGE_ASPECT_COLOR_BIT
-                // VK_IMAGE_ASPECT_DEPTH_BIT
-                // VK_IMAGE_ASPECT_STENCIL_BIT
-                .setAspectMask(vk::ImageAspectFlagBits::eColor)
-                // Level count is the # of images visible down the mip chain.
-                // So basically just 1...
-                .setLevelCount(1)
-                // We don't have multiple layers to these images.
-                .setLayerCount(1);
-
-            auto component_mapping = vk::ComponentMapping()
-                .setR(vk::ComponentSwizzle::eIdentity)
-                .setG(vk::ComponentSwizzle::eIdentity)
-                .setB(vk::ComponentSwizzle::eIdentity)
-                .setA(vk::ComponentSwizzle::eIdentity);
-
-            auto image_view_create_info = vk::ImageViewCreateInfo()
-                // Just plug it in
-                .setImage(_swap_chain_images[i])
-                // These are 2D images
-                .setViewType(vk::ImageViewType::e2D)
-                // The selected format
-                .setFormat(_surface_format.format)
-                // We don't need to swizzle ( swap around ) any of the  color channels
-                .setComponents(component_mapping)
-                .setSubresourceRange(sub_resource_range);
-
-            // Create the view
-            result = _logical_device.createImageView(&image_view_create_info, nullptr, &_swap_chain_image_views[i]);
-
-            check_result(result);
-        }
+        create_image_views();
 
         // Render pass
         create_render_pass();
@@ -511,7 +481,7 @@ namespace scener::graphics::vulkan
 
         const auto effect_pass = model_mesh_part.effect_technique()->passes()[0];
 
-        for (const auto& shader : effect_pass->shaders())
+        for (const auto& shader : effect_pass->shader_module()->shaders())
         {
             auto create_info = vk::ShaderModuleCreateInfo()
                 .setCodeSize(shader->buffer().size())
@@ -594,6 +564,12 @@ namespace scener::graphics::vulkan
 
         pipelineVertexInput.setPVertexAttributeDescriptions(vertexAttributes.data());
         pipelineVertexInput.setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
+
+        // Uniform buffer descriptor
+        for (const auto &effect_pass : model_mesh_part.effect_technique()->passes())
+        {
+            // const auto constant_buffer = effect_pass->
+        }
 
         // Pipeline layout
         vk::DescriptorSetLayout descriptor_set_layout;
@@ -917,6 +893,51 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
+    void logical_device::create_image_views() noexcept
+    {
+        // Much like the logical device is an interface to the physical device,
+        // image views are interfaces to actual images.  Think of it as this.
+        // The image exists outside of you.  But the view is your personal view
+        // ( how you perceive ) the image.
+        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
+        {
+            auto sub_resource_range = vk::ImageSubresourceRange()
+                // There are only 4x aspect bits.  And most people will only use 3x.
+                // These determine what is affected by your image operations.
+                // VK_IMAGE_ASPECT_COLOR_BIT
+                // VK_IMAGE_ASPECT_DEPTH_BIT
+                // VK_IMAGE_ASPECT_STENCIL_BIT
+                .setAspectMask(vk::ImageAspectFlagBits::eColor)
+                // Level count is the # of images visible down the mip chain.
+                // So basically just 1...
+                .setLevelCount(1)
+                // We don't have multiple layers to these images.
+                .setLayerCount(1);
+
+            auto component_mapping = vk::ComponentMapping()
+                .setR(vk::ComponentSwizzle::eIdentity)
+                .setG(vk::ComponentSwizzle::eIdentity)
+                .setB(vk::ComponentSwizzle::eIdentity)
+                .setA(vk::ComponentSwizzle::eIdentity);
+
+            auto image_view_create_info = vk::ImageViewCreateInfo()
+                // Just plug it in
+                .setImage(_swap_chain_images[i])
+                // These are 2D images
+                .setViewType(vk::ImageViewType::e2D)
+                // The selected format
+                .setFormat(_surface_format.format)
+                // We don't need to swizzle ( swap around ) any of the  color channels
+                .setComponents(component_mapping)
+                .setSubresourceRange(sub_resource_range);
+
+            // Create the view
+            auto result = _logical_device.createImageView(&image_view_create_info, nullptr, &_swap_chain_image_views[i]);
+
+            check_result(result);
+        }
+    }
+
     void logical_device::create_render_pass() noexcept
     {
         std::vector<vk::AttachmentDescription> attachments;
@@ -1026,7 +1047,8 @@ namespace scener::graphics::vulkan
 
         auto create_info = vk::DescriptorPoolCreateInfo()
             .setPoolSizeCount(1)
-            .setPPoolSizes(&pool_size);
+            .setPPoolSizes(&pool_size)
+            .setMaxSets(2);
 
         auto result = _logical_device.createDescriptorPool(&create_info, nullptr, &_descriptor_pool);
 
@@ -1048,82 +1070,6 @@ namespace scener::graphics::vulkan
         auto result = _logical_device.allocateDescriptorSets(&alloc_info, descriptor_sets.data());
     }
     */
-
-    void logical_device::record_command_buffers() const noexcept
-    {
-        auto begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
-
-        auto clear_color = vk::ClearColorValue()
-            .setFloat32(_clear_color.components);
-
-        auto image_subresource_range = vk::ImageSubresourceRange()
-            .setBaseMipLevel(0)
-            .setLevelCount(1)
-            .setBaseArrayLayer(0)
-            .setLayerCount(1);
-
-        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
-        {
-            const auto& command_buffer   = _command_buffers[i];
-            const auto& swap_chain_image = _swap_chain_images[i];
-
-            auto barrier_from_present_to_clear = vk::ImageMemoryBarrier()
-                .setSrcAccessMask(vk::AccessFlagBits::eMemoryRead)
-                .setDstAccessMask(vk::AccessFlagBits::eMemoryWrite)
-                .setNewLayout(vk::ImageLayout::eTransferDstOptimal)
-                .setImage(swap_chain_image)
-                .setSubresourceRange(image_subresource_range);
-
-            auto barrier_from_clear_to_present = vk::ImageMemoryBarrier()
-                .setSrcAccessMask(vk::AccessFlagBits::eTransferWrite)
-                .setDstAccessMask(vk::AccessFlagBits::eMemoryRead)
-                .setOldLayout(vk::ImageLayout::eTransferDstOptimal)
-                .setNewLayout(vk::ImageLayout::ePresentSrcKHR)
-                .setImage(swap_chain_image)
-                .setSubresourceRange(image_subresource_range);
-
-            auto result = command_buffer.begin(&begin_info);
-
-            check_result(result);
-
-            // present -> clear
-            command_buffer.pipelineBarrier(
-                vk::PipelineStageFlagBits::eTransfer
-              , vk::PipelineStageFlagBits::eTransfer
-              , vk::DependencyFlagBits::eViewLocal
-              , 0                                       // Memory barriers count
-              , nullptr                                 // Memory barriers
-              , 0                                       // Memory barriers buffer count
-              , nullptr                                 // Memory barriers buffers
-              , 1                                       // Image memory barriers count
-              , &barrier_from_present_to_clear          // Image memory barriers
-            );
-
-            command_buffer.clearColorImage(
-                swap_chain_image
-              , vk::ImageLayout::eTransferDstOptimal
-              , &clear_color
-              , 1
-              , &image_subresource_range
-            );
-
-            // clear -> present
-            command_buffer.pipelineBarrier(
-                vk::PipelineStageFlagBits::eTransfer
-              , vk::PipelineStageFlagBits::eBottomOfPipe
-              , vk::DependencyFlagBits::eViewLocal
-              , 0                                       // Memory barriers count
-              , nullptr                                 // Memory barriers
-              , 0                                       // Memory barriers buffer count
-              , nullptr                                 // Memory barriers buffers
-              , 1                                       // Image memory barriers count
-              , &barrier_from_clear_to_present          // Image memory barriers
-            );
-
-            command_buffer.end();
-        }
-    }
 
     void logical_device::destroy_sync_primitives() noexcept
     {

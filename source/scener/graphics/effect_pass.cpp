@@ -18,9 +18,9 @@ namespace scener::graphics
         return _pipeline;
     }
 
-    const std::vector<std::shared_ptr<vulkan::shader>>& effect_pass::shaders() const noexcept
+    const std::shared_ptr<vulkan::shader_module>& effect_pass::shader_module() const noexcept
     {
-        return _shaders;
+        return _shader_module;
     }
 
     const std::vector<std::shared_ptr<effect_parameter>>& effect_pass::parameters() const noexcept

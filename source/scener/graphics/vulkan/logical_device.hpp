@@ -138,11 +138,11 @@ namespace scener::graphics::vulkan
         void create_sync_primitives() noexcept;
         void create_command_pools() noexcept;
         void create_command_buffers() noexcept;
+        void create_image_views() noexcept;
         void create_render_pass() noexcept;
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
         void create_descriptor_pool() noexcept;
-        void record_command_buffers() const noexcept;
         void destroy_sync_primitives() noexcept;
         void destroy_command_buffers() noexcept;
         void destroy_command_pools() noexcept;

@@ -41,8 +41,8 @@ namespace scener::graphics
 
     namespace vulkan
     {
-        class program;
         class shader;
+        class shader_module;
     }
 }
 
@@ -195,18 +195,18 @@ namespace scener::content
         return read_object<gltf::node>(key, _root["nodes"][key]);
     }
 
-    // Programs
-    template<>
-    inline std::shared_ptr<graphics::vulkan::program> content_reader::read_object_instance(const std::string& key) noexcept
-    {
-        return read_object_instance<graphics::vulkan::program>(key, _root["programs"][key]);
-    }
-
     // Samplers
     template<>
     inline std::shared_ptr<graphics::sampler_state> content_reader::read_object(const std::string& key) noexcept
     {
         return read_object<graphics::sampler_state>(key, _root["samplers"][key]);
+    }
+
+    // Shader modules
+    template<>
+    inline std::shared_ptr<graphics::vulkan::shader_module> content_reader::read_object_instance(const std::string& key) noexcept
+    {
+        return read_object_instance<graphics::vulkan::shader_module>(key, _root["programs"][key]);
     }
 
     // Shaders

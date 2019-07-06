@@ -14,8 +14,8 @@
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/service_container.hpp"
-#include "scener/graphics/vulkan/program.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
+#include "scener/graphics/vulkan/shader_module.hpp"
 
 // #define offsetof(st, m) __builtin_offsetof(st, m)
 
@@ -35,8 +35,8 @@ namespace scener::content::readers
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
-    using scener::graphics::vulkan::program;
     using scener::graphics::vulkan::shader;
+    using scener::graphics::vulkan::shader_module;
     using namespace scener::content::gltf;
 
     auto content_type_reader<effect_technique>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
@@ -219,14 +219,8 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        // Pass program
-        auto pass_program = input->read_object_instance<program>(value[k_program].get<std::string>());
-
-        pass->_shaders.reserve(pass_program->shaders().size());
-
-        std::for_each(pass_program->shaders().begin(), pass_program->shaders().end(), [&] (const auto& shader) {
-            pass->_shaders.push_back(shader);
-        });              
+        // Shader module
+        pass->_shader_module = input->read_object_instance<shader_module>(value[k_program].get<std::string>());
 
         effect->_passes.push_back(pass);
     }

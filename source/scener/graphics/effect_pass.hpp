@@ -12,7 +12,7 @@
 #include "scener/graphics/vulkan/graphics_pipeline.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::vulkan { class shader; }
+namespace scener::graphics::vulkan { class shader_module; }
 
 namespace scener::graphics
 {
@@ -31,9 +31,9 @@ namespace scener::graphics
         /// Gets the graphics pipeline
         const vulkan::graphics_pipeline& pipeline() const noexcept;
 
-        /// Gets the effect pass shaders.
-        /// \returns the effect pass shaders.
-        const std::vector<std::shared_ptr<vulkan::shader>>& shaders() const noexcept;
+        /// Gets the effect pass shader module.
+        /// \returns the effect pass shader module.
+        const std::shared_ptr<vulkan::shader_module>& shader_module() const noexcept;
 
         /// Gets the effect pass parameters.
         /// \returns the effect pass parameters.
@@ -41,7 +41,7 @@ namespace scener::graphics
 
     private:
         std::vector<std::shared_ptr<effect_parameter>> _parameters      = { };
-        std::vector<std::shared_ptr<vulkan::shader>>   _shaders         = { };
+        std::shared_ptr<vulkan::shader_module>         _shader_module   = { };
         std::string                                    _name            = { };
         std::shared_ptr<constant_buffer>               _constant_buffer = { nullptr };
         vulkan::graphics_pipeline                      _pipeline;
