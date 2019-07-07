@@ -23,6 +23,11 @@
 #include "scener/math/basic_size.hpp"
 #include "scener/math/basic_color.hpp"
 
+namespace scener::graphics
+{
+    class  constant_buffer;
+}
+
 namespace scener::graphics::vulkan
 {
     class render_surface;
@@ -100,7 +105,7 @@ namespace scener::graphics::vulkan
         void present() noexcept;
 
         /// Binds the given graphics pipeline
-        void bind_graphics_pipeline(const graphics_pipeline& pipeline) noexcept;
+        void bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept;
 
     public:
         buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
@@ -122,8 +127,7 @@ namespace scener::graphics::vulkan
               const graphics::blend_state&         color_blend_state
             , const graphics::depth_stencil_state& depth_stencil_state
             , const graphics::rasterizer_state&    rasterization_state
-            , const graphics::model_mesh_part&     model_mesh_part
-            , const effect_pass&                   effect_pass) const noexcept;
+            , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
 
     public:
         image_storage create_image(const image_options& options) noexcept;
@@ -140,6 +144,7 @@ namespace scener::graphics::vulkan
         void create_command_pools() noexcept;
         void create_command_buffers() noexcept;
         void create_image_views() noexcept;
+        void create_descriptor_layout() noexcept;
         void create_render_pass() noexcept;
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
@@ -184,12 +189,14 @@ namespace scener::graphics::vulkan
         std::vector<vk::Semaphore>       _draw_complete_semaphores;
         std::vector<vk::Semaphore>       _image_ownership_semaphores;
         scener::math::basic_color<float> _clear_color;
-        std::uint64_t                    _next_command_buffer_index;
-        std::uint32_t                    _acquired_image_index;
+        std::uint32_t                    _current_buffer;
+        std::uint32_t                    _frame_index;
         vk::Format                       _depth_format;
         image_storage                    _depth_buffer;
         vk::PipelineCache                _pipeline_cache;
         vk::DescriptorPool               _descriptor_pool;
+        vk::DescriptorSetLayout          _descriptor_set_layout;
+        vk::PipelineLayout               _pipeline_layout;
         VmaAllocator                     _allocator;
     };
 }

@@ -23,6 +23,11 @@ namespace scener::graphics
     {
     }
 
+    const std::string& constant_buffer::name() const noexcept
+    {
+        return _name;
+    }
+
     std::uint32_t constant_buffer::binding_point() const noexcept
     {
         return _binding_point;
@@ -36,6 +41,11 @@ namespace scener::graphics
     std::uint32_t constant_buffer::size() const noexcept
     {
         return _size;
+    }
+
+    const vulkan::buffer& constant_buffer::memory_buffer() const noexcept
+    {
+        return _buffer;
     }
 
     std::vector<std::uint8_t> constant_buffer::get_data() const noexcept

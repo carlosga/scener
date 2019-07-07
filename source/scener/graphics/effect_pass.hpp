@@ -39,11 +39,14 @@ namespace scener::graphics
         /// \returns the effect pass parameters.
         const std::vector<std::shared_ptr<effect_parameter>>& parameters() const noexcept;
 
+        /// Gets the effect constant buffer
+        graphics::constant_buffer* constant_buffer() const noexcept;
+
     private:
         std::vector<std::shared_ptr<effect_parameter>> _parameters      = { };
         std::shared_ptr<vulkan::shader_module>         _shader_module   = { };
         std::string                                    _name            = { };
-        std::shared_ptr<constant_buffer>               _constant_buffer = { nullptr };
+        std::shared_ptr<graphics::constant_buffer>     _constant_buffer = { nullptr };
         vulkan::graphics_pipeline                      _pipeline;
 
         template <typename T> friend class scener::content::readers::content_type_reader;

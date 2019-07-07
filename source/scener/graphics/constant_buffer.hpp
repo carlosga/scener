@@ -15,8 +15,6 @@
 #include "scener/graphics/vulkan/buffer.hpp"
 #include "scener/graphics/vulkan/buffer_usage.hpp"
 
-namespace scener::graphics::vulkan { class logical_device; }
-
 namespace scener::graphics
 {
     class graphics_device;
@@ -34,6 +32,9 @@ namespace scener::graphics
                       , std::uint32_t                   size) noexcept;
 
     public:
+        /// Gets the constant buffer name
+        const std::string& name() const noexcept;
+
         /// Gets the constant buffer binding point.
         std::uint32_t binding_point() const noexcept;
 
@@ -42,6 +43,9 @@ namespace scener::graphics
 
         /// Gets the constant buffer block data size.
         std::uint32_t size() const noexcept;
+
+        /// Gets the constant buffer underlying memory buffer
+        const vulkan::buffer& memory_buffer() const noexcept;
 
     public:
         /// Gets the constant buffer data.
@@ -67,8 +71,6 @@ namespace scener::graphics
         std::uint32_t  _size;
         std::string    _name;
         vulkan::buffer _buffer;
-
-        friend class scener::graphics::vulkan::logical_device;
     };
 }
 

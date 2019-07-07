@@ -27,4 +27,9 @@ namespace scener::graphics
     {
         return _parameters;
     }
+
+    graphics::constant_buffer* effect_pass::constant_buffer() const noexcept
+    {
+        return _constant_buffer.get();
+    }
 }
