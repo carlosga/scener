@@ -80,8 +80,6 @@ namespace scener::graphics::vulkan
     public:
         const vk::Queue& graphics_queue() const noexcept;
         const vk::Queue& present_queue() const noexcept;
-        const scener::math::basic_color<float>& clear_color() const noexcept;
-        void clear_color(const scener::math::basic_color<float>& color) noexcept;
 
     public:
         /// Starts the drawing of a frame
@@ -189,7 +187,6 @@ namespace scener::graphics::vulkan
         std::vector<vk::Semaphore>       _image_acquired_semaphores;
         std::vector<vk::Semaphore>       _draw_complete_semaphores;
         std::vector<vk::Semaphore>       _image_ownership_semaphores;
-        scener::math::basic_color<float> _clear_color;
         std::uint32_t                    _current_buffer;
         std::uint32_t                    _frame_index;
         vk::Format                       _depth_format;

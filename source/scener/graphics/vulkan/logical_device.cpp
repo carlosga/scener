@@ -63,7 +63,6 @@ namespace scener::graphics::vulkan
         , _image_acquired_semaphores        { }
         , _draw_complete_semaphores         { }
         , _image_ownership_semaphores       { }
-        , _clear_color                      { 0, 0, 0, 1 }
         , _current_buffer                   { 0 }
         , _frame_index                      { 0 }
         , _depth_format                     { depth_format }
@@ -113,26 +112,9 @@ namespace scener::graphics::vulkan
         return _present_queue;
     }
 
-    const scener::math::basic_color<float>& logical_device::clear_color() const noexcept
-    {
-        return _clear_color;
-    }
-
-    void logical_device::clear_color(const scener::math::basic_color<float>& color) noexcept
-    {
-        _clear_color = color;
-    }
-
     bool logical_device::begin_draw() noexcept
     {
         reset_fence(_fences[_frame_index]);
-
-        const auto clear_color_value = vk::ClearColorValue()
-            .setFloat32(_clear_color.components);
-
-        const auto clear_color = vk::ClearValue()
-            .setColor(clear_color_value)
-            .setDepthStencil({ 1.0f, 0 });
 
         const auto render_area = vk::Rect2D()
             .setOffset({ static_cast<std::int32_t>(static_cast<std::uint32_t>(_viewport.x))
@@ -166,13 +148,19 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
+        static const vk::ClearValue clear_values[2] =
+        {
+            vk::ClearColorValue(std::array<float, 4>( {{ 0, 0, 0, 1.0f } })),
+            vk::ClearDepthStencilValue(1.0f, 0u)
+        };
+
         // Begin render pass
         const auto render_pass_begin_info = vk::RenderPassBeginInfo()
             .setRenderPass(_render_pass)
             .setFramebuffer(_frame_buffers[_current_buffer])
             .setRenderArea(render_area)
-            .setClearValueCount(1)
-            .setPClearValues(&clear_color);
+            .setClearValueCount(2)
+            .setPClearValues(clear_values);
 
         command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
 
@@ -180,7 +168,8 @@ namespace scener::graphics::vulkan
         command_buffer.setViewport(0, 1, &_viewport);
 
         // Set scissor
-        vk::Rect2D const scissor(vk::Offset2D(_viewport.x, _viewport.y), vk::Extent2D(_viewport.width, _viewport.height));
+        vk::Rect2D const scissor(vk::Offset2D(static_cast<std::uint32_t>(_viewport.x)    , static_cast<std::uint32_t>(_viewport.y))
+                               , vk::Extent2D(static_cast<std::uint32_t>(_viewport.width), static_cast<std::uint32_t>(_viewport.height)));
         command_buffer.setScissor(0, 1, &scissor);
 
         return true;
@@ -207,12 +196,12 @@ namespace scener::graphics::vulkan
         command_buffer.bindIndexBuffer(index_buffer->_buffer.memory_buffer(), 0, index_element_type);
 
         // Draw call
-        command_buffer.drawIndexed(
-            index_buffer->index_count()
-          , get_element_count(primitive_type, primitive_count)
-          , start_index
-          , offset
-          , base_vertex);
+//        command_buffer.drawIndexed(
+//            index_buffer->index_count()
+//          , get_element_count(primitive_type, primitive_count)
+//          , start_index
+//          , offset
+//          , base_vertex);
     }
 
     void logical_device::end_draw() noexcept
@@ -234,9 +223,9 @@ namespace scener::graphics::vulkan
             .setSignalSemaphoreCount(1)
             .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index]);
 
-        // auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
+        auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
 
-        // check_result(result);
+        check_result(result);
     }
 
     void logical_device::present() noexcept
