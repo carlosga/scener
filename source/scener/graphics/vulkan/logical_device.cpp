@@ -155,39 +155,33 @@ namespace scener::graphics::vulkan
           , _fences[0]
           , &_current_buffer);
 
-        const auto& command_buffer   = _command_buffers[_current_buffer];
-        const auto& swap_chain_image = _swap_chain_images[_current_buffer];
+        check_result(result);
 
-        auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eOneTimeSubmit);
+        const auto& command_buffer           = _command_buffers[_current_buffer];
+        const auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
+            .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
 
         // Begin main command buffer
         result = command_buffer.begin(&command_buffer_begin_info);
 
         check_result(result);
 
-        command_buffer.clearColorImage(
-            swap_chain_image
-          , vk::ImageLayout::eTransferDstOptimal
-          , &clear_color.color
-          , 1
-          , &image_subresource_range
-        );
-
         // Begin render pass
-        auto render_pass_begin_info = vk::RenderPassBeginInfo()
+        const auto render_pass_begin_info = vk::RenderPassBeginInfo()
             .setRenderPass(_render_pass)
             .setFramebuffer(_frame_buffers[_current_buffer])
+            .setRenderArea(render_area)
             .setClearValueCount(1)
-            .setPClearValues(&clear_color)
-            .setRenderArea(render_area);
+            .setPClearValues(&clear_color);
 
         command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
 
         // Set the viewport
         command_buffer.setViewport(0, 1, &_viewport);
 
-        check_result(result);
+        // Set scissor
+        vk::Rect2D const scissor(vk::Offset2D(_viewport.x, _viewport.y), vk::Extent2D(_viewport.width, _viewport.height));
+        command_buffer.setScissor(0, 1, &scissor);
 
         return true;
     }
@@ -225,12 +219,6 @@ namespace scener::graphics::vulkan
     {
         // Submit command buffer
         static const vk::PipelineStageFlags pipe_stage_flags = vk::PipelineStageFlagBits::eColorAttachmentOutput;
-
-        auto image_subresource_range = vk::ImageSubresourceRange()
-             .setBaseMipLevel(0)
-             .setLevelCount(1)
-             .setBaseArrayLayer(0)
-             .setLayerCount(1);
 
         const auto& command_buffer = _command_buffers[_current_buffer];
 
