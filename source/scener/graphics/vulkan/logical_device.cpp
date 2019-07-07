@@ -228,11 +228,11 @@ namespace scener::graphics::vulkan
         auto submit_info = vk::SubmitInfo()
             .setPWaitDstStageMask(&pipe_stage_flags)
             .setWaitSemaphoreCount(1)
-            .setPWaitSemaphores(&_image_ownership_semaphores[_frame_index])
-            .setPCommandBuffers(&_command_buffers[_current_buffer])
+            .setPWaitSemaphores(&_image_acquired_semaphores[_frame_index])
             .setCommandBufferCount(1)
-            .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index])
-           .setSignalSemaphoreCount(1);
+            .setPCommandBuffers(&_command_buffers[_current_buffer])
+            .setSignalSemaphoreCount(1)
+            .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index]);
 
         // auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
 
