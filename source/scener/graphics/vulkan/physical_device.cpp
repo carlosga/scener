@@ -115,7 +115,7 @@ namespace scener::graphics::vulkan
             queue_count++;
         }
 
-        std::vector<vk::Format> formats = {
+        static const std::vector<vk::Format> formats = {
             vk::Format::eD32SfloatS8Uint
           , vk::Format::eD24UnormS8Uint
         };
@@ -123,6 +123,8 @@ namespace scener::graphics::vulkan
         auto deviceInfo = vk::DeviceCreateInfo()
             .setQueueCreateInfoCount(queue_count)
             .setPQueueCreateInfos(queues)
+            .setEnabledLayerCount(0)
+            .setPpEnabledLayerNames(nullptr)
             .setEnabledExtensionCount(static_cast<std::uint32_t>(_extension_names.size()))
             .setPpEnabledExtensionNames(_extension_names.data())
             .setPEnabledFeatures(&_features);
@@ -366,7 +368,7 @@ namespace scener::graphics::vulkan
             {
                 return format;
             }
-            else if (tiling == vk::ImageTiling::eOptimal && ( properties.optimalTilingFeatures & features) == features)
+            else if (tiling == vk::ImageTiling::eOptimal && (properties.optimalTilingFeatures & features) == features)
             {
                 return format;
             }

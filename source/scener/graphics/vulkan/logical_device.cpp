@@ -246,9 +246,9 @@ namespace scener::graphics::vulkan
             .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index])
            .setSignalSemaphoreCount(1);
 
-        //auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
+        // auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
 
-        //check_result(result);
+        // check_result(result);
     }
 
     void logical_device::present() noexcept
@@ -273,14 +273,14 @@ namespace scener::graphics::vulkan
         static const std::uint32_t offsets[] = { 0 };
 
         _command_buffers[_current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
-        _command_buffers[_current_buffer].bindDescriptorSets(
-            vk::PipelineBindPoint::eGraphics
-          , _pipeline_layout
-          , 0
-          , 1
-          , &pipeline.descriptors()[_current_buffer]
-          , 1
-          , offsets);
+//        _command_buffers[_current_buffer].bindDescriptorSets(
+//            vk::PipelineBindPoint::eGraphics
+//          , _pipeline_layout
+//          , 0
+//          , 1
+//          , &pipeline.descriptors()[_current_buffer]
+//          , 1
+//          , offsets);
     }
 
     buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept
@@ -387,22 +387,42 @@ namespace scener::graphics::vulkan
             pre_transform = _surface_capabilities.currentTransform;
         }
 
-        // https://www.fasterthan.life/blog/2017/7/12/i-am-graphics-and-so-can-you-part-3-breaking-ground
-        auto extent     = surface.extent(_surface_capabilities);
-        auto chain_info = vk::SwapchainCreateInfoKHR()
-            .setClipped(VK_TRUE)
-            .setCompositeAlpha(vk::CompositeAlphaFlagBitsKHR::eOpaque)
-            .setImageUsage(image_usage)
-            .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
-            .setImageExtent(extent)
-            .setImageFormat(_surface_format.format)
-            .setImageSharingMode(vk::SharingMode::eExclusive)
-            .setMinImageCount(_surface_capabilities.minImageCount)
-            .setPresentMode(_present_mode)
-            .setPreTransform(pre_transform)
-            .setSurface(surface.surface());
+        // Find a supported composite alpha mode - one of these is guaranteed to be set
+        vk::CompositeAlphaFlagBitsKHR composite_alpha = vk::CompositeAlphaFlagBitsKHR::eOpaque;
+        vk::CompositeAlphaFlagBitsKHR composite_alpha_flags[4] = {
+            vk::CompositeAlphaFlagBitsKHR::eOpaque,
+            vk::CompositeAlphaFlagBitsKHR::ePreMultiplied,
+            vk::CompositeAlphaFlagBitsKHR::ePostMultiplied,
+            vk::CompositeAlphaFlagBitsKHR::eInherit,
+        };
+        for (uint32_t i = 0; i < 4; i++)
+        {
+            if (_surface_capabilities.supportedCompositeAlpha & composite_alpha_flags[i])
+            {
+                composite_alpha = composite_alpha_flags[i];
+                break;
+            }
+        }
 
-        std::uint32_t queue_indices[2] = { _graphics_queue_family_index, _present_queue_family_index };
+        // https://www.fasterthan.life/blog/2017/7/12/i-am-graphics-and-so-can-you-part-3-breaking-ground
+        const std::uint32_t queue_indices[2] = { _graphics_queue_family_index, _present_queue_family_index };
+        const auto extent = surface.extent(_surface_capabilities);
+
+        auto chain_info = vk::SwapchainCreateInfoKHR()
+            .setSurface(surface.surface())
+            .setMinImageCount(_surface_capabilities.minImageCount)
+            .setImageFormat(_surface_format.format)
+            .setImageColorSpace(_surface_format.colorSpace)
+            .setImageExtent(extent)
+            .setImageArrayLayers(1)
+            .setImageUsage(image_usage)
+            .setImageSharingMode(vk::SharingMode::eExclusive)
+            .setQueueFamilyIndexCount(0)
+            .setPQueueFamilyIndices(nullptr)
+            .setPreTransform(pre_transform)
+            .setCompositeAlpha(composite_alpha)
+            .setPresentMode(_present_mode)
+            .setClipped(true);
 
         // If the graphics queue family and present family don't match then we need to create the
         // swapchain with different information.
@@ -415,13 +435,10 @@ namespace scener::graphics::vulkan
                 .setQueueFamilyIndexCount(2)
                 .setPQueueFamilyIndices(queue_indices);
         }
-        else
-        {
-            // If the indices are the same, then the queue can have exclusive access to the images.
-            chain_info.setImageSharingMode(vk::SharingMode::eExclusive);
-        }
 
-        _swap_chain = _logical_device.createSwapchainKHR(chain_info, nullptr);
+        auto result = _logical_device.createSwapchainKHR(&chain_info, nullptr, &_swap_chain);
+
+        check_result(result);
 
         // Retrieve the swapchain images from the device.
         // Note that VkImage is simply a handle like everything else.
@@ -429,7 +446,7 @@ namespace scener::graphics::vulkan
         // First call gets numImages.
         std::uint32_t num_images = 0;
 
-        auto result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, nullptr);
+        result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, nullptr);
 
         check_result(result);
         Ensures(num_images > 0);
@@ -489,10 +506,11 @@ namespace scener::graphics::vulkan
             .setPScissors(&scissor);
 
         // Color blend, depth stencil and rasterier states
-        auto blend_attachment         = vk::PipelineColorBlendAttachmentState();
-        auto color_blend_state_info   = vk_color_blend_state(color_blend_state, blend_attachment);
-        auto depth_stencil_state_info = vk_depth_stencil_state(depth_stencil_state);
-        auto rasterizer_state_info    = vk_rasterizer_state(rasterization_state);
+        auto color_blend_attachment = vk::PipelineColorBlendAttachmentState();
+
+        const auto color_blend_state_info   = vk_color_blend_state(color_blend_state, color_blend_attachment);
+        const auto depth_stencil_state_info = vk_depth_stencil_state(depth_stencil_state);
+        const auto rasterizer_state_info    = vk_rasterizer_state(rasterization_state);
 
         // Multisampling state
         const auto multisampling_state_info = vk::PipelineMultisampleStateCreateInfo()
@@ -629,15 +647,16 @@ namespace scener::graphics::vulkan
 
         descriptors.resize(_swap_chain_images.size());
 
-//        for (std::uint32_t i = 0; i < texture_count; i++)
-//        {
-////            tex_descs[i].setSampler(textures[i].sampler);
-////            tex_descs[i].setImageView(textures[i].view);
-//            tex_descs[i].setImageLayout(vk::ImageLayout::eGeneral);
-//        }
+        for (std::uint32_t i = 0; i < texture_count; i++)
+        {
+//            tex_descs[i].setSampler(textures[i].sampler);
+//            tex_descs[i].setImageView(textures[i].view);
+            tex_descs[i].setImageLayout(vk::ImageLayout::eGeneral);
+        }
 
 //        vk::WriteDescriptorSet writes[2];
 
+//        writes[0].setDstBinding(0);
 //        writes[0].setDescriptorCount(1);
 //        writes[0].setDescriptorType(vk::DescriptorType::eUniformBuffer);
 //        writes[0].setPBufferInfo(&buffer_info);
@@ -662,13 +681,13 @@ namespace scener::graphics::vulkan
 //            writes[0].setDstSet(descriptors[i]);
 //            writes[1].setDstSet(descriptors[i]);
 
-//            _logical_device.updateDescriptorSets(1, writes, 0, nullptr);
+//            _logical_device.updateDescriptorSets(2, writes, 0, nullptr);
 //        }
 
-        // Destroy the shader modules
-        std::for_each(shader_modules.begin(), shader_modules.end(), [&] (auto& module) {
-            _logical_device.destroyShaderModule(module, nullptr);
-        });
+//        // Destroy the shader modules
+//        std::for_each(shader_modules.begin(), shader_modules.end(), [&] (auto& module) {
+//            _logical_device.destroyShaderModule(module, nullptr);
+//        });
 
         return { pipeline, descriptors };
     }
@@ -677,7 +696,7 @@ namespace scener::graphics::vulkan
     {
         // Images will always be sampled
         const auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        auto usage_flags = options.usage | vk::ImageUsageFlagBits::eSampled;
+        auto usage_flags = options.usage;
 
         if (!depth_image)
         {
@@ -894,7 +913,7 @@ namespace scener::graphics::vulkan
 
             result = _logical_device.createSemaphore(&semaphore_create_info, nullptr, &_image_ownership_semaphores[i]);
             check_result(result);
-        }
+        }               
     }
 
     void logical_device::create_command_pools() noexcept
@@ -947,32 +966,17 @@ namespace scener::graphics::vulkan
     {
         _swap_chain_image_views.resize(_swap_chain_images.size());
 
-        // Much like the logical device is an interface to the physical device,
-        // image views are interfaces to actual images.  Think of it as this.
-        // The image exists outside of you.  But the view is your personal view
-        // ( how you perceive ) the image.
         for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
-            auto sub_resource_range = vk::ImageSubresourceRange()
-                // There are only 4x aspect bits.  And most people will only use 3x.
-                // These determine what is affected by your image operations.
-                // VK_IMAGE_ASPECT_COLOR_BIT
-                // VK_IMAGE_ASPECT_DEPTH_BIT
-                // VK_IMAGE_ASPECT_STENCIL_BIT
-                .setAspectMask(vk::ImageAspectFlagBits::eColor)
-                // Level count is the # of images visible down the mip chain.
-                // So basically just 1...
-                .setLevelCount(1)
-                // We don't have multiple layers to these images.
-                .setLayerCount(1);
+            const auto sub_resource_range = vk::ImageSubresourceRange(vk::ImageAspectFlagBits::eColor, 0, 1, 0, 1);
 
-            auto component_mapping = vk::ComponentMapping()
+            const auto component_mapping = vk::ComponentMapping()
                 .setR(vk::ComponentSwizzle::eIdentity)
                 .setG(vk::ComponentSwizzle::eIdentity)
                 .setB(vk::ComponentSwizzle::eIdentity)
                 .setA(vk::ComponentSwizzle::eIdentity);
 
-            auto image_view_create_info = vk::ImageViewCreateInfo()
+            const auto image_view_create_info = vk::ImageViewCreateInfo()
                 // Just plug it in
                 .setImage(_swap_chain_images[i])
                 // These are 2D images
@@ -1009,7 +1013,7 @@ namespace scener::graphics::vulkan
                 .setPImmutableSamplers(nullptr)
         };
 
-        auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
+        const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
             .setBindingCount(2)
             .setPBindings(layout_bindings);
 
@@ -1017,7 +1021,7 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
+        const auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
             .setSetLayoutCount(1)
             .setPSetLayouts(&_descriptor_set_layout);
 
@@ -1028,29 +1032,29 @@ namespace scener::graphics::vulkan
 
     void logical_device::create_render_pass() noexcept
     {
-        vk::AttachmentDescription attachments[2];
-
-        // For the color attachment, we'll simply be using the swapchain images.
-        attachments[0] = vk::AttachmentDescription()
-            .setFormat(_surface_format.format)
-            .setSamples(vk::SampleCountFlagBits::e1)
-            .setLoadOp(vk::AttachmentLoadOp::eClear)
-            .setStoreOp(vk::AttachmentStoreOp::eStore)
-            .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
-            .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
-            .setInitialLayout(vk::ImageLayout::eUndefined)
-            .setFinalLayout(vk::ImageLayout::ePresentSrcKHR);
-
-        // For the depth attachment, we'll be using the device depth format.
-        attachments[1] = vk::AttachmentDescription()
-            .setFormat(_depth_format)
-            .setSamples(vk::SampleCountFlagBits::e1)
-            .setLoadOp(vk::AttachmentLoadOp::eClear)
-            .setStoreOp(vk::AttachmentStoreOp::eDontCare)
-            .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
-            .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
-            .setInitialLayout(vk::ImageLayout::eUndefined)
-            .setFinalLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal);
+        const vk::AttachmentDescription attachments[2] =
+        {
+            // For the color attachment, we'll simply be using the swapchain images.
+            vk::AttachmentDescription()
+                        .setFormat(_surface_format.format)
+                        .setSamples(vk::SampleCountFlagBits::e1)
+                        .setLoadOp(vk::AttachmentLoadOp::eClear)
+                        .setStoreOp(vk::AttachmentStoreOp::eStore)
+                        .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
+                        .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
+                        .setInitialLayout(vk::ImageLayout::eUndefined)
+                        .setFinalLayout(vk::ImageLayout::ePresentSrcKHR),
+            // For the depth attachment, we'll be using the device depth format.
+            vk::AttachmentDescription()
+                .setFormat(_depth_format)
+                .setSamples(vk::SampleCountFlagBits::e1)
+                .setLoadOp(vk::AttachmentLoadOp::eClear)
+                .setStoreOp(vk::AttachmentStoreOp::eDontCare)
+                .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
+                .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
+                .setInitialLayout(vk::ImageLayout::eUndefined)
+                .setFinalLayout(vk::ImageLayout::eDepthStencilAttachmentOptimal)
+        };
 
         // Now we enumerate the attachments for a subpass.  We have to have at least one subpass.
         auto color_ref = vk::AttachmentReference()
@@ -1102,32 +1106,28 @@ namespace scener::graphics::vulkan
     {
         destroy_frame_buffers();
 
-        _frame_buffers.reserve(_swap_chain_image_views.size());
+        _frame_buffers.resize(_swap_chain_image_views.size());
 
         vk::ImageView attachments[2];
 
         attachments[1] = _depth_buffer.image_view();
 
-        std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const vk::ImageView& view) -> void
+        const auto create_info = vk::FramebufferCreateInfo()
+            .setRenderPass(_render_pass)
+            .setWidth(extent.width)
+            .setHeight(extent.height)
+            .setAttachmentCount(2)
+            .setPAttachments(attachments)
+            .setLayers(1);
+
+        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
-            attachments[0] = view;                       
+            attachments[0] = _swap_chain_image_views[i];
 
-            auto create_info = vk::FramebufferCreateInfo()
-                .setRenderPass(_render_pass)
-                .setWidth(extent.width)
-                .setHeight(extent.height)
-                .setAttachmentCount(2)
-                .setPAttachments(attachments)
-                .setLayers(1);
-
-            vk::Framebuffer buffer;
-
-            auto result = _logical_device.createFramebuffer(&create_info, nullptr, &buffer);
+            auto result = _logical_device.createFramebuffer(&create_info, nullptr, &_frame_buffers[i]);
 
             check_result(result);
-
-            _frame_buffers.push_back(buffer);
-        });
+        }
     }
 
     void logical_device::create_pipeline_cache() noexcept
@@ -1250,8 +1250,8 @@ namespace scener::graphics::vulkan
     }
 
     vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(
-        const graphics::blend_state&           state
-      , vk::PipelineColorBlendAttachmentState& attachment) const noexcept
+            const graphics::blend_state&           state
+          , vk::PipelineColorBlendAttachmentState& attachment) const noexcept
     {
         auto enabled = !(state.color_source_blend      == graphics::blend::one
                       && state.color_destination_blend == graphics::blend::zero
@@ -1259,7 +1259,7 @@ namespace scener::graphics::vulkan
                       && state.alpha_destination_blend == graphics::blend::zero);
 
         attachment
-            .setBlendEnable(enabled)
+            .setBlendEnable(enabled ? VK_TRUE : VK_FALSE)
             .setColorWriteMask(static_cast<vk::ColorComponentFlagBits>(state.color_write_channels_1))
             .setAlphaBlendOp(static_cast<vk::BlendOp>(state.alpha_blend_function))
             .setSrcAlphaBlendFactor(static_cast<vk::BlendFactor>(state.alpha_source_blend))
@@ -1268,8 +1268,8 @@ namespace scener::graphics::vulkan
             .setSrcColorBlendFactor(static_cast<vk::BlendFactor>(state.color_source_blend))
             .setDstColorBlendFactor(static_cast<vk::BlendFactor>(state.color_destination_blend));
 
-        auto create_info = vk::PipelineColorBlendStateCreateInfo()
-            .setLogicOpEnable(false)
+        const auto create_info = vk::PipelineColorBlendStateCreateInfo()
+            .setLogicOpEnable(VK_FALSE)
             .setLogicOp(vk::LogicOp::eCopy)
             .setAttachmentCount(1)
             .setPAttachments(&attachment)
