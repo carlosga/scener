@@ -16,7 +16,8 @@ namespace scener::graphics::vulkan
     {
     public:
         graphics_pipeline() noexcept;
-        graphics_pipeline(const vk::Pipeline& pipeline) noexcept;
+        graphics_pipeline(const vk::Pipeline&                   pipeline
+                        , const std::vector<vk::DescriptorSet>& descriptors) noexcept;
 
     public:
         const vk::Pipeline& pipeline() const noexcept;

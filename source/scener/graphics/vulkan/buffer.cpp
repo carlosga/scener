@@ -89,6 +89,6 @@ namespace scener::graphics::vulkan
         auto mapped_data = reinterpret_cast<char*>(_memory_buffer_allocation_info.pMappedData) + offset;
 
         // Buffer is already mapped.
-        // memcpy(mapped_data + offset, &data, count);
+        memcpy(mapped_data + offset, &data, count);
     }
 }

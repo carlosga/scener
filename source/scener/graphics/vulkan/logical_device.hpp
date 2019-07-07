@@ -148,6 +148,7 @@ namespace scener::graphics::vulkan
         void create_render_pass() noexcept;
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
+        void create_pipeline_cache() noexcept;
         void create_descriptor_pool() noexcept;
         void destroy_sync_primitives() noexcept;
         void destroy_command_buffers() noexcept;

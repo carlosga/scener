@@ -5,6 +5,7 @@
 #define SCENER_GRAPHICS_EFFECT_PARAMETER_HPP
 
 #include <cstddef>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -71,18 +72,18 @@ namespace scener::graphics
         void set_value_transpose(const T& value) const noexcept;
 
     private:
-        std::uint32_t          _column_count    { 0 };
-        std::uint32_t          _row_count       { 0 };
-        std::uint32_t          _count           { 0 };
-        std::uint32_t          _offset          { 0 };
-        std::uint32_t          _size            { 0 };
-        effect_parameter_class _parameter_class { effect_parameter_class::scalar };
-        effect_parameter_type  _parameter_type  { effect_parameter_type::single };
-        constant_buffer*       _constant_buffer { nullptr };
-        std::string            _name            { };
-        std::string            _semantic        { };
-        std::string            _value           { };
-        std::string            _uniform_name    { };
+        std::uint32_t                    _column_count    { 0 };
+        std::uint32_t                    _row_count       { 0 };
+        std::uint32_t                    _count           { 0 };
+        std::uint32_t                    _offset          { 0 };
+        std::uint32_t                    _size            { 0 };
+        effect_parameter_class           _parameter_class { effect_parameter_class::scalar };
+        effect_parameter_type            _parameter_type  { effect_parameter_type::single };
+        std::shared_ptr<constant_buffer> _constant_buffer { nullptr };
+        std::string                      _name            { };
+        std::string                      _semantic        { };
+        std::string                      _value           { };
+        std::string                      _uniform_name    { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

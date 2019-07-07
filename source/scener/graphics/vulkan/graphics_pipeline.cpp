@@ -8,9 +8,10 @@ namespace scener::graphics::vulkan
     {
     }
 
-    graphics_pipeline::graphics_pipeline(const vk::Pipeline& pipeline) noexcept
+    graphics_pipeline::graphics_pipeline(const vk::Pipeline&                   pipeline
+                                       , const std::vector<vk::DescriptorSet>& descriptors) noexcept
         : _pipeline    { pipeline }
-        , _descriptors { }
+        , _descriptors { descriptors }
     {
     }
 

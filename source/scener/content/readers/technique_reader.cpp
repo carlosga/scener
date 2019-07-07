@@ -215,7 +215,7 @@ namespace scener::content::readers
 
         for (const auto& param : effect->_parameters)
         {
-            param.second->_constant_buffer = pass->_constant_buffer.get();
+            param.second->_constant_buffer = pass->_constant_buffer;
             pass->_parameters.push_back(param.second);
         }
 
