@@ -12,6 +12,14 @@
 
 namespace scener::graphics::vulkan
 {
+    struct buffer_resources
+    {
+    public:
+        vk::Buffer        memory_buffer;
+        VmaAllocation     memory_buffer_allocation;
+        VmaAllocationInfo memory_buffer_allocation_info;
+    };
+
     /// Represents a Vulkan buffer object.
     class buffer final
     {
@@ -25,12 +33,12 @@ namespace scener::graphics::vulkan
         ~buffer();
 
     public:
+        const std::vector<buffer_resources>& buffers() const noexcept;
+
         std::uint64_t size() const noexcept;
 
         /// Gets the buffer usage.
         buffer_usage usage() const noexcept;
-
-        const vk::Buffer& memory_buffer() const noexcept;
 
         /// Gets a subset of data from a buffer object's data store.
         /// \param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
@@ -44,13 +52,11 @@ namespace scener::graphics::vulkan
                     , [[maybe_unused]] gsl::not_null<const void*> data) const noexcept;
 
     private:
-        buffer_usage      _usage;
-        vk::SharingMode   _sharing_mode;
-        std::uint64_t     _size;
-        vk::Buffer        _memory_buffer;
-        VmaAllocation     _memory_buffer_allocation;
-        VmaAllocationInfo _memory_buffer_allocation_info;
-        VmaAllocator*     _allocator;
+        buffer_usage                  _usage;
+        vk::SharingMode               _sharing_mode;
+        std::uint64_t                 _size;
+        std::vector<buffer_resources> _buffers;
+        VmaAllocator*                 _allocator;
     };
 }
 

@@ -13,11 +13,11 @@ namespace scener::graphics::vulkan
         : _usage                         { usage }
         , _sharing_mode                  { sharing_mode }
         , _size                          { count }
-        , _memory_buffer                 { }
-        , _memory_buffer_allocation      { }
-        , _memory_buffer_allocation_info { }
+        , _buffers                       { }
         , _allocator                     { allocator }
     {
+        std::uint32_t buffer_count = 1;
+
         VkBufferCreateInfo buffer_create_info = { VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO };
 
         buffer_create_info.usage       = static_cast<VkBufferUsageFlags>(usage);
@@ -26,30 +26,54 @@ namespace scener::graphics::vulkan
 
         VmaAllocationCreateInfo allocation_create_info = { };
 
-        if ((usage & buffer_usage::uniform_buffer) == buffer_usage::uniform_buffer)
+        if ((usage & buffer_usage::index_buffer) == buffer_usage::index_buffer)
         {
-            allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
-            allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
+            allocation_create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
+            allocation_create_info.requiredFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
         }
-        else
+        else if ((usage & buffer_usage::vertex_buffer) == buffer_usage::vertex_buffer)
         {
-            allocation_create_info.usage = VMA_MEMORY_USAGE_GPU_ONLY;
+            allocation_create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
+            allocation_create_info.requiredFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+        }
+        else if ((usage & buffer_usage::uniform_buffer) == buffer_usage::uniform_buffer)
+        {
+            allocation_create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
+            allocation_create_info.flags         = VMA_ALLOCATION_CREATE_MAPPED_BIT;
+            allocation_create_info.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+            buffer_count = 2;
         }
 
-        auto result = vmaCreateBuffer(
-            *_allocator
-          , &buffer_create_info
-          , &allocation_create_info
-          , reinterpret_cast<VkBuffer*>(&_memory_buffer)
-          , &_memory_buffer_allocation
-          , &_memory_buffer_allocation_info);
+        _buffers.resize(buffer_count);
 
-        Ensures(result == VK_SUCCESS);
+        for (std::uint32_t i = 0; i < buffer_count; ++i)
+        {
+            auto result = vmaCreateBuffer(
+                *_allocator
+              , &buffer_create_info
+              , &allocation_create_info
+              , reinterpret_cast<VkBuffer*>(&_buffers[i].memory_buffer)
+              , &_buffers[i].memory_buffer_allocation
+              , &_buffers[i].memory_buffer_allocation_info);
+
+            Ensures(result == VK_SUCCESS);
+        }
     }
 
     buffer::~buffer()
     {
-        vmaDestroyBuffer(*_allocator, _memory_buffer, _memory_buffer_allocation);
+        for (std::uint32_t i = 0; i < _buffers.size(); ++i)
+        {
+            vmaDestroyBuffer(*_allocator, _buffers[i].memory_buffer, _buffers[i].memory_buffer_allocation);
+        }
+
+        _buffers.clear();
+    }
+
+    const std::vector<buffer_resources>& buffer::buffers() const noexcept
+    {
+        return _buffers;
     }
 
     std::uint64_t buffer::size() const noexcept
@@ -61,11 +85,6 @@ namespace scener::graphics::vulkan
     buffer_usage buffer::usage() const noexcept
     {
         return _usage;
-    }
-
-    const vk::Buffer& buffer::memory_buffer() const noexcept
-    {
-        return _memory_buffer;
     }
 
     /// Gets a subset of data from a buffer object's data store.
@@ -86,9 +105,12 @@ namespace scener::graphics::vulkan
         Ensures(count <= _size);
         Ensures(offset + count <= _size);
 
-        auto mapped_data = reinterpret_cast<char*>(_memory_buffer_allocation_info.pMappedData) + offset;
+        for (std::uint32_t i = i; i < _buffers.size(); ++i)
+        {
+             auto mapped_data = reinterpret_cast<char*>(_buffers[i].memory_buffer_allocation_info.pMappedData) + offset;
 
-        // Buffer is already mapped.
-        memcpy(mapped_data + offset, &data, count);
+             // Buffer is already mapped (VMA_ALLOCATION_CREATE_MAPPED_BIT)
+             memcpy(mapped_data + offset, &data, count);
+        }
     }
 }

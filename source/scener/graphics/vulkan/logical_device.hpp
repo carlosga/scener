@@ -85,6 +85,9 @@ namespace scener::graphics::vulkan
         /// Starts the drawing of a frame
         bool begin_draw() noexcept;
 
+        /// Binds the given graphics pipeline
+        void bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept;
+
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         void draw_indexed(graphics::primitive_type       primitive_type
                         , std::uint32_t                  base_vertex
@@ -101,9 +104,6 @@ namespace scener::graphics::vulkan
         /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
         /// graphics_device.
         void present() noexcept;
-
-        /// Binds the given graphics pipeline
-        void bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept;
 
     public:
         buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept;
@@ -126,6 +126,8 @@ namespace scener::graphics::vulkan
             , const graphics::depth_stencil_state& depth_stencil_state
             , const graphics::rasterizer_state&    rasterization_state
             , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
+
+        void create_descriptor_sets(const graphics::constant_buffer& constant_buffer) noexcept;
 
     public:
         image_storage create_image(const image_options& options) noexcept;

@@ -16,9 +16,10 @@ namespace scener::content::readers
 
     auto content_type_reader<shader>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
-        auto type   = value[k_type].get<std::int32_t>();
-        auto buffer = input->read_external_reference(value[k_uri].get<std::string>());
-        auto stage  = shader_stage::all;
+        auto type     = value[k_type].get<std::int32_t>();
+        auto filename = value[k_uri].get<std::string>() + ".spv";
+        auto buffer   = input->read_external_reference(filename);
+        auto stage    = shader_stage::all;
 
         switch (type)
         {

@@ -121,6 +121,8 @@ namespace scener::graphics
 
     vulkan::graphics_pipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
     {
+        _logical_device->create_descriptor_sets(*model_mesh_part.effect_technique()->passes()[0]->constant_buffer());
+
         return _logical_device->create_graphics_pipeline(
             _blend_state
           , _depth_stencil_state

@@ -40,7 +40,7 @@ namespace skeletal::animation
 
     void earthshaker::load_content() noexcept
     {
-        _model = _renderer->content_manager()->load("earthshaker/earthshaker");
+        _model = _renderer->content_manager()->load("box/Box");
 
         std::for_each(_model->meshes().begin(), _model->meshes().end(), [] (auto mesh) -> void
         {
