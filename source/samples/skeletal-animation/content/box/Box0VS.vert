@@ -18,7 +18,7 @@ void main(void)
     VSInput vin;
     SetVSInputParams;
 
-    v_normal    = vin.Normal;
-    v_position  = vin.Position.xyz;
-    gl_Position = u_projectionMatrix * vin.Position;
+    vec4 pos    = u_modelViewMatrix * vin.Position;
+    v_normal    = u_normalMatrix * a_normal;
+    gl_Position = u_projectionMatrix * pos;
 }

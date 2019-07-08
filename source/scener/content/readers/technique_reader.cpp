@@ -85,31 +85,53 @@ namespace scener::content::readers
             describe_parameter(parameter.get(), paramref[k_type].get<std::int32_t>());
 
             if (parameter->_uniform_name == "u_jointMat")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+            {
+                //offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+            }
             else if (parameter->_uniform_name == "u_normalMatrix")
+            {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_normalMatrix);
+            }
             else if (parameter->_uniform_name == "u_modelViewMatrix")
+            {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_modelViewMatrix);
+            }
             else if (parameter->_uniform_name == "u_projectionMatrix")
+            {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_projectionMatrix);
+            }
             else if (parameter->_uniform_name == "u_light0Transform")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
+            {
+                // offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
+            }
+            else if (parameter->_uniform_name == "u_diffuse")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_diffuse);
+            }
             else if (parameter->_uniform_name == "u_ambient")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+            {
+                //offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+            }
             else if (parameter->_uniform_name == "u_emission")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+            {
+                //offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+            }
             else if (parameter->_uniform_name == "u_specular")
+            {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
+            }
             else if (parameter->_uniform_name == "u_shininess")
+            {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
-            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
-            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
-            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
-            else if (parameter->_uniform_name == "u_light0Color")
-                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+            }
+//            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
+//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
+//            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
+//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
+//            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
+//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
+//            else if (parameter->_uniform_name == "u_light0Color")
+//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
 
             parameter->_offset = offset;
 
@@ -123,6 +145,7 @@ namespace scener::content::readers
     {
         for (auto it = value.begin(); it != value.end(); ++it)
         {
+            const auto& key     = it.key();
             const auto& current = it.value();
 
             if (current.count(k_value) == 0)
@@ -130,7 +153,7 @@ namespace scener::content::readers
                 continue;
             }
 
-            const auto& parameter = effect->_parameters[it.key()];
+            const auto& parameter = effect->_parameters[key];
 
             if (parameter == nullptr)
             {
@@ -422,7 +445,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 2;
             parameter->_column_count    = 2;
-            parameter->_size            = sizeof (math::matrix2) * 2 * parameter->_count;
+            parameter->_size            = sizeof (math::matrix2) * parameter->_count;
             break;
 
         case 0x8B5B	:   // mat3f
@@ -430,7 +453,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 3;
             parameter->_column_count    = 3;
-            parameter->_size            = sizeof (math::matrix3) * 2 * parameter->_count;
+            parameter->_size            = sizeof (math::matrix3) * parameter->_count;
             break;
 
         case 0x8B5C	:   // mat4f
@@ -438,7 +461,7 @@ namespace scener::content::readers
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 4;
             parameter->_column_count    = 4;
-            parameter->_size            = sizeof (math::matrix4) * 2 * parameter->_count;
+            parameter->_size            = sizeof (math::matrix4) * parameter->_count;
             break;
 
         case 0x8B5E:    // sampler 2d

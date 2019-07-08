@@ -32,8 +32,10 @@ namespace skeletal::animation
 
     void earthshaker::initialize() noexcept
     {
-        _world = create_rotation_x({ -scener::math::pi_over_2<> })
-               * create_translation({ 0.0f, -70.0f, 0.0f });
+//        _world = create_rotation_x({ -scener::math::pi_over_2<> })
+//               * create_translation({ 0.0f, -70.0f, 0.0f });
+
+        _world = create_translation({ 0.0f, 0.0f, 0.0f });
 
         drawable_component::initialize();
     }

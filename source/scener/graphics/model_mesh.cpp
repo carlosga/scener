@@ -51,9 +51,11 @@ namespace scener::graphics
                 part->effect_technique()->bone_transforms(_skeleton->skin_transforms());
             }
 
-            part->effect_technique()->world(world);
-            part->effect_technique()->view(view);
-            part->effect_technique()->projection(projection);
+            auto technique = part->effect_technique();
+
+            technique->world(world);
+            technique->view(view);
+            technique->projection(projection);
         });
 
         draw();

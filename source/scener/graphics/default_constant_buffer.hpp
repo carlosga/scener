@@ -15,22 +15,15 @@ namespace scener::graphics
     struct default_constant_buffer final
     {
     public:
-        // Vertex Shader
-        scener::math::matrix4 u_jointMat[57];
-        scener::math::matrix4 u_normalMatrix;
-        scener::math::matrix4 u_modelViewMatrix;
-        scener::math::matrix4 u_projectionMatrix;
-        scener::math::matrix4 u_light0Transform;
-
         // Fragment Shader
-        scener::math::vector4 u_ambient;
-        scener::math::vector4 u_emission;
+        scener::math::vector4 u_diffuse;
         scener::math::vector4 u_specular;
         float                 u_shininess;
-        float                 u_light0ConstantAttenuation;
-        float                 u_light0LinearAttenuation;
-        float                 u_light0QuadraticAttenuation;
-        scener::math::vector3 u_light0Color;
+
+        // Vertex Shader
+        scener::math::matrix3 u_normalMatrix;
+        scener::math::matrix4 u_modelViewMatrix;
+        scener::math::matrix4 u_projectionMatrix;
     };
 }
 

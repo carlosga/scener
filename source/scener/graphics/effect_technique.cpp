@@ -285,8 +285,8 @@ namespace scener::graphics
 
     void effect_technique::set_world_view_proj() const noexcept
     {
-        auto world_view      = _world * _view;
-        auto world_view_proj = world_view * _projection;
+        const auto world_view      = _world * _view;
+        const auto world_view_proj = world_view * _projection;
 
         if (_world_param.get())
         {
