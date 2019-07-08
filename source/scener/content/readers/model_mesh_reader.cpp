@@ -98,7 +98,7 @@ namespace scener::content::readers
             instance->_primitive_count = (vertex_count / 2);
             break;
         case primitive_type::triangle_list:
-            instance->_primitive_count = (vertex_count  / 3);
+            instance->_primitive_count = (vertex_count / 3);
             break;
         case primitive_type::line_loop:
         case primitive_type::line_strip:

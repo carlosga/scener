@@ -243,7 +243,7 @@ namespace scener::graphics
         _is_running_slowly = (_timer.elapsed_time_step_time() > target_elapsed_time);
 
         if (!_is_running_slowly)
-        {
+        {           
             if (begin_draw())
             {
                 draw(_time);

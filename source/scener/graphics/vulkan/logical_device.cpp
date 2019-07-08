@@ -178,6 +178,7 @@ namespace scener::graphics::vulkan
 
     void logical_device::bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept
     {
+        _command_buffers[_current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
         _command_buffers[_current_buffer].bindDescriptorSets(
             vk::PipelineBindPoint::eGraphics
           , _pipeline_layout
@@ -186,7 +187,6 @@ namespace scener::graphics::vulkan
           , &pipeline.descriptors()[_current_buffer]
           , 0
           , nullptr);
-        _command_buffers[_current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
     }
 
     void logical_device::draw_indexed(graphics::primitive_type       primitive_type
@@ -212,7 +212,7 @@ namespace scener::graphics::vulkan
         // Draw call
         command_buffer.drawIndexed(
             index_buffer->index_count()
-          , get_element_count(primitive_type, primitive_count)
+          , 1
           , start_index
           , offset
           , base_vertex);
@@ -988,16 +988,16 @@ namespace scener::graphics::vulkan
                 .setDescriptorCount(1)
                 .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment)
                 .setPImmutableSamplers(nullptr),
-            vk::DescriptorSetLayoutBinding()
-                .setBinding(1)
-                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
-                .setDescriptorCount(0)
-                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
-                .setPImmutableSamplers(nullptr)
+//            vk::DescriptorSetLayoutBinding()
+//                .setBinding(1)
+//                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
+//                .setDescriptorCount(0)
+//                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
+//                .setPImmutableSamplers(nullptr)
         };
 
         const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
-            .setBindingCount(2)
+            .setBindingCount(1)
             .setPBindings(layout_bindings);
 
         auto result = _logical_device.createDescriptorSetLayout(&descriptor_set_layout_create_info, nullptr, &_descriptor_set_layout);
@@ -1019,14 +1019,14 @@ namespace scener::graphics::vulkan
         {
             // For the color attachment, we'll simply be using the swapchain images.
             vk::AttachmentDescription()
-                        .setFormat(_surface_format.format)
-                        .setSamples(vk::SampleCountFlagBits::e1)
-                        .setLoadOp(vk::AttachmentLoadOp::eClear)
-                        .setStoreOp(vk::AttachmentStoreOp::eStore)
-                        .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
-                        .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
-                        .setInitialLayout(vk::ImageLayout::eUndefined)
-                        .setFinalLayout(vk::ImageLayout::ePresentSrcKHR),
+                .setFormat(_surface_format.format)
+                .setSamples(vk::SampleCountFlagBits::e1)
+                .setLoadOp(vk::AttachmentLoadOp::eClear)
+                .setStoreOp(vk::AttachmentStoreOp::eStore)
+                .setStencilLoadOp(vk::AttachmentLoadOp::eDontCare)
+                .setStencilStoreOp(vk::AttachmentStoreOp::eDontCare)
+                .setInitialLayout(vk::ImageLayout::eUndefined)
+                .setFinalLayout(vk::ImageLayout::ePresentSrcKHR),
 
             // For the depth attachment, we'll be using the device depth format.
             vk::AttachmentDescription()

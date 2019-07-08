@@ -35,7 +35,7 @@ namespace skeletal::animation
 //        _world = create_rotation_x({ -scener::math::pi_over_2<> })
 //               * create_translation({ 0.0f, -70.0f, 0.0f });
 
-        _world = create_translation({ 0.0f, 0.0f, 0.0f });
+        _world = create_translation({ 0.0f, -70.0f, 0.0f });
 
         drawable_component::initialize();
     }
@@ -61,7 +61,7 @@ namespace skeletal::animation
 
     void earthshaker::update(const steptime& time) noexcept
     {
-        _model->update(time);
+        _model->update(time);               
     }
 
     void earthshaker::draw([[maybe_unused]] const steptime& time) noexcept

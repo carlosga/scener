@@ -34,35 +34,6 @@ namespace scener::graphics::vulkan
 
     class logical_device final
     {
-    private:
-        static constexpr std::uint32_t get_element_count(graphics::primitive_type type, std::size_t primitive_count) noexcept
-        {
-            switch (type)
-            {
-            case primitive_type::line_list:
-                return primitive_count * 2;
-
-            case primitive_type::line_strip:
-                return primitive_count + 1;
-
-            case primitive_type::point_list:
-                return primitive_count;
-
-            case primitive_type::triangle_fan:
-                return primitive_count;
-
-            case primitive_type::triangle_list:
-                return primitive_count * 3;
-
-            case primitive_type::triangle_strip:
-                return primitive_count + 2;
-
-            case primitive_type::line_loop:
-            default:
-                return primitive_count;
-            }
-        }
-
     public:
         logical_device(const vk::PhysicalDevice&         physical_device
                      , const vk::Device&                 logical_device

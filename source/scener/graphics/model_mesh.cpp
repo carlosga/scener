@@ -65,8 +65,10 @@ namespace scener::graphics
     {
         std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (const auto& part) -> void
         {
-            auto device = part->vertex_buffer()->device();
+            auto device    = part->vertex_buffer()->device();
+            auto technique = part->effect_technique();
 
+            technique->begin();
             device->draw_indexed_primitives(part->primitive_type()
                                           , part->vertex_offset()
                                           , 0
@@ -76,6 +78,7 @@ namespace scener::graphics
                                           , part->vertex_buffer()
                                           , part->index_buffer()
                                           , part->effect_technique());
+            technique->end();
         });
     }
 }

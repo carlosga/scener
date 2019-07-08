@@ -74,7 +74,7 @@ namespace scener::graphics
         Expects(vertex_buffer != nullptr);
         Expects(technique     != nullptr);
 
-        technique->begin();
+        // technique->begin();
 
         std::for_each(technique->passes().begin(), technique->passes().end(), [&](auto& pass) {
             _logical_device->bind_graphics_pipeline(pass->pipeline());
@@ -90,7 +90,7 @@ namespace scener::graphics
             , vertex_buffer
             , index_buffer);
 
-        technique->end();
+        // technique->end();
     }
 
     blend_state& graphics_device::blend_state() noexcept
