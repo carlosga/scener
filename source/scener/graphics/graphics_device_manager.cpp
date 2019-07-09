@@ -18,21 +18,6 @@ namespace scener::graphics
         _renderer->services()->add_service<igraphics_device_service>(*this);
     }
 
-    bool graphics_device_manager::begin_draw() noexcept
-    {
-        Expects(_graphics_device.get() != nullptr);
-
-        return _graphics_device->begin_draw();
-    }
-
-    void graphics_device_manager::end_draw() noexcept
-    {
-        Expects(_graphics_device.get() != nullptr);
-
-        _graphics_device->end_draw();
-        _graphics_device->present();
-    }
-
     void graphics_device_manager::create_device() noexcept
     {
         graphics_device_information device_info;
@@ -44,6 +29,29 @@ namespace scener::graphics
         _prepare_device_settings_signal(&device_info);
 
         _graphics_device = std::make_unique<graphics_device>(device_info.adapter, device_info.presentation_params);
+    }
+
+
+    void graphics_device_manager::begin_prepare() noexcept
+    {
+        Expects(_graphics_device.get() != nullptr);
+
+        return _graphics_device->begin_prepare();
+    }
+
+    void graphics_device_manager::end_prepare() noexcept
+    {
+        Expects(_graphics_device.get() != nullptr);
+
+        _graphics_device->end_prepare();
+    }
+
+    void graphics_device_manager::draw() noexcept
+    {
+        Expects(_graphics_device.get() != nullptr);
+
+        _graphics_device->draw();
+        _graphics_device->present();
     }
 
     graphics_device* graphics_device_manager::device() const noexcept

@@ -53,8 +53,8 @@ namespace scener::graphics::vulkan
         const vk::Queue& present_queue() const noexcept;
 
     public:
-        /// Starts the drawing of a frame
-        bool begin_draw() noexcept;
+        /// Starts the recording of the command buffers
+        void begin_prepare() noexcept;
 
         /// Binds the given graphics pipeline
         void bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept;
@@ -69,8 +69,11 @@ namespace scener::graphics::vulkan
                         , const graphics::vertex_buffer* vertex_buffer
                         , const graphics::index_buffer*  index_buffer) noexcept;
 
-        /// Called by the renderer at the end of drawing; presents the final rendering.
-        void end_draw() noexcept;
+        /// Ends the recording of command buffers
+        void end_prepare() noexcept;
+
+        // Draws the current frame
+        void draw() noexcept;
 
         /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
         /// graphics_device.
@@ -160,7 +163,6 @@ namespace scener::graphics::vulkan
         std::vector<vk::Semaphore>       _image_acquired_semaphores;
         std::vector<vk::Semaphore>       _draw_complete_semaphores;
         std::vector<vk::Semaphore>       _image_ownership_semaphores;
-        std::uint32_t                    _current_buffer;
         std::uint32_t                    _frame_index;
         vk::Format                       _depth_format;
         image_storage                    _depth_buffer;

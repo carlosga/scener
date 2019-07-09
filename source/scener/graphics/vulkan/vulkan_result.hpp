@@ -5,6 +5,8 @@
 #ifndef SCENER_GRAPHICS_VULKAN_VULKAN_RESULT_HPP
 #define SCENER_GRAPHICS_VULKAN_VULKAN_RESULT_HPP
 
+#include <vulkan/vulkan.hpp>
+
 namespace scener::graphics::vulkan
 {
     inline void check_result(const vk::Result& result)

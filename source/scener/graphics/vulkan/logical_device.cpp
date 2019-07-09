@@ -63,7 +63,6 @@ namespace scener::graphics::vulkan
         , _image_acquired_semaphores        { }
         , _draw_complete_semaphores         { }
         , _image_ownership_semaphores       { }
-        , _current_buffer                   { 0 }
         , _frame_index                      { 0 }
         , _depth_format                     { depth_format }
         , _depth_buffer                     { }
@@ -112,16 +111,9 @@ namespace scener::graphics::vulkan
         return _present_queue;
     }
 
-    bool logical_device::begin_draw() noexcept
+    void logical_device::draw() noexcept
     {
-        reset_fence(_fences[_frame_index]);
-
-        auto image_subresource_range = vk::ImageSubresourceRange()
-             .setAspectMask(vk::ImageAspectFlagBits::eColor)
-             .setBaseMipLevel(0)
-             .setLevelCount(1)
-             .setBaseArrayLayer(0)
-             .setLayerCount(1);
+        std::uint32_t current_buffer = 0;
 
         // Acquire swapchain image
         auto result = _logical_device.acquireNextImageKHR(
@@ -129,64 +121,117 @@ namespace scener::graphics::vulkan
           , UINT64_MAX
           , _image_acquired_semaphores[_frame_index]
           , vk::Fence()
-          , &_current_buffer);
+          , &current_buffer);
 
         check_result(result);
 
-        const auto& command_buffer           = _command_buffers[_current_buffer];
-        const auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
-            .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
+        reset_fence(_fences[_frame_index]);
 
-        // Begin main command buffer
-        result = command_buffer.begin(&command_buffer_begin_info);
+        // Submit command buffer
+        static const vk::PipelineStageFlags pipe_stage_flags = vk::PipelineStageFlagBits::eColorAttachmentOutput;
+
+        auto submit_info = vk::SubmitInfo()
+            .setPWaitDstStageMask(&pipe_stage_flags)
+            .setWaitSemaphoreCount(1)
+            .setPWaitSemaphores(&_image_acquired_semaphores[_frame_index])
+            .setCommandBufferCount(1)
+            .setPCommandBuffers(&_command_buffers[current_buffer])
+            .setSignalSemaphoreCount(1)
+            .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index]);
+
+        result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
 
         check_result(result);
 
-        static const vk::ClearValue clear_values[2] =
+        const auto separate_present_queue = _graphics_queue_family_index != _present_queue_family_index;
+
+        auto present_info = vk::PresentInfoKHR()
+            .setWaitSemaphoreCount(1)
+            .setPWaitSemaphores(separate_present_queue ? &_image_ownership_semaphores[_frame_index]
+                                                       : &_draw_complete_semaphores[_frame_index])
+            .setSwapchainCount(1)
+            .setPSwapchains(&_swap_chain)
+            .setPImageIndices(&current_buffer);
+
+        result = _graphics_queue.presentKHR(&present_info);
+
+        check_result(result);
+
+        _frame_index += 1;
+        _frame_index %= 2;
+    }
+
+    void logical_device::present() noexcept
+    {
+    }
+
+    void logical_device::begin_prepare() noexcept
+    {
+        for (std::uint32_t current_buffer = 0; current_buffer < _swap_chain_images.size(); ++current_buffer)
         {
-            vk::ClearColorValue(std::array<float, 4>({ { 0, 0, 0, 1.0f } })),
-            vk::ClearDepthStencilValue(1.0f, 0u)
-        };
+            auto image_subresource_range = vk::ImageSubresourceRange()
+                 .setAspectMask(vk::ImageAspectFlagBits::eColor)
+                 .setBaseMipLevel(0)
+                 .setLevelCount(1)
+                 .setBaseArrayLayer(0)
+                 .setLayerCount(1);
 
-        // Begin render pass
-        const auto render_area = vk::Rect2D()
-            .setOffset({ static_cast<std::int32_t>(_viewport.x)
-                       , static_cast<std::int32_t>(_viewport.y) })
-            .setExtent({ static_cast<std::uint32_t>(_viewport.width)
-                       , static_cast<std::uint32_t>(_viewport.height) });
+            const auto& command_buffer           = _command_buffers[current_buffer];
+            const auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
+                .setFlags(vk::CommandBufferUsageFlagBits::eSimultaneousUse);
 
-        const auto render_pass_begin_info = vk::RenderPassBeginInfo()
-            .setRenderPass(_render_pass)
-            .setFramebuffer(_frame_buffers[_current_buffer])
-            .setRenderArea(render_area)
-            .setClearValueCount(2)
-            .setPClearValues(clear_values);
+            // Begin main command buffer
+            auto result = command_buffer.begin(&command_buffer_begin_info);
 
-        command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
+            check_result(result);
 
-        // Set the viewport
-        command_buffer.setViewport(0, 1, &_viewport);
+            static const vk::ClearValue clear_values[2] =
+            {
+                vk::ClearColorValue(std::array<float, 4>({ { 0, 0, 0, 1.0f } })),
+                vk::ClearDepthStencilValue(1.0f, 0u)
+            };
 
-        // Set scissor
-        vk::Rect2D const scissor(vk::Offset2D(static_cast<std::int32_t>(_viewport.x)     , static_cast<std::int32_t>(_viewport.y))
-                               , vk::Extent2D(static_cast<std::uint32_t>(_viewport.width), static_cast<std::uint32_t>(_viewport.height)));
+            // Begin render pass
+            const auto render_area = vk::Rect2D()
+                .setOffset({ static_cast<std::int32_t>(_viewport.x)
+                           , static_cast<std::int32_t>(_viewport.y) })
+                .setExtent({ static_cast<std::uint32_t>(_viewport.width)
+                           , static_cast<std::uint32_t>(_viewport.height) });
 
-        command_buffer.setScissor(0, 1, &scissor);
+            const auto render_pass_begin_info = vk::RenderPassBeginInfo()
+                .setRenderPass(_render_pass)
+                .setFramebuffer(_frame_buffers[current_buffer])
+                .setRenderArea(render_area)
+                .setClearValueCount(2)
+                .setPClearValues(clear_values);
 
-        return true;
+            command_buffer.beginRenderPass(&render_pass_begin_info, vk::SubpassContents::eInline);
+
+            // Set the viewport
+            command_buffer.setViewport(0, 1, &_viewport);
+
+            // Set scissor
+            vk::Rect2D const scissor(vk::Offset2D(static_cast<std::int32_t>(_viewport.x)     , static_cast<std::int32_t>(_viewport.y))
+                                   , vk::Extent2D(static_cast<std::uint32_t>(_viewport.width), static_cast<std::uint32_t>(_viewport.height)));
+
+            command_buffer.setScissor(0, 1, &scissor);
+        }
     }
 
     void logical_device::bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept
     {
-        _command_buffers[_current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
-        _command_buffers[_current_buffer].bindDescriptorSets(
-            vk::PipelineBindPoint::eGraphics
-          , _pipeline_layout
-          , 0
-          , 1
-          , &pipeline.descriptors()[_current_buffer]
-          , 0
-          , nullptr);
+        for (std::uint32_t current_buffer = 0; current_buffer < _swap_chain_images.size(); ++current_buffer)
+        {
+            _command_buffers[current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
+            _command_buffers[current_buffer].bindDescriptorSets(
+                vk::PipelineBindPoint::eGraphics
+              , _pipeline_layout
+              , 0
+              , 1
+              , &pipeline.descriptors()[current_buffer]
+              , 0
+              , nullptr);
+        }
     }
 
     void logical_device::draw_indexed(graphics::primitive_type       primitive_type
@@ -198,68 +243,38 @@ namespace scener::graphics::vulkan
                                     , const graphics::vertex_buffer* vertex_buffer
                                     , const graphics::index_buffer*  index_buffer) noexcept
     {
-        const auto& command_buffer     = _command_buffers[_current_buffer];
-        const auto  index_element_type = static_cast<vk::IndexType>(index_buffer->index_element_type());
-        const auto  offset             = start_index * index_buffer->element_size_in_bytes();
-        vk::DeviceSize offsets[]       = { 0 };
+        static const vk::DeviceSize offsets[] = { 0 };
 
-        // Vertex buffer binding
-        command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.buffers()[0].memory_buffer, offsets);
+        const auto index_element_type = static_cast<vk::IndexType>(index_buffer->index_element_type());
+        const auto offset             = start_index * index_buffer->element_size_in_bytes();
 
-        // Index buffer binding
-        command_buffer.bindIndexBuffer(index_buffer->_buffer.buffers()[0].memory_buffer, 0, index_element_type);
+        for (std::uint32_t current_buffer = 0; current_buffer < _swap_chain_images.size(); ++current_buffer)
+        {
+            const auto& command_buffer = _command_buffers[current_buffer];
 
-        // Draw call
-        command_buffer.drawIndexed(
-            index_buffer->index_count()
-          , 1
-          , start_index
-          , offset
-          , base_vertex);
+            // Vertex buffer binding
+            command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.buffers()[0].memory_buffer, offsets);
+
+            // Index buffer binding
+            command_buffer.bindIndexBuffer(index_buffer->_buffer.buffers()[0].memory_buffer, 0, index_element_type);
+
+            // Draw call
+            command_buffer.drawIndexed(
+                index_buffer->index_count()
+              , 1
+              , start_index
+              , offset
+              , base_vertex);
+        }
     }
 
-    void logical_device::end_draw() noexcept
+    void logical_device::end_prepare() noexcept
     {
-        // Submit command buffer
-        static const vk::PipelineStageFlags pipe_stage_flags = vk::PipelineStageFlagBits::eColorAttachmentOutput;
-
-        const auto& command_buffer = _command_buffers[_current_buffer];
-
-        command_buffer.endRenderPass();
-        command_buffer.end();
-
-        auto submit_info = vk::SubmitInfo()
-            .setPWaitDstStageMask(&pipe_stage_flags)
-            .setWaitSemaphoreCount(1)
-            .setPWaitSemaphores(&_image_acquired_semaphores[_frame_index])
-            .setCommandBufferCount(1)
-            .setPCommandBuffers(&_command_buffers[_current_buffer])
-            .setSignalSemaphoreCount(1)
-            .setPSignalSemaphores(&_draw_complete_semaphores[_frame_index]);
-
-        auto result = _graphics_queue.submit(1, &submit_info, _fences[_frame_index]);
-
-        check_result(result);
-    }
-
-    void logical_device::present() noexcept
-    {
-        const auto separate_present_queue = _graphics_queue_family_index != _present_queue_family_index;
-
-        auto present_info = vk::PresentInfoKHR()
-            .setWaitSemaphoreCount(1)
-            .setPWaitSemaphores(separate_present_queue ? &_image_ownership_semaphores[_frame_index]
-                                                       : &_draw_complete_semaphores[_frame_index])
-            .setSwapchainCount(1)
-            .setPSwapchains(&_swap_chain)
-            .setPImageIndices(&_current_buffer);
-
-        auto result = _graphics_queue.presentKHR(&present_info);
-
-        check_result(result);
-
-        _frame_index += 1;
-        _frame_index %= 2;
+        for (std::uint32_t current_buffer = 0; current_buffer < _swap_chain_images.size(); ++current_buffer)
+        {
+            _command_buffers[current_buffer].endRenderPass();
+            _command_buffers[current_buffer].end();
+        }
     }
 
     buffer logical_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) noexcept

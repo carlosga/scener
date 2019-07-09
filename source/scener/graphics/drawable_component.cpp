@@ -20,7 +20,7 @@ namespace scener::graphics
         return _renderer->device();
     }
 
-    void drawable_component::draw([[maybe_unused]] const steptime& time) noexcept
+    void drawable_component::draw() noexcept
     {
     }
 

@@ -28,7 +28,7 @@ namespace skeletal::animation
     public:
         void initialize() noexcept override;
         void update(const scener::graphics::steptime& time) noexcept override;
-        void draw(const scener::graphics::steptime& time) noexcept override;
+        void draw() noexcept override;
 
     protected:
         void load_content() noexcept override;

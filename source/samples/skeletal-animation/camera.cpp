@@ -37,8 +37,8 @@ namespace skeletal::animation
         static const radians fov = 45_deg;
         const auto aspect = _renderer->device()->viewport().aspect_ratio();
 
-        _position           = { 0.0f, 0.0f, 10.0f };
-        _rotation           = 0_deg;
+        _position           = { 0.0f, 0.0f, 12.0f };
+        _rotation           = 45_deg;
         _rotation_transform = matrix4::identity();
 
         view       = create_look_at(_position, vector3::zero(), vector3::up());
@@ -78,6 +78,8 @@ namespace skeletal::animation
         {
             new_position += { 0.0f, -1.0f, 0.0f };
         }
+
+        new_position += { .1f, .0f, .0f };
 
         if (keyboard_state.is_key_down(keys::Q))
         {

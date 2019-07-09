@@ -137,10 +137,7 @@ namespace scener::graphics
 
     public:
         /// Starts the application of the effect state just prior to rendering the effect.
-        void begin() noexcept;
-
-        /// Ends the application of the effect state just after rendering the effect.
-        void end() noexcept;
+        void update() noexcept;
 
     private:
         void set_world_view_proj() const noexcept;

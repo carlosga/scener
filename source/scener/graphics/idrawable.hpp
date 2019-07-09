@@ -26,8 +26,7 @@ namespace scener::graphics
         virtual std::uint32_t draw_order() const noexcept = 0;
 
         /// Called when the component should be drawn.
-        /// \param time snapshot of the rendering timing state.
-        virtual void draw(const steptime& time) noexcept = 0;
+        virtual void draw() noexcept = 0;
     };
 }
 

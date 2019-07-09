@@ -39,18 +39,25 @@ namespace scener::graphics
         _logical_device->create_swap_chain(*_render_surface);
     }
 
-    bool graphics_device::begin_draw() noexcept
+    void graphics_device::begin_prepare() noexcept
     {
         Expects(_logical_device.get() != nullptr);
 
-        return _logical_device->begin_draw();
+        return _logical_device->begin_prepare();
     }
 
-    void graphics_device::end_draw() noexcept
+    void graphics_device::end_prepare() noexcept
     {
         Expects(_logical_device.get() != nullptr);
 
-        _logical_device->end_draw();
+        _logical_device->end_prepare();
+    }
+
+    void graphics_device::draw() noexcept
+    {
+        Expects(_logical_device.get() != nullptr);
+
+        _logical_device->draw();
     }
 
     void graphics_device::present() noexcept
@@ -74,8 +81,6 @@ namespace scener::graphics
         Expects(vertex_buffer != nullptr);
         Expects(technique     != nullptr);
 
-        // technique->begin();
-
         std::for_each(technique->passes().begin(), technique->passes().end(), [&](auto& pass) {
             _logical_device->bind_graphics_pipeline(pass->pipeline());
         });
@@ -89,8 +94,6 @@ namespace scener::graphics
             , primitive_count
             , vertex_buffer
             , index_buffer);
-
-        // technique->end();
     }
 
     blend_state& graphics_device::blend_state() noexcept

@@ -3,6 +3,8 @@
 
 #include "scener/graphics/effect_parameter.hpp"
 
+#include <iostream>
+
 #include "scener/graphics/texture.hpp"
 #include "scener/graphics/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
@@ -11,6 +13,7 @@
 namespace scener::graphics
 {
     using scener::graphics::constant_buffer;
+    using scener::math::matrix3;
     using scener::math::matrix4;
     using scener::math::quaternion;
     using scener::math::vector2;

@@ -81,27 +81,6 @@ namespace scener::graphics
         _services->clear();
     }
 
-    bool renderer::begin_draw() noexcept
-    {
-        return _device_manager->begin_draw();
-    }
-
-    void renderer::draw(const steptime &time) noexcept
-    {
-        std::for_each(_drawable_components.begin(), _drawable_components.end(), [&time](const auto& component) -> void
-        {
-            if (component->visible())
-            {
-                component->draw(time);
-            }
-        });
-    }
-
-    void renderer::end_draw() noexcept
-    {
-        _device_manager->end_draw();
-    }
-
     void renderer::begin_run() noexcept
     {
         _services        = std::make_unique<service_container>();
@@ -155,6 +134,15 @@ namespace scener::graphics
         _timer.reset();
 
         _window->show();
+
+        _device_manager->begin_prepare();
+
+        std::for_each(_drawable_components.begin(), _drawable_components.end(), [&](const auto& component) -> void
+        {
+            component->draw();
+        });
+
+        _device_manager->end_prepare();
 
         do
         {
@@ -244,11 +232,7 @@ namespace scener::graphics
 
         if (!_is_running_slowly)
         {           
-            if (begin_draw())
-            {
-                draw(_time);
-                end_draw();
-            }
+            _device_manager->draw();
 
             auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());
 

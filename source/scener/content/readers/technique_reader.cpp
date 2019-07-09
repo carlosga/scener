@@ -120,10 +120,8 @@ namespace scener::content::readers
             {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
             }
-            else if (parameter->_uniform_name == "u_shininess")
-            {
-                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
-            }
+//            else if (parameter->_uniform_name == "u_shininess")
+//                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
 //            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
 //                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
 //            else if (parameter->_uniform_name == "u_light0LinearAttenuation")

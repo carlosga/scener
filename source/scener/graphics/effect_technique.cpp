@@ -255,7 +255,7 @@ namespace scener::graphics
         return _passes;
     }
 
-    void effect_technique::begin() noexcept
+    void effect_technique::update() noexcept
     {
         // std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->begin(); });
 
@@ -267,21 +267,21 @@ namespace scener::graphics
             _dirty_flags &= ~effect_dirty_flags::world;
         }
 
-        if (_texture_enabled)
-        {
-            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->bind(); });
-        }
+//        if (_texture_enabled)
+//        {
+//            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->bind(); });
+//        }
     }
 
-    void effect_technique::end() noexcept
-    {
-        if (_texture_enabled)
-        {
-            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->unbind(); });
-        }
+//    void effect_technique::end() noexcept
+//    {
+//        if (_texture_enabled)
+//        {
+//            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->unbind(); });
+//        }
 
-        // std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
-    }
+//        // std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
+//    }
 
     void effect_technique::set_world_view_proj() const noexcept
     {

@@ -20,8 +20,7 @@ namespace skeletal::animation
 
     protected:
         void begin_run() noexcept override;
-        void load_content() noexcept override;
-        void draw(const scener::graphics::steptime& time) noexcept override;
+        void load_content() noexcept override;        
     };
 }
 

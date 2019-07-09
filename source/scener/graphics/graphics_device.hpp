@@ -39,11 +39,14 @@ namespace scener::graphics
                       , const graphics::presentation_parameters& presentation_params) noexcept;
 
     public:
-        /// Starts the drawing of a frame
-        bool begin_draw() noexcept;
+        /// Starts the preparation phase
+        void begin_prepare() noexcept;
 
         /// Called by the renderer at the end of drawing; presents the final rendering.
-        void end_draw() noexcept;
+        void end_prepare() noexcept;
+
+        /// Draws the current frame
+        void draw() noexcept;
 
         /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
         /// graphics_device.

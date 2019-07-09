@@ -34,16 +34,16 @@ namespace scener::graphics
         return _skeleton.get();
     }
 
-    void model_mesh::update(const steptime &time) noexcept
+    void model_mesh::update(const steptime &time
+                          , const matrix4& world
+                          , const matrix4& view
+                          , const matrix4& projection) noexcept
     {
         if (_skeleton != nullptr)
         {
             _skeleton->update(time.elapsed_render_time);
         }
-    }
 
-    void model_mesh::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
-    {
         std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [&] (const auto& part) -> void
         {
             if (_skeleton.get() != nullptr)
@@ -56,29 +56,26 @@ namespace scener::graphics
             technique->world(world);
             technique->view(view);
             technique->projection(projection);
-        });
 
-        draw();
+            technique->update();
+        });
     }
 
     void model_mesh::draw() noexcept
     {
         std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (const auto& part) -> void
         {
-            auto device    = part->vertex_buffer()->device();
-            auto technique = part->effect_technique();
-
-            technique->begin();
-            device->draw_indexed_primitives(part->primitive_type()
-                                          , part->vertex_offset()
-                                          , 0
-                                          , part->vertex_count()
-                                          , part->start_index()
-                                          , part->primitive_count()
-                                          , part->vertex_buffer()
-                                          , part->index_buffer()
-                                          , part->effect_technique());
-            technique->end();
+            part->vertex_buffer()
+                ->device()
+                ->draw_indexed_primitives(part->primitive_type()
+                                        , part->vertex_offset()
+                                        , 0
+                                        , part->vertex_count()
+                                        , part->start_index()
+                                        , part->primitive_count()
+                                        , part->vertex_buffer()
+                                        , part->index_buffer()
+                                        , part->effect_technique());
         });
     }
 }

@@ -18,10 +18,8 @@ namespace scener::graphics
         // Fragment Shader
         scener::math::vector4 u_diffuse;
         scener::math::vector4 u_specular;
-        float                 u_shininess;
-
         // Vertex Shader
-        scener::math::matrix3 u_normalMatrix;
+        scener::math::matrix4 u_normalMatrix;
         scener::math::matrix4 u_modelViewMatrix;
         scener::math::matrix4 u_projectionMatrix;
     };

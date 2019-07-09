@@ -37,9 +37,4 @@ namespace skeletal::animation
         add_component(std::make_shared<camera>(this));
         add_component(std::make_shared<earthshaker>(this));
     }
-
-    void sample_renderer::draw(const steptime& time) noexcept
-    {
-        renderer::draw(time);
-    }
 }

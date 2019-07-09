@@ -28,11 +28,14 @@ namespace scener::graphics
         graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept;
 
     public:
-        /// Starts the drawing of a frame.
-        bool begin_draw() noexcept override;
+        /// Starts the preparation phase.
+        void begin_prepare() noexcept override;
 
-        /// Called by the renderer at the end of drawing; presents the final rendering.
-        void end_draw() noexcept override;
+        /// Ends the preparation phase
+        void end_prepare() noexcept override;
+
+        // Draws the current frame
+        void draw() noexcept override;
 
         /// Creates the graphics device.
         void create_device() noexcept override;

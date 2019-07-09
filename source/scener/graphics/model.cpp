@@ -25,13 +25,16 @@ namespace scener::graphics
         return _meshes;
     }
 
-    void model::update(const steptime& time) noexcept
+    void model::update(const steptime& time
+                     , const matrix4&  world
+                     , const matrix4&  view
+                     , const matrix4&  projection) noexcept
     {
-        std::for_each(_meshes.begin(), _meshes.end(), [&time] (auto& mesh) -> void { mesh->update(time); });
+        std::for_each(_meshes.begin(), _meshes.end(), [&time, &world, &view, &projection] (auto& mesh) -> void { mesh->update(time, world, view, projection); });
     }
 
-    void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
+    void model::draw() noexcept
     {
-        std::for_each(_meshes.begin(), _meshes.end(), [&] (const auto& mesh) -> void { mesh->draw(world, view, projection); });
+        std::for_each(_meshes.begin(), _meshes.end(), [&] (const auto& mesh) -> void { mesh->draw(); });
     }
 }

@@ -22,6 +22,7 @@ namespace skeletal::animation
     using scener::math::matrix4;
     using scener::math::matrix::create_rotation_x;
     using scener::math::matrix::create_translation;
+    using scener::math::matrix::create_scale;
 
     earthshaker::earthshaker(sample_renderer* renderer) noexcept
         : drawable_component { renderer }
@@ -32,10 +33,7 @@ namespace skeletal::animation
 
     void earthshaker::initialize() noexcept
     {
-//        _world = create_rotation_x({ -scener::math::pi_over_2<> })
-//               * create_translation({ 0.0f, -70.0f, 0.0f });
-
-        _world = create_translation({ 0.0f, -70.0f, 0.0f });
+        _world = create_translation({ 0.0f, 0.0f, 0.0f });
 
         drawable_component::initialize();
     }
@@ -61,13 +59,13 @@ namespace skeletal::animation
 
     void earthshaker::update(const steptime& time) noexcept
     {
-        _model->update(time);               
-    }
-
-    void earthshaker::draw([[maybe_unused]] const steptime& time) noexcept
-    {
         const auto camera_component = std::dynamic_pointer_cast<camera>(_renderer->components()[0]);
 
-        _model->draw(_world, camera_component->view, camera_component->projection);
+        _model->update(time, _world, camera_component->view, camera_component->projection);
+    }
+
+    void earthshaker::draw() noexcept
+    {
+        _model->draw();
     }
 }

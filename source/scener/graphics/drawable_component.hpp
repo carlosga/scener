@@ -29,7 +29,7 @@ namespace scener::graphics
 
         /// Called when the component should be drawn.
         /// \param time time passed since the last call to Draw.
-        void draw([[maybe_unused]] const steptime& time) noexcept override;
+        void draw() noexcept override;
 
         /// Gets a value indicating whether Draw should be called.
         /// \returns true if Draw should be called; false otherwise.

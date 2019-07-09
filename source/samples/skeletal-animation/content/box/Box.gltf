@@ -87,7 +87,6 @@
                     0,
                     1
                 ],
-                "shininess": 256,
                 "specular": [
                     0.2,
                     0.2,
@@ -213,7 +212,7 @@
                 },
                 "normalMatrix": {
                     "semantic": "MODELVIEWINVERSETRANSPOSE",
-                    "type": 35675
+                    "type": 35676
                 },
                 "position": {
                     "semantic": "POSITION",
@@ -222,9 +221,6 @@
                 "projectionMatrix": {
                     "semantic": "PROJECTION",
                     "type": 35676
-                },
-                "shininess": {
-                    "type": 5126
                 },
                 "specular": {
                     "type": 35666
@@ -242,7 +238,6 @@
                 "u_modelViewMatrix": "modelViewMatrix",
                 "u_normalMatrix": "normalMatrix",
                 "u_projectionMatrix": "projectionMatrix",
-                "u_shininess": "shininess",
                 "u_specular": "specular"
             }
         }

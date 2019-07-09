@@ -36,15 +36,16 @@ namespace scener::graphics
 
         /// Updates the model animation and skin state.
         /// \param time snapshot of the rendering timing state.
-        void update(const steptime& time) noexcept;
-
-        /// Render a model after applying the given matrix transformations.
         /// \param world the world matrix
         /// \param view the view matrix
         /// \param projection the projection matrix
-        void draw(const scener::math::matrix4& world
-                , const scener::math::matrix4& view
-                , const scener::math::matrix4& projection) noexcept;
+        void update(const steptime& time
+                  , const scener::math::matrix4& world
+                  , const scener::math::matrix4& view
+                  , const scener::math::matrix4& projection) noexcept;
+
+        /// Render a model after applying the given matrix transformations.
+        void draw() noexcept;
 
     private:
         std::vector<std::shared_ptr<model_mesh>> _meshes;
