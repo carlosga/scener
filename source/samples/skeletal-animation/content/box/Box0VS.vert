@@ -4,7 +4,7 @@
 #extension GL_ARB_separate_shader_objects : enable
 
 layout (location = 0) in vec3 a_position;
-layout (location = 1) in vec3 a_normal;
+layout (location = 3) in vec3 a_normal;
 
 #include "Box0CB.glsl"
 #include "structures.glsl"
@@ -18,6 +18,6 @@ void main(void)
     SetVSInputParams;
 
     vec4 pos    = u_modelViewMatrix * vin.Position;
-    v_normal    = (u_normalMatrix * vec4(a_normal, 1)).xyz;
+    v_normal    = (vec4(vin.Normal, 1) * u_normalMatrix).xyz;
     gl_Position = u_projectionMatrix * pos;
 }
