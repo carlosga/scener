@@ -101,8 +101,6 @@ namespace scener::graphics::vulkan
             , const graphics::rasterizer_state&    rasterization_state
             , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
 
-        void create_descriptor_sets(const graphics::constant_buffer& constant_buffer) noexcept;
-
     public:
         image_storage create_image(const image_options& options) noexcept;
         vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
@@ -116,14 +114,15 @@ namespace scener::graphics::vulkan
         void reset_fence(const vk::Fence& fence) const noexcept;
         void create_sync_primitives() noexcept;
         void create_command_pools() noexcept;
-        void create_command_buffers() noexcept;
         void create_image_views() noexcept;
-        void create_descriptor_layout() noexcept;
         void create_render_pass() noexcept;
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
         void create_pipeline_cache() noexcept;
-        void create_descriptor_pool() noexcept;
+        vk::DescriptorPool create_descriptor_pool() const noexcept;
+        vk::DescriptorSetLayout create_descriptor_layout() const noexcept;
+        vk::PipelineLayout create_pipeline_layout(const vk::DescriptorSetLayout& descriptor_set_layout) const noexcept;
+        void create_command_buffers() noexcept;
         void destroy_sync_primitives() noexcept;
         void destroy_command_buffers() noexcept;
         void destroy_command_pools() noexcept;
@@ -167,10 +166,8 @@ namespace scener::graphics::vulkan
         vk::Format                       _depth_format;
         image_storage                    _depth_buffer;
         vk::PipelineCache                _pipeline_cache;
-        vk::DescriptorPool               _descriptor_pool;
-        vk::DescriptorSetLayout          _descriptor_set_layout;
-        vk::PipelineLayout               _pipeline_layout;
         VmaAllocator                     _allocator;
+        void describe_vertex_input() const;
     };
 }
 

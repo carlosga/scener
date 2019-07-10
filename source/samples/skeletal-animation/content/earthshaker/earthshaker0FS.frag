@@ -32,7 +32,7 @@ void main(void)
     float attenuation       = 1.0;
     float range             = length(v_light0Direction);
 
-    attenuation = 1.0 / ( u_light0ConstantAttenuation + (u_light0LinearAttenuation * range) + (u_light0QuadraticAttenuation * range * range) ) ;
+    attenuation = 1.0 / (u_light0ConstantAttenuation + (u_light0LinearAttenuation * range) + (u_light0QuadraticAttenuation * range * range));
 
     vec3 l          = normalize(v_light0Direction);
     vec3 viewDir    = -normalize(v_position);

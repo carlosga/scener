@@ -20,7 +20,7 @@ namespace skeletal::animation
     using scener::graphics::effect_technique;
     using scener::graphics::steptime;
     using scener::math::matrix4;
-    using scener::math::matrix::create_rotation_x;
+    using scener::math::matrix::create_rotation_z;
     using scener::math::matrix::create_translation;
     using scener::math::matrix::create_scale;
 
@@ -33,14 +33,15 @@ namespace skeletal::animation
 
     void earthshaker::initialize() noexcept
     {
-        _world = create_translation({ 0.0f, 0.0f, 0.0f });
+        _world = create_rotation_z({ -scener::math::pi_over_2<> })
+               * create_translation({ 0.0f, 0.0f, -150.0f });
 
         drawable_component::initialize();
     }
 
     void earthshaker::load_content() noexcept
     {
-        _model = _renderer->content_manager()->load("box/Box");
+        _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
         std::for_each(_model->meshes().begin(), _model->meshes().end(), [] (auto mesh) -> void
         {

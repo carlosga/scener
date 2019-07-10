@@ -17,14 +17,21 @@ namespace scener::graphics::vulkan
     public:
         graphics_pipeline() noexcept;
         graphics_pipeline(const vk::Pipeline&                   pipeline
+                        , const vk::PipelineLayout&             pipeline_layout
+                        , const vk::DescriptorPool&             descriptor_pool
+                        , const vk::DescriptorSetLayout&        descriptor_set_layout
                         , const std::vector<vk::DescriptorSet>& descriptors) noexcept;
 
     public:
         const vk::Pipeline& pipeline() const noexcept;
+        const vk::PipelineLayout& pipeline_layout() const noexcept;
         const std::vector<vk::DescriptorSet>& descriptors() const noexcept;
 
     private:        
         vk::Pipeline                   _pipeline;
+        vk::PipelineLayout             _pipeline_layout;
+        vk::DescriptorPool             _descriptor_pool;
+        vk::DescriptorSetLayout        _descriptor_set_layout;
         std::vector<vk::DescriptorSet> _descriptors;
 
         friend class scener::graphics::vulkan::logical_device;

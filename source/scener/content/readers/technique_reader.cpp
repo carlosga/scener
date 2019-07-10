@@ -86,7 +86,7 @@ namespace scener::content::readers
 
             if (parameter->_uniform_name == "u_jointMat")
             {
-                //offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
             }
             else if (parameter->_uniform_name == "u_normalMatrix")
             {
@@ -102,34 +102,40 @@ namespace scener::content::readers
             }
             else if (parameter->_uniform_name == "u_light0Transform")
             {
-                // offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
-            }
-            else if (parameter->_uniform_name == "u_diffuse")
-            {
-                offset = offsetof(scener::graphics::default_constant_buffer, u_diffuse);
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
             }
             else if (parameter->_uniform_name == "u_ambient")
             {
-                //offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
             }
             else if (parameter->_uniform_name == "u_emission")
             {
-                //offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
             }
             else if (parameter->_uniform_name == "u_specular")
             {
                 offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
             }
-//            else if (parameter->_uniform_name == "u_shininess")
-//                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
-//            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
-//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
-//            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
-//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
-//            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
-//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
-//            else if (parameter->_uniform_name == "u_light0Color")
-//                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+            else if (parameter->_uniform_name == "u_shininess")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
+            }
+            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0Color")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+            }
 
             parameter->_offset = offset;
 

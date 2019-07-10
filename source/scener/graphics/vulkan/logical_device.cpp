@@ -67,9 +67,6 @@ namespace scener::graphics::vulkan
         , _depth_format                     { depth_format }
         , _depth_buffer                     { }
         , _pipeline_cache                   { }
-        , _descriptor_pool                  { }
-        , _descriptor_set_layout            { }
-        , _pipeline_layout                  { }
         , _allocator                        { }
     {
         create_viewport(viewport);
@@ -118,7 +115,7 @@ namespace scener::graphics::vulkan
         // Acquire swapchain image
         auto result = _logical_device.acquireNextImageKHR(
             _swap_chain
-          , UINT64_MAX
+          , std::numeric_limits<std::uint64_t>().max()
           , _image_acquired_semaphores[_frame_index]
           , vk::Fence()
           , &current_buffer);
@@ -225,7 +222,7 @@ namespace scener::graphics::vulkan
             _command_buffers[current_buffer].bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline.pipeline());
             _command_buffers[current_buffer].bindDescriptorSets(
                 vk::PipelineBindPoint::eGraphics
-              , _pipeline_layout
+              , pipeline.pipeline_layout()
               , 0
               , 1
               , &pipeline.descriptors()[current_buffer]
@@ -457,9 +454,6 @@ namespace scener::graphics::vulkan
         // Command buffers
         create_command_buffers();
 
-        // Descriptor layout
-        create_descriptor_layout();
-
         // Render pass
         create_render_pass();
 
@@ -468,9 +462,6 @@ namespace scener::graphics::vulkan
 
         // Frame buffers
         create_frame_buffers(extent);
-
-        // Descriptor pools
-        create_descriptor_pool();
     }
 
     void logical_device::recreate_swap_chain(const render_surface& surface) noexcept
@@ -606,6 +597,11 @@ namespace scener::graphics::vulkan
             .setPVertexAttributeDescriptions(vertexAttributes.data())
             .setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
 
+        // Descriptor pool
+        auto descriptor_pool   = create_descriptor_pool();
+        auto descriptor_layout = create_descriptor_layout();
+        auto pipeline_layout   = create_pipeline_layout(descriptor_layout);
+
         // Graphics pipeline
         const auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
             .setStageCount(static_cast<std::uint32_t>(shader_stages_create_infos.size()))
@@ -618,7 +614,7 @@ namespace scener::graphics::vulkan
             .setPDepthStencilState(&depth_stencil_state_info)
             .setPColorBlendState(&color_blend_state_info)
             .setPDynamicState(&dynamic_states_info)
-            .setLayout(_pipeline_layout)
+            .setLayout(pipeline_layout)
             .setRenderPass(_render_pass);
 
         // Graphics pipeline initialization
@@ -666,9 +662,9 @@ namespace scener::graphics::vulkan
         writes[1].setPImageInfo(tex_descs);
 
         const auto descriptor_set_alloc_info = vk::DescriptorSetAllocateInfo()
-            .setDescriptorPool(_descriptor_pool)
+            .setDescriptorPool(descriptor_pool)
             .setDescriptorSetCount(1)
-            .setPSetLayouts(&_descriptor_set_layout);
+            .setPSetLayouts(&descriptor_layout);
 
         for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
@@ -683,11 +679,7 @@ namespace scener::graphics::vulkan
             _logical_device.updateDescriptorSets(1, writes, 0, nullptr);
         }
 
-        return { pipeline, descriptors };
-    }
-
-    void logical_device::create_descriptor_sets(const graphics::constant_buffer& constant_buffer) noexcept
-    {
+        return { pipeline, pipeline_layout, descriptor_pool, descriptor_layout, descriptors };
     }
 
     image_storage logical_device::create_image(const image_options& options) noexcept
@@ -877,7 +869,7 @@ namespace scener::graphics::vulkan
 
     void logical_device::reset_fence(const vk::Fence& fence) const noexcept
     {
-        check_result(_logical_device.waitForFences(fence, VK_TRUE, UINT64_MAX));
+        check_result(_logical_device.waitForFences(fence, VK_TRUE, std::numeric_limits<std::uint64_t>().max()));
         check_result(_logical_device.resetFences(1, &fence));
     }
 
@@ -992,42 +984,6 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void logical_device::create_descriptor_layout() noexcept
-    {
-        // Pipeline layout
-        const vk::DescriptorSetLayoutBinding layout_bindings[2] =
-        {
-            vk::DescriptorSetLayoutBinding()
-                .setBinding(0)
-                .setDescriptorType(vk::DescriptorType::eUniformBuffer)
-                .setDescriptorCount(1)
-                .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment)
-                .setPImmutableSamplers(nullptr),
-//            vk::DescriptorSetLayoutBinding()
-//                .setBinding(1)
-//                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
-//                .setDescriptorCount(0)
-//                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
-//                .setPImmutableSamplers(nullptr)
-        };
-
-        const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
-            .setBindingCount(1)
-            .setPBindings(layout_bindings);
-
-        auto result = _logical_device.createDescriptorSetLayout(&descriptor_set_layout_create_info, nullptr, &_descriptor_set_layout);
-
-        check_result(result);
-
-        const auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
-            .setSetLayoutCount(1)
-            .setPSetLayouts(&_descriptor_set_layout);
-
-        result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &_pipeline_layout);
-
-        check_result(result);
-    }
-
     void logical_device::create_render_pass() noexcept
     {
         const vk::AttachmentDescription attachments[2] =
@@ -1136,7 +1092,7 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    void logical_device::create_descriptor_pool() noexcept
+    vk::DescriptorPool logical_device::create_descriptor_pool() const noexcept
     {
         // static const auto texture_count = 1;
 
@@ -1150,26 +1106,77 @@ namespace scener::graphics::vulkan
 //                .setDescriptorCount(static_cast<std::uint32_t>(_swap_chain_images.size() * texture_count))
         };
 
-        auto const descriptor_pool = vk::DescriptorPoolCreateInfo()
+        const auto descriptor_pool_create_info = vk::DescriptorPoolCreateInfo()
             .setMaxSets(static_cast<std::uint32_t>(_swap_chain_images.size()))
             .setPoolSizeCount(1)
             .setPPoolSizes(poolSizes);
 
-        auto result = _logical_device.createDescriptorPool(&descriptor_pool, nullptr, &_descriptor_pool);
+        vk::DescriptorPool descriptor_pool;
+
+        auto result = _logical_device.createDescriptorPool(&descriptor_pool_create_info, nullptr, &descriptor_pool);
 
         check_result(result);
+
+        return descriptor_pool;
+    }
+
+    vk::DescriptorSetLayout logical_device::create_descriptor_layout() const noexcept
+    {
+        // Pipeline layout
+        const vk::DescriptorSetLayoutBinding layout_bindings[2] =
+        {
+            vk::DescriptorSetLayoutBinding()
+                .setBinding(0)
+                .setDescriptorType(vk::DescriptorType::eUniformBuffer)
+                .setDescriptorCount(1)
+                .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment)
+                .setPImmutableSamplers(nullptr),
+//            vk::DescriptorSetLayoutBinding()
+//                .setBinding(1)
+//                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
+//                .setDescriptorCount(0)
+//                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
+//                .setPImmutableSamplers(nullptr)
+        };
+
+        const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
+            .setBindingCount(1)
+            .setPBindings(layout_bindings);
+
+        vk::DescriptorSetLayout descriptor_set_layout;
+
+        auto result = _logical_device.createDescriptorSetLayout(&descriptor_set_layout_create_info, nullptr, &descriptor_set_layout);
+
+        check_result(result);
+
+        return descriptor_set_layout;
+    }
+
+    vk::PipelineLayout logical_device::create_pipeline_layout(const vk::DescriptorSetLayout& descriptor_set_layout) const noexcept
+    {
+        const auto pipeline_layout_create_info = vk::PipelineLayoutCreateInfo()
+            .setSetLayoutCount(1)
+            .setPSetLayouts(&descriptor_set_layout);
+
+        vk::PipelineLayout pipeline_layout;
+
+        auto result = _logical_device.createPipelineLayout(&pipeline_layout_create_info, nullptr, &pipeline_layout);
+
+        check_result(result);
+
+        return pipeline_layout;
     }
 
     void logical_device::destroy_sync_primitives() noexcept
     {
         _logical_device.waitIdle();
 
-        _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, UINT64_MAX);
+        _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, std::numeric_limits<std::uint64_t>().max());
         _logical_device.destroyFence(_single_time_command_fence, nullptr);
 
         for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; i++)
         {
-            _logical_device.waitForFences(1, &_fences[i], VK_TRUE, UINT64_MAX);
+            _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
             _logical_device.destroyFence(_fences[i], nullptr);
             _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
             _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
@@ -1245,7 +1252,7 @@ namespace scener::graphics::vulkan
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
 
         // Descriptor pools
-        _logical_device.destroyDescriptorPool(_descriptor_pool);
+        //_logical_device.destroyDescriptorPool(_descriptor_pool);
     }
 
     vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(
