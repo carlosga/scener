@@ -149,4 +149,19 @@ namespace scener::graphics
     {
         return _logical_device->create_uniform_buffer(size);
     }
+
+    vk::Sampler graphics_device::create_sampler(const sampler_state& sampler_state) const noexcept
+    {
+        return _logical_device->create_sampler(sampler_state);
+    }
+
+    void graphics_device::destroy(const vk::Sampler& sampler) const noexcept
+    {
+        _logical_device->destroy_sampler(sampler);
+    }
+
+    vulkan::image_storage graphics_device::create_image(const vulkan::image_options& options) noexcept
+    {
+        return _logical_device->create_image(options);
+    }
 }

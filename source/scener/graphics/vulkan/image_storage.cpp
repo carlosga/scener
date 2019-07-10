@@ -6,27 +6,27 @@
 namespace scener::graphics::vulkan
 {
     image_storage::image_storage() noexcept
-        : _image            { }
-        , _image_view       { }
-        , _image_allocation { }
-        , _allocator        { nullptr }
+        : _image      { }
+        , _view       { }
+        , _allocation { }
+        , _allocator  { nullptr }
     {
     }
 
-    image_storage::image_storage(const vk::Image&     image
-                               , const vk::ImageView& view
-                               , const VmaAllocation& image_allocation
-                               , VmaAllocator*        allocator) noexcept
-        : _image            { image }
-        , _image_view       { view  }
-        , _image_allocation { image_allocation }
-        , _allocator        { allocator }
+    image_storage::image_storage(const vk::Image&             image
+                               , const vk::ImageView&         view
+                               , const VmaAllocation&         allocation
+                               , gsl::not_null<VmaAllocator*> allocator) noexcept
+        : _image      { image }
+        , _view       { view  }
+        , _allocation { allocation }
+        , _allocator  { allocator }
     {
     }
 
     void image_storage::destroy() noexcept
     {
-        vmaDestroyImage(*_allocator, _image, _image_allocation);
+        vmaDestroyImage(*_allocator, _image, _allocation);
     }
 
     const vk::Image& image_storage::image() const noexcept
@@ -34,13 +34,21 @@ namespace scener::graphics::vulkan
         return _image;
     }
 
-    const vk::ImageView& image_storage::image_view() const noexcept
+    const vk::ImageView& image_storage::view() const noexcept
     {
-        return _image_view;
+        return _view;
     }
 
-    const VmaAllocation& image_storage::image_allocation() const noexcept
+//    const VmaAllocation& image_storage::allocation() const noexcept
+//    {
+//        return _allocation;
+//    }
+
+    void image_storage::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        return _image_allocation;
+        void* mappedData;
+        vmaMapMemory(*_allocator, _allocation, &mappedData);
+        memcpy(mappedData, data.data(), data.size());
+        vmaUnmapMemory(*_allocator, _allocation);
     }
 }

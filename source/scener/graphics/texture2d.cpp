@@ -22,8 +22,19 @@ namespace scener::graphics
         , _mipmap_levels { 0 }
         , _height        { height }
         , _width         { width }
-        , _sampler_state { nullptr }
+        , _sampler       { }
     {
+    }
+
+    texture2d::~texture2d()
+    {
+        if (_graphics_device != nullptr)
+        {
+            _graphics_device->destroy(_sampler);
+            _storage.destroy();
+        }
+
+        _graphics_device = nullptr;
     }
 
     std::uint32_t texture2d::id() const noexcept
@@ -36,11 +47,6 @@ namespace scener::graphics
         return _format;
     }
 
-    std::uint32_t texture2d::height() const noexcept
-    {
-        return _height;
-    }
-
     std::uint32_t texture2d::level_count() const noexcept
     {
         return _mipmap_levels;
@@ -51,28 +57,20 @@ namespace scener::graphics
         return _width;
     }
 
-    sampler_state* texture2d::sampler_state() const noexcept
+    std::uint32_t texture2d::height() const noexcept
     {
-        return _sampler_state.get();
+        return _height;
+    }
+
+    const vk::Sampler& texture2d::sampler() const noexcept
+    {
+        return _sampler;
     }
 
     void texture2d::set_data([[maybe_unused]] std::uint32_t level
                            , [[maybe_unused]] std::uint32_t width
                            , [[maybe_unused]] std::uint32_t height
                            , [[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
-    {
-    }
-
-    void texture2d::declare_storage(std::uint32_t level_count) noexcept
-    {
-        _mipmap_levels = level_count;
-    }
-
-    void texture2d::bind() const noexcept
-    {
-    }
-
-    void texture2d::unbind() const noexcept
     {
     }
 }

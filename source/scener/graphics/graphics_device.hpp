@@ -18,6 +18,8 @@
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/graphics_pipeline.hpp"
+#include "scener/graphics/vulkan/image_options.hpp"
+#include "scener/graphics/vulkan/image_storage.hpp"
 #include "scener/graphics/vulkan/logical_device.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/math/color.hpp"
@@ -105,7 +107,16 @@ namespace scener::graphics
 
         /// Creates a new vertex buffer with the given size.
         /// \para size the buffer size.
-        vulkan::buffer create_uniform_buffer(std::uint32_t size) const noexcept;
+        vulkan::buffer create_uniform_buffer(std::uint32_t size)const noexcept;
+
+        /// Creates a vulkan sampler based on the given sampler state
+        vk::Sampler create_sampler(const sampler_state& sampler_state) const noexcept;
+
+        /// Destroys the given sampler releasing its resources
+        void destroy(const vk::Sampler& sampler) const noexcept;
+
+        /// Creates an image with the given options
+        vulkan::image_storage create_image(const vulkan::image_options& options) noexcept;
 
    private:
         graphics::blend_state                    _blend_state;

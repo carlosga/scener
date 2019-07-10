@@ -676,7 +676,7 @@ namespace scener::graphics::vulkan
             writes[0].setDstSet(descriptors[i]);
             writes[1].setDstSet(descriptors[i]);
 
-            _logical_device.updateDescriptorSets(1, writes, 0, nullptr);
+            _logical_device.updateDescriptorSets(2, writes, 0, nullptr);
         }
 
         return { pipeline, pipeline_layout, descriptor_pool, descriptor_layout, descriptors };
@@ -686,7 +686,7 @@ namespace scener::graphics::vulkan
     {
         // Images will always be sampled
         const auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        auto usage_flags = options.usage;
+        auto usage_flags       = options.usage;
 
         if (!depth_image)
         {
@@ -741,11 +741,19 @@ namespace scener::graphics::vulkan
         Ensures(create_image_result == VK_SUCCESS);
 
         // Create Image View
+        const auto image_view = create_image_view(options, image);
 
+        return image_storage { image, image_view, image_allocation, &_allocator };
+    }
+
+    vk::ImageView logical_device::create_image_view(const image_options& options, const vk::Image& image) noexcept
+    {
         vk::ImageView image_view;
 
+        const auto depth_image      = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
+        const auto cubic            = (options.target == texture_target::texture_cube_map || options.target == texture_target::texture_cube_map_array);
         const auto subresource_mask = depth_image ? vk::ImageAspectFlagBits::eDepth | vk::ImageAspectFlagBits::eStencil : vk::ImageAspectFlagBits::eColor;
-        const auto view_type = cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D;
+        const auto view_type        = cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D;
 
         auto subresource_range = vk::ImageSubresourceRange()
             .setAspectMask(subresource_mask)
@@ -771,36 +779,24 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        return image_storage { image, image_view, image_allocation, &_allocator };
+        return image_view;
     }
 
-    vk::Sampler logical_device::create_sampler(const gsl::not_null<sampler_state*> state) const noexcept
+    vk::Sampler logical_device::create_sampler(const sampler_state& sampler_state) const noexcept
     {
-        auto create_info = vk::SamplerCreateInfo();
-
-//        /// Gets or sets the texture-address mode for the u-coordinate.
-//        texture_address_mode address_u { texture_address_mode::wrap };
-
-//        /// Gets or sets the texture-address mode for the v-coordinate.
-//        texture_address_mode address_v { texture_address_mode::wrap };
-
-//        /// Gets or sets the texture-address mode for the w-coordinate.
-//        texture_address_mode address_w { texture_address_mode::wrap };
-
-//        /// Gets or sets the type of filtering during sampling.
-//        texture_filter mag_filter { texture_filter::linear };
-
-//        /// Gets or sets the type of filtering during sampling.
-//        texture_filter min_filter { texture_filter::linear };
-
-//        /// Gets or sets the maximum anisotropy. The default value is 0.
-//        std::int32_t max_anisotropy { 4 };
-
-//        /// Gets or sets the level of detail (LOD) index of the largest map to use.
-//        std::size_t max_mip_level { 0 };
-
-//        /// Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
-//        float mip_map_level_of_detail_bias { 0 };
+        auto create_info = vk::SamplerCreateInfo()
+            .setCompareOp(vk::CompareOp::eLess)
+            .setMipmapMode(vk::SamplerMipmapMode::eNearest)
+            .setMinLod(0)
+            .setMaxLod(sampler_state.max_mip_level)
+            .setMipLodBias(sampler_state.mip_map_level_of_detail_bias)
+            .setAddressModeU(vkSamplerAddressMode(sampler_state.address_u))
+            .setAddressModeV(vkSamplerAddressMode(sampler_state.address_v))
+            .setAddressModeW(vkSamplerAddressMode(sampler_state.address_w))
+            .setMagFilter(vkFilter(sampler_state.mag_filter))
+            .setMinFilter(vkFilter(sampler_state.min_filter))
+            .setMaxAnisotropy(sampler_state.max_anisotropy)
+            .setAnisotropyEnable(false);
 
         vk::Sampler sampler;
 
@@ -809,6 +805,11 @@ namespace scener::graphics::vulkan
         check_result(result);
 
         return sampler;
+    }
+
+    void logical_device::destroy_sampler(const vk::Sampler& sampler) const noexcept
+    {
+        _logical_device.destroySampler(sampler, nullptr);
     }
 
     void logical_device::create_viewport(const viewport& viewport)
@@ -1065,7 +1066,7 @@ namespace scener::graphics::vulkan
 
         vk::ImageView attachments[2];
 
-        attachments[1] = _depth_buffer.image_view();
+        attachments[1] = _depth_buffer.view();
 
         const auto create_info = vk::FramebufferCreateInfo()
             .setRenderPass(_render_pass)
@@ -1094,16 +1095,16 @@ namespace scener::graphics::vulkan
 
     vk::DescriptorPool logical_device::create_descriptor_pool() const noexcept
     {
-        // static const auto texture_count = 1;
+        static const auto texture_count = 1;
 
-        vk::DescriptorPoolSize const poolSizes[1] =
+        vk::DescriptorPoolSize const poolSizes[2] =
         {
             vk::DescriptorPoolSize()
                 .setType(vk::DescriptorType::eUniformBuffer)
                 .setDescriptorCount(static_cast<std::uint32_t>(_swap_chain_images.size())),
-//            vk::DescriptorPoolSize()
-//                .setType(vk::DescriptorType::eCombinedImageSampler)
-//                .setDescriptorCount(static_cast<std::uint32_t>(_swap_chain_images.size() * texture_count))
+            vk::DescriptorPoolSize()
+                .setType(vk::DescriptorType::eCombinedImageSampler)
+                .setDescriptorCount(static_cast<std::uint32_t>(_swap_chain_images.size() * texture_count))
         };
 
         const auto descriptor_pool_create_info = vk::DescriptorPoolCreateInfo()
@@ -1131,12 +1132,12 @@ namespace scener::graphics::vulkan
                 .setDescriptorCount(1)
                 .setStageFlags(vk::ShaderStageFlagBits::eVertex | vk::ShaderStageFlagBits::eFragment)
                 .setPImmutableSamplers(nullptr),
-//            vk::DescriptorSetLayoutBinding()
-//                .setBinding(1)
-//                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
-//                .setDescriptorCount(0)
-//                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
-//                .setPImmutableSamplers(nullptr)
+            vk::DescriptorSetLayoutBinding()
+                .setBinding(1)
+                .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
+                .setDescriptorCount(0)
+                .setStageFlags(vk::ShaderStageFlagBits::eFragment)
+                .setPImmutableSamplers(nullptr)
         };
 
         const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
@@ -1250,9 +1251,6 @@ namespace scener::graphics::vulkan
 
         // Swapchains
         _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
-
-        // Descriptor pools
-        //_logical_device.destroyDescriptorPool(_descriptor_pool);
     }
 
     vk::PipelineColorBlendStateCreateInfo logical_device::vk_color_blend_state(

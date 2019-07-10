@@ -9,9 +9,11 @@
 #include <memory>
 
 #include <gsl/gsl>
+#include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/texture.hpp"
+#include "scener/graphics/vulkan/image_storage.hpp"
 
 namespace scener:: content::readers { template <typename T> class content_type_reader; }
 
@@ -40,6 +42,8 @@ namespace scener::graphics
                 , std::uint32_t                   height
                 , surface_format                  format) noexcept;
 
+        ~texture2d() override;
+
     public:
         /// Gets the texture identifier.
         /// \returns the texture identifier.
@@ -49,10 +53,6 @@ namespace scener::graphics
         /// \returns the format of the texture data.
         surface_format format() const noexcept override;
 
-        /// Gets the texture height, in pixels.
-        /// \returns the texture height, in pixels.
-        std::uint32_t height() const noexcept;
-
         /// Gets the number of texture levels in a multilevel texture.
         /// \returns the number of texture levels in a multilevel texture.
         std::uint32_t level_count() const noexcept override;
@@ -61,9 +61,11 @@ namespace scener::graphics
         /// \returns the texture width, in pixels.
         std::uint32_t width() const noexcept;
 
-        /// Gets the texure sampler state.
-        /// \returns the texure sampler state.
-        graphics::sampler_state* sampler_state() const noexcept;
+        /// Gets the texture height, in pixels.
+        /// \returns the texture height, in pixels.
+        std::uint32_t height() const noexcept;
+
+        const vk::Sampler& sampler() const noexcept;
 
         /// Sets mipmap data to the texture.
         /// \param level the mipmap level.
@@ -75,21 +77,13 @@ namespace scener::graphics
                     , std::uint32_t                        height
                     , const gsl::span<const std::uint8_t>& data) const noexcept;
 
-        /// Activates the texture object.
-        void bind() const noexcept override;
-
-        ///  Deactivates the texture object.
-        void unbind() const noexcept override;
-
     private:
-        void declare_storage(std::uint32_t level_count) noexcept;
-
-    private:
-        surface_format                           _format;
-        std::uint32_t                            _mipmap_levels;
-        std::uint32_t                            _height;
-        std::uint32_t                            _width;
-        std::shared_ptr<graphics::sampler_state> _sampler_state;
+        surface_format        _format;
+        std::uint32_t         _mipmap_levels;
+        std::uint32_t         _height;
+        std::uint32_t         _width;
+        vulkan::image_storage _storage;
+        vk::Sampler           _sampler;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

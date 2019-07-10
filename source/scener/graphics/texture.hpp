@@ -38,12 +38,6 @@ namespace scener::graphics
         /// Gets the number of texture levels in a multilevel texture.
         /// \returns the number of texture levels in a multilevel texture.
         virtual std::uint32_t level_count() const noexcept = 0;
-
-        /// Activates the texture object.
-        virtual void bind() const noexcept = 0;
-
-        /// Deactivates the texture object.
-        virtual void unbind() const noexcept = 0;
     };
 }
 

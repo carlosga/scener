@@ -34,6 +34,33 @@ namespace scener::graphics::vulkan
 
     class logical_device final
     {
+    private:
+        static vk::SamplerAddressMode vkSamplerAddressMode(const scener::graphics::texture_address_mode& address_mode) noexcept
+        {
+            switch (address_mode)
+            {
+            case scener::graphics::texture_address_mode::wrap:
+                return vk::SamplerAddressMode::eRepeat;
+            case scener::graphics::texture_address_mode::clamp:
+                return vk::SamplerAddressMode::eClampToEdge;
+            case scener::graphics::texture_address_mode::mirror:
+                return vk::SamplerAddressMode::eMirroredRepeat;
+            }
+        }
+
+        static vk::Filter vkFilter(const scener::graphics::texture_filter& filter) noexcept
+        {
+            switch (filter)
+            {
+            case scener::graphics::texture_filter::linear:
+                return vk::Filter::eLinear;
+            case scener::graphics::texture_filter::linear_mipmap_point:
+                return vk::Filter::eNearest;
+            default:
+                return vk::Filter::eLinear;
+            }
+        }
+
     public:
         logical_device(const vk::PhysicalDevice&         physical_device
                      , const vk::Device&                 logical_device
@@ -103,8 +130,10 @@ namespace scener::graphics::vulkan
 
     public:
         image_storage create_image(const image_options& options) noexcept;
-        vk::Sampler create_sampler(const gsl::not_null<sampler_state*> sampler) const noexcept;
-
+        vk::ImageView create_image_view(const image_options& options, const vk::Image& image) noexcept;
+        vk::Sampler create_sampler(const sampler_state& sampler_state) const noexcept;
+        void destroy_sampler(const vk::Sampler& sampler) const noexcept;
+        
     private:
         void create_viewport(const graphics::viewport& viewport);
         void create_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;

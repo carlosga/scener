@@ -25,6 +25,11 @@ namespace scener::graphics
         return _vertex_count;
     }
 
+    const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept
+    {
+        return _vertex_declaration;
+    }
+
     std::vector<std::uint8_t> vertex_buffer::get_data() const noexcept
     {
         return get_data(0, _vertex_count);
@@ -40,13 +45,8 @@ namespace scener::graphics
 
     void vertex_buffer::set_data(const gsl::span<const std::uint8_t>& data) noexcept
     {
-        // std::uint64_t size = _vertex_count * _vertex_declaration.vertex_stride();
+        Ensures(data.size() == _vertex_count * _vertex_declaration.vertex_stride());
 
         _buffer.set_data(0, static_cast<std::uint64_t>(data.size()), data.data());
-    }
-
-    const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept
-    {
-        return _vertex_declaration;
     }
 }

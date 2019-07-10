@@ -35,6 +35,10 @@ namespace scener::graphics
         /// Gets the number of vertex for the current buffer.
         std::uint32_t vertex_count() const noexcept;
 
+        /// Defines per-vertex data in a buffer.
+        /// \returns the per vertex data definition of this vertex_buffer.
+        const graphics::vertex_declaration& vertex_declaration() const noexcept;
+
         /// Returns a copy of the vertex buffer data.
         std::vector<std::uint8_t> get_data() const noexcept;
 
@@ -46,10 +50,6 @@ namespace scener::graphics
         /// Sets the vertex buffer data.
         /// \param data the new vertex buffer data.
         void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
-
-        /// Defines per-vertex data in a buffer.
-        /// \returns the per vertex data definition of this vertex_buffer.
-        const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
     private:
         std::uint32_t                _vertex_count;
