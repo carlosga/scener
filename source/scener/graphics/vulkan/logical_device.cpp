@@ -690,8 +690,6 @@ namespace scener::graphics::vulkan
 
         if (!depth_image)
         {
-            // For everything else we mark it as a transfer destination.
-            // This is because we are copying data to the image.
             usage_flags |= vk::ImageUsageFlagBits::eTransferDst;
         }
 
@@ -700,6 +698,7 @@ namespace scener::graphics::vulkan
                          || options.target == texture_target::texture_cube_map_array);
 
         auto image_create_info = vk::ImageCreateInfo()
+            .setUsage(usage_flags)
             .setImageType(vk::ImageType::e2D)
             .setFormat(depth_image ? _depth_format : _surface_format.format)
             .setExtent(options.extent)
@@ -707,14 +706,7 @@ namespace scener::graphics::vulkan
             .setArrayLayers(cubic ? 6 : 1)
             .setSamples(vk::SampleCountFlagBits::e1)
             .setTiling(vk::ImageTiling::eOptimal)
-            .setUsage(usage_flags)
-            // Unless this is a render target we don't need to worry about sharing it.
             .setSharingMode(vk::SharingMode::eExclusive)
-            // In Vulkan images have layouts which determine what sorts of operations can
-            // be performed on it at any given time.  The other reason is it helps the hardware
-            // optimize access to the image data for certain tasks.
-            // Here we are starting out undefined, simply because we'll be transitioning the
-            // image again during upload.
             .setInitialLayout(vk::ImageLayout::eUndefined);
 
         if (cubic)
@@ -727,8 +719,8 @@ namespace scener::graphics::vulkan
 
         allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
 
-        vk::Image     image            { };
-        VmaAllocation image_allocation { };
+        vk::Image     image;
+        VmaAllocation image_allocation;
 
         auto create_image_result = vmaCreateImage(
             _allocator
