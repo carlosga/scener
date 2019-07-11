@@ -10,42 +10,6 @@
 
 namespace scener::graphics
 {
-    std::vector<graphics_adapter> graphics_adapter::s_adapters = { };
-
-    graphics_adapter graphics_adapter::default_adapter()
-    {
-        auto adapters = graphics_adapter::adapters();
-
-        if (adapters.size() == 1)
-        {
-            return adapters[0];
-        }
-
-        auto it = std::find_if(adapters.begin(), adapters.end(), [] (const graphics_adapter& adapter) -> bool
-        {
-            return adapter.is_default_adapter();
-        });
-
-        if (it != adapters.end())
-        {
-            return *it;
-        }
-
-        throw std::runtime_error("No default adapter available");
-    }
-
-    std::vector<graphics_adapter> graphics_adapter::adapters()
-    {
-        if (!graphics_adapter::s_adapters.empty())
-        {
-            return graphics_adapter::s_adapters;
-        }
-
-        graphics_adapter::s_adapters.push_back({  });
-
-        return graphics_adapter::s_adapters;
-    }
-
     graphics_adapter::graphics_adapter()
         : _description        {  }
         , _device_id          { 0 }

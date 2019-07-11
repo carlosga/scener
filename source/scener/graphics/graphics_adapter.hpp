@@ -18,20 +18,6 @@ namespace scener::graphics
      */
     class graphics_adapter final
     {
-    private:
-        static std::vector<graphics_adapter> s_adapters;
-
-    public:
-        /**
-         * Gets the default adapter.
-         */
-        static graphics_adapter default_adapter();
-
-        /**
-         * Gets the collection of available adapters.
-         */
-        static std::vector<graphics_adapter> adapters();
-
     public:
         /**
          * Initializes a new instance of the graphics adapter class.
