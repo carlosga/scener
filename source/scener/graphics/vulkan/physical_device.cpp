@@ -196,7 +196,7 @@ namespace scener::graphics::vulkan
     {
         std::uint32_t queue_family_count = 0;
 
-        _physical_device.getQueueFamilyProperties(&queue_family_count, nullptr);
+        _physical_device.getQueueFamilyProperties(&queue_family_count, static_cast<vk::QueueFamilyProperties *>(nullptr));
 
         Ensures(queue_family_count >= 1);
 
@@ -277,7 +277,7 @@ namespace scener::graphics::vulkan
     {
         // Get the list of VkFormat's that are supported:
         std::uint32_t format_count = 0;
-        auto result = _physical_device.getSurfaceFormatsKHR(surface.surface(), &format_count, nullptr);
+        auto result = _physical_device.getSurfaceFormatsKHR(surface.surface(), &format_count, static_cast<vk::SurfaceFormatKHR *>(nullptr));
         check_result(result);
 
         std::vector<vk::SurfaceFormatKHR> formats(format_count);
@@ -323,7 +323,7 @@ namespace scener::graphics::vulkan
     {
         std::uint32_t present_mode_count = 0;
 
-        auto result = _physical_device.getSurfacePresentModesKHR(surface.surface(), &present_mode_count, nullptr);
+        auto result = _physical_device.getSurfacePresentModesKHR(surface.surface(), &present_mode_count, static_cast<vk::PresentModeKHR*>(nullptr));
 
         check_result(result);
 

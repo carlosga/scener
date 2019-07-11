@@ -437,7 +437,7 @@ namespace scener::graphics::vulkan
         // First call gets numImages.
         std::uint32_t num_images = 0;
 
-        result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, nullptr);
+        result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, static_cast<vk::Image *>(nullptr));
 
         check_result(result);
         Ensures(num_images > 0);
