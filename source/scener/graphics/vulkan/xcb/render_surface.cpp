@@ -13,7 +13,7 @@
 
 namespace scener::graphics::vulkan
 {
-    render_surface::render_surface(gsl::not_null<adapter*>         adapter
+    render_surface::render_surface(std::shared_ptr<adapter>        adapter
                                  , gsl::not_null<display_surface*> display_surface) noexcept
         : _adapter         { adapter }
         , _display_surface { display_surface }

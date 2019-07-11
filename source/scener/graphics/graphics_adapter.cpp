@@ -10,6 +10,8 @@
 
 namespace scener::graphics
 {
+    std::vector<graphics_adapter> graphics_adapter::s_adapters = { };
+
     graphics_adapter graphics_adapter::default_adapter()
     {
         auto adapters = graphics_adapter::adapters();
@@ -34,35 +36,14 @@ namespace scener::graphics
 
     std::vector<graphics_adapter> graphics_adapter::adapters()
     {
-        vulkan::adapter               adapter  { };
-        std::vector<graphics_adapter> adapters { };
-        const auto& devices = adapter.physical_devices();
-        bool default_device_selected = false;
-
-        adapters.reserve(devices.size());
-
-        for (const auto& device : devices)
+        if (!graphics_adapter::s_adapters.empty())
         {
-            const auto& properties = device.properties();
-            graphics_adapter adapter;
-
-            adapter._description = std::string(properties.deviceName);
-            adapter._vendor_id   = properties.vendorID;
-            adapter._device_id   = properties.deviceID;
-
-            if (!default_device_selected)
-            {
-                adapter._is_default_adapter = device.has_swapchain_support()
-                                           && device.has_graphics_queue()
-                                           && (device.is_discrete_gpu() || device.is_integrated_gpu());
-
-                default_device_selected = adapter._is_default_adapter;
-            }
-
-            adapters.push_back(adapter);
+            return graphics_adapter::s_adapters;
         }
 
-        return adapters;
+        graphics_adapter::s_adapters.push_back({  });
+
+        return graphics_adapter::s_adapters;
     }
 
     graphics_adapter::graphics_adapter()
@@ -74,9 +55,18 @@ namespace scener::graphics
         , _revision           { 0 }
         , _subsystem_id       { 0 }
         , _vendor_id          { 0 }
+        , _adapter            { std::make_shared<vulkan::adapter>() }
     {
-        // , _monitorHandle         { nullptr }
-        // , _supportedDisplayModes ( )
+        const auto& devices    = _adapter->physical_devices();
+        const auto& device     = devices[0];
+        const auto& properties = device.properties();
+
+        _description        = std::string(properties.deviceName);
+        _vendor_id          = properties.vendorID;
+        _device_id          = properties.deviceID;
+        _is_default_adapter = device.has_swapchain_support()
+                           && device.has_graphics_queue()
+                           && (device.is_discrete_gpu() || device.is_integrated_gpu());
     }
 
     const std::string& graphics_adapter::description() const
@@ -127,5 +117,15 @@ namespace scener::graphics
     std::uint32_t graphics_adapter::vendor_id() const
     {
         return _vendor_id;
+    }
+
+    std::unique_ptr<vulkan::render_surface> graphics_adapter::create_render_surface(vulkan::display_surface *window_handle) const noexcept
+    {
+        return std::make_unique<vulkan::render_surface>(_adapter, window_handle);
+    }
+
+    const vulkan::physical_device& graphics_adapter::get_physical_device() const
+    {
+        return _adapter->get_physical_device(_device_id);
     }
 }

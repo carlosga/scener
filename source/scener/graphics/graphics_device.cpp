@@ -19,20 +19,18 @@ namespace scener::graphics
         , _rasterizer_state        { rasterizer_state::cull_counter_clockwise }
         , _presentation_parameters { presentation_params }
         , _viewport                { 0, 0, presentation_params.back_buffer_width, presentation_params.back_buffer_height }
-        , _graphics_adapter        { adapter }
-        , _adapter                 { }
+        , _adapter                 { adapter }
+        , _render_surface          { }
         , _logical_device          { }
     {
         Expects(_presentation_parameters.device_window_handle != nullptr);
 
         // Device window handle
         const auto window_handle = _presentation_parameters.device_window_handle;
-        // Vulkan instance
-        _adapter        = std::make_unique<vulkan::adapter>();
         // Render surface (Vulkan - Wayland based)
-        _render_surface = std::make_unique<vulkan::render_surface>(_adapter.get(), window_handle);
+        _render_surface = _adapter.create_render_surface(window_handle);
         // Physical device
-        const auto& gpu = _adapter->get_physical_device(_graphics_adapter.device_id());
+        const auto& gpu = _adapter.get_physical_device();
         // Logical device (Vulkan)
         _logical_device = gpu.create_logical_device(*_render_surface, _viewport);
         // Swap chain

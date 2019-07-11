@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 
+#include "scener/graphics/vulkan/adapter.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
+
 namespace scener::graphics
 {
     /**
@@ -15,6 +18,9 @@ namespace scener::graphics
      */
     class graphics_adapter final
     {
+    private:
+        static std::vector<graphics_adapter> s_adapters;
+
     public:
         /**
          * Gets the default adapter.
@@ -73,15 +79,20 @@ namespace scener::graphics
          */
         std::uint32_t vendor_id() const;
 
+    public:
+        std::unique_ptr<vulkan::render_surface> create_render_surface(vulkan::display_surface* display_surface) const noexcept;
+        const vulkan::physical_device& get_physical_device() const;
+
     private:
-        std::string   _description;
-        std::uint32_t _device_id;
-        std::string   _device_name;
-        bool          _is_default_adapter;
-        bool          _is_wide_screen;
-        std::uint32_t _revision;
-        std::uint32_t _subsystem_id;
-        std::uint32_t _vendor_id;
+        std::string                      _description;
+        std::uint32_t                    _device_id;
+        std::string                      _device_name;
+        bool                             _is_default_adapter;
+        bool                             _is_wide_screen;
+        std::uint32_t                    _revision;
+        std::uint32_t                    _subsystem_id;
+        std::uint32_t                    _vendor_id;
+        std::shared_ptr<vulkan::adapter> _adapter;
     };
 }
 

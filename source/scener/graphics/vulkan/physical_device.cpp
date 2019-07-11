@@ -158,16 +158,16 @@ namespace scener::graphics::vulkan
         /* Look for device layers */
         _layer_names.clear();
 
-        auto layers = _physical_device.enumerateDeviceLayerProperties();
+        const auto layers = _physical_device.enumerateDeviceLayerProperties();
 
         const auto it = std::find_if(layers.begin(), layers.end(), [] (const vk::LayerProperties& layer) -> bool
         {
-            return !strcmp("VK_LAYER_LUNARG_standard_validation", layer.layerName);
+            return !strcmp("VK_LAYER_KHRONOS_validation", layer.layerName);
         });
 
         if (it != layers.end())
         {
-            _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
+            _layer_names.push_back("VK_LAYER_KHRONOS_validation");
         }
     }
 
@@ -175,7 +175,7 @@ namespace scener::graphics::vulkan
     {
         _extension_names.clear();
 
-        auto extensions = _physical_device.enumerateDeviceExtensionProperties(nullptr);
+        const auto extensions = _physical_device.enumerateDeviceExtensionProperties(nullptr);
 
         for (std::uint32_t i = 0; i < extensions.size(); ++i)
         {

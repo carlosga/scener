@@ -119,15 +119,14 @@ namespace scener::graphics
         vulkan::image_storage create_image(const vulkan::image_options& options) noexcept;
 
    private:
-        graphics::blend_state                    _blend_state;
-        graphics::depth_stencil_state            _depth_stencil_state;
-        graphics::rasterizer_state               _rasterizer_state;
-        graphics::presentation_parameters        _presentation_parameters;
-        graphics::viewport                       _viewport;
-        graphics_adapter                         _graphics_adapter;
-        std::unique_ptr<vulkan::adapter>         _adapter;
-        std::unique_ptr<vulkan::render_surface>  _render_surface;
-        std::unique_ptr<vulkan::logical_device>  _logical_device;
+        graphics::blend_state                   _blend_state;
+        graphics::depth_stencil_state           _depth_stencil_state;
+        graphics::rasterizer_state              _rasterizer_state;
+        graphics::presentation_parameters       _presentation_parameters;
+        graphics::viewport                      _viewport;
+        graphics_adapter                        _adapter;
+        std::unique_ptr<vulkan::render_surface> _render_surface;
+        std::unique_ptr<vulkan::logical_device> _logical_device;
     };
 }
 

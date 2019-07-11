@@ -16,16 +16,6 @@ namespace scener::graphics::vulkan
 
     class adapter final
     {
-        static std::uint32_t debug_report_callback(
-            VkDebugReportFlagsEXT      flags
-          , VkDebugReportObjectTypeEXT objType
-          , std::uint64_t              object
-          , std::size_t                location
-          , std::int32_t               code
-          , const char*                pLayerPrefix
-          , const char*                pMessage
-          , void*                      userData);
-
     public:
         adapter() noexcept;
         ~adapter() noexcept;
@@ -36,7 +26,6 @@ namespace scener::graphics::vulkan
         const physical_device& get_physical_device(std::uint32_t device_id) const noexcept;
 
     private:
-        void create() noexcept;
         void identify_validation_layers() noexcept;
         void identify_supported_extensions() noexcept;
         void initialize_vulkan() noexcept;
@@ -45,10 +34,11 @@ namespace scener::graphics::vulkan
 
     private:
         vk::Instance                 _instance;
-        vk::DebugReportCallbackEXT   _debug_callback;
         std::vector<const char*>     _layer_names;
         std::vector<const char*>     _extension_names;
         std::vector<physical_device> _physical_devices;
+        vk::DispatchLoaderDynamic    _dispatcher;
+        vk::DebugUtilsMessengerEXT   _debug_messenger;
     };
 }
 
