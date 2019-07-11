@@ -31,29 +31,26 @@ VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(VkDebugUtilsMessageSeverityFlagBit
                                             , const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData
                                             , void*                                       pUserData)
 {
-    if (pUserData != nullptr)
+    std::string sflags;
+
+    switch (messageSeverity)
     {
-        std::string sflags;
-
-        switch (messageSeverity)
-        {
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
-            sflags = "INFORMATION";
-            break;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-            sflags = "WARNING";
-            break;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-            sflags = "ERROR";
-            break;
-        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
-            sflags = "DEBUG";
-            break;
-        }
-
-        std::time_t t = std::time(nullptr);
-        std::cout << "(" << sflags << ") " << std::put_time(std::gmtime(&t), "%c %Z  ") << pUserData << std::endl;
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+        sflags = "INFORMATION";
+        break;
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+        sflags = "WARNING";
+        break;
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+        sflags = "ERROR";
+        break;
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+        sflags = "DEBUG";
+        break;
     }
+
+    std::time_t t = std::time(nullptr);
+    std::cout << "(" << sflags << ") " << std::put_time(std::gmtime(&t), "%c %Z  ") << pCallbackData->pMessageIdName << " - " << pCallbackData->pMessage << std::endl;
 
     return 0;
 }
