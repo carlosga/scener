@@ -31,7 +31,6 @@ namespace scener::graphics
         if (_graphics_device != nullptr)
         {
             _graphics_device->destroy(_sampler);
-            _storage.destroy();
         }
 
         _graphics_device = nullptr;
@@ -67,10 +66,10 @@ namespace scener::graphics
         return _sampler;
     }
 
-    void texture2d::set_data([[maybe_unused]] std::uint32_t level
-                           , [[maybe_unused]] std::uint32_t width
-                           , [[maybe_unused]] std::uint32_t height
-                           , [[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
-    {
-    }
+//    void texture2d::set_data([[maybe_unused]] std::uint32_t level
+//                           , [[maybe_unused]] std::uint32_t width
+//                           , [[maybe_unused]] std::uint32_t height
+//                           , [[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
+//    {
+//    }
 }

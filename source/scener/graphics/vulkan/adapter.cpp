@@ -105,12 +105,12 @@ namespace scener::graphics::vulkan
 
         const auto it = std::find_if(layers.begin(), layers.end(), [] (const vk::LayerProperties& layer) -> bool
         {
-            return !strcmp(VK_LAYER_KHRONOS_validation, layer.layerName);
+            return !strcmp(VK_LAYER_KHRONOS_VALIDATION, layer.layerName);
         });
 
         if (it != layers.end())
         {
-            _layer_names.push_back(VK_LAYER_KHRONOS_validation);
+            _layer_names.push_back(VK_LAYER_KHRONOS_VALIDATION);
         }
 
         if (_layer_names.size() == 0)

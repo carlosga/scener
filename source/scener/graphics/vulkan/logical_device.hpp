@@ -10,14 +10,18 @@
 
 #include <gsl/gsl>
 
+#include "scener/content/dds/surface.hpp"
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
+#include "scener/graphics/texture_address_mode.hpp"
+#include "scener/graphics/texture_filter.hpp"
+#include "scener/graphics/sampler_state.hpp"
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/graphics_pipeline.hpp"
-#include "scener/graphics/vulkan/image_options.hpp"
-#include "scener/graphics/vulkan/image_storage.hpp"
+#include "scener/graphics/vulkan/depth_buffer.hpp"
+#include "scener/graphics/vulkan/texture_object.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
 #include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 #include "scener/math/basic_size.hpp"
@@ -129,8 +133,11 @@ namespace scener::graphics::vulkan
             , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
 
     public:
-        image_storage create_image(const image_options& options) noexcept;
-        vk::ImageView create_image_view(const image_options& options, const vk::Image& image) noexcept;
+        texture_object create_texture_object(const scener::content::dds::surface& texture
+                                           , vk::ImageTiling
+                                           , vk::ImageUsageFlags
+                                           , vk::MemoryPropertyFlags) noexcept;
+
         vk::Sampler create_sampler(const sampler_state& sampler_state) const noexcept;
         void destroy_sampler(const vk::Sampler& sampler) const noexcept;
         
@@ -193,7 +200,7 @@ namespace scener::graphics::vulkan
         std::vector<vk::Semaphore>       _image_ownership_semaphores;
         std::uint32_t                    _frame_index;
         vk::Format                       _depth_format;
-        image_storage                    _depth_buffer;
+        depth_buffer                    _depth_buffer;
         vk::PipelineCache                _pipeline_cache;
         VmaAllocator                     _allocator;
         void describe_vertex_input() const;

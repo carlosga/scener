@@ -158,8 +158,11 @@ namespace scener::graphics
         _logical_device->destroy_sampler(sampler);
     }
 
-    vulkan::image_storage graphics_device::create_image(const vulkan::image_options& options) noexcept
+    vulkan::texture_object graphics_device::create_texture_object(const scener::content::dds::surface& texture
+                                                                , vk::ImageTiling                      tiling
+                                                                , vk::ImageUsageFlags                  usage
+                                                                , vk::MemoryPropertyFlags              required_props) noexcept
     {
-        return _logical_device->create_image(options);
+        return _logical_device->create_texture_object(texture, tiling, usage, required_props);
     }
 }

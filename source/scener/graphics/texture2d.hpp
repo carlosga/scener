@@ -13,7 +13,6 @@
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/texture.hpp"
-#include "scener/graphics/vulkan/image_storage.hpp"
 
 namespace scener:: content::readers { template <typename T> class content_type_reader; }
 
@@ -67,23 +66,12 @@ namespace scener::graphics
 
         const vk::Sampler& sampler() const noexcept;
 
-        /// Sets mipmap data to the texture.
-        /// \param level the mipmap level.
-        /// \param width the mipmap width, in pixels.
-        /// \param height the mipmap height, in pixels.
-        /// \param data pointer with the mipmap data.
-        void set_data(std::uint32_t                        level
-                    , std::uint32_t                        width
-                    , std::uint32_t                        height
-                    , const gsl::span<const std::uint8_t>& data) const noexcept;
-
     private:
-        surface_format        _format;
-        std::uint32_t         _mipmap_levels;
-        std::uint32_t         _height;
-        std::uint32_t         _width;
-        vulkan::image_storage _storage;
-        vk::Sampler           _sampler;
+        surface_format _format;
+        std::uint32_t  _mipmap_levels;
+        std::uint32_t  _height;
+        std::uint32_t  _width;
+        vk::Sampler    _sampler;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

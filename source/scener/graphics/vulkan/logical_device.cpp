@@ -13,7 +13,6 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
-#include "scener/graphics/texture2d.hpp"
 #include "scener/graphics/vertex_element_format.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
@@ -682,98 +681,6 @@ namespace scener::graphics::vulkan
         return { pipeline, pipeline_layout, descriptor_pool, descriptor_layout, descriptors };
     }
 
-    image_storage logical_device::create_image(const image_options& options) noexcept
-    {
-        // Images will always be sampled
-        const auto depth_image = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        auto usage_flags       = options.usage;
-
-        if (!depth_image)
-        {
-            usage_flags |= vk::ImageUsageFlagBits::eTransferDst;
-        }
-
-        // Create Image
-        const auto cubic = (options.target == texture_target::texture_cube_map
-                         || options.target == texture_target::texture_cube_map_array);
-
-        auto image_create_info = vk::ImageCreateInfo()
-            .setUsage(usage_flags)
-            .setImageType(vk::ImageType::e2D)
-            .setFormat(depth_image ? _depth_format : _surface_format.format)
-            .setExtent(options.extent)
-            .setMipLevels(options.mip_levels)
-            .setArrayLayers(cubic ? 6 : 1)
-            .setSamples(vk::SampleCountFlagBits::e1)
-            .setTiling(vk::ImageTiling::eOptimal)
-            .setSharingMode(vk::SharingMode::eExclusive)
-            .setInitialLayout(vk::ImageLayout::eUndefined);
-
-        if (cubic)
-        {
-            image_create_info.setFlags(vk::ImageCreateFlagBits::eCubeCompatible);
-        }
-
-        // Create the image
-        VmaAllocationCreateInfo allocation_create_info = { };
-
-        allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
-
-        vk::Image     image;
-        VmaAllocation image_allocation;
-
-        auto create_image_result = vmaCreateImage(
-            _allocator
-          , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
-          , &allocation_create_info
-          , reinterpret_cast<VkImage*>(&image)
-          , &image_allocation
-          , nullptr);
-
-        Ensures(create_image_result == VK_SUCCESS);
-
-        // Create Image View
-        const auto image_view = create_image_view(options, image);
-
-        return image_storage { image, image_view, image_allocation, &_allocator };
-    }
-
-    vk::ImageView logical_device::create_image_view(const image_options& options, const vk::Image& image) noexcept
-    {
-        vk::ImageView image_view;
-
-        const auto depth_image      = (options.usage & vk::ImageUsageFlagBits::eDepthStencilAttachment) == vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        const auto cubic            = (options.target == texture_target::texture_cube_map || options.target == texture_target::texture_cube_map_array);
-        const auto subresource_mask = depth_image ? vk::ImageAspectFlagBits::eDepth | vk::ImageAspectFlagBits::eStencil : vk::ImageAspectFlagBits::eColor;
-        const auto view_type        = cubic ? vk::ImageViewType::eCube : vk::ImageViewType::e2D;
-
-        auto subresource_range = vk::ImageSubresourceRange()
-            .setAspectMask(subresource_mask)
-            .setBaseMipLevel(0)
-            .setLevelCount(options.mip_levels)
-            .setBaseArrayLayer(0)
-            .setLayerCount(cubic ? 6 : 1);
-
-        auto component_mapping = vk::ComponentMapping()
-            .setR(vk::ComponentSwizzle::eR)
-            .setG(vk::ComponentSwizzle::eG)
-            .setB(vk::ComponentSwizzle::eB)
-            .setA(vk::ComponentSwizzle::eA);
-
-        auto view_create_info = vk::ImageViewCreateInfo()
-            .setImage(image)
-            .setViewType(view_type)
-            .setFormat(depth_image ? _depth_format : _surface_format.format)
-            .setComponents(component_mapping)
-            .setSubresourceRange(subresource_range);
-
-        auto result = _logical_device.createImageView(&view_create_info, nullptr, &image_view);
-
-        check_result(result);
-
-        return image_view;
-    }
-
     vk::Sampler logical_device::create_sampler(const sampler_state& sampler_state) const noexcept
     {
         auto create_info = vk::SamplerCreateInfo()
@@ -802,6 +709,82 @@ namespace scener::graphics::vulkan
     void logical_device::destroy_sampler(const vk::Sampler& sampler) const noexcept
     {
         _logical_device.destroySampler(sampler, nullptr);
+    }
+
+    texture_object logical_device::create_texture_object(const scener::content::dds::surface& source
+                                                       , vk::ImageTiling                      tiling
+                                                       , vk::ImageUsageFlags                  usage
+                                                       , vk::MemoryPropertyFlags              required_props) noexcept
+    {
+        auto texture = texture_object();
+
+        texture.width  = source.width();
+        texture.height = source.height();
+
+        auto const image_create_info = vk::ImageCreateInfo()
+            .setImageType(vk::ImageType::e2D)
+            .setFormat(vk::Format::eR8G8B8A8Unorm)
+            .setExtent({ source.width(), source.height(), 1})
+            .setMipLevels(static_cast<std::uint32_t>(source.mipmaps().size()))
+            .setArrayLayers(1)
+            .setSamples(vk::SampleCountFlagBits::e1)
+            .setTiling(tiling)
+            .setUsage(usage)
+            .setSharingMode(vk::SharingMode::eExclusive)
+            .setQueueFamilyIndexCount(0)
+            .setPQueueFamilyIndices(nullptr)
+            .setInitialLayout(vk::ImageLayout::ePreinitialized);
+
+        // Create the image
+        VmaAllocationCreateInfo create_info = { };
+
+        create_info.usage         = VMA_MEMORY_USAGE_CPU_ONLY;
+        create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
+
+        auto create_image_result = vmaCreateImage(
+            _allocator
+          , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
+          , &create_info
+          , reinterpret_cast<VkImage*>(&texture.image)
+          , &texture.allocation
+          , &texture.allocation_info);
+
+        Ensures(create_image_result == VK_SUCCESS);
+
+        if (required_props & vk::MemoryPropertyFlagBits::eHostVisible)
+        {
+            auto subresource = vk::ImageSubresource()
+                .setAspectMask(vk::ImageAspectFlagBits::eColor)
+                .setMipLevel(0)
+                .setArrayLayer(0);
+
+//            void* mappedData;
+//            vmaMapMemory(_allocator, allocation, &mappedData);
+//            // memcpy(mappedData, data.data(), data.size());
+//            vmaUnmapMemory(_allocator, allocation);
+
+            std::uint32_t offset = 0;
+
+            for (std::uint32_t i = 0; i < source.mipmaps().size(); ++i)
+            {
+                subresource.setMipLevel(i);
+
+                vk::SubresourceLayout layout;
+                _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
+                auto mipmap      = source.mipmaps()[i].get_view();
+                auto mipmap_size = static_cast<std::uint32_t>(mipmap.size());
+                auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, offset, mipmap_size);
+                Expects(mapped_data  != nullptr);
+                memcpy(mapped_data, mipmap.data(), mipmap_size);
+                _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
+                offset += mipmap_size;
+            }
+        }
+
+        texture.image_layout = vk::ImageLayout::eShaderReadOnlyOptimal;
+        texture.allocator    = &_allocator;
+
+        return texture;
     }
 
     void logical_device::create_viewport(const viewport& viewport)
@@ -1041,13 +1024,65 @@ namespace scener::graphics::vulkan
 
     void logical_device::create_depth_buffer(vk::Extent2D extent) noexcept
     {
-        image_options options;
+        // Create Image
+        auto image_create_info = vk::ImageCreateInfo()
+            .setUsage(vk::ImageUsageFlagBits::eDepthStencilAttachment)
+            .setImageType(vk::ImageType::e2D)
+            .setFormat(_depth_format)
+            .setExtent(vk::Extent3D(extent.width, extent.height, 1))
+            .setMipLevels(1)
+            .setArrayLayers(1)
+            .setSamples(vk::SampleCountFlagBits::e1)
+            .setTiling(vk::ImageTiling::eOptimal)
+            .setSharingMode(vk::SharingMode::eExclusive)
+            .setInitialLayout(vk::ImageLayout::eUndefined);
 
-        options.usage      = vk::ImageUsageFlagBits::eDepthStencilAttachment;
-        options.extent     = vk::Extent3D(extent.width, extent.height, 1);
-        options.mip_levels = 1;
+        // Create the image
+        VmaAllocationCreateInfo allocation_create_info = { };
 
-        _depth_buffer = create_image(options);
+        allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+
+        vk::Image     image;
+        VmaAllocation image_allocation;
+
+        auto create_image_result = vmaCreateImage(
+            _allocator
+          , reinterpret_cast<const VkImageCreateInfo*>(&image_create_info)
+          , &allocation_create_info
+          , reinterpret_cast<VkImage*>(&image)
+          , &image_allocation
+          , nullptr);
+
+        Ensures(create_image_result == VK_SUCCESS);
+
+        // Create Image View
+        vk::ImageView image_view;
+
+        auto subresource_range = vk::ImageSubresourceRange()
+            .setAspectMask(vk::ImageAspectFlagBits::eDepth | vk::ImageAspectFlagBits::eStencil)
+            .setBaseMipLevel(0)
+            .setLevelCount(1)
+            .setBaseArrayLayer(0)
+            .setLayerCount(1);
+
+        auto component_mapping = vk::ComponentMapping()
+            .setR(vk::ComponentSwizzle::eR)
+            .setG(vk::ComponentSwizzle::eG)
+            .setB(vk::ComponentSwizzle::eB)
+            .setA(vk::ComponentSwizzle::eA);
+
+        auto view_create_info = vk::ImageViewCreateInfo()
+            .setImage(image)
+            .setViewType(vk::ImageViewType::e2D)
+            .setFormat(_depth_format)
+            .setComponents(component_mapping)
+            .setSubresourceRange(subresource_range);
+
+        auto result = _logical_device.createImageView(&view_create_info, nullptr, &image_view);
+
+        check_result(result);
+
+        _depth_buffer = { image, image_view, image_allocation, &_allocator };
     }
 
     void logical_device::create_frame_buffers(vk::Extent2D extent) noexcept

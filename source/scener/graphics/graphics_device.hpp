@@ -18,10 +18,9 @@
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/graphics_pipeline.hpp"
-#include "scener/graphics/vulkan/image_options.hpp"
-#include "scener/graphics/vulkan/image_storage.hpp"
 #include "scener/graphics/vulkan/logical_device.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
+#include "scener/graphics/vulkan/texture_object.hpp"
 #include "scener/math/color.hpp"
 
 namespace scener::graphics
@@ -115,9 +114,10 @@ namespace scener::graphics
         /// Destroys the given sampler releasing its resources
         void destroy(const vk::Sampler& sampler) const noexcept;
 
-        /// Creates an image with the given options
-        vulkan::image_storage create_image(const vulkan::image_options& options) noexcept;
-
+        vulkan::texture_object create_texture_object(const scener::content::dds::surface& texture
+                                                   , vk::ImageTiling                      tiling
+                                                   , vk::ImageUsageFlags                  usage
+                                                   , vk::MemoryPropertyFlags              required_props) noexcept;
    private:
         graphics::blend_state                   _blend_state;
         graphics::depth_stencil_state           _depth_stencil_state;

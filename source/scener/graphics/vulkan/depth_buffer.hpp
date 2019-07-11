@@ -12,11 +12,11 @@
 
 namespace scener::graphics::vulkan
 {
-    struct image_storage final
+    struct depth_buffer final
     {
     public:
-        image_storage() noexcept;
-        image_storage(const vk::Image&             image
+        depth_buffer() noexcept;
+        depth_buffer(const vk::Image&             image
                     , const vk::ImageView&         view
                     , const VmaAllocation&         allocation
                     , gsl::not_null<VmaAllocator*> allocator) noexcept;
@@ -27,9 +27,6 @@ namespace scener::graphics::vulkan
     public:
         const vk::Image& image() const noexcept;
         const vk::ImageView& view() const noexcept;
-//        const VmaAllocation& image_allocation() const noexcept;
-
-        void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
         vk::Image     _image;

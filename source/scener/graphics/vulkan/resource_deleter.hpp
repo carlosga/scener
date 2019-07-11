@@ -40,7 +40,7 @@ namespace scener::graphics::vulkan
     };
 
     using buffer_deleter = resource_deleter<buffer>;
-    using image_deleter  = resource_deleter<image_storage>;
+    using image_deleter  = resource_deleter<depth_buffer>;
 }
 
 #endif
