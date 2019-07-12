@@ -13,6 +13,9 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/texture2d.hpp"
+#include "scener/graphics/texture_address_mode.hpp"
+#include "scener/graphics/texture_filter.hpp"
 #include "scener/graphics/vertex_element_format.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
@@ -27,6 +30,84 @@ namespace scener::graphics::vulkan
     using scener::graphics::vertex_element_format;
     using scener::graphics::viewport;
     using scener::math::basic_color;
+
+    vk::SamplerAddressMode logical_device::vkSamplerAddressMode(const scener::graphics::texture_address_mode& address_mode) noexcept
+    {
+        switch (address_mode)
+        {
+        case scener::graphics::texture_address_mode::wrap:
+            return vk::SamplerAddressMode::eRepeat;
+        case scener::graphics::texture_address_mode::clamp:
+            return vk::SamplerAddressMode::eClampToEdge;
+        case scener::graphics::texture_address_mode::mirror:
+            return vk::SamplerAddressMode::eMirroredRepeat;
+        }
+    }
+
+    vk::Filter logical_device::vkFilter(const scener::graphics::texture_filter& filter) noexcept
+    {
+        switch (filter)
+        {
+        case scener::graphics::texture_filter::linear:
+            return vk::Filter::eLinear;
+        case scener::graphics::texture_filter::linear_mipmap_point:
+            return vk::Filter::eNearest;
+        default:
+            return vk::Filter::eLinear;
+        }
+    }
+
+    vk::Format logical_device::vkFormat(const scener::graphics::vertex_element_format& format) noexcept
+    {
+        switch (format)
+        {
+        case scener::graphics::vertex_element_format::single:
+            return vk::Format::eR32Sfloat;
+        case scener::graphics::vertex_element_format::vector2:
+            return vk::Format::eR32G32Sfloat;
+        case scener::graphics::vertex_element_format::vector3:
+            return vk::Format::eR32G32B32Sfloat;
+        case scener::graphics::vertex_element_format::vector4:
+            return vk::Format::eR32G32B32A32Sfloat;
+        case scener::graphics::vertex_element_format::color:
+            return vk::Format::eR32G32B32A32Sfloat;
+        case scener::graphics::vertex_element_format::byte4:
+            return vk::Format::eR8Srgb;
+        case scener::graphics::vertex_element_format::short2:
+            return vk::Format::eR16G16Sint;
+        case scener::graphics::vertex_element_format::short4:
+            return vk::Format::eR16G16B16A16Sint;
+        }
+    }
+
+    vk::Format logical_device::vkFormat(const scener::graphics::surface_format& format) noexcept
+    {
+        switch (format)
+        {
+        case scener::graphics::surface_format::color:
+            return vk::Format::eR8Srgb;
+        case scener::graphics::surface_format::bgr565:
+            return vk::Format::eR5G6B5UnormPack16;
+        case scener::graphics::surface_format::bgra5551:
+            return vk::Format::eR5G5B5A1UnormPack16;
+        case scener::graphics::surface_format::bgra4444:
+            return vk::Format::eR4G4B4A4UnormPack16;
+        case scener::graphics::surface_format::dxt1:
+            return vk::Format::eBc1RgbaUnormBlock;
+        case scener::graphics::surface_format::dxt3:
+            return vk::Format::eBc3UnormBlock;
+        case scener::graphics::surface_format::dxt5:
+            return vk::Format::eBc5UnormBlock;
+        case scener::graphics::surface_format::normalized_byte2:
+            return vk::Format::eR8G8Snorm;
+        case scener::graphics::surface_format::normalized_byte4:
+            return vk::Format::eR8G8B8Snorm;
+        case scener::graphics::surface_format::rg32:
+            return vk::Format::eR16G16Uint;
+        case scener::graphics::surface_format::rgba64: ///< 64-bit RGBA pixel format using 16 bits for each component.
+            return vk::Format::eR16G16B16A16Uint;
+        }
+    }
 
     logical_device::logical_device(const vk::PhysicalDevice&         physical_device
                                  , const vk::Device&                 logical_device
@@ -551,41 +632,16 @@ namespace scener::graphics::vulkan
 
         std::vector<vk::VertexInputAttributeDescription> vertexAttributes;
 
+        vertexAttributes.reserve(vertex_declaration.vertex_elements().size());
+
         std::for_each(vertex_declaration.vertex_elements().begin()
                     , vertex_declaration.vertex_elements().end()
                     , [&] (const auto& element) {
                         auto attr = vk::VertexInputAttributeDescription()
                             .setBinding(0)
                             .setLocation(element.usage_index())
-                            .setOffset(element.offset());
-
-                        switch (element.format())
-                        {
-                        case vertex_element_format::single:             ///< Single-component, 32-bit floating-point, expanded to (float, 0, 0, 1).
-                            attr.setFormat(vk::Format::eR32Sfloat);
-                            break;
-                        case vertex_element_format::vector2:            ///< Two-component, 32-bit floating-point, expanded to (float, float, 0, 1).
-                            attr.setFormat(vk::Format::eR32G32Sfloat);
-                            break;
-                        case vertex_element_format::vector3:            ///< Three-component, 32-bit floating point, expanded to (float, float, float, 1).
-                            attr.setFormat(vk::Format::eR32G32B32Sfloat);
-                            break;
-                        case vertex_element_format::vector4:            ///< Four-component, 32-bit floating point, expanded to (float, float, float, float).
-                            attr.setFormat(vk::Format::eR32G32B32A32Sfloat);
-                            break;
-                        case vertex_element_format::color:              ///< Four-component, packed, unsigned byte, mapped to 0 to 1 range.
-                            attr.setFormat(vk::Format::eR32G32B32A32Sfloat);
-                            break;
-                        case vertex_element_format::byte4:              ///< Four-component, unsigned byte.
-                            attr.setFormat(vk::Format::eR8Srgb);
-                            break;
-                        case vertex_element_format::short2:             ///< Two-component, signed short expanded to (value, value, 0, 1).
-                            attr.setFormat(vk::Format::eR16G16Sint);
-                            break;
-                        case vertex_element_format::short4:             ///< Four-component, signed short expanded to (value, value, value, value).
-                            attr.setFormat(vk::Format::eR16G16B16A16Sint);
-                            break;
-                        }
+                            .setOffset(element.offset())
+                            .setFormat(vkFormat(element.format()));
 
                         vertexAttributes.push_back(attr);
                       });
@@ -594,12 +650,14 @@ namespace scener::graphics::vulkan
             .setPVertexBindingDescriptions(&vertexInputBinding)
             .setVertexBindingDescriptionCount(1)
             .setPVertexAttributeDescriptions(vertexAttributes.data())
-            .setVertexAttributeDescriptionCount(static_cast<uint32_t>(vertexAttributes.size()));
+            .setVertexAttributeDescriptionCount(static_cast<std::uint32_t>(vertexAttributes.size()));
 
         // Descriptor pool
-        auto descriptor_pool   = create_descriptor_pool();
-        auto descriptor_layout = create_descriptor_layout();
-        auto pipeline_layout   = create_pipeline_layout(descriptor_layout);
+        const auto& textures          = model_mesh_part.effect_technique()->textures();
+        const auto  texture_count     = static_cast<std::uint32_t>(textures.size());
+        const auto  descriptor_pool   = create_descriptor_pool(texture_count);
+        const auto  descriptor_layout = create_descriptor_layout();
+        const auto  pipeline_layout   = create_pipeline_layout(descriptor_layout);
 
         // Graphics pipeline
         const auto pipeline_create_info = vk::GraphicsPipelineCreateInfo()
@@ -629,22 +687,17 @@ namespace scener::graphics::vulkan
         });
 
         // Descriptors
-        std::vector<vk::DescriptorSet> descriptors;
-
         const auto constant_buffer = effect_pass->constant_buffer();
-        const auto texture_count   = 0;
         auto buffer_info           = vk::DescriptorBufferInfo()
             .setOffset(0)
             .setRange(constant_buffer->size());
 
         vk::DescriptorImageInfo tex_descs[texture_count];
 
-        descriptors.resize(_swap_chain_images.size());
-
         for (std::uint32_t i = 0; i < texture_count; i++)
         {
-//            tex_descs[i].setSampler(textures[i].sampler);
-//            tex_descs[i].setImageView(textures[i].view);
+            tex_descs[i].setSampler(textures[i]->sampler());
+            tex_descs[i].setImageView(textures[i]->view());
             tex_descs[i].setImageLayout(vk::ImageLayout::eGeneral);
         }
 
@@ -665,6 +718,8 @@ namespace scener::graphics::vulkan
             .setDescriptorSetCount(1)
             .setPSetLayouts(&descriptor_layout);
 
+        std::vector<vk::DescriptorSet> descriptors(2);
+
         for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
             auto result = _logical_device.allocateDescriptorSets(&descriptor_set_alloc_info, &descriptors[i]);
@@ -681,20 +736,20 @@ namespace scener::graphics::vulkan
         return { pipeline, pipeline_layout, descriptor_pool, descriptor_layout, descriptors };
     }
 
-    vk::Sampler logical_device::create_sampler(const sampler_state& sampler_state) const noexcept
+    vk::Sampler logical_device::create_sampler(gsl::not_null<const sampler_state*> sampler_state) const noexcept
     {
         auto create_info = vk::SamplerCreateInfo()
             .setCompareOp(vk::CompareOp::eLess)
             .setMipmapMode(vk::SamplerMipmapMode::eNearest)
             .setMinLod(0)
-            .setMaxLod(sampler_state.max_mip_level)
-            .setMipLodBias(sampler_state.mip_map_level_of_detail_bias)
-            .setAddressModeU(vkSamplerAddressMode(sampler_state.address_u))
-            .setAddressModeV(vkSamplerAddressMode(sampler_state.address_v))
-            .setAddressModeW(vkSamplerAddressMode(sampler_state.address_w))
-            .setMagFilter(vkFilter(sampler_state.mag_filter))
-            .setMinFilter(vkFilter(sampler_state.min_filter))
-            .setMaxAnisotropy(sampler_state.max_anisotropy)
+            .setMaxLod(sampler_state->max_mip_level)
+            .setMipLodBias(sampler_state->mip_map_level_of_detail_bias)
+            .setAddressModeU(vkSamplerAddressMode(sampler_state->address_u))
+            .setAddressModeV(vkSamplerAddressMode(sampler_state->address_v))
+            .setAddressModeW(vkSamplerAddressMode(sampler_state->address_w))
+            .setMagFilter(vkFilter(sampler_state->mag_filter))
+            .setMinFilter(vkFilter(sampler_state->min_filter))
+            .setMaxAnisotropy(sampler_state->max_anisotropy)
             .setAnisotropyEnable(false);
 
         vk::Sampler sampler;
@@ -706,26 +761,24 @@ namespace scener::graphics::vulkan
         return sampler;
     }
 
-    void logical_device::destroy_sampler(const vk::Sampler& sampler) const noexcept
+    texture_object logical_device::create_texture_object(gsl::not_null<const scener::content::dds::surface*>   source
+                                                       , gsl::not_null<const scener::graphics::sampler_state*> sampler_state
+                                                       , vk::ImageTiling                                       tiling
+                                                       , vk::ImageUsageFlags                                   usage
+                                                       , vk::MemoryPropertyFlags                               required_props) noexcept
     {
-        _logical_device.destroySampler(sampler, nullptr);
-    }
+        texture_object texture;
 
-    texture_object logical_device::create_texture_object(const scener::content::dds::surface& source
-                                                       , vk::ImageTiling                      tiling
-                                                       , vk::ImageUsageFlags                  usage
-                                                       , vk::MemoryPropertyFlags              required_props) noexcept
-    {
-        auto texture = texture_object();
+        texture.width  = source->width();
+        texture.height = source->height();
 
-        texture.width  = source.width();
-        texture.height = source.height();
-
-        auto const image_create_info = vk::ImageCreateInfo()
+        const auto format = vkFormat(source->format());
+        const auto image_create_info = vk::ImageCreateInfo()
             .setImageType(vk::ImageType::e2D)
-            .setFormat(vk::Format::eR8G8B8A8Unorm)
-            .setExtent({ source.width(), source.height(), 1})
-            .setMipLevels(static_cast<std::uint32_t>(source.mipmaps().size()))
+            .setFormat(format)
+            .setExtent({ texture.width, texture.height, 1})
+            // .setMipLevels(static_cast<std::uint32_t>(source.mipmaps().size()))
+            .setMipLevels(1)
             .setArrayLayers(1)
             .setSamples(vk::SampleCountFlagBits::e1)
             .setTiling(tiling)
@@ -738,7 +791,7 @@ namespace scener::graphics::vulkan
         // Create the image
         VmaAllocationCreateInfo create_info = { };
 
-        create_info.usage         = VMA_MEMORY_USAGE_CPU_ONLY;
+        create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
         create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
 
         auto create_image_result = vmaCreateImage(
@@ -758,33 +811,80 @@ namespace scener::graphics::vulkan
                 .setMipLevel(0)
                 .setArrayLayer(0);
 
-//            void* mappedData;
-//            vmaMapMemory(_allocator, allocation, &mappedData);
-//            // memcpy(mappedData, data.data(), data.size());
-//            vmaUnmapMemory(_allocator, allocation);
+            const auto& mipmap     = source->mipmap(0).view();
+            const auto  mimap_size = static_cast<std::uint32_t>(mipmap.size());
 
-            std::uint32_t offset = 0;
+            Ensures(mipmap.size() == texture.allocation_info.size);
 
-            for (std::uint32_t i = 0; i < source.mipmaps().size(); ++i)
-            {
-                subresource.setMipLevel(i);
+            vk::SubresourceLayout layout;
+            _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
 
-                vk::SubresourceLayout layout;
-                _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
-                auto mipmap      = source.mipmaps()[i].get_view();
-                auto mipmap_size = static_cast<std::uint32_t>(mipmap.size());
-                auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, offset, mipmap_size);
-                Expects(mapped_data  != nullptr);
-                memcpy(mapped_data, mipmap.data(), mipmap_size);
-                _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
-                offset += mipmap_size;
-            }
+            auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, 0, mimap_size);
+            Ensures(mapped_data != nullptr);
+
+            memcpy(mapped_data, mipmap.data(), mimap_size);
+
+            _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
+
+//            std::uint32_t offset = 0;
+
+//            for (std::uint32_t i = 0; i < source.mipmaps().size(); ++i)
+//            {
+//                subresource.setMipLevel(i);
+
+//                const auto& mipmap      = source.mipmap(i).view();
+//                const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
+
+//                vk::SubresourceLayout layout;
+//                _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
+
+//                auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, offset, mipmap_size);
+//                Ensures(mapped_data != nullptr);
+
+//                memcpy(mapped_data, mipmap.data(), mipmap_size);
+
+//                _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
+
+//                offset += mipmap_size;
+//            }
         }
 
+        // Create Image View
+        auto subresource_range = vk::ImageSubresourceRange()
+            .setAspectMask(vk::ImageAspectFlagBits::eColor)
+            .setBaseMipLevel(0)
+            .setLevelCount(1)
+            .setBaseArrayLayer(0)
+            .setLayerCount(1);
+
+        auto component_mapping = vk::ComponentMapping()
+            .setR(vk::ComponentSwizzle::eR)
+            .setG(vk::ComponentSwizzle::eG)
+            .setB(vk::ComponentSwizzle::eB)
+            .setA(vk::ComponentSwizzle::eA);
+
+        auto view_create_info = vk::ImageViewCreateInfo()
+            .setImage(texture.image)
+            .setViewType(vk::ImageViewType::e2D)
+            .setFormat(format)
+            .setComponents(component_mapping)
+            .setSubresourceRange(subresource_range);
+
+        auto result = _logical_device.createImageView(&view_create_info, nullptr, &texture.view);
+
+        check_result(result);
+
+        texture.sampler      = create_sampler(sampler_state);
         texture.image_layout = vk::ImageLayout::eShaderReadOnlyOptimal;
         texture.allocator    = &_allocator;
 
         return texture;
+    }
+
+    void logical_device::destroy(const texture_object& texture) const noexcept
+    {
+        _logical_device.destroySampler(texture.sampler, nullptr);
+        vmaDestroyImage(_allocator, texture.image, texture.allocation);
     }
 
     void logical_device::create_viewport(const viewport& viewport)
@@ -879,7 +979,7 @@ namespace scener::graphics::vulkan
 
             result = _logical_device.createSemaphore(&semaphore_create_info, nullptr, &_image_ownership_semaphores[i]);
             check_result(result);
-        }               
+        }
     }
 
     void logical_device::create_command_pools() noexcept
@@ -1120,10 +1220,8 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    vk::DescriptorPool logical_device::create_descriptor_pool() const noexcept
+    vk::DescriptorPool logical_device::create_descriptor_pool(std::uint32_t texture_count) const noexcept
     {
-        static const auto texture_count = 1;
-
         vk::DescriptorPoolSize const poolSizes[2] =
         {
             vk::DescriptorPoolSize()

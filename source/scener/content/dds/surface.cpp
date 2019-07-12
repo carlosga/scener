@@ -118,4 +118,11 @@ namespace scener::content::dds
     {
         return _mipmaps;
     }
+
+    const surface_mipmap& surface::mipmap(std::uint32_t index) const noexcept
+    {
+        Expects(index <= _mipmaps.size());
+
+        return _mipmaps[index];
+    }
 }

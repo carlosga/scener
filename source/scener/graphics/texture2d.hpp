@@ -13,8 +13,9 @@
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/texture.hpp"
+#include "scener/graphics/vulkan/texture_object.hpp"
 
-namespace scener:: content::readers { template <typename T> class content_type_reader; }
+namespace scener::content::readers { template <typename T> class content_type_reader; }
 
 namespace scener::graphics
 {
@@ -64,14 +65,15 @@ namespace scener::graphics
         /// \returns the texture height, in pixels.
         std::uint32_t height() const noexcept;
 
-        const vk::Sampler& sampler() const noexcept;
+        const vk::Sampler& sampler() const noexcept override;
+        const vk::ImageView& view() const noexcept override;
 
     private:
-        surface_format _format;
-        std::uint32_t  _mipmap_levels;
-        std::uint32_t  _height;
-        std::uint32_t  _width;
-        vk::Sampler    _sampler;
+        surface_format         _format;
+        std::uint32_t          _mipmap_levels;
+        std::uint32_t          _height;
+        std::uint32_t          _width;
+        vulkan::texture_object _texture_object;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

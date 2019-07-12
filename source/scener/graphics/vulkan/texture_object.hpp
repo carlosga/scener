@@ -24,16 +24,15 @@ namespace scener::graphics::vulkan
         void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     public:
+        std::uint32_t      width;
+        std::uint32_t      height;
         vk::Sampler        sampler;
         vk::Image          image;
         vk::ImageView      view;
-        vk::Buffer         buffer;
         vk::ImageLayout    image_layout;
         VmaAllocation      allocation;
         VmaAllocationInfo  allocation_info;
         VmaAllocator*      allocator;
-        std::uint32_t      width;
-        std::uint32_t      height;
     };
 }
 

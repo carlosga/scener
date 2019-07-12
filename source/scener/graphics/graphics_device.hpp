@@ -108,17 +108,17 @@ namespace scener::graphics
         /// \para size the buffer size.
         vulkan::buffer create_uniform_buffer(std::uint32_t size)const noexcept;
 
-        /// Creates a vulkan sampler based on the given sampler state
-        vk::Sampler create_sampler(const sampler_state& sampler_state) const noexcept;
+        // creates a texture object ( image, view, sampler, ... )
+        vulkan::texture_object create_texture_object(gsl::not_null<const scener::content::dds::surface*>   texture
+                                                   , gsl::not_null<const scener::graphics::sampler_state*> sampler_state
+                                                   , vk::ImageTiling                                       tiling
+                                                   , vk::ImageUsageFlags                                   usage
+                                                   , vk::MemoryPropertyFlags                               required_props) noexcept;
 
-        /// Destroys the given sampler releasing its resources
-        void destroy(const vk::Sampler& sampler) const noexcept;
+        /// Destroys the given texture releasing its resources
+        void destroy(const vulkan::texture_object& texture) const noexcept;
 
-        vulkan::texture_object create_texture_object(const scener::content::dds::surface& texture
-                                                   , vk::ImageTiling                      tiling
-                                                   , vk::ImageUsageFlags                  usage
-                                                   , vk::MemoryPropertyFlags              required_props) noexcept;
-   private:
+    private:
         graphics::blend_state                   _blend_state;
         graphics::depth_stencil_state           _depth_stencil_state;
         graphics::rasterizer_state              _rasterizer_state;

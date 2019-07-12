@@ -15,8 +15,6 @@
 #include "scener/graphics/depth_stencil_state.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
-#include "scener/graphics/texture_address_mode.hpp"
-#include "scener/graphics/texture_filter.hpp"
 #include "scener/graphics/sampler_state.hpp"
 #include "scener/graphics/viewport.hpp"
 #include "scener/graphics/vulkan/graphics_pipeline.hpp"
@@ -39,31 +37,10 @@ namespace scener::graphics::vulkan
     class logical_device final
     {
     private:
-        static vk::SamplerAddressMode vkSamplerAddressMode(const scener::graphics::texture_address_mode& address_mode) noexcept
-        {
-            switch (address_mode)
-            {
-            case scener::graphics::texture_address_mode::wrap:
-                return vk::SamplerAddressMode::eRepeat;
-            case scener::graphics::texture_address_mode::clamp:
-                return vk::SamplerAddressMode::eClampToEdge;
-            case scener::graphics::texture_address_mode::mirror:
-                return vk::SamplerAddressMode::eMirroredRepeat;
-            }
-        }
-
-        static vk::Filter vkFilter(const scener::graphics::texture_filter& filter) noexcept
-        {
-            switch (filter)
-            {
-            case scener::graphics::texture_filter::linear:
-                return vk::Filter::eLinear;
-            case scener::graphics::texture_filter::linear_mipmap_point:
-                return vk::Filter::eNearest;
-            default:
-                return vk::Filter::eLinear;
-            }
-        }
+        static vk::SamplerAddressMode vkSamplerAddressMode(const scener::graphics::texture_address_mode& address_mode) noexcept;
+        static vk::Filter vkFilter(const scener::graphics::texture_filter& filter) noexcept;
+        static vk::Format vkFormat(const scener::graphics::vertex_element_format& format) noexcept;
+        static vk::Format vkFormat(const scener::graphics::surface_format& format) noexcept;
 
     public:
         logical_device(const vk::PhysicalDevice&         physical_device
@@ -133,14 +110,14 @@ namespace scener::graphics::vulkan
             , const graphics::model_mesh_part&     model_mesh_part) const noexcept;
 
     public:
-        texture_object create_texture_object(const scener::content::dds::surface& texture
+        vk::Sampler create_sampler(gsl::not_null<const sampler_state*> sampler_state) const noexcept;
+        texture_object create_texture_object(gsl::not_null<const scener::content::dds::surface*>
+                                           , gsl::not_null<const scener::graphics::sampler_state*>
                                            , vk::ImageTiling
                                            , vk::ImageUsageFlags
                                            , vk::MemoryPropertyFlags) noexcept;
+        void destroy(const texture_object& texture) const noexcept;
 
-        vk::Sampler create_sampler(const sampler_state& sampler_state) const noexcept;
-        void destroy_sampler(const vk::Sampler& sampler) const noexcept;
-        
     private:
         void create_viewport(const graphics::viewport& viewport);
         void create_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;
@@ -155,7 +132,7 @@ namespace scener::graphics::vulkan
         void create_depth_buffer(vk::Extent2D extent) noexcept;
         void create_frame_buffers(vk::Extent2D extent) noexcept;
         void create_pipeline_cache() noexcept;
-        vk::DescriptorPool create_descriptor_pool() const noexcept;
+        vk::DescriptorPool create_descriptor_pool(std::uint32_t texture_count) const noexcept;
         vk::DescriptorSetLayout create_descriptor_layout() const noexcept;
         vk::PipelineLayout create_pipeline_layout(const vk::DescriptorSetLayout& descriptor_set_layout) const noexcept;
         void create_command_buffers() noexcept;

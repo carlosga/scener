@@ -37,13 +37,12 @@ namespace scener::content::readers
 
         auto instance = std::make_shared<texture2d>(gdservice->device(), dds->width(), dds->height(), dds->format());
 
-        instance->name           = key;
-        instance->_mipmap_levels = static_cast<std::uint32_t>(dds->mipmaps().size());
-        instance->_sampler       = device->create_sampler(*sstate.get());
         sstate->max_mip_level    = instance->level_count();
-
-        auto to = device->create_texture_object(
-            *dds
+        instance->name            = key;
+        instance->_mipmap_levels  = static_cast<std::uint32_t>(dds->mipmaps().size());
+        instance->_texture_object = device->create_texture_object(
+            dds.get()
+          , sstate.get()
           , vk::ImageTiling::eLinear
           , vk::ImageUsageFlagBits::eSampled | vk::ImageUsageFlagBits::eTransferDst
           , vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent);

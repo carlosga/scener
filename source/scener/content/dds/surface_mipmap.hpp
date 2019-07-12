@@ -37,7 +37,7 @@ namespace scener::content::dds
         size_type  height() const noexcept;
 
         /// Gets a view to the mipmap data.
-        const gsl::span<std::uint8_t>& get_view() const noexcept;
+        const gsl::span<std::uint8_t>& view() const noexcept;
 
     private:
         index_type              _index;

@@ -17,12 +17,12 @@ namespace scener::graphics
                        , std::uint32_t                   width
                        , std::uint32_t                   height
                        , surface_format                  format) noexcept
-        : texture        { device }
-        , _format        { format }
-        , _mipmap_levels { 0 }
-        , _height        { height }
-        , _width         { width }
-        , _sampler       { }
+        : texture         { device }
+        , _format         { format }
+        , _mipmap_levels  { 0 }
+        , _height         { height }
+        , _width          { width }
+        , _texture_object { }
     {
     }
 
@@ -30,7 +30,7 @@ namespace scener::graphics
     {
         if (_graphics_device != nullptr)
         {
-            _graphics_device->destroy(_sampler);
+            _graphics_device->destroy(_texture_object);
         }
 
         _graphics_device = nullptr;
@@ -63,13 +63,10 @@ namespace scener::graphics
 
     const vk::Sampler& texture2d::sampler() const noexcept
     {
-        return _sampler;
+        return _texture_object.sampler;
     }
-
-//    void texture2d::set_data([[maybe_unused]] std::uint32_t level
-//                           , [[maybe_unused]] std::uint32_t width
-//                           , [[maybe_unused]] std::uint32_t height
-//                           , [[maybe_unused]] const gsl::span<const std::uint8_t>& data) const noexcept
-//    {
-//    }
+    const vk::ImageView& texture2d::view() const noexcept
+    {
+        return _texture_object.view;
+    }
 }

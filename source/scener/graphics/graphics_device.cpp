@@ -7,7 +7,6 @@
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/effect_pass.hpp"
-#include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/vulkan/physical_device.hpp"
 
 namespace scener::graphics
@@ -148,21 +147,17 @@ namespace scener::graphics
         return _logical_device->create_uniform_buffer(size);
     }
 
-    vk::Sampler graphics_device::create_sampler(const sampler_state& sampler_state) const noexcept
+    vulkan::texture_object graphics_device::create_texture_object(gsl::not_null<const scener::content::dds::surface*>   texture
+                                                                , gsl::not_null<const scener::graphics::sampler_state*> sampler_state
+                                                                , vk::ImageTiling                                       tiling
+                                                                , vk::ImageUsageFlags                                   usage
+                                                                , vk::MemoryPropertyFlags                               required_props) noexcept
     {
-        return _logical_device->create_sampler(sampler_state);
+        return _logical_device->create_texture_object(texture, sampler_state, tiling, usage, required_props);
     }
 
-    void graphics_device::destroy(const vk::Sampler& sampler) const noexcept
+    void graphics_device::destroy(const vulkan::texture_object& texture) const noexcept
     {
-        _logical_device->destroy_sampler(sampler);
-    }
-
-    vulkan::texture_object graphics_device::create_texture_object(const scener::content::dds::surface& texture
-                                                                , vk::ImageTiling                      tiling
-                                                                , vk::ImageUsageFlags                  usage
-                                                                , vk::MemoryPropertyFlags              required_props) noexcept
-    {
-        return _logical_device->create_texture_object(texture, tiling, usage, required_props);
+        _logical_device->destroy(texture);
     }
 }

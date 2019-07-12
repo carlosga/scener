@@ -6,16 +6,15 @@
 namespace scener::graphics::vulkan
 {
     texture_object::texture_object() noexcept
-        : sampler         { }
+        : width           { 0 }
+        , height          { 0 }
+        , sampler         { }
         , image           { }
         , view            { }
-        , buffer          { }
         , image_layout    { vk::ImageLayout::eUndefined }
         , allocation      { }
         , allocation_info { }
         , allocator       { }
-        , width           { 0 }
-        , height          { 0 }
     {
     }
 
