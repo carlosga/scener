@@ -33,7 +33,7 @@ namespace scener::graphics::vulkan
         ~buffer();
 
     public:
-        const std::vector<buffer_resources>& buffers() const noexcept;
+        const buffer_resources& resources(std::uint32_t index) const noexcept;
 
         std::uint64_t size() const noexcept;
 

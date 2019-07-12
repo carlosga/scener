@@ -133,7 +133,7 @@ namespace scener::graphics::vulkan
         void create_frame_buffers(vk::Extent2D extent) noexcept;
         void create_pipeline_cache() noexcept;
         vk::DescriptorPool create_descriptor_pool(std::uint32_t texture_count) const noexcept;
-        vk::DescriptorSetLayout create_descriptor_layout() const noexcept;
+        vk::DescriptorSetLayout create_descriptor_layout(std::uint32_t texture_count) const noexcept;
         vk::PipelineLayout create_pipeline_layout(const vk::DescriptorSetLayout& descriptor_set_layout) const noexcept;
         void create_command_buffers() noexcept;
         void destroy_sync_primitives() noexcept;

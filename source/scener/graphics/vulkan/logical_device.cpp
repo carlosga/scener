@@ -330,10 +330,10 @@ namespace scener::graphics::vulkan
             const auto& command_buffer = _command_buffers[current_buffer];
 
             // Vertex buffer binding
-            command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.buffers()[0].memory_buffer, offsets);
+            command_buffer.bindVertexBuffers(0, 1, &vertex_buffer->_buffer.resources(0).memory_buffer, offsets);
 
             // Index buffer binding
-            command_buffer.bindIndexBuffer(index_buffer->_buffer.buffers()[0].memory_buffer, 0, index_element_type);
+            command_buffer.bindIndexBuffer(index_buffer->_buffer.resources(0).memory_buffer, 0, index_element_type);
 
             // Draw call
             command_buffer.drawIndexed(
@@ -424,7 +424,7 @@ namespace scener::graphics::vulkan
                 // Copy buffer contents from the staging buffer to the real buffer
                 begin_single_time_commands();
 
-                _single_time_command_buffer.copyBuffer(staging_buffer, buffer_instance.buffers()[0].memory_buffer, 1, &buffer_copy_region);
+                _single_time_command_buffer.copyBuffer(staging_buffer, buffer_instance.resources(0).memory_buffer, 1, &buffer_copy_region);
 
                 end_single_time_commands();
 
@@ -656,7 +656,7 @@ namespace scener::graphics::vulkan
         const auto& textures          = model_mesh_part.effect_technique()->textures();
         const auto  texture_count     = static_cast<std::uint32_t>(textures.size());
         const auto  descriptor_pool   = create_descriptor_pool(texture_count);
-        const auto  descriptor_layout = create_descriptor_layout();
+        const auto  descriptor_layout = create_descriptor_layout(texture_count);
         const auto  pipeline_layout   = create_pipeline_layout(descriptor_layout);
 
         // Graphics pipeline
@@ -698,7 +698,7 @@ namespace scener::graphics::vulkan
         {
             tex_descs[i].setSampler(textures[i]->sampler());
             tex_descs[i].setImageView(textures[i]->view());
-            tex_descs[i].setImageLayout(vk::ImageLayout::eGeneral);
+            tex_descs[i].setImageLayout(vk::ImageLayout::eShaderReadOnlyOptimal);
         }
 
         vk::WriteDescriptorSet writes[2];
@@ -726,7 +726,7 @@ namespace scener::graphics::vulkan
 
             check_result(result);
 
-            buffer_info.setBuffer(constant_buffer->memory_buffer().buffers()[i].memory_buffer);
+            buffer_info.setBuffer(constant_buffer->memory_buffer().resources(i).memory_buffer);
             writes[0].setDstSet(descriptors[i]);
             writes[1].setDstSet(descriptors[i]);
 
@@ -1234,7 +1234,7 @@ namespace scener::graphics::vulkan
 
         const auto descriptor_pool_create_info = vk::DescriptorPoolCreateInfo()
             .setMaxSets(static_cast<std::uint32_t>(_swap_chain_images.size()))
-            .setPoolSizeCount(1)
+            .setPoolSizeCount(2)
             .setPPoolSizes(poolSizes);
 
         vk::DescriptorPool descriptor_pool;
@@ -1246,7 +1246,7 @@ namespace scener::graphics::vulkan
         return descriptor_pool;
     }
 
-    vk::DescriptorSetLayout logical_device::create_descriptor_layout() const noexcept
+    vk::DescriptorSetLayout logical_device::create_descriptor_layout(std::uint32_t texture_count) const noexcept
     {
         // Pipeline layout
         const vk::DescriptorSetLayoutBinding layout_bindings[2] =
@@ -1260,13 +1260,13 @@ namespace scener::graphics::vulkan
             vk::DescriptorSetLayoutBinding()
                 .setBinding(1)
                 .setDescriptorType(vk::DescriptorType::eCombinedImageSampler)
-                .setDescriptorCount(0)
+                .setDescriptorCount(texture_count)
                 .setStageFlags(vk::ShaderStageFlagBits::eFragment)
                 .setPImmutableSamplers(nullptr)
         };
 
         const auto descriptor_set_layout_create_info = vk::DescriptorSetLayoutCreateInfo()
-            .setBindingCount(1)
+            .setBindingCount(2)
             .setPBindings(layout_bindings);
 
         vk::DescriptorSetLayout descriptor_set_layout;
