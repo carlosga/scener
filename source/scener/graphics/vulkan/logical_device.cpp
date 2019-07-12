@@ -787,7 +787,7 @@ namespace scener::graphics::vulkan
             .setSharingMode(vk::SharingMode::eExclusive)
             .setQueueFamilyIndexCount(0)
             .setPQueueFamilyIndices(nullptr)
-            .setInitialLayout(vk::ImageLayout::ePreinitialized);
+            .setInitialLayout(vk::ImageLayout::eUndefined);
 
         VmaAllocationCreateInfo create_info = { };
 
@@ -804,10 +804,11 @@ namespace scener::graphics::vulkan
 
         Ensures(create_image_result == VK_SUCCESS);
 
-        // Copy the image contents to a staging buffer
+        // Image subresource
         const auto& mipmap      = source->mipmap(0).view();
         const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
 
+        // Copy the image contents to a staging buffer
         VkBufferCreateInfo buffer_create_info = {
             VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO    // VkStructureType
           , nullptr                                 // pNext
@@ -840,14 +841,18 @@ namespace scener::graphics::vulkan
         std::copy_n(mipmap.data(), mipmap.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
 
         // Layout transitions using barriers
-        auto subresource_range = vk::ImageSubresourceRange()
+        begin_single_time_commands();
+
+        const auto subresource_range = vk::ImageSubresourceRange()
             .setAspectMask(vk::ImageAspectFlagBits::eColor)
             .setBaseMipLevel(0)
             .setLevelCount(1)
             .setBaseArrayLayer(0)
             .setLayerCount(1);
 
-        begin_single_time_commands();
+        const auto subresource_layers = vk::ImageSubresourceLayers()
+            .setAspectMask(vk::ImageAspectFlagBits::eColor)
+            .setLayerCount(1);
 
         auto barrier = vk::ImageMemoryBarrier()
             .setOldLayout(vk::ImageLayout::eUndefined)
@@ -869,8 +874,9 @@ namespace scener::graphics::vulkan
 
         // Copy the texture data using the staging buffer
         auto region = vk::BufferImageCopy()
-            .setImageExtent({ texture.width, texture.height, 1 })
-            .setImageSubresource({vk::ImageAspectFlagBits::eColor, 1 });
+            .setImageExtent({ texture.width / 4, texture.height / 4, 1 })
+            .setImageOffset({ 4, 4 , 0 })
+            .setImageSubresource(subresource_layers);
 
         _single_time_command_buffer.copyBufferToImage(
             staging_buffer
