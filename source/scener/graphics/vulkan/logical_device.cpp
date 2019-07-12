@@ -772,6 +772,7 @@ namespace scener::graphics::vulkan
         texture.width  = source->width();
         texture.height = source->height();
 
+        // Create & allocate the image
         const auto format = vkFormat(source->format());
         const auto image_create_info = vk::ImageCreateInfo()
             .setImageType(vk::ImageType::e2D)
@@ -788,7 +789,6 @@ namespace scener::graphics::vulkan
             .setPQueueFamilyIndices(nullptr)
             .setInitialLayout(vk::ImageLayout::ePreinitialized);
 
-        // Create the image
         VmaAllocationCreateInfo create_info = { };
 
         create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
@@ -804,52 +804,42 @@ namespace scener::graphics::vulkan
 
         Ensures(create_image_result == VK_SUCCESS);
 
-        if (required_props & vk::MemoryPropertyFlagBits::eHostVisible)
-        {
-            auto subresource = vk::ImageSubresource()
-                .setAspectMask(vk::ImageAspectFlagBits::eColor)
-                .setMipLevel(0)
-                .setArrayLayer(0);
+        // Copy the image contents to a staging buffer
+        const auto& mipmap      = source->mipmap(0).view();
+        const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
 
-            const auto& mipmap     = source->mipmap(0).view();
-            const auto  mimap_size = static_cast<std::uint32_t>(mipmap.size());
+        VkBufferCreateInfo buffer_create_info = {
+            VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO    // VkStructureType
+          , nullptr                                 // pNext
+          , 0                                       // flags
+          , mipmap_size                             // size
+          , VK_BUFFER_USAGE_TRANSFER_SRC_BIT        // usage
+          , VK_SHARING_MODE_EXCLUSIVE               // sharingMode
+          , 0                                       // queueFamilyIndexCount
+          , nullptr                                 // pQueueFamilyIndices
+        };
 
-            Ensures(mipmap.size() == texture.allocation_info.size);
+        VmaAllocationCreateInfo allocation_create_info = { };
 
-            vk::SubresourceLayout layout;
-            _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
+        allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
+        allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
 
-            auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, 0, mimap_size);
-            Ensures(mapped_data != nullptr);
+        vk::Buffer        staging_buffer            = { };
+        VmaAllocation     staging_buffer_allocation;
+        VmaAllocationInfo staging_buffer_alloc_info = { };
+        auto result = vmaCreateBuffer(
+            _allocator
+          , &buffer_create_info
+          , &allocation_create_info
+          , reinterpret_cast<VkBuffer*>(&staging_buffer)
+          , &staging_buffer_allocation
+          , &staging_buffer_alloc_info);
 
-            memcpy(mapped_data, mipmap.data(), mimap_size);
+        Ensures(result == VK_SUCCESS);
 
-            _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
+        std::copy_n(mipmap.data(), mipmap.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
 
-//            std::uint32_t offset = 0;
-
-//            for (std::uint32_t i = 0; i < source.mipmaps().size(); ++i)
-//            {
-//                subresource.setMipLevel(i);
-
-//                const auto& mipmap      = source.mipmap(i).view();
-//                const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
-
-//                vk::SubresourceLayout layout;
-//                _logical_device.getImageSubresourceLayout(texture.image, &subresource, &layout);
-
-//                auto mapped_data = _logical_device.mapMemory(texture.allocation_info.deviceMemory, offset, mipmap_size);
-//                Ensures(mapped_data != nullptr);
-
-//                memcpy(mapped_data, mipmap.data(), mipmap_size);
-
-//                _logical_device.unmapMemory(texture.allocation_info.deviceMemory);
-
-//                offset += mipmap_size;
-//            }
-        }
-
-        // Create Image View
+        // Layout transitions using barriers
         auto subresource_range = vk::ImageSubresourceRange()
             .setAspectMask(vk::ImageAspectFlagBits::eColor)
             .setBaseMipLevel(0)
@@ -857,22 +847,65 @@ namespace scener::graphics::vulkan
             .setBaseArrayLayer(0)
             .setLayerCount(1);
 
-        auto component_mapping = vk::ComponentMapping()
-            .setR(vk::ComponentSwizzle::eR)
-            .setG(vk::ComponentSwizzle::eG)
-            .setB(vk::ComponentSwizzle::eB)
-            .setA(vk::ComponentSwizzle::eA);
+        begin_single_time_commands();
 
+        auto barrier = vk::ImageMemoryBarrier()
+            .setOldLayout(vk::ImageLayout::eUndefined)
+            .setNewLayout(vk::ImageLayout::eTransferDstOptimal)
+            .setSrcQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED)
+            .setDstQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED)
+            .setImage(texture.image)
+            .setSubresourceRange(subresource_range)
+            .setSrcAccessMask(vk::AccessFlagBits())
+            .setDstAccessMask(vk::AccessFlagBits::eTransferWrite);
+
+        _single_time_command_buffer.pipelineBarrier(
+            vk::PipelineStageFlagBits::eTopOfPipe
+          , vk::PipelineStageFlagBits::eTransfer
+          , vk::DependencyFlagBits()
+          , 0, nullptr
+          , 0, nullptr
+          , 1, &barrier);
+
+        // Copy the texture data using the staging buffer
+        auto region = vk::BufferImageCopy()
+            .setImageExtent({ texture.width, texture.height, 1 })
+            .setImageSubresource({vk::ImageAspectFlagBits::eColor, 1 });
+
+        _single_time_command_buffer.copyBufferToImage(
+            staging_buffer
+          , texture.image
+          , vk::ImageLayout::eTransferDstOptimal
+          , 1, &region);
+
+        barrier
+            .setOldLayout(vk::ImageLayout::eTransferDstOptimal)
+            .setNewLayout(vk::ImageLayout::eShaderReadOnlyOptimal)
+            .setImage(texture.image)
+            .setSrcAccessMask(vk::AccessFlagBits::eTransferWrite)
+            .setDstAccessMask(vk::AccessFlagBits::eShaderRead);
+
+        _single_time_command_buffer.pipelineBarrier(
+            vk::PipelineStageFlagBits::eTransfer
+          , vk::PipelineStageFlagBits::eFragmentShader
+          , vk::DependencyFlagBits()
+          , 0, nullptr
+          , 0, nullptr
+          , 1, &barrier);
+
+        end_single_time_commands();
+
+        // Destroy the staging buffer
+        vmaDestroyBuffer(_allocator, staging_buffer, staging_buffer_allocation);
+
+        // Create Image View
         auto view_create_info = vk::ImageViewCreateInfo()
             .setImage(texture.image)
             .setViewType(vk::ImageViewType::e2D)
             .setFormat(format)
-            .setComponents(component_mapping)
             .setSubresourceRange(subresource_range);
 
-        auto result = _logical_device.createImageView(&view_create_info, nullptr, &texture.view);
-
-        check_result(result);
+        check_result(_logical_device.createImageView(&view_create_info, nullptr, &texture.view));
 
         texture.sampler      = create_sampler(sampler_state);
         texture.image_layout = vk::ImageLayout::eShaderReadOnlyOptimal;

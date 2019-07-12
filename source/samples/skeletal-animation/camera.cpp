@@ -41,7 +41,7 @@ namespace skeletal::animation
         _rotation           = 0_deg;
         _rotation_transform = matrix4::identity();
 
-        view = create_look_at(_position, vector3::zero(), vector3::up());
+        view = create_look_at(_position, vector3::zero(), vector3::down());
 
         projection = create_perspective_field_of_view(fov, aspect, 1.0f, 1000.0f);
 
