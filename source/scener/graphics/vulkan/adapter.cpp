@@ -66,7 +66,7 @@ namespace scener::graphics::vulkan
             .setApplicationVersion(1)
             .setPEngineName("SCENER 0.1.0")
             .setEngineVersion(1)
-            .setApiVersion(VK_MAKE_VERSION(1, 0, VK_HEADER_VERSION));
+            .setApiVersion(VK_MAKE_VERSION(1, 1, VK_HEADER_VERSION));
 
         auto const inst_info = vk::InstanceCreateInfo()
             .setPApplicationInfo(&app)
