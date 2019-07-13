@@ -86,7 +86,9 @@ namespace scener::content::readers
 
         vertex_declaration declaration(vertex_stride, elements);
 
-        instance->_primitive_type  = static_cast<primitive_type>(value[k_mode].get<std::int32_t>());
+        auto xxx = value[k_mode].get<std::int32_t>();
+
+        instance->_primitive_type  = static_cast<primitive_type>(xxx);
         instance->_vertex_count    = vertex_count;
         instance->_start_index     = 0;
         instance->_vertex_offset   = 0;

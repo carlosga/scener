@@ -41,6 +41,7 @@ namespace scener::graphics::vulkan
         static vk::Filter vkFilter(const scener::graphics::texture_filter& filter) noexcept;
         static vk::Format vkFormat(const scener::graphics::vertex_element_format& format) noexcept;
         static vk::Format vkFormat(const scener::graphics::surface_format& format) noexcept;
+        static vk::PrimitiveTopology vkPrimitiveTopology(const scener::graphics::primitive_type& primitive_type) noexcept;
 
     public:
         logical_device(const vk::PhysicalDevice&         physical_device

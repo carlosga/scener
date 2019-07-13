@@ -58,15 +58,15 @@ namespace scener::content::readers
                                                               , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
-        std::uint32_t offset = 0;
-
         for (auto it = value[k_uniforms].begin(); it != value[k_uniforms].end(); ++it)
         {
-            const auto    uniform_name = it.value().get<std::string>();
-            const auto&   paramref     = value[k_parameters][uniform_name];
-            auto          parameter    = std::make_shared<effect_parameter>();
+            const auto  name      = it.value().get<std::string>();
+            const auto& paramref  = value[k_parameters][name];
+            auto        parameter = std::make_shared<effect_parameter>();
 
-            parameter->_name         = uniform_name;
+            std::uint32_t offset = 0;
+
+            parameter->_name         = name;
             parameter->_uniform_name = it.key();            
 
             if (paramref.count(k_count) != 0)

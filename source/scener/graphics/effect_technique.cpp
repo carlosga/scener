@@ -257,8 +257,6 @@ namespace scener::graphics
 
     void effect_technique::update() noexcept
     {
-        // std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->begin(); });
-
         if ((_dirty_flags & effect_dirty_flags::world_view_proj) != 0 || (_dirty_flags & effect_dirty_flags::world) != 0)
         {
             set_world_view_proj();
@@ -266,22 +264,7 @@ namespace scener::graphics
             _dirty_flags &= ~effect_dirty_flags::world_view_proj;
             _dirty_flags &= ~effect_dirty_flags::world;
         }
-
-//        if (_texture_enabled)
-//        {
-//            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->bind(); });
-//        }
     }
-
-//    void effect_technique::end() noexcept
-//    {
-//        if (_texture_enabled)
-//        {
-//            std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->unbind(); });
-//        }
-
-//        // std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
-//    }
 
     void effect_technique::set_world_view_proj() const noexcept
     {

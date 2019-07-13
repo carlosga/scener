@@ -8,12 +8,11 @@ in vec2 v_texcoord0;
 in vec3 v_light0Direction;
 in vec3 v_position;
 
-layout (binding = 0) uniform sampler2D u_diffuse;
-
 #include "earthshaker0CB.glsl"
 #include "texture_sampling.glsl"
 #include "common.glsl"
 
+layout (binding = 0) uniform sampler2D u_diffuse;
 layout (location = 0) out vec4 FragColor;
 
 void main(void)

@@ -109,6 +109,27 @@ namespace scener::graphics::vulkan
         }
     }
 
+    vk::PrimitiveTopology logical_device::vkPrimitiveTopology(const scener::graphics::primitive_type& primitive_type) noexcept
+    {
+        switch (primitive_type)
+        {
+        case scener::graphics::primitive_type::point_list:
+            return vk::PrimitiveTopology::ePointList;
+        case scener::graphics::primitive_type::line_list:
+            return vk::PrimitiveTopology::eLineList;
+        case scener::graphics::primitive_type::line_loop:
+            return vk::PrimitiveTopology::eLineListWithAdjacency;
+        case scener::graphics::primitive_type::line_strip:
+            return vk::PrimitiveTopology::eLineStrip;
+        case scener::graphics::primitive_type::triangle_list:
+            return vk::PrimitiveTopology::eTriangleList;
+        case scener::graphics::primitive_type::triangle_strip:
+            return vk::PrimitiveTopology::eTriangleStrip;
+        case scener::graphics::primitive_type::triangle_fan:
+            return vk::PrimitiveTopology::eTriangleFan;
+        }
+    }
+
     logical_device::logical_device(const vk::PhysicalDevice&         physical_device
                                  , const vk::Device&                 logical_device
                                  , const viewport&                   viewport
@@ -466,6 +487,7 @@ namespace scener::graphics::vulkan
             vk::CompositeAlphaFlagBitsKHR::ePostMultiplied,
             vk::CompositeAlphaFlagBitsKHR::eInherit,
         };
+
         for (uint32_t i = 0; i < 4; i++)
         {
             if (_surface_capabilities.supportedCompositeAlpha & composite_alpha_flags[i])
@@ -595,7 +617,7 @@ namespace scener::graphics::vulkan
 
         // Assembly state
         const auto input_assembly_state = vk::PipelineInputAssemblyStateCreateInfo()
-            .setTopology(static_cast<vk::PrimitiveTopology>(model_mesh_part.primitive_type()));
+            .setTopology(vkPrimitiveTopology(model_mesh_part.primitive_type()));
 
         // Shader stages
         const auto effect_pass = model_mesh_part.effect_technique()->passes().at(0);
@@ -792,7 +814,7 @@ namespace scener::graphics::vulkan
         VmaAllocationCreateInfo create_info = { };
 
         create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
-        create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
+        //create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
 
         auto create_image_result = vmaCreateImage(
             _allocator

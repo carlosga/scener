@@ -260,7 +260,7 @@ namespace scener::graphics
 
     void renderer::prepare_device_settings(graphics_device_information* device_info) const noexcept
     {
-        device_info->adapter                                  = graphics_adapter();
+        //device_info->adapter                                  = graphics_adapter();
         device_info->presentation_params.device_window_handle = _window->display_surface();
     }
 }

@@ -15,7 +15,7 @@ namespace scener::graphics
 
     struct default_constant_buffer final
     {
-    public:
+    public:       
         // Vertex shader
         math::matrix4 u_jointMat[57];
         math::matrix4 u_normalMatrix;

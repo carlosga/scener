@@ -84,6 +84,7 @@ namespace scener::graphics::vulkan
 
     void adapter::enable_debug_support() noexcept
     {
+#if defined(VK_ENABLE_DEBUG_SUPPORT)
         auto create_info = vk::DebugUtilsMessengerCreateInfoEXT()
             .setMessageSeverity(vk::DebugUtilsMessageSeverityFlagBitsEXT::eVerbose
                               | vk::DebugUtilsMessageSeverityFlagBitsEXT::eInfo
@@ -97,10 +98,12 @@ namespace scener::graphics::vulkan
         auto result = _instance.createDebugUtilsMessengerEXT(&create_info, nullptr, &_debug_messenger, _dispatcher);
 
         check_result(result);
+#endif
     }
 
     void adapter::identify_validation_layers() noexcept
     {
+#if defined(VK_ENABLE_DEBUG_SUPPORT)
         auto layers = vk::enumerateInstanceLayerProperties();
 
         const auto it = std::find_if(layers.begin(), layers.end(), [] (const vk::LayerProperties& layer) -> bool
@@ -117,6 +120,7 @@ namespace scener::graphics::vulkan
         {
             throw std::runtime_error("vkEnumerateInstanceLayerProperties failed to find required validation layer.");
         }
+#endif
     }
 
     void adapter::identify_supported_extensions() noexcept
@@ -136,6 +140,7 @@ namespace scener::graphics::vulkan
                 surfaceExtFound = 1;
                 _extension_names.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
             }
+#if defined(VK_ENABLE_DEBUG_SUPPORT)
             if (!strcmp(VK_EXT_DEBUG_REPORT_NAME, instance_extension.extensionName))
             {
                 debugReportFound = 1;
@@ -146,6 +151,7 @@ namespace scener::graphics::vulkan
                 debugUtilsFound = 1;
                 _extension_names.push_back(VK_EXT_DEBUG_UTILS_NAME);
             }
+#endif
 #if defined(VK_USE_PLATFORM_WIN32_KHR)
             if (!strcmp(VK_KHR_WIN32_SURFACE_EXTENSION_NAME, instance_extension.extensionName))
             {
@@ -189,7 +195,7 @@ namespace scener::graphics::vulkan
         {
             throw std::runtime_error("No surface extension found for the current platform (XLIB, XCB, WAYLAND, ...");
         }
-
+#if defined(VK_ENABLE_DEBUG_SUPPORT)
         if (!debugReportFound)
         {
             throw std::runtime_error("VK_EXT_debug_report extension not found");
@@ -199,6 +205,7 @@ namespace scener::graphics::vulkan
         {
             throw std::runtime_error("VK_EXT_debug_utils extension not found");
         }
+#endif
     }
 
     void adapter::identify_physical_devices() noexcept
