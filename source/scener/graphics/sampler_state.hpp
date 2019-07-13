@@ -48,8 +48,8 @@ namespace scener::graphics
         /// Gets or sets the type of filtering during sampling.
         texture_filter min_filter { texture_filter::linear };
 
-        /// Gets or sets the maximum anisotropy. The default value is 0.
-        std::int32_t max_anisotropy { 4 };
+        /// Gets or sets the maximum anisotropy. The default value is 16.
+        std::int32_t max_anisotropy { 16 };
 
         /// Gets or sets the level of detail (LOD) index of the largest map to use.
         std::size_t max_mip_level { 0 };

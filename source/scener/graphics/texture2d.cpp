@@ -65,6 +65,7 @@ namespace scener::graphics
     {
         return _texture_object.sampler;
     }
+
     const vk::ImageView& texture2d::view() const noexcept
     {
         return _texture_object.view;

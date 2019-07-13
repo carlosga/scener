@@ -87,11 +87,11 @@ namespace scener::graphics::vulkan
         case scener::graphics::surface_format::bgra4444:
             return vk::Format::eR4G4B4A4UnormPack16;
         case scener::graphics::surface_format::dxt1:
-            return vk::Format::eBc1RgbaUnormBlock;
+            return vk::Format::eBc1RgbaSrgbBlock;
         case scener::graphics::surface_format::dxt3:
-            return vk::Format::eBc3UnormBlock;
+            return vk::Format::eBc3SrgbBlock;
         case scener::graphics::surface_format::dxt5:
-            return vk::Format::eBc5UnormBlock;
+            return vk::Format::eBc3SrgbBlock;
         case scener::graphics::surface_format::normalized_byte2:
             return vk::Format::eR8G8Snorm;
         case scener::graphics::surface_format::normalized_byte4:
@@ -754,18 +754,21 @@ namespace scener::graphics::vulkan
     vk::Sampler logical_device::create_sampler(gsl::not_null<const sampler_state*> sampler_state) const noexcept
     {
         auto create_info = vk::SamplerCreateInfo()
-            .setCompareOp(vk::CompareOp::eLess)
-            .setMipmapMode(vk::SamplerMipmapMode::eNearest)
+            .setMipmapMode(vk::SamplerMipmapMode::eLinear)
             .setMinLod(0)
-            .setMaxLod(sampler_state->max_mip_level)
+            .setMaxLod(1)
             .setMipLodBias(sampler_state->mip_map_level_of_detail_bias)
             .setAddressModeU(vkSamplerAddressMode(sampler_state->address_u))
             .setAddressModeV(vkSamplerAddressMode(sampler_state->address_v))
             .setAddressModeW(vkSamplerAddressMode(sampler_state->address_w))
             .setMagFilter(vkFilter(sampler_state->mag_filter))
             .setMinFilter(vkFilter(sampler_state->min_filter))
+            .setCompareOp(vk::CompareOp::eAlways)
+            .setCompareEnable(VK_FALSE)
+            .setBorderColor(vk::BorderColor::eIntOpaqueBlack)
+            .setUnnormalizedCoordinates(VK_FALSE)
             .setMaxAnisotropy(sampler_state->max_anisotropy)
-            .setAnisotropyEnable(false);
+            .setAnisotropyEnable(VK_TRUE);
 
         vk::Sampler sampler;
 
@@ -786,6 +789,10 @@ namespace scener::graphics::vulkan
 
         texture.width  = source->width();
         texture.height = source->height();
+
+        // A single mipmap for now
+        const auto& mipmap      = source->mipmap(0).view();
+        const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
 
         // Create & allocate the image
         const auto format = vkFormat(source->format());
@@ -818,10 +825,7 @@ namespace scener::graphics::vulkan
           , &texture.allocation_info);
 
         Ensures(create_image_result == VK_SUCCESS);
-
-        // Image subresource
-        const auto& mipmap      = source->mipmap(0).view();
-        const auto  mipmap_size = static_cast<std::uint32_t>(mipmap.size());
+        Ensures(static_cast<std::uint32_t>(texture.allocation_info.size) == mipmap_size);
 
         // Copy the image contents to a staging buffer
         VkBufferCreateInfo buffer_create_info = {
@@ -853,7 +857,7 @@ namespace scener::graphics::vulkan
 
         Ensures(result == VK_SUCCESS);
 
-        std::copy_n(mipmap.data(), mipmap.size(), reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
+        std::copy_n(mipmap.data(), mipmap_size, reinterpret_cast<char*>(staging_buffer_alloc_info.pMappedData));
 
         // Layout transitions using barriers
         begin_single_time_commands();

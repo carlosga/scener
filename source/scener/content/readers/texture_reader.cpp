@@ -43,7 +43,7 @@ namespace scener::content::readers
         instance->_texture_object = device->create_texture_object(
             dds.get()
           , sstate.get()
-          , vk::ImageTiling::eLinear
+          , vk::ImageTiling::eOptimal
           , vk::ImageUsageFlagBits::eSampled | vk::ImageUsageFlagBits::eTransferDst
           , vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent);
 
