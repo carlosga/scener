@@ -85,6 +85,9 @@ namespace scener::graphics
 
     void window::pool_events() const noexcept
     {
-        _display_surface->pool_events();
+        if (!_closed)
+        {
+            _display_surface->pool_events();
+        }
     }
 }

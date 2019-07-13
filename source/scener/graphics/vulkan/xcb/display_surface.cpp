@@ -123,15 +123,15 @@ namespace scener::graphics::vulkan
                           value_mask, value_list);                  // masks, not used yet */
 
         /* Redirect Close */
-        xcb_intern_atom_cookie_t cookie  = xcb_intern_atom(c, 1, 12, "WM_PROTOCOLS");
-        xcb_intern_atom_reply_t* reply   = xcb_intern_atom_reply(c, cookie, nullptr);
-        xcb_intern_atom_cookie_t cookie2 = xcb_intern_atom(c, 0, 16, "WM_DELETE_WINDOW");
+        xcb_intern_atom_cookie_t protocols_cookie     = xcb_intern_atom(c, 1, 12, "WM_PROTOCOLS");
+        xcb_intern_atom_reply_t* protocols_reply      = xcb_intern_atom_reply(c, protocols_cookie, nullptr);
+        xcb_intern_atom_cookie_t deletw_window_cookie = xcb_intern_atom(c, 0, 16, "WM_DELETE_WINDOW");
 
-        _atom_wm_delete_window = xcb_intern_atom_reply(c, cookie2, nullptr);
+        _atom_wm_delete_window = xcb_intern_atom_reply(c, deletw_window_cookie, nullptr);
 
-        xcb_change_property(c, XCB_PROP_MODE_REPLACE, w, (*reply).atom, 4, 32, 1, &(*_atom_wm_delete_window).atom);
+        xcb_change_property(c, XCB_PROP_MODE_REPLACE, w, (*protocols_reply).atom, 4, 32, 1, &(*_atom_wm_delete_window).atom);
 
-        free(reply);
+        free(protocols_reply);
 
         /* Map the window on the screen */
         xcb_map_window(c, w);
@@ -159,8 +159,21 @@ namespace scener::graphics::vulkan
         xcb_generic_event_t *event;
 
         while (_connection && (event = xcb_poll_for_queued_event(_connection)))
-        {
-            free(event);
+        {            
+            if (event)
+            {
+                switch (event->response_type & 0x7f)
+                {
+                case XCB_CLIENT_MESSAGE:
+                    if ((*(xcb_client_message_event_t*)event).data.data32[0] == (*_atom_wm_delete_window).atom )
+                    {
+                        _closing_signal();
+                        free (_atom_wm_delete_window);
+                    }
+                    break;
+                }
+                free(event);
+            }
         }
     }
 

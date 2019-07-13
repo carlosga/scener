@@ -32,8 +32,10 @@ namespace scener::graphics::vulkan
     }
 
     adapter::~adapter() noexcept
-    {
+    {        
+#ifdef VK_ENABLE_DEBUG_SUPPORT
         _instance.destroyDebugUtilsMessengerEXT(_debug_messenger, nullptr, _dispatcher);
+#endif
         _instance.destroy(nullptr);
     }
 
