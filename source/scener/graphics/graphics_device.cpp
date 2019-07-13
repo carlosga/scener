@@ -64,15 +64,14 @@ namespace scener::graphics
         _logical_device->present();
     }
 
-    void graphics_device::draw_indexed_primitives(primitive_type    primitive_type
-                                                , std::uint32_t     base_vertex
-                                                , std::uint32_t     min_vertex_index
-                                                , std::uint32_t     num_vertices
-                                                , std::uint32_t     start_index
-                                                , std::uint32_t     primitive_count
-                                                , vertex_buffer*    vertex_buffer
-                                                , index_buffer*     index_buffer
-                                                , effect_technique* technique) const noexcept
+    void graphics_device::draw_indexed(std::uint32_t     base_vertex
+                                     , std::uint32_t     min_vertex_index
+                                     , std::uint32_t     num_vertices
+                                     , std::uint32_t     start_index
+                                     , std::uint32_t     primitive_count
+                                     , vertex_buffer*    vertex_buffer
+                                     , index_buffer*     index_buffer
+                                     , effect_technique* technique) const noexcept
     {
         Expects(index_buffer  != nullptr);
         Expects(vertex_buffer != nullptr);
@@ -83,8 +82,7 @@ namespace scener::graphics
         });
 
         _logical_device->draw_indexed(
-              primitive_type
-            , base_vertex
+              base_vertex
             , min_vertex_index
             , num_vertices
             , start_index

@@ -8,8 +8,6 @@
 #include <vector>
 #include <string>
 
-#include "scener/graphics/model_mesh_part.hpp"
-#include "scener/graphics/skeleton.hpp"
 #include "scener/graphics/steptime.hpp"
 #include "scener/math/bounding_sphere.hpp"
 #include "scener/math/basic_matrix.hpp"
@@ -18,6 +16,9 @@ namespace scener::content::readers { template <typename T> class content_type_re
 
 namespace scener::graphics
 {
+    class model_mesh_part;
+    class skeleton;
+
     /// Represents a mesh that is part of a Model.
     class model_mesh final
     {
@@ -41,7 +42,7 @@ namespace scener::graphics
 
         /// Updates the model animation and skin state.
         /// \param time snapshot of the rendering timing state.
-        void update(const steptime& time
+        void update(const steptime&              time
                   , const scener::math::matrix4& world
                   , const scener::math::matrix4& view
                   , const scener::math::matrix4& projection) noexcept;

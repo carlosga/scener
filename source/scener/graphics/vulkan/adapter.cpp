@@ -2,6 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
+#ifndef VK_ENABLE_DEBUG_SUPPORT
+//#define VK_ENABLE_DEBUG_SUPPORT
+#endif
+
 #include "scener/graphics/vulkan/adapter.hpp"
 
 #include <algorithm>

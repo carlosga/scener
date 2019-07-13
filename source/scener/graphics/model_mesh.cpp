@@ -8,6 +8,8 @@
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/model_mesh_part.hpp"
+#include "scener/graphics/skeleton.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 
 namespace scener::graphics
@@ -34,10 +36,10 @@ namespace scener::graphics
         return _skeleton.get();
     }
 
-    void model_mesh::update(const steptime &time
-                          , const matrix4& world
-                          , const matrix4& view
-                          , const matrix4& projection) noexcept
+    void model_mesh::update(const steptime& time
+                          , const matrix4&  world
+                          , const matrix4&  view
+                          , const matrix4&  projection) noexcept
     {
         if (_skeleton != nullptr)
         {
@@ -67,15 +69,14 @@ namespace scener::graphics
         {
             part->vertex_buffer()
                 ->device()
-                ->draw_indexed_primitives(part->primitive_type()
-                                        , part->vertex_offset()
-                                        , 0
-                                        , part->vertex_count()
-                                        , part->start_index()
-                                        , part->primitive_count()
-                                        , part->vertex_buffer()
-                                        , part->index_buffer()
-                                        , part->effect_technique());
+                ->draw_indexed(part->vertex_offset()
+                             , 0
+                             , part->vertex_count()
+                             , part->start_index()
+                             , part->primitive_count()
+                             , part->vertex_buffer()
+                             , part->index_buffer()
+                             , part->effect_technique());
         });
     }
 }

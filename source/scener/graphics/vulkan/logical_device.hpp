@@ -69,8 +69,7 @@ namespace scener::graphics::vulkan
         void bind_graphics_pipeline(const graphics_pipeline& pipeline) const noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
-        void draw_indexed(graphics::primitive_type       primitive_type
-                        , std::uint32_t                  base_vertex
+        void draw_indexed(std::uint32_t                  base_vertex
                         , std::uint32_t                  min_vertex_index
                         , std::uint32_t                  num_vertices
                         , std::uint32_t                  start_index

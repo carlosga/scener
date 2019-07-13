@@ -64,15 +64,14 @@ namespace scener::graphics
         /// \param start_index      location in the index array at which to start reading vertices.
         /// \param primitive_count  number of primitives to render. The number of vertices used is a function of
         ///                         primitiveCount and primitiveType.
-        void draw_indexed_primitives(primitive_type    primitive_type
-                                   , std::uint32_t     base_vertex
-                                   , std::uint32_t     min_vertex_index
-                                   , std::uint32_t     num_vertices
-                                   , std::uint32_t     start_index
-                                   , std::uint32_t     primitive_count
-                                   , vertex_buffer*    vertex_buffer
-                                   , index_buffer*     index_buffer
-                                   , effect_technique* technique) const noexcept;
+        void draw_indexed(std::uint32_t     base_vertex
+                        , std::uint32_t     min_vertex_index
+                        , std::uint32_t     num_vertices
+                        , std::uint32_t     start_index
+                        , std::uint32_t     primitive_count
+                        , vertex_buffer*    vertex_buffer
+                        , index_buffer*     index_buffer
+                        , effect_technique* technique) const noexcept;
 
         /// Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
         /// The default value is BlendState.Opaque.

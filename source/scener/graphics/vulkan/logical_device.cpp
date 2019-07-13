@@ -8,22 +8,16 @@
 #include <gsl/gsl>
 
 #include "scener/graphics/constant_buffer.hpp"
-#include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/fill_mode.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/texture2d.hpp"
-#include "scener/graphics/texture_address_mode.hpp"
-#include "scener/graphics/texture_filter.hpp"
-#include "scener/graphics/vertex_element_format.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vulkan/shader.hpp"
 #include "scener/graphics/vulkan/shader_module.hpp"
 #include "scener/graphics/vulkan/shader_stage.hpp"
 #include "scener/graphics/vulkan/surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
-#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -332,8 +326,7 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void logical_device::draw_indexed(graphics::primitive_type       primitive_type
-                                    , std::uint32_t                  base_vertex
+    void logical_device::draw_indexed(std::uint32_t                  base_vertex
                                     , std::uint32_t                  min_vertex_index
                                     , std::uint32_t                  num_vertices
                                     , std::uint32_t                  start_index
@@ -814,7 +807,7 @@ namespace scener::graphics::vulkan
         VmaAllocationCreateInfo create_info = { };
 
         create_info.usage         = VMA_MEMORY_USAGE_GPU_ONLY;
-        //create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
+        create_info.requiredFlags = static_cast<VkMemoryPropertyFlags>(required_props);
 
         auto create_image_result = vmaCreateImage(
             _allocator
@@ -872,10 +865,6 @@ namespace scener::graphics::vulkan
             .setBaseArrayLayer(0)
             .setLayerCount(1);
 
-        const auto subresource_layers = vk::ImageSubresourceLayers()
-            .setAspectMask(vk::ImageAspectFlagBits::eColor)
-            .setLayerCount(1);
-
         auto barrier = vk::ImageMemoryBarrier()
             .setOldLayout(vk::ImageLayout::eUndefined)
             .setNewLayout(vk::ImageLayout::eTransferDstOptimal)
@@ -895,9 +884,12 @@ namespace scener::graphics::vulkan
           , 1, &barrier);
 
         // Copy the texture data using the staging buffer
-        auto region = vk::BufferImageCopy()
-            .setImageExtent({ texture.width / 4, texture.height / 4, 1 })
-            .setImageOffset({ 4, 4 , 0 })
+        const auto subresource_layers = vk::ImageSubresourceLayers()
+            .setAspectMask(vk::ImageAspectFlagBits::eColor)
+            .setLayerCount(1);
+
+        const auto region = vk::BufferImageCopy()
+            .setImageExtent({ texture.width, texture.height, 1 })
             .setImageSubresource(subresource_layers);
 
         _single_time_command_buffer.copyBufferToImage(
@@ -1530,16 +1522,16 @@ namespace scener::graphics::vulkan
 
         switch (state.cull_mode)
         {
-        case graphics::cull_mode::cull_clockwise_face:
-            create_info
-                .setCullMode(vk::CullModeFlagBits::eFront)
-                .setFrontFace(vk::FrontFace::eClockwise);
-            break;
-
         case graphics::cull_mode::cull_counter_clockwise_face:
             create_info
-                .setCullMode(vk::CullModeFlagBits::eBack)
+                .setCullMode(vk::CullModeFlagBits::eFront)
                 .setFrontFace(vk::FrontFace::eCounterClockwise);
+            break;
+
+        case graphics::cull_mode::cull_clockwise_face:
+            create_info
+                .setCullMode(vk::CullModeFlagBits::eBack)
+                .setFrontFace(vk::FrontFace::eClockwise);
             break;
 
         case graphics::cull_mode::none:
