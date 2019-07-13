@@ -203,9 +203,12 @@ namespace scener::graphics::vulkan
         return _present_queue;
     }
 
-    void logical_device::draw() noexcept
+    void logical_device::draw(const render_surface& surface) noexcept
     {
         std::uint32_t current_buffer = 0;
+
+        // Reset fences
+        reset_fence(_fences[_frame_index]);
 
         // Acquire swapchain image
         auto result = _logical_device.acquireNextImageKHR(
@@ -215,9 +218,15 @@ namespace scener::graphics::vulkan
           , vk::Fence()
           , &current_buffer);
 
-        check_result(result);
-
-        reset_fence(_fences[_frame_index]);
+        if (result == vk::Result::eSuccess)
+        {
+            // Image acquired
+        }
+        else if (result == vk::Result::eErrorOutOfDateKHR)
+        {
+            // Swapchain recreation needed
+            recreate_swap_chain(surface);
+        }
 
         // Submit command buffer
         static const vk::PipelineStageFlags pipe_stage_flags = vk::PipelineStageFlagBits::eColorAttachmentOutput;

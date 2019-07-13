@@ -54,7 +54,7 @@ namespace scener::graphics
     {
         Expects(_logical_device.get() != nullptr);
 
-        _logical_device->draw();
+        _logical_device->draw(*_render_surface);
     }
 
     void graphics_device::present() noexcept

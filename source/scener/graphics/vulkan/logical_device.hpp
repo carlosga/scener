@@ -81,7 +81,7 @@ namespace scener::graphics::vulkan
         void end_prepare() noexcept;
 
         // Draws the current frame
-        void draw() noexcept;
+        void draw(const render_surface& surface) noexcept;
 
         /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
         /// graphics_device.
