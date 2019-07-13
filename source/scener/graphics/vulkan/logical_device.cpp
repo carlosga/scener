@@ -211,22 +211,21 @@ namespace scener::graphics::vulkan
         reset_fence(_fences[_frame_index]);
 
         // Acquire swapchain image
-        auto result = _logical_device.acquireNextImageKHR(
-            _swap_chain
-          , std::numeric_limits<std::uint64_t>().max()
-          , _image_acquired_semaphores[_frame_index]
-          , vk::Fence()
-          , &current_buffer);
+        vk::Result result;
+        do {
+            result = _logical_device.acquireNextImageKHR(
+                _swap_chain
+              , std::numeric_limits<std::uint64_t>().max()
+              , _image_acquired_semaphores[_frame_index]
+              , vk::Fence()
+              , &current_buffer);
 
-        if (result == vk::Result::eSuccess)
-        {
-            // Image acquired
-        }
-        else if (result == vk::Result::eErrorOutOfDateKHR)
-        {
-            // Swapchain recreation needed
-            recreate_swap_chain(surface);
-        }
+            if (result == vk::Result::eErrorOutOfDateKHR)
+            {
+                // Swapchain recreation needed
+                recreate_swap_chain(surface);
+            }
+        } while (result != vk::Result::eSuccess);
 
         // Submit command buffer
         static const vk::PipelineStageFlags pipe_stage_flags = vk::PipelineStageFlagBits::eColorAttachmentOutput;
@@ -571,7 +570,7 @@ namespace scener::graphics::vulkan
     void logical_device::recreate_swap_chain(const render_surface& surface) noexcept
     {
 //        _logical_device.waitIdle();
-//        destroy_swap_chain(false);
+//        destroy_swap_chain();
 //        create_sync_primitives();
 //        create_swap_chain(surface);
     }
