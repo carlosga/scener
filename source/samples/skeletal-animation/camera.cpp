@@ -37,13 +37,12 @@ namespace skeletal::animation
         static const radians fov = 45_deg;
         const auto aspect = _renderer->device()->viewport().aspect_ratio();
 
-        _position           = { 0.0f, 0.0f, 300.0f };
-        _rotation           = 0_deg;
+        _position           = { 0.0f, 0.0f, -500.0f };
+        _rotation           = 45_deg;
         _rotation_transform = matrix4::identity();
 
-        view = create_look_at(_position, vector3::zero(), vector3::up());
-
-        projection = create_perspective_field_of_view(fov, aspect, 1.0f, 1000.0f);
+        view       = create_look_at(_position, vector3::zero(), vector3::up());
+        projection = create_perspective_field_of_view(fov, aspect, 1.0f, 2500.0f);
 
 //        _resize_connection = _renderer->window()->connect_resize([&](std::uint32_t, std::uint32_t) {
 //            static const radians fov = 45_deg;

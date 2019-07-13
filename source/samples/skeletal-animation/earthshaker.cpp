@@ -9,6 +9,7 @@
 #include <scener/graphics/model_mesh_part.hpp>
 #include <scener/graphics/window.hpp>
 #include <scener/math/basic_math.hpp>
+#include <scener/math/basic_angle.hpp>
 #include <scener/math/vector.hpp>
 
 #include "skeletal-animation/sample_renderer.hpp"
@@ -16,10 +17,14 @@
 
 namespace skeletal::animation
 {
+    using namespace scener::math;
+
     using scener::graphics::model;
     using scener::graphics::effect_technique;
     using scener::graphics::steptime;
     using scener::math::matrix4;
+    using scener::math::matrix::create_rotation_x;
+    using scener::math::matrix::create_rotation_y;
     using scener::math::matrix::create_rotation_z;
     using scener::math::matrix::create_translation;
     using scener::math::matrix::create_scale;
@@ -33,10 +38,11 @@ namespace skeletal::animation
 
     void earthshaker::initialize() noexcept
     {
-//        _world = create_rotation_z({ -scener::math::pi_over_2<> })
-//               * create_translation({ 0.0f, 0.0f, -150.0f });
+        static radians rotation = 45_deg;
 
-        _world = create_translation({ 0.0f, 0.0f, -150.0f });
+        _world = create_translation({ 0.0f, 0.0f, 0.0f })
+               * create_rotation_x({ scener::math::pi_over_2<> })
+               * create_rotation_y(rotation);
 
         drawable_component::initialize();
     }
