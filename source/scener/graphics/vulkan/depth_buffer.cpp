@@ -9,7 +9,7 @@ namespace scener::graphics::vulkan
         : _image      { }
         , _view       { }
         , _allocation { }
-        , _allocator  { nullptr }
+        , _allocator  { }
     {
     }
 
@@ -25,8 +25,8 @@ namespace scener::graphics::vulkan
     }
 
     void depth_buffer::destroy() noexcept
-    {
-        vmaDestroyImage(*_allocator, _image, _allocation);        
+    {       
+        vmaDestroyImage(*_allocator, _image, _allocation);
     }
 
     const vk::Image& depth_buffer::image() const noexcept

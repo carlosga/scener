@@ -3,7 +3,7 @@
 // ==================================================================================================
 
 #ifndef VK_ENABLE_DEBUG_SUPPORT
-//#define VK_ENABLE_DEBUG_SUPPORT
+#define VK_ENABLE_DEBUG_SUPPORT
 #endif
 
 #include "scener/graphics/vulkan/adapter.hpp"

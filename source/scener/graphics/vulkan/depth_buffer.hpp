@@ -7,7 +7,6 @@
 #include <gsl/gsl>
 #include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/texture_target.hpp"
 #include "scener/graphics/vulkan/vulkan_memory_allocator.hpp"
 
 namespace scener::graphics::vulkan
@@ -17,9 +16,9 @@ namespace scener::graphics::vulkan
     public:
         depth_buffer() noexcept;
         depth_buffer(const vk::Image&             image
-                    , const vk::ImageView&         view
-                    , const VmaAllocation&         allocation
-                    , gsl::not_null<VmaAllocator*> allocator) noexcept;
+                   , const vk::ImageView&         view
+                   , const VmaAllocation&         allocation
+                   , gsl::not_null<VmaAllocator*> allocator) noexcept;
 
     public:
         void destroy() noexcept;

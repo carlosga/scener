@@ -174,17 +174,17 @@ namespace scener::graphics::vulkan
 
     logical_device::~logical_device() noexcept
     {
-        // Swapchain
-        destroy_swap_chain();
-
         // Command buffers
         destroy_command_buffers();
+
+        // Depth buffer
+        destroy_depth_buffer();
 
         // Command pools
         destroy_command_pools();
 
-        // Depth buffer
-        _depth_buffer.destroy();
+        // Swapchain
+        destroy_swap_chain();
 
         // Memory allocators
         vmaDestroyAllocator(_allocator);
@@ -569,7 +569,6 @@ namespace scener::graphics::vulkan
 
     void logical_device::recreate_swap_chain(const render_surface& surface) noexcept
     {
-//        _logical_device.waitIdle();
 //        destroy_swap_chain();
 //        create_sync_primitives();
 //        create_swap_chain(surface);
@@ -1365,9 +1364,10 @@ namespace scener::graphics::vulkan
         _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, std::numeric_limits<std::uint64_t>().max());
         _logical_device.destroyFence(_single_time_command_fence, nullptr);
 
-        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; i++)
+        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
-            _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
+            _logical_device.resetFences(1, &_fences[i]);
+            // _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
             _logical_device.destroyFence(_fences[i], nullptr);
             _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
             _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
@@ -1403,6 +1403,12 @@ namespace scener::graphics::vulkan
         _logical_device.destroyCommandPool(_single_time_command_pool, nullptr);
     }
 
+    void logical_device::destroy_depth_buffer() noexcept
+    {
+        _depth_buffer.destroy();
+        _logical_device.destroyImageView(_depth_buffer.view(), nullptr);
+    }
+
     void logical_device::destroy_swapchain_views() noexcept
     {
         std::for_each(_swap_chain_image_views.begin(), _swap_chain_image_views.end(), [&] (const auto& view) -> void {
@@ -1432,6 +1438,9 @@ namespace scener::graphics::vulkan
 
         // Render pass
         _logical_device.destroyRenderPass(_render_pass, nullptr);
+
+        // Depth buffer
+        destroy_depth_buffer();
 
         // Swapchain images
         _swap_chain_images.clear(); // swap chain images are destroyed by the vulkan driver

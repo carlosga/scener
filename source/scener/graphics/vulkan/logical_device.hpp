@@ -139,6 +139,7 @@ namespace scener::graphics::vulkan
         void destroy_sync_primitives() noexcept;
         void destroy_command_buffers() noexcept;
         void destroy_command_pools() noexcept;
+        void destroy_depth_buffer() noexcept;
         void destroy_swapchain_views() noexcept;
         void destroy_frame_buffers() noexcept;
         void destroy_swap_chain() noexcept;
