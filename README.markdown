@@ -24,7 +24,7 @@ A step by step series of examples that tell you have to get a development env ru
 1. Clone repository
 
 ```
-git clone --recursive https://gitlab.com/carlosga/scener.git
+git clone --recursive https://github.com/carlosga/scener.git
 ```
 
 2. Install dependencies (packages names for Debian)
@@ -33,7 +33,7 @@ git clone --recursive https://gitlab.com/carlosga/scener.git
 sudo apt-get install cmake xorg-dev libgl1-mesa-dev
 ```
 
-3. Configure the build 
+3. Configure the build
 
 3.1 (GCC - DEBUG)
 
@@ -50,10 +50,10 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug
 cd scener
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang
 ```
 
-4. Build 
+4. Build
 
 ```
 make -j <NUM_CORES>
@@ -77,7 +77,7 @@ make test
 
 ## Authors
 
-* **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://gitlab.com/carlosga)
+* **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://github.com/carlosga)
 
 ## License
 
@@ -87,6 +87,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 * The API is inspired on a subset of the Microsoft XNA 4 API
 * Earthshaker model is a DOTA 2 model downloaded from [**DOTA 2 Workshop**](http://www.dota2.com/workshop/requirements),
-  converted to COLLADA using [**Blender**](https://www.blender.org/) and finally to [**glTF**](https://github.com/KhronosGroup/glTF) 
+  converted to COLLADA using [**Blender**](https://www.blender.org/) and finally to [**glTF**](https://github.com/KhronosGroup/glTF)
   using the official COLLADA to glTF converter.
 * The [template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) this README is based on
