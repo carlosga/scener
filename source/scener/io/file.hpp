@@ -4,7 +4,7 @@
 #ifndef SCENER_IO_FILE_HPP
 #define SCENER_IO_FILE_HPP
 
-#include <gsl/gsl_assert>
+#include <gsl/assert>
 
 #include "scener/io/binary_reader.hpp"
 #include "scener/io/file_stream.hpp"
