@@ -24,8 +24,8 @@ set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
 
-# nod/signals & slots (https://github.com/fr00b0/nod)
-set (AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/vulkan-memory-allocator/src)
+# AMD VULKAN MEMORY ALLOCATOR
+set (AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/vulkan-memory-allocator/include)
 
 # reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
