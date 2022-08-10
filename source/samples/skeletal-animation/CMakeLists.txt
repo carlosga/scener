@@ -29,7 +29,7 @@ target_include_directories (skeletal-animation
 target_link_libraries (skeletal-animation pthread ${SCENER_LIBRARIES})
 
 # compile shaders
-set (GLSL_VALIDATOR "$ENV{GLSL_LANG_PATH}/glslangValidator")
+find_program(GLSL_VALIDATOR glslangValidator REQUIRED)
 
 # GLSL shader files
 file (GLOB_RECURSE GLSL_SOURCE_FILES
