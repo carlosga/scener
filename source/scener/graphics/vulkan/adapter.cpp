@@ -2,10 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
-#ifndef VK_ENABLE_DEBUG_SUPPORT
-#define VK_ENABLE_DEBUG_SUPPORT
-#endif
-
 #include "scener/graphics/vulkan/adapter.hpp"
 
 #include <algorithm>
@@ -32,7 +28,7 @@ namespace scener::graphics::vulkan
     }
 
     adapter::~adapter() noexcept
-    {        
+    {
 #ifdef VK_ENABLE_DEBUG_SUPPORT
         _instance.destroyDebugUtilsMessengerEXT(_debug_messenger, nullptr, _dispatcher);
 #endif

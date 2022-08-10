@@ -34,6 +34,12 @@ if (${VK_USE_PLATFORM_WAYLAND_KHR} MATCHES "1")
   link_libraries (${WAYLAND_CLIENT_LIBRARIES})
 endif()
 
+# Vulkan debug support
+if (${VK_ENABLE_DEBUG_SUPPORT} MATCHES "1")
+  # definitions
+  add_definitions (-DVK_ENABLE_DEBUG_SUPPORT)
+endif()
+
 # Project subdirectories
 add_subdirectory (scener)
 
