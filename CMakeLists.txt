@@ -37,8 +37,9 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++17")
 
 # common ompile options
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter")
-    # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"
+
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-exceptions")
+
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -69,7 +70,7 @@ set (SCENER_LIBRARIES    scener)
 # global definitions
 # set (VK_USE_PLATFORM_WAYLAND_KHR "1")
 set (VK_USE_PLATFORM_XCB_KHR "1")
-set (VK_ENABLE_DEBUG_SUPPORT "1")
+set (VK_ENABLE_DEBUG_SUPPORT "0")
 
 # project subdirectories
 add_subdirectory (source)
