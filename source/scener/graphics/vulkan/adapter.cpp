@@ -17,7 +17,7 @@ namespace scener::graphics::vulkan
         , _layer_names      { }
         , _extension_names  { }
         , _physical_devices { }
-        , _dispatcher       { }
+        //, _dispatcher       { }
         , _debug_messenger  { }
     {
         identify_validation_layers();
@@ -68,7 +68,7 @@ namespace scener::graphics::vulkan
             .setApplicationVersion(1)
             .setPEngineName("SCENER 0.1.0")
             .setEngineVersion(1)
-            .setApiVersion(VK_MAKE_VERSION(1, 1, VK_HEADER_VERSION));
+            .setApiVersion(VK_MAKE_VERSION(1, 2, VK_HEADER_VERSION));
 
         auto const inst_info = vk::InstanceCreateInfo()
             .setPApplicationInfo(&app)
@@ -81,7 +81,7 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        _dispatcher.init(_instance);
+        //_dispatcher.init(_instance);
     }
 
     void adapter::enable_debug_support() noexcept
@@ -130,8 +130,11 @@ namespace scener::graphics::vulkan
         /* Look for instance extensions */
         vk::Bool32 surfaceExtFound         = VK_FALSE;
         vk::Bool32 platformSurfaceExtFound = VK_FALSE;
+
+#if defined(VK_ENABLE_DEBUG_SUPPORT)
         vk::Bool32 debugReportFound        = VK_FALSE;
         vk::Bool32 debugUtilsFound         = VK_FALSE;
+#endif
 
         const auto instance_extensions = vk::enumerateInstanceExtensionProperties(nullptr);
 

@@ -37,7 +37,7 @@ namespace scener::graphics::vulkan
         std::vector<const char*>     _layer_names;
         std::vector<const char*>     _extension_names;
         std::vector<physical_device> _physical_devices;
-        vk::DispatchLoaderDynamic    _dispatcher;
+        //vk::DispatchLoaderDynamic    _dispatcher;
         vk::DebugUtilsMessengerEXT   _debug_messenger;
     };
 }
