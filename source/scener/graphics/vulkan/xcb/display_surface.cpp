@@ -17,7 +17,6 @@ namespace scener::graphics::vulkan
         , _atom_wm_delete_window { nullptr }
         , _closing_signal        { }
         , _resize_signal         { }
-
     {
         create(title, rect);
     }

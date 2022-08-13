@@ -62,6 +62,8 @@ namespace scener::graphics::vulkan
         , _wl_shell_surface { nullptr }
         , _wl_seat          { nullptr }
         , _rect             { }
+        , _closing_signal   { }
+        , _resize_signal    { }
     {
         create(title, rect);
     }
@@ -69,6 +71,11 @@ namespace scener::graphics::vulkan
     display_surface::~display_surface() noexcept
     {
         destroy();
+    }
+
+    void display_surface::set_title(const std::string& title) noexcept
+    {
+
     }
 
     struct wl_display* display_surface::display() const noexcept
@@ -133,6 +140,18 @@ namespace scener::graphics::vulkan
         _rect = rect;
     }
 
+    void display_surface::clear() noexcept
+    {
+    }
+
+    void display_surface::show() noexcept
+    {
+    }
+
+    void display_surface::pool_events() noexcept
+    {
+    }
+
     void display_surface::destroy() noexcept
     {
         if (_wl_shell_surface != nullptr)
@@ -172,16 +191,14 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void display_surface::clear() noexcept
+    nod::connection display_surface::connect_closing(std::function<void()>&& slot) noexcept
     {
+        return _closing_signal.connect(slot);
     }
 
-    void display_surface::show() noexcept
+    nod::connection display_surface::connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept
     {
-    }
-
-    void display_surface::pool_events() noexcept
-    {
+        return _resize_signal.connect(slot);
     }
 
     void display_surface::registry_handler(

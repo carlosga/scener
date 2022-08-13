@@ -17,7 +17,7 @@ namespace scener::graphics::vulkan
     class render_surface final
     {
     public:
-        render_surface(gsl::not_null<adapter*>         adapter
+        render_surface(std::shared_ptr<adapter>        adapter
                      , gsl::not_null<display_surface*> display_surface) noexcept;
 
         ~render_surface() noexcept;
@@ -29,9 +29,9 @@ namespace scener::graphics::vulkan
         vk::Extent2D extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept;
 
     private:
-        adapter*         _adapter;
-        display_surface* _display_surface;
-        vk::SurfaceKHR   _render_surface;
+        std::shared_ptr<adapter> _adapter;
+        display_surface*         _display_surface;
+        vk::SurfaceKHR           _render_surface;
     };
 }
 

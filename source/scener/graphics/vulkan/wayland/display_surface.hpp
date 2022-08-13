@@ -11,6 +11,8 @@
 #include <wayland-client.h>
 
 #include <gsl/gsl>
+#include <nod/nod.hpp>
+
 #include <scener/math/basic_rect.hpp>
 
 namespace scener::graphics::vulkan
@@ -37,6 +39,7 @@ namespace scener::graphics::vulkan
         ~display_surface() noexcept;
 
     public:
+        void set_title(const std::string& title) noexcept;
         struct wl_display* display() const noexcept;
         struct wl_surface* surface() const noexcept;
         scener::math::basic_rect<std::uint32_t> rect() const noexcept;
@@ -51,9 +54,15 @@ namespace scener::graphics::vulkan
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
 
+        /// Destroys this display surface
+        void destroy() noexcept;
+
+    public:
+        nod::connection connect_closing(std::function<void()>&& slot) noexcept;
+        nod::connection connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept;
+
     private:
         void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
-        void destroy() noexcept;
         void registry_handler(struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version);
         void registry_remover(struct wl_registry *registry, std::uint32_t id);
         void seat_capabilities(wl_seat *seat, std::uint32_t caps);
@@ -67,6 +76,11 @@ namespace scener::graphics::vulkan
         struct wl_seat*          _wl_seat;
 
         scener::math::basic_rect<std::uint32_t> _rect;
+
+    private:
+        // signals
+        nod::signal<void()>                           _closing_signal;
+        nod::signal<void(std::int32_t, std::int32_t)> _resize_signal;
     };
 }
 

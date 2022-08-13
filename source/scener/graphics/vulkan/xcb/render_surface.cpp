@@ -45,7 +45,7 @@ namespace scener::graphics::vulkan
     }
 
     vk::Extent2D render_surface::extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept
-    {        
+    {
         // The extent is typically the size of the window we created the surface from.
         // However if Vulkan returns -1 then simply substitute the window size.
         if (capabilities.currentExtent.width == UINT32_MAX)
