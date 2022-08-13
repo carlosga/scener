@@ -6,7 +6,6 @@
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/renderer.hpp"
 #include "scener/graphics/service_container.hpp"
-#include "scener/graphics/window.hpp"
 
 namespace scener::graphics
 {

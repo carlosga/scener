@@ -3,9 +3,7 @@
 
 #include "skeletal-animation/sample_renderer.hpp"
 
-#include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/graphics_device_manager.hpp"
-#include "scener/math/color.hpp"
 
 #include "skeletal-animation/camera.hpp"
 #include "skeletal-animation/earthshaker.hpp"

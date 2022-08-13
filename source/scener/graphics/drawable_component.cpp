@@ -4,9 +4,7 @@
 #include "scener/graphics/drawable_component.hpp"
 
 #include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/graphics_device_manager.hpp"
 #include "scener/graphics/renderer.hpp"
-#include "scener/graphics/window.hpp"
 
 namespace scener::graphics
 {

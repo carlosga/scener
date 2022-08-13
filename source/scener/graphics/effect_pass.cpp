@@ -3,9 +3,6 @@
 
 #include "scener/graphics/effect_pass.hpp"
 
-#include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/vulkan/shader.hpp"
-
 namespace scener::graphics
 {
     const std::string& effect_pass::name() const noexcept

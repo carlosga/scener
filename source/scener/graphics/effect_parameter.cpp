@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-#include "scener/graphics/texture.hpp"
 #include "scener/graphics/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"

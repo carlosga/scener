@@ -71,6 +71,7 @@ namespace scener::graphics::vulkan
 
     const buffer_resources& buffer::resources(std::uint32_t index) const noexcept
     {
+        Ensures(index < _buffers.size());
         return _buffers[index];
     }
 
