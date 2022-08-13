@@ -221,7 +221,7 @@ namespace scener::graphics::vulkan
 
         for (const auto& pd : physical_devices)
         {
-            _physical_devices.push_back({ pd });
+            _physical_devices.push_back({ _instance, pd });
         }
     }
 }

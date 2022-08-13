@@ -44,7 +44,8 @@ namespace scener::graphics::vulkan
         static vk::PrimitiveTopology vkPrimitiveTopology(const scener::graphics::primitive_type& primitive_type) noexcept;
 
     public:
-        logical_device(const vk::PhysicalDevice&         physical_device
+        logical_device(const vk::Instance&               instance
+                     , const vk::PhysicalDevice&         physical_device
                      , const vk::Device&                 logical_device
                      , const graphics::viewport&         viewport
                      , std::uint32_t                     graphics_queue_family_index
@@ -120,7 +121,7 @@ namespace scener::graphics::vulkan
 
     private:
         void create_viewport(const graphics::viewport& viewport);
-        void create_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;
+        void create_allocator(const vk::Instance& instance, const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept;
         void get_device_queues() noexcept;
         void begin_single_time_commands() noexcept;
         void end_single_time_commands() noexcept;

@@ -124,7 +124,8 @@ namespace scener::graphics::vulkan
         }
     }
 
-    logical_device::logical_device(const vk::PhysicalDevice&         physical_device
+    logical_device::logical_device(const vk::Instance&               instance
+                                 , const vk::PhysicalDevice&         physical_device
                                  , const vk::Device&                 logical_device
                                  , const viewport&                   viewport
                                  , std::uint32_t                     graphics_queue_family_index
@@ -165,7 +166,7 @@ namespace scener::graphics::vulkan
         , _allocator                        { }
     {
         create_viewport(viewport);
-        create_allocator(physical_device, logical_device);
+        create_allocator(instance, physical_device, logical_device);
         get_device_queues();
         create_command_pools();
         create_sync_primitives();
@@ -962,10 +963,13 @@ namespace scener::graphics::vulkan
             .setMaxDepth(viewport.max_depth);
     }
 
-    void logical_device::create_allocator(const vk::PhysicalDevice& physical_device
+    void logical_device::create_allocator(const vk::Instance&       instance
+                                        , const vk::PhysicalDevice& physical_device
                                         , const vk::Device&         logical_device) noexcept
     {
         VmaAllocatorCreateInfo allocatorInfo = { };
+
+        allocatorInfo.instance       = instance;
         allocatorInfo.physicalDevice = physical_device;
         allocatorInfo.device         = logical_device;
 

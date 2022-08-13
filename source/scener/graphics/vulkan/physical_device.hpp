@@ -23,7 +23,7 @@ namespace scener::graphics::vulkan
     class physical_device final
     {
     public:
-        physical_device(const vk::PhysicalDevice& physical_device) noexcept;
+        physical_device(const vk::Instance& instance, const vk::PhysicalDevice& physical_device) noexcept;
         ~physical_device() noexcept;
 
     public:
@@ -69,6 +69,7 @@ namespace scener::graphics::vulkan
         vk::PhysicalDeviceMemoryProperties     _memory_properties;
         vk::PhysicalDeviceFeatures             _features;
         std::vector<vk::QueueFamilyProperties> _queue_families;
+        vk::Instance                           _instance;
         vk::PhysicalDevice                     _physical_device;
     };
 }

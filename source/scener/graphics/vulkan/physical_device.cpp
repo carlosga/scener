@@ -12,13 +12,15 @@
 
 namespace scener::graphics::vulkan
 {
-    physical_device::physical_device(const vk::PhysicalDevice& physical_device) noexcept
+    physical_device::physical_device(const vk::Instance&       instance
+                                   , const vk::PhysicalDevice& physical_device) noexcept
         : _layer_names       { }
         , _extension_names   { }
         , _properties        { }
         , _memory_properties { }
         , _features          { }
         , _queue_families    { }
+        , _instance          { instance }
         , _physical_device   { physical_device }
     {
         identify_layers();
@@ -141,7 +143,8 @@ namespace scener::graphics::vulkan
         );
 
         return std::make_unique<logical_device>(
-            _physical_device
+            _instance
+          , _physical_device
           , device
           , viewport
           , graphics_queue_family_index
