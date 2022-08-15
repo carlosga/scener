@@ -6,7 +6,7 @@
 
 #include <nod/nod.hpp>
 
-#include "scener/graphics/presentation_parameters.hpp"
+#include "scener/graphics/graphics_device_information.hpp"
 
 namespace scener::graphics
 {
