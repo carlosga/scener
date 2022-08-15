@@ -6,7 +6,7 @@
 #include <functional>
 
 #include "scener/graphics/vulkan/buffer.hpp"
-#include "scener/graphics/vulkan/image_storage.hpp"
+#include "scener/graphics/vulkan/depth_buffer.hpp"
 
 namespace scener::graphics::vulkan
 {
