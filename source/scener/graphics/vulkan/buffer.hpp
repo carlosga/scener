@@ -53,7 +53,6 @@ namespace scener::graphics::vulkan
 
     private:
         buffer_usage                  _usage;
-        vk::SharingMode               _sharing_mode;
         std::uint64_t                 _size;
         std::vector<buffer_resources> _buffers;
         VmaAllocator*                 _allocator;

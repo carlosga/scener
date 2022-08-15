@@ -10,16 +10,16 @@
 namespace scener::graphics::vulkan
 {
     buffer::buffer(buffer_usage usage, vk::SharingMode sharing_mode, std::uint64_t count, VmaAllocator* allocator) noexcept
-        : _usage                         { usage }
-        , _sharing_mode                  { sharing_mode }
-        , _size                          { count }
-        , _buffers                       { }
-        , _allocator                     { allocator }
+        : _usage     { usage }
+        , _size      { count }
+        , _buffers   { }
+        , _allocator { allocator }
     {
         std::uint32_t buffer_count = 1;
 
-        VkBufferCreateInfo buffer_create_info = { VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO };
+        VkBufferCreateInfo buffer_create_info = { };
 
+        buffer_create_info.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
         buffer_create_info.usage       = static_cast<VkBufferUsageFlags>(usage);
         buffer_create_info.sharingMode = static_cast<VkSharingMode>(sharing_mode);
         buffer_create_info.size        = count;
