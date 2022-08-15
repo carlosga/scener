@@ -159,15 +159,20 @@ namespace scener::graphics::vulkan
 
         while (_connection && (event = xcb_poll_for_queued_event(_connection)))
         {            
-            if (event)
+            if (event != nullptr)
             {
                 switch (event->response_type & 0x7f)
                 {
                 case XCB_CLIENT_MESSAGE:
-                    if ((*(xcb_client_message_event_t*)event).data.data32[0] == (*_atom_wm_delete_window).atom )
+                    auto client_message = (xcb_client_message_event_t*) event;
+                    if (_atom_wm_delete_window != nullptr)
                     {
-                        _closing_signal();
-                        free (_atom_wm_delete_window);
+                        if (client_message->data.data32[0] == _atom_wm_delete_window->atom)
+                        {
+                            _closing_signal();
+                            free (_atom_wm_delete_window);
+                            _atom_wm_delete_window = nullptr;
+                        }
                     }
                     break;
                 }
