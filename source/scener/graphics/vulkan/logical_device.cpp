@@ -71,6 +71,14 @@ namespace scener::graphics::vulkan
             return vk::Format::eR16G16Sint;
         case scener::graphics::vertex_element_format::short4:
             return vk::Format::eR16G16B16A16Sint;
+        case scener::graphics::vertex_element_format::normalized_short2:
+            return vk::Format::eR16G16Snorm;
+        case scener::graphics::vertex_element_format::normalized_short4:
+            return vk::Format::eR16G16B16A16Snorm;
+        case scener::graphics::vertex_element_format::half_vector2:
+            return vk::Format::eR16G16Sfloat;
+        case scener::graphics::vertex_element_format::half_vector4:
+            return vk::Format::eR16G16B16A16Sfloat;
         }
     }
 
@@ -100,6 +108,8 @@ namespace scener::graphics::vulkan
             return vk::Format::eR16G16Uint;
         case scener::graphics::surface_format::rgba64: ///< 64-bit RGBA pixel format using 16 bits for each component.
             return vk::Format::eR16G16B16A16Uint;
+        case scener::graphics::surface_format::rgba1010102:
+            return vk::Format::eA2R10G10B10UnormPack32;
         }
     }
 
@@ -715,6 +725,9 @@ namespace scener::graphics::vulkan
             .setOffset(0)
             .setRange(constant_buffer->size());
 
+        // TODO: TEST
+        buffer_info.setBuffer(constant_buffer->memory_buffer().resources(0).memory_buffer);
+
         vk::DescriptorImageInfo tex_descs[texture_count];
 
         for (std::uint32_t i = 0; i < texture_count; i++)
@@ -749,7 +762,9 @@ namespace scener::graphics::vulkan
 
             check_result(result);
 
-            buffer_info.setBuffer(constant_buffer->memory_buffer().resources(i).memory_buffer);
+            // TODO: TEST
+            //buffer_info.setBuffer(constant_buffer->memory_buffer().resources(i).memory_buffer);
+
             writes[0].setDstSet(descriptors[i]);
             writes[1].setDstSet(descriptors[i]);
 
