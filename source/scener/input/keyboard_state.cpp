@@ -12,7 +12,7 @@ namespace scener::input
     //KeyboardState(Keys[] keys);
 
     keyboard_state::keyboard_state(display_surface* surface) noexcept
-        : _surface(surface)
+        : _surface { surface }
     {
     }
 
