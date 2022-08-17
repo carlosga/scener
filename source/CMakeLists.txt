@@ -1,6 +1,9 @@
 # pthread
 find_package (Threads REQUIRED)
 
+# Vulkan
+find_package (Vulkan REQUIRED)
+
 # common link libraries
 link_libraries (${CMAKE_THREAD_LIBS_INIT})
 
@@ -10,7 +13,7 @@ if (${VK_USE_PLATFORM_XCB_KHR} MATCHES "1")
   add_definitions (-DVK_USE_PLATFORM_XCB_KHR)
 
   # XCB
-  find_package (XCB REQUIRED)
+  find_package (xcb REQUIRED)
 
   #include directories
   include_directories (PUBLIC ${XCB_INCLUDE_DIRS})

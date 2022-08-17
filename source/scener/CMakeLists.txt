@@ -2,9 +2,6 @@ cmake_minimum_required (VERSION 3.2.2)
 project (scener::framework)
 enable_language (CXX)
 
-# Vulkan
-find_package (Vulkan REQUIRED)
-
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
