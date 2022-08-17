@@ -13,14 +13,12 @@
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/index_buffer.hpp"
-#include "scener/graphics/index_type.hpp"
 #include "scener/graphics/model_mesh.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/service_container.hpp"
 #include "scener/graphics/texture2d.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
-#include "scener/graphics/vulkan/buffer.hpp"
 
 using nlohmann::json;
 using scener::math::matrix4;

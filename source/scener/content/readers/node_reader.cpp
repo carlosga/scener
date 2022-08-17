@@ -9,7 +9,6 @@
 #include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/model_mesh.hpp"
 #include "scener/graphics/skeleton.hpp"
-#include "scener/math/matrix.hpp"
 
 namespace scener::content::readers
 {
