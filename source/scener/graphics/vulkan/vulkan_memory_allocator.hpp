@@ -35,11 +35,6 @@
     #pragma clang diagnostic ignored "-Wnullability-completeness"
 #endif
 
-#define VK_API_VERSION_MAJOR(version) (((uint32_t)(version) >> 22) & 0x7FU)
-#define VK_API_VERSION_MINOR(version) (((uint32_t)(version) >> 12) & 0x3FFU)
-#define VK_API_VERSION_MINOR(version) (((uint32_t)(version) >> 12) & 0x3FFU)
-#define VK_API_VERSION_PATCH(version) ((uint32_t)(version) & 0xFFFU)
-
 // #include <vulkan/vulkan.h>
 #include <vk_mem_alloc.h>
 
