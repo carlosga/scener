@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 | C compiler    | Clang / GCC   |
 
 ```
-sudo apt-get install clang libc++ lldb git
+sudo apt-get install git cmake clang libc++ lldb
 ```
 
 ### Compile from Source
@@ -24,7 +24,7 @@ A step by step series of examples that tell you have to get a development env ru
 1. Clone repository
 
 ```
-git clone --recursive https://github.com/carlosga/scener.git
+git clone --recurse-submodules https://github.com/carlosga/scener.git
 ```
 
 2. Install dependencies (packages names for Debian)
