@@ -754,7 +754,7 @@ namespace scener::graphics::vulkan
             .setDescriptorSetCount(1)
             .setPSetLayouts(&descriptor_layout);
 
-        std::vector<vk::DescriptorSet> descriptors(2);
+        std::vector<vk::DescriptorSet> descriptors(_swap_chain_images.size());
 
         for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
@@ -1380,12 +1380,18 @@ namespace scener::graphics::vulkan
     {
         _logical_device.waitIdle();
 
-        _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, std::numeric_limits<std::uint64_t>().max());
+        auto waitResult = _logical_device.waitForFences(1, &_single_time_command_fence, VK_TRUE, std::numeric_limits<std::uint64_t>().max());
+
+        check_result(waitResult);
+
         _logical_device.destroyFence(_single_time_command_fence, nullptr);
 
         for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
         {
-            _logical_device.resetFences(1, &_fences[i]);
+            auto resetResult = _logical_device.resetFences(1, &_fences[i]);
+
+            check_result(resetResult);
+
             // _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
             _logical_device.destroyFence(_fences[i], nullptr);
             _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
