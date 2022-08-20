@@ -8,12 +8,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-| Name          | Version       |
-|---------------|---------------|
-| git           |               |
-| cmake         |               |
-| C++ compiler  | Clang / GCC   |
-| C compiler    | Clang / GCC   |
+| Name        |
+|-------------|
+| cmake       |
+| Clang / GCC |
+| C compiler  |
 
 ```
 sudo apt-get install git cmake clang libc++ lldb
@@ -32,7 +31,7 @@ git clone --recurse-submodules https://github.com/carlosga/scener.git
 2. Install dependencies (packages names for Debian)
 
 ```
-sudo apt-get install libvulkan1 libvulkan-dev vulkan-validationlayers vulkan-validationlayers-dev vulkan-tools xorg-dev libgl1-mesa-dev
+sudo apt-get install libvulkan1 libvulkan-dev vulkan-validationlayers vulkan-validationlayers-dev vulkan-tools xorg-dev libgl1-mesa-dev glslang-tools glslang-dev
 ```
 
 3. Configure the build
