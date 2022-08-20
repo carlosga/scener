@@ -10,6 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 | Name          | Version       |
 |---------------|---------------|
+| git           |               |
+| cmake         |               |
 | C++ compiler  | Clang / GCC   |
 | C compiler    | Clang / GCC   |
 
