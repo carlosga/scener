@@ -33,6 +33,14 @@
     #pragma clang diagnostic ignored "-Wunused-variable"
     #pragma clang diagnostic ignored "-Wmissing-field-initializers"
     #pragma clang diagnostic ignored "-Wnullability-completeness"
+#elif __GNUC__
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wtautological-compare" // comparison of unsigned expression < 0 is always false
+    //#pragma GCC diagnostic ignored "-Wunused-private-field"
+    #pragma GCC diagnostic ignored "-Wunused-parameter"
+    #pragma GCC diagnostic ignored "-Wunused-variable"
+    #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+    //#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
 
 // #include <vulkan/vulkan.h>
@@ -40,6 +48,8 @@
 
 #ifdef __clang__
     #pragma clang diagnostic pop
+#elif __GNUC__
+    #pragma GCC diagnostic pop
 #endif
 
 #endif
