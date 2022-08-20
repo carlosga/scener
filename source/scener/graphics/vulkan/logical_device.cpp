@@ -723,10 +723,8 @@ namespace scener::graphics::vulkan
         const auto constant_buffer = effect_pass->constant_buffer();
         auto buffer_info           = vk::DescriptorBufferInfo()
             .setOffset(0)
-            .setRange(constant_buffer->size());
-
-        // TODO: TEST
-        buffer_info.setBuffer(constant_buffer->memory_buffer().resources(0).memory_buffer);
+            .setRange(constant_buffer->size())
+            .setBuffer(constant_buffer->memory_buffer().resources(0).memory_buffer);
 
         vk::DescriptorImageInfo tex_descs[texture_count];
 
@@ -761,9 +759,6 @@ namespace scener::graphics::vulkan
             auto result = _logical_device.allocateDescriptorSets(&descriptor_set_alloc_info, &descriptors[i]);
 
             check_result(result);
-
-            // TODO: TEST
-            //buffer_info.setBuffer(constant_buffer->memory_buffer().resources(i).memory_buffer);
 
             writes[0].setDstSet(descriptors[i]);
             writes[1].setDstSet(descriptors[i]);
