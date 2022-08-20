@@ -40,7 +40,6 @@ namespace scener::graphics::vulkan
         {
             allocation_create_info.usage = VMA_MEMORY_USAGE_CPU_ONLY;
             allocation_create_info.flags = VMA_ALLOCATION_CREATE_MAPPED_BIT;
-            buffer_count                 = 2;
         }
 
         _buffers.resize(buffer_count);
