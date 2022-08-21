@@ -40,7 +40,7 @@ namespace skeletal::animation
     {
         static radians rotation = 45_deg;
 
-        _world = create_translation({ 0.0f, 0.0f, 0.0f })
+        _world = create_translation({ -100.0f, 100.0f, -75.0f })
                * create_rotation_x({ scener::math::pi_over_2<> })
                * create_rotation_y(rotation);
 
