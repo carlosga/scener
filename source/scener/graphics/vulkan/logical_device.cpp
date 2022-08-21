@@ -188,9 +188,6 @@ namespace scener::graphics::vulkan
         // Command buffers
         destroy_command_buffers();
 
-        // Depth buffer
-        destroy_depth_buffer();
-
         // Command pools
         destroy_command_pools();
 
@@ -280,12 +277,13 @@ namespace scener::graphics::vulkan
     {
         for (std::uint32_t current_buffer = 0; current_buffer < _swap_chain_images.size(); ++current_buffer)
         {
-            auto image_subresource_range = vk::ImageSubresourceRange()
-                 .setAspectMask(vk::ImageAspectFlagBits::eColor)
-                 .setBaseMipLevel(0)
-                 .setLevelCount(1)
-                 .setBaseArrayLayer(0)
-                 .setLayerCount(1);
+            // TODO : Check usage
+            // auto image_subresource_range = vk::ImageSubresourceRange()
+            //      .setAspectMask(vk::ImageAspectFlagBits::eColor)
+            //      .setBaseMipLevel(0)
+            //      .setLevelCount(1)
+            //      .setBaseArrayLayer(0)
+            //      .setLayerCount(1);
 
             const auto& command_buffer           = _command_buffers[current_buffer];
             const auto command_buffer_begin_info = vk::CommandBufferBeginInfo()
@@ -1381,13 +1379,13 @@ namespace scener::graphics::vulkan
 
         _logical_device.destroyFence(_single_time_command_fence, nullptr);
 
-        for (std::uint32_t i = 0; i < _swap_chain_images.size(); ++i)
+        // destroy fences
+        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
-            auto resetResult = _logical_device.resetFences(1, &_fences[i]);
+            waitResult = _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
+            
+            check_result(waitResult);
 
-            check_result(resetResult);
-
-            // _logical_device.waitForFences(1, &_fences[i], VK_TRUE, std::numeric_limits<std::uint64_t>().max());
             _logical_device.destroyFence(_fences[i], nullptr);
             _logical_device.destroySemaphore(_image_acquired_semaphores[i], nullptr);
             _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
@@ -1425,8 +1423,8 @@ namespace scener::graphics::vulkan
 
     void logical_device::destroy_depth_buffer() noexcept
     {
-        _depth_buffer.destroy();
         _logical_device.destroyImageView(_depth_buffer.view(), nullptr);
+        _depth_buffer.destroy();
     }
 
     void logical_device::destroy_swapchain_views() noexcept
