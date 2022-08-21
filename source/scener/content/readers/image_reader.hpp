@@ -6,7 +6,7 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 
-namespace scener::content:: dds { class surface; }
+namespace scener::content::dds { class surface; }
 
 namespace scener::content::readers
 {
@@ -17,7 +17,7 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
+        auto read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const nlohmann::json& source) const noexcept;
     };
 }
 

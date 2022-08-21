@@ -8,6 +8,7 @@
 #include <cstdint>
 
 #include "scener/graphics/present_interval.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
 
 namespace scener::graphics
 {
@@ -24,16 +25,19 @@ namespace scener::graphics
         bool full_screen;
 
         /// Gets or sets the height of a swap chain's back buffers, in pixels.
-        std::size_t back_buffer_height;
+        std::uint32_t back_buffer_height;
 
         /// Gets or sets the width of a swap chain's back buffers, in pixels.
-        std::size_t back_buffer_width;
+        std::uint32_t back_buffer_width;
 
         /// Gets or sets the number of sample locations during multisampling.
         std::uint32_t multi_sample_count;
 
         /// Gets or sets the swap buffer interval.
         graphics::present_interval present_interval;
+
+        /// Gets or sets the handle to the device window.
+        scener::graphics::vulkan::display_surface* device_window_handle;
     };
 }
 

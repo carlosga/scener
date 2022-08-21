@@ -4,11 +4,12 @@
 #include "skeletal-animation/earthshaker.hpp"
 
 #include <scener/content/content_manager.hpp>
-#include <scener/graphics/effect_technique.hpp>
 #include <scener/graphics/model.hpp>
 #include <scener/graphics/model_mesh.hpp>
-#include <scener/graphics/steptime.hpp>
+#include <scener/graphics/model_mesh_part.hpp>
+#include <scener/graphics/window.hpp>
 #include <scener/math/basic_math.hpp>
+#include <scener/math/basic_angle.hpp>
 #include <scener/math/vector.hpp>
 
 #include "skeletal-animation/sample_renderer.hpp"
@@ -16,12 +17,17 @@
 
 namespace skeletal::animation
 {
+    using namespace scener::math;
+
     using scener::graphics::model;
     using scener::graphics::effect_technique;
     using scener::graphics::steptime;
     using scener::math::matrix4;
     using scener::math::matrix::create_rotation_x;
+    using scener::math::matrix::create_rotation_y;
+    using scener::math::matrix::create_rotation_z;
     using scener::math::matrix::create_translation;
+    using scener::math::matrix::create_scale;
 
     earthshaker::earthshaker(sample_renderer* renderer) noexcept
         : drawable_component { renderer }
@@ -32,8 +38,11 @@ namespace skeletal::animation
 
     void earthshaker::initialize() noexcept
     {
-        _world = create_rotation_x({ -scener::math::pi_over_2<> })
-               * create_translation({ 0.0f, -70.0f, 0.0f });
+        static radians rotation = 45_deg;
+
+        _world = create_translation({ -100.0f, 100.0f, -75.0f })
+               * create_rotation_x({ scener::math::pi_over_2<> })
+               * create_rotation_y(rotation);
 
         drawable_component::initialize();
     }
@@ -42,13 +51,13 @@ namespace skeletal::animation
     {
         _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
-        for (const auto& mesh : _model->meshes())
+        std::for_each(_model->meshes().begin(), _model->meshes().end(), [] (auto mesh) -> void
         {
-            for (const auto& effect : mesh->effects())
+            std::for_each(mesh->mesh_parts().begin(), mesh->mesh_parts().end(), [] (auto part) -> void
             {
-                effect->texture_enabled(true);
-            }
-        }
+                part->effect_technique()->texture_enabled(true);
+            });
+        });
     }
 
     void earthshaker::unload_content() noexcept
@@ -59,13 +68,13 @@ namespace skeletal::animation
 
     void earthshaker::update(const steptime& time) noexcept
     {
-        _model->update(time);
-    }
-
-    void earthshaker::draw([[maybe_unused]] const steptime& time) noexcept
-    {
         const auto camera_component = std::dynamic_pointer_cast<camera>(_renderer->components()[0]);
 
-        _model->draw(_world, camera_component->view, camera_component->projection);
+        _model->update(time, _world, camera_component->view, camera_component->projection);
+    }
+
+    void earthshaker::draw() noexcept
+    {
+        _model->draw();
     }
 }

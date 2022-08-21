@@ -1,26 +1,31 @@
 cmake_minimum_required(VERSION 3.2.2)
-project (scener::root)
+project (scener)
 enable_language (CXX)
 
 # set (CMAKE_VERBOSE_MAKEFILE on)
 set (CMAKE_EXPORT_COMPILE_COMMANDS on)
 
-# external dependencies
-#
-# base directory
-set (EXTERNALS_BASE_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/externals)
+# cmake modules
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-# json for modern C++
-set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
+# external dependencies
+# base directory
+set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 
 # microsoft/gsl
-set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
+set (GSL_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/gsl/include)
+
+# json for modern C++
+set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/single_include)
 
 # nod/signals & slots (https://github.com/fr00b0/nod)
-set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
+set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
+
+# AMD VULKAN MEMORY ALLOCATOR
+set (AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/vulkan-memory-allocator/include)
 
 # reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -28,30 +33,16 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 # compiler flags
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++17")
 
+# common ompile options
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-    # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"    
+
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-exceptions")
+
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-
-  # Workaround using a local build of libc++ & libc++abi under ubuntu 16.04
-  ## c++abi
-  if (CMAKE_LIBCXXABI_INCLUDE_PATH)
-    include_directories (${CMAKE_LIBCXXABI_INCLUDE_PATH})
-  endif ()
-  if (CMAKE_LIBCXXABI_LIB_PATH)
-    link_directories (${CMAKE_LIBCXXABI_LIB_PATH})
-  endif ()
-  ## c++
-  if (CMAKE_LIBCXX_INCLUDE_PATH)
-    include_directories (${CMAKE_LIBCXX_INCLUDE_PATH})
-  endif ()
-  if (CMAKE_LIBCXX_LIB_PATH)
-    link_directories (${CMAKE_LIBCXX_LIB_PATH})
-  endif ()
 
   # compiler flags
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
@@ -61,24 +52,29 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++ -lc++abi")
   set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
 
-# elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
+elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
+
+    if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-terminate -Wnull-dereference -Wduplicated-cond -Wduplicated-branches -Wlogical-op")
+    endif()
 
 else ()
-
     message ("-> unknown compiler ...")
-
 endif ()
 
 # SceneR
-set (SCENER_INCLUDE_DIRS  ${CMAKE_SOURCE_DIR}/source)
-set (SCENER_LIB_DIRS      ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-set (SCENER_LIBRARIES     scener)
+set (SCENER_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/source)
+set (SCENER_LIB_DIRS     ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (SCENER_LIBRARIES    scener)
 
-set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
+# global definitions
+set (VK_USE_PLATFORM_WAYLAND_KHR "0")
+set (VK_USE_PLATFORM_XCB_KHR "1")
+set (VK_ENABLE_DEBUG_SUPPORT "0")
 
 # project subdirectories
 add_subdirectory (source)
 
 # unit tests
-enable_testing()
-add_subdirectory(tests)
+# enable_testing()
+# add_subdirectory(tests)

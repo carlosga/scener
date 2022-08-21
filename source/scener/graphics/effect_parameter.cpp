@@ -3,14 +3,16 @@
 
 #include "scener/graphics/effect_parameter.hpp"
 
-#include "scener/graphics/texture.hpp"
-#include "scener/graphics/opengl/constant_buffer.hpp"
+#include <iostream>
+
+#include "scener/graphics/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"
 
 namespace scener::graphics
 {
-    using scener::graphics::opengl::constant_buffer;
+    using scener::graphics::constant_buffer;
+    using scener::math::matrix3;
     using scener::math::matrix4;
     using scener::math::quaternion;
     using scener::math::vector2;
@@ -37,7 +39,7 @@ namespace scener::graphics
         return _parameter_type;
     }
 
-    std::size_t effect_parameter::row_count() const noexcept
+    std::uint32_t effect_parameter::row_count() const noexcept
     {
         return _row_count;
     }
@@ -45,6 +47,16 @@ namespace scener::graphics
     const std::string& effect_parameter::semantic() const noexcept
     {
         return _semantic;
+    }
+
+    std::uint32_t effect_parameter::offset() const noexcept
+    {
+        return _offset;
+    }
+
+    std::uint32_t effect_parameter::size() const noexcept
+    {
+        return _size;
     }
 
     template <>
@@ -271,9 +283,9 @@ namespace scener::graphics
 
         transposed.reserve(value.size());
 
-        for (const auto& matrix4 : value)
+        for (const auto& matrix : value)
         {
-            transposed.push_back(scener::math::matrix::transpose(matrix4));
+            transposed.push_back(scener::math::matrix::transpose(matrix));
         }
 
         _constant_buffer->set_data(_offset, sizeof(matrix4) * transposed.size(), transposed.data());

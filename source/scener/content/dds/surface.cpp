@@ -15,9 +15,9 @@ namespace scener::content::dds
     {
         Expects(scener::io::file::exists(filename));
 
-        file_stream stream(filename);
-        header      dds_header;
-        std::size_t block_size = 16;
+        auto      stream     = file_stream(filename);
+        header    dds_header = { };
+        size_type block_size = 16;
 
         Ensures(stream.length() >= sizeof dds_header);
 
@@ -67,10 +67,10 @@ namespace scener::content::dds
             _format = surface_format::dxt5;
         }
 
-        auto mipmap_width  = _width;
-        auto mipmap_height = _height;
-        auto position      = size_type { 0 };
-        auto length        = stream.length() - sizeof dds_header;
+        size_type mipmap_width  = _width;
+        size_type mipmap_height = _height;
+        auto      position      = size_type { 0 };
+        auto      length        = stream.length() - sizeof dds_header;
 
         _mipmaps.clear();
         _buffer.clear();
@@ -92,8 +92,8 @@ namespace scener::content::dds
 
             _mipmaps.push_back({ level, mipmap_width, mipmap_height, view });
 
-            mipmap_width  = std::max<std::size_t>(1, mipmap_width  >>= 1);
-            mipmap_height = std::max<std::size_t>(1, mipmap_height >>= 1);
+            mipmap_width  = std::max<size_type>(1, mipmap_width  >> 1);
+            mipmap_height = std::max<size_type>(1, mipmap_height >> 1);
 
             position += size;
         }
@@ -117,5 +117,12 @@ namespace scener::content::dds
     const std::vector<surface_mipmap>& surface::mipmaps() const noexcept
     {
         return _mipmaps;
+    }
+
+    const surface_mipmap& surface::mipmap(std::uint32_t index) const noexcept
+    {
+        Expects(index <= _mipmaps.size());
+
+        return _mipmaps[index];
     }
 }

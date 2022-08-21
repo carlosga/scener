@@ -22,10 +22,6 @@ namespace scener::graphics
     class skeleton final
     {
     public:
-        /// Initializes a new instance of the Skeleton class.
-        skeleton() = default;
-
-    public:
         /// Describes how to pose the skin's geometry for use with the bones.
         /// \returns a matrix describing how to pose the skin's geometry for use with the bones.
         const math::matrix4& bind_shape_matrix() const noexcept;

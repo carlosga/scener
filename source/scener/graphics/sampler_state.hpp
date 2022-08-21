@@ -7,7 +7,6 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/texture_filter.hpp"
 #include "scener/graphics/texture_address_mode.hpp"
 
@@ -16,15 +15,22 @@ namespace scener::content::readers { template <typename T> class content_type_re
 namespace scener::graphics
 {
     /// Contains sampler state, which determines how to sample texture data.
-    class sampler_state: public graphics_resource
+    class sampler_state final
     {
     public:
-        /// Initializes a new instance of the SamplerState class.
-        /// \param device the GraphicsDevice associated with this SamplerState.
-        sampler_state(gsl::not_null<graphics_device*> device) noexcept;
+        static const sampler_state anisotropic_clamp;
+        static const sampler_state anisotropic_wrap;
+        static const sampler_state linear_clamp;
+        static const sampler_state linear_wrap;
+        static const sampler_state point_clamp;
+        static const sampler_state point_wrap;
 
-        /// Releases all resources being used by this SamplerState.
-        ~sampler_state() override = default;
+    public:
+        /// Initializes a new instance of the sampler_state class.
+        sampler_state() noexcept;
+
+    private:
+        sampler_state(texture_filter filter, texture_address_mode address_mode) noexcept;
 
     public:
         /// Gets or sets the texture-address mode for the u-coordinate.
@@ -42,17 +48,14 @@ namespace scener::graphics
         /// Gets or sets the type of filtering during sampling.
         texture_filter min_filter { texture_filter::linear };
 
-        /// Gets or sets the maximum anisotropy. The default value is 0.
-        std::int32_t max_anisotropy { 4 };
+        /// Gets or sets the maximum anisotropy. The default value is 16.
+        std::int32_t max_anisotropy { 16 };
 
         /// Gets or sets the level of detail (LOD) index of the largest map to use.
         std::size_t max_mip_level { 0 };
 
         /// Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
         float mip_map_level_of_detail_bias { 0 };
-
-    private:
-        void apply(std::uint32_t texture_id) const noexcept;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

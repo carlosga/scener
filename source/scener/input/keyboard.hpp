@@ -8,10 +8,7 @@
 #include <vector>
 
 #include "scener/input/keyboard_state.hpp"
-#include "scener/graphics/opengl/platform.hpp"
-#include "scener/graphics/opengl/display_surface.hpp"
-
-namespace scener::graphics::opengl { class display_surface; }
+#include "scener/graphics/vulkan/surface.hpp"
 
 namespace scener::input
 {
@@ -26,10 +23,14 @@ namespace scener::input
         static keyboard_state get_state() noexcept;
 
         /// Gets or sets the window used for mouse processing.
-        static void initialize(graphics::opengl::display_surface* s) noexcept;
+        static void initialize(scener::graphics::vulkan::display_surface* s) noexcept;
 
     private:
-        static void key_callback(graphics::opengl::display_surface* s, int key, int scancode, int action, int mods) noexcept;
+        static void key_callback(scener::graphics::vulkan::display_surface* s
+                               , int key
+                               , int scancode
+                               , int action
+                               , int mods) noexcept;
 
     private:
         keyboard() = delete;
@@ -37,7 +38,7 @@ namespace scener::input
         keyboard& operator=(const keyboard& keyboard) = delete;
 
     private:
-        static graphics::opengl::display_surface* surface;
+        static scener::graphics::vulkan::display_surface* surface;
     };
 }
 

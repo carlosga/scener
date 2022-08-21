@@ -17,7 +17,7 @@ namespace scener::content::readers
     using scener::graphics::skeleton;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<skeleton>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<skeleton>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<skeleton>();
         auto accessor = input->read_object<gltf::accessor>(value[k_inverse_bind_matrices].get<std::string>());
@@ -31,7 +31,7 @@ namespace scener::content::readers
         // Inverse bind matrices
         instance->_inverse_bind_matrices.reserve(accessor->attribute_count());
 
-        for (std::size_t i = 0; i < accessor->attribute_count(); ++i)
+        for (std::uint32_t i = 0; i < accessor->attribute_count(); ++i)
         {
             instance->_inverse_bind_matrices.push_back(accessor->get_element<matrix4>(i));
         }
@@ -39,7 +39,7 @@ namespace scener::content::readers
         // Joints
         const auto& joint_names = value[k_joint_names].get<std::vector<std::string>>();
         const auto  joint_count = joint_names.size();
-        auto        bone_index  = std::size_t { 0 };
+        auto        bone_index  = std::uint32_t { 0 };
 
         instance->_bones.reserve(joint_count);
         instance->_bone_transforms.reserve(joint_count);

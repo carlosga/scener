@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 #include "scener/content/readers/content_type_reader.hpp"
 #include "scener/content/gltf/node.hpp"
@@ -22,7 +22,7 @@
 #include "scener/math/quaternion.hpp"
 #include "scener/math/vector.hpp"
 
-namespace scener::content::dds { class surface; } 
+namespace scener::content::dds { class surface; }
 
 namespace scener::content::gltf
 {
@@ -39,10 +39,10 @@ namespace scener::graphics
     class sampler_state;
     class texture2d;
 
-    namespace opengl
+    namespace vulkan
     {
-        class program;
         class shader;
+        class shader_module;
     }
 }
 
@@ -54,25 +54,25 @@ namespace scener::content
     class content_reader final
     {
     public:
-        /// Initializes a new instance of the ContentReader.
+        /// Initializes a new instance of the content_reader.
         /// \param assetname the name of the asset to be readed.
-        /// \param manager the content_manager that owns this ContentReader.
+        /// \param manager the content_manager that owns this content_reader.
         /// \param stream the base stream.
         content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept;
 
-        /// Releases all resources used by the current instance of the ContentReader class.
+        /// Releases all resources used by the current instance of the content_reader class.
         ~content_reader() = default;
 
     public:
-        /// Gets the name of the asset currently being read by this ContentReader.
+        /// Gets the name of the asset currently being read by this content_reader.
         const std::string& asset_name() const noexcept;
 
-        /// Gets the content manager that owns this ContentReader.
+        /// Gets the content manager that owns this content_reader.
         content::content_manager* content_manager() const noexcept;
 
     public:
-        /// Reads the contexts of the current asset.
-        /// \returns The contexts of the current asset.
+        /// Reads the contents of the current asset.
+        /// \returns the contents of the current asset.
         std::shared_ptr<graphics::model> read_asset() noexcept;
 
     private:
@@ -195,13 +195,6 @@ namespace scener::content
         return read_object<gltf::node>(key, _root["nodes"][key]);
     }
 
-    // Programs
-    template<>
-    inline std::shared_ptr<graphics::opengl::program> content_reader::read_object_instance(const std::string& key) noexcept
-    {
-        return read_object_instance<graphics::opengl::program>(key, _root["programs"][key]);
-    }
-
     // Samplers
     template<>
     inline std::shared_ptr<graphics::sampler_state> content_reader::read_object(const std::string& key) noexcept
@@ -209,11 +202,18 @@ namespace scener::content
         return read_object<graphics::sampler_state>(key, _root["samplers"][key]);
     }
 
+    // Shader modules
+    template<>
+    inline std::shared_ptr<graphics::vulkan::shader_module> content_reader::read_object_instance(const std::string& key) noexcept
+    {
+        return read_object_instance<graphics::vulkan::shader_module>(key, _root["programs"][key]);
+    }
+
     // Shaders
     template<>
-    inline std::shared_ptr<graphics::opengl::shader> content_reader::read_object(const std::string& key) noexcept
+    inline std::shared_ptr<graphics::vulkan::shader> content_reader::read_object(const std::string& key) noexcept
     {
-        return read_object<graphics::opengl::shader>(key, _root["shaders"][key]);
+        return read_object<graphics::vulkan::shader>(key, _root["shaders"][key]);
     }
 
     // Textures

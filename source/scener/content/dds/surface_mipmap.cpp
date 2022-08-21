@@ -28,7 +28,7 @@ namespace scener::content::dds
         return _height;
     }
 
-    const gsl::span<std::uint8_t>& surface_mipmap::get_view() const noexcept
+    const gsl::span<std::uint8_t>& surface_mipmap::view() const noexcept
     {
         return _view;
     }

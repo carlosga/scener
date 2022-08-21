@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 namespace scener::content { class content_reader; }
 
@@ -23,7 +23,7 @@ namespace scener::content::readers
 
     public:
         /// Reads a object from the current stream.
-        std::shared_ptr<T> read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
+        std::shared_ptr<T> read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const nlohmann::json& value) const noexcept;
     };
 }
 

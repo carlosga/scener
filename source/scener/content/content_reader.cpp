@@ -43,7 +43,7 @@ namespace scener::content
         auto buffer   = _asset_reader.read_bytes(_asset_reader.base_stream().length());
         auto instance = std::make_shared<model>();
 
-        _root = json::parse(buffer.data());
+        _root = json::parse(buffer.begin(), buffer.end());
 
         _cache.reserve(_root.size());
 

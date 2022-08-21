@@ -27,7 +27,7 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
+        auto read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const nlohmann::json& value) const noexcept;
 
     private:
         std::shared_ptr<graphics::model_mesh_part> read_mesh_part(content_reader* input, const nlohmann::json& value) const noexcept;

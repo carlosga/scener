@@ -8,7 +8,6 @@ int main()
     skeletal::animation::sample_renderer renderer;
 
     renderer.run();
-
     renderer.exit();
 
     return 0;

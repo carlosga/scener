@@ -19,7 +19,7 @@ namespace scener::graphics
         close();
     }
 
-    opengl::display_surface* window::display_surface() const noexcept
+    vulkan::display_surface* window::display_surface() const noexcept
     {
         return _display_surface.get();
     }
@@ -32,7 +32,7 @@ namespace scener::graphics
     void window::title(const std::string& title) noexcept
     {
         _title = title;
-        _display_surface->title(title);
+        _display_surface->set_title(title);
     }
 
     bool window::allow_user_resizing() const noexcept
@@ -50,24 +50,22 @@ namespace scener::graphics
         return _closed;
     }
 
+    void window::create(const math::basic_rect<uint32_t>& rect) noexcept
+    {
+        _display_surface  = std::make_unique<vulkan::display_surface>(_title, rect);
+        _close_connection = _display_surface->connect_closing([&]() {
+            _closed = true;
+            _close_connection.disconnect();
+            _resize_connection.disconnect();
+        });
+        _resize_connection = _display_surface->connect_resize([&](std::uint32_t width, std::uint32_t height) {
+            _renderer->device()->viewport().rect = { 0, 0, width, height };
+        });
+    }
+
     nod::connection window::connect_resize(std::function<void(uint32_t, uint32_t)>&& slot) noexcept
     {
         return _display_surface->connect_resize(std::move(slot));
-    }
-
-    void window::open() noexcept
-    {
-        auto width  = _renderer->_device_manager->preferred_back_buffer_width;
-        auto height = _renderer->_device_manager->preferred_back_buffer_height;
-
-        _display_surface = std::make_unique<opengl::display_surface>(_renderer->device()->display_device());
-
-        if (!_display_surface->create(width, height))
-        {
-            throw std::runtime_error("An error has occurred while creating the display surface.");
-        }
-
-        initialize_connections();
     }
 
     void window::show() const noexcept
@@ -78,29 +76,18 @@ namespace scener::graphics
 
     void window::close() noexcept
     {
-        if (_display_surface.get())
+        if (_display_surface.get() != nullptr)
         {
             _display_surface->destroy();
             _display_surface = nullptr;
         }
     }
 
-    void window::initialize_connections() noexcept
-    {
-        _close_connection = _display_surface->connect_closing([&]() {
-            _closed = true;
-            _close_connection.disconnect();
-            _resize_connection.disconnect();
-        });
-        _resize_connection = _display_surface->connect_resize([&](std::uint32_t width, std::uint32_t height) {
-            _renderer->device()->viewport().width  = width;
-            _renderer->device()->viewport().height = height;
-            _renderer->device()->viewport().update();
-        });
-    }
-
     void window::pool_events() const noexcept
     {
-        _display_surface->pool_events();
+        if (!_closed)
+        {
+            _display_surface->pool_events();
+        }
     }
 }

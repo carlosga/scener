@@ -3,54 +3,18 @@
 
 #include "scener/graphics/blend_state.hpp"
 
-#include "scener/graphics/graphics_device.hpp"
-
 namespace scener::graphics
 {
-    blend_state::blend_state(gsl::not_null<graphics_device*> device) noexcept
-        : graphics_resource { device }
+    const blend_state blend_state::additive          { blend::source_alpha, blend::one };
+    const blend_state blend_state::alpha_blend       { blend::one         , blend::inverse_source_alpha };
+    const blend_state blend_state::non_premultiplied { blend::source_alpha, blend::inverse_source_alpha };
+    const blend_state blend_state::opaque            { blend::one         , blend::zero };
+
+    blend_state::blend_state(blend source_blend, blend destination_blend) noexcept
     {
-    }
-
-    void blend_state::apply() const noexcept
-    {
-        // http://www.opengl.org/wiki/Blending
-
-        auto enabled = !(color_source_blend      == blend::one
-                      && color_destination_blend == blend::zero
-                      && alpha_source_blend      == blend::one
-                      && alpha_destination_blend == blend::zero);
-
-        if (!enabled)
-        {
-            glDisable(GL_BLEND);
-        }
-        else
-        {
-            glEnable(GL_BLEND);
-        }
-
-        glBlendEquationSeparate(static_cast<GLenum>(color_blend_function)
-                              , static_cast<GLenum>(alpha_blend_function));
-
-        glBlendFuncSeparate(static_cast<GLenum>(color_source_blend)
-                          , static_cast<GLenum>(color_destination_blend)
-                          , static_cast<GLenum>(alpha_source_blend)
-                          , static_cast<GLenum>(alpha_destination_blend));
-
-        glColorMask((color_write_channels_1 & color_write_channels::red)   == graphics::color_write_channels::red
-                  , (color_write_channels_1 & color_write_channels::green) == graphics::color_write_channels::green
-                  , (color_write_channels_1 & color_write_channels::blue)  == graphics::color_write_channels::blue
-                  , (color_write_channels_1 & color_write_channels::alpha) == graphics::color_write_channels::alpha);
-
-        glBlendColor(blend_factor.r / 255
-                   , blend_factor.g / 255
-                   , blend_factor.b / 255
-                   , blend_factor.a / 255);
-
-        if (multi_sample_mask != 0)
-        {
-            glSampleCoverage(multi_sample_mask, GL_FALSE);
-        }
+        color_source_blend      = source_blend;
+        alpha_source_blend      = source_blend;
+        color_destination_blend = destination_blend;
+        alpha_destination_blend = destination_blend;
     }
 }

@@ -15,21 +15,21 @@ namespace scener::content::gltf
         return _uri;
     }
 
-    std::size_t buffer::byte_length() const noexcept
+    std::uint32_t buffer::byte_length() const noexcept
     {
         return _byte_length;
     }
 
-    gsl::span<const std::uint8_t> buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+    gsl::span<const std::uint8_t> buffer::get_data(std::uint32_t offset, std::uint32_t count) const noexcept
     {
         return _span.subspan(offset, count);
     }
 
-    void buffer::set_data(const std::vector<std::uint8_t>& buffer) noexcept
+    void buffer::set_data(const std::vector<std::uint8_t>& data) noexcept
     {
-        Expects(buffer.size() == _byte_length);
+        Expects(data.size() == _byte_length);
 
-        _data = buffer;
+        _data = data;
         _span = gsl::span<const std::uint8_t>(_data);
     }
 }

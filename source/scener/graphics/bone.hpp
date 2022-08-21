@@ -24,10 +24,6 @@ namespace scener::graphics
         typedef std::size_t index_type;
 
     public:
-        /// Initializes a new instance of the ModelBone class.
-        bone() = default;
-
-    public:
         /// Gets the index of this bone in the Bones collection.
         /// \returns the index of this bone in the Bones collection.
         index_type index() const noexcept;

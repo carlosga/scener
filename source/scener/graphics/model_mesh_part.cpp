@@ -3,10 +3,6 @@
 
 #include "scener/graphics/model_mesh_part.hpp"
 
-#include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/index_buffer.hpp"
-#include "scener/graphics/vertex_buffer.hpp"
-
 namespace scener::graphics
 {
     index_buffer* model_mesh_part::index_buffer() const noexcept
@@ -19,22 +15,27 @@ namespace scener::graphics
         return _vertex_buffer.get();
     }
 
-    std::size_t model_mesh_part::start_index() const noexcept
+    graphics::effect_technique* model_mesh_part::effect_technique() const noexcept
+    {
+        return _effect.get();
+    }
+
+    std::uint32_t model_mesh_part::start_index() const noexcept
     {
         return _start_index;
     }
 
-    std::size_t model_mesh_part::vertex_offset() const noexcept
+    std::uint32_t model_mesh_part::vertex_offset() const noexcept
     {
         return _vertex_offset;
     }
 
-    std::size_t model_mesh_part::vertex_count() const noexcept
+    std::uint32_t model_mesh_part::vertex_count() const noexcept
     {
         return _vertex_count;
     }
 
-    std::size_t model_mesh_part::primitive_count() const noexcept
+    std::uint32_t model_mesh_part::primitive_count() const noexcept
     {
         return _primitive_count;
     }

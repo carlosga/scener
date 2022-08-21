@@ -1,4 +1,4 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+﻿// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifndef SCENER_GRAPHICS_GRAPHIC_SDEVICE_HPP
@@ -7,63 +7,51 @@
 #include <cstddef>
 #include <memory>
 
+#include <gsl/gsl>
+
 #include "scener/graphics/blend_state.hpp"
 #include "scener/graphics/depth_stencil_state.hpp"
+#include "scener/graphics/graphics_adapter.hpp"
 #include "scener/graphics/presentation_parameters.hpp"
-#include "scener/graphics/primitive_type.hpp"
+#include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
-#include "scener/graphics/opengl/display_device.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
+#include "scener/graphics/vulkan/graphics_pipeline.hpp"
+#include "scener/graphics/vulkan/logical_device.hpp"
+#include "scener/graphics/vulkan/surface.hpp"
+#include "scener/graphics/vulkan/texture_object.hpp"
 #include "scener/math/color.hpp"
 
 namespace scener::graphics
 {
     class effect_technique;
-    class index_buffer;
+    class effect_pass;
     class vertex_buffer;
+    class index_buffer;
 
     /// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels,
     /// and creates shaders.
     class graphics_device final
     {
-    private:
-        static constexpr std::size_t get_element_count(graphics::primitive_type type, std::size_t primitive_count) noexcept
-        {
-            switch (type)
-            {
-            case primitive_type::line_list:
-                return primitive_count * 2;
-
-            case primitive_type::line_loop:
-                return primitive_count;
-
-            case primitive_type::line_strip:
-                return primitive_count + 1;
-
-            case primitive_type::point_list:
-                return primitive_count;
-
-            case primitive_type::triangle_fan:
-                return primitive_count;
-
-            case primitive_type::triangle_list:
-                return primitive_count * 3;
-
-            case primitive_type::triangle_strip:
-                return primitive_count + 2;
-            }
-        }
-
     public:
         /// Initializes a new instance of the GraphicsDevice class.
-        graphics_device() noexcept;
+        graphics_device(const graphics_adapter&                  adapter
+                      , const graphics::presentation_parameters& presentation_params) noexcept;
 
     public:
-        opengl::display_device* display_device() const noexcept;
+        /// Starts the preparation phase
+        void begin_prepare() noexcept;
 
-    public:
-        /// Clears the resouce buffer
-        void clear(const math::color& color) const noexcept;
+        /// Called by the renderer at the end of drawing; presents the final rendering.
+        void end_prepare() noexcept;
+
+        /// Draws the current frame
+        void draw() noexcept;
+
+        /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
+        /// graphics_device.
+        void present() noexcept;
 
         /// Renders the specified geometric primitive, based on indexing into an array of vertices.
         /// \param primitive_type   the primitive type.
@@ -76,26 +64,14 @@ namespace scener::graphics
         /// \param start_index      location in the index array at which to start reading vertices.
         /// \param primitive_count  number of primitives to render. The number of vertices used is a function of
         ///                         primitiveCount and primitiveType.
-        void draw_indexed_primitives(primitive_type primitive_type
-                                   , std::size_t    base_vertex
-                                   , std::size_t    min_vertex_index
-                                   , std::size_t    num_vertices
-                                   , std::size_t    start_index
-                                   , std::size_t    primitive_count) const noexcept;
-
-        /// Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
-        /// input streams.
-        /// \param primitive_type  the primitive type.
-        /// \param start_vertex    index of the first vertex to load. Beginning at startVertex, the correct number of
-        ///                        vertices is read out of the vertex buffer.
-        /// \param primitive_count number of primitives to render. The primitiveCount is the number of primitives as
-        ///                        determined by the primitive type. If it is a line list, each primitive has two
-        ///                        vertices. If it is a triangle list, each primitive has three vertices.
-        void draw_primitives(primitive_type primitive_type, std::size_t start_vertex, std::size_t primitive_count) const noexcept;
-
-        /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
-        /// GraphicsDevice.
-        void present() noexcept;
+        void draw_indexed(std::uint32_t     base_vertex
+                        , std::uint32_t     min_vertex_index
+                        , std::uint32_t     num_vertices
+                        , std::uint32_t     start_index
+                        , std::uint32_t     primitive_count
+                        , vertex_buffer*    vertex_buffer
+                        , index_buffer*     index_buffer
+                        , effect_technique* technique) const noexcept;
 
         /// Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
         /// The default value is BlendState.Opaque.
@@ -116,23 +92,40 @@ namespace scener::graphics
         /// Sets the viewport identifying the portion of the render target to receive draw calls.
         void viewport(const graphics::viewport& viewport) noexcept;
 
-    public:
-        /// Gets or sets the effect used before drawing.
-        effect_technique* effect;
+        /// Creates a new graphics pipeline.
+        vulkan::graphics_pipeline create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept;
 
-        /// Gets or sets the index buffer.
-        graphics::index_buffer* index_buffer;
+        /// Creates a new index buffer with the given size.
+        /// \para size the buffer size.
+        vulkan::buffer create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept;
 
-        /// Gets or sets the vertex buffer.
-        graphics::vertex_buffer* vertex_buffer;
+        /// Creates a new vertex buffer with the given size.
+        /// \para size the buffer size.
+        vulkan::buffer create_vertex_buffer(const gsl::span<const std::uint8_t>& data) const noexcept;
+
+        /// Creates a new vertex buffer with the given size.
+        /// \para size the buffer size.
+        vulkan::buffer create_uniform_buffer(std::uint32_t size)const noexcept;
+
+        // creates a texture object ( image, view, sampler, ... )
+        vulkan::texture_object create_texture_object(gsl::not_null<const scener::content::dds::surface*>   texture
+                                                   , gsl::not_null<const scener::graphics::sampler_state*> sampler_state
+                                                   , vk::ImageTiling                                       tiling
+                                                   , vk::ImageUsageFlags                                   usage
+                                                   , vk::MemoryPropertyFlags                               required_props) noexcept;
+
+        /// Destroys the given texture releasing its resources
+        void destroy(const vulkan::texture_object& texture) const noexcept;
 
     private:
-        graphics::blend_state                    _blend_state;
-        graphics::depth_stencil_state            _depth_stencil_state;
-        graphics::presentation_parameters        _presentation_parameters;
-        graphics::rasterizer_state               _rasterizer_state;
-        graphics::viewport                       _viewport;
-        std::unique_ptr<opengl::display_device>  _display_device { nullptr };
+        graphics::blend_state                   _blend_state;
+        graphics::depth_stencil_state           _depth_stencil_state;
+        graphics::rasterizer_state              _rasterizer_state;
+        graphics::presentation_parameters       _presentation_parameters;
+        graphics::viewport                      _viewport;
+        graphics_adapter                        _adapter;
+        std::unique_ptr<vulkan::render_surface> _render_surface;
+        std::unique_ptr<vulkan::logical_device> _logical_device;
     };
 }
 

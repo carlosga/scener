@@ -5,7 +5,7 @@
 
 namespace scener::input
 {
-    using scener::graphics::opengl::display_surface;
+    using scener::graphics::vulkan::display_surface;
 
     // Returns the current keyboard state.
     keyboard_state keyboard::get_state() noexcept

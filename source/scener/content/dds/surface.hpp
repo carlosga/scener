@@ -18,7 +18,7 @@ namespace scener::content::dds
     class surface final
     {
     public:
-        typedef std::size_t size_type;
+        typedef std::uint32_t size_type;
 
     public:
         /// Initializes a new instance of the Surface class.
@@ -40,6 +40,9 @@ namespace scener::content::dds
 
         /// Gets the surface mipmaps (when available).
         const std::vector<surface_mipmap>& mipmaps() const noexcept;
+
+        /// Gets the mipamap at the given index
+        const surface_mipmap& mipmap(std::uint32_t index) const noexcept;
 
     private:
         std::vector<std::uint8_t>        _buffer  { };

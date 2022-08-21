@@ -1,6 +1,7 @@
 [submodule "externals/gsl"]
 	path = externals/gsl
 	url = https://github.com/Microsoft/GSL.git
+    branch = main
 [submodule "externals/nod"]
 	path = externals/nod
 	url = https://github.com/fr00b0/nod.git
@@ -10,3 +11,6 @@
 [submodule "externals/scener-math"]
 	path = externals/scener-math
 	url = https://github.com/carlosga/tvml.git
+[submodule "externals/vulkan-memory-allocator"]
+	path = externals/vulkan-memory-allocator
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git

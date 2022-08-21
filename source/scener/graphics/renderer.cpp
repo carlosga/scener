@@ -6,12 +6,9 @@
 #include <iostream>
 #include <thread>
 
-#include "scener/content/content_manager.hpp"
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/graphics_device_manager.hpp"
-#include "scener/graphics/service_container.hpp"
 #include "scener/graphics/window.hpp"
-#include "scener/graphics/opengl/render_context.hpp"
 #include "scener/input/keyboard.hpp"
 #include "scener/input/keyboard_state.hpp"
 #include "scener/input/keys.hpp"
@@ -22,7 +19,6 @@ namespace scener::graphics
     using scener::timespan;
     using scener::content::content_manager;
     using scener::graphics::graphics_device;
-    using scener::graphics::opengl::render_context;
     using scener::input::keyboard;
     using scener::input::keyboard_state;
     using scener::input::keys;
@@ -85,35 +81,16 @@ namespace scener::graphics
         _services->clear();
     }
 
-    bool renderer::begin_draw() noexcept
-    {
-        return true;
-    }
-
     void renderer::begin_run() noexcept
     {
         _services        = std::make_unique<service_container>();
         _device_manager  = std::make_unique<graphics_device_manager>(this);
         _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
         _window          = std::make_unique<graphics::window>(this);
-    }
 
-    void renderer::draw(const steptime &time) noexcept
-    {
-        std::for_each(_drawable_components.begin(), _drawable_components.end()
-                    , [&time](const auto& component) -> void
-                    {
-                        if (component->visible())
-                        {
-                            component->draw(time);
-                        }
-                    });
-    }
-
-    void renderer::end_draw() noexcept
-    {
-        _render_context->present();
-        // _graphics_device_manager->graphics_device()->present();
+        _device_manager->prepare_device_settings([&](graphics_device_information* device_info) -> void {
+            prepare_device_settings(device_info);
+        });
     }
 
     void renderer::end_run() noexcept
@@ -122,7 +99,10 @@ namespace scener::graphics
 
     void renderer::initialize() noexcept
     {
-        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void { component->initialize(); });
+        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void {
+            component->initialize();
+        });
+
         keyboard::initialize(_window->display_surface());
         mouse::initialize(_window->display_surface());
     }
@@ -140,14 +120,13 @@ namespace scener::graphics
 
     void renderer::update(const steptime& time) noexcept
     {
-        std::for_each(_updateable_components.begin(), _updateable_components.end()
-                    , [&time](const auto& component) -> void
-                    {
-                        if (component->enabled())
-                        {
-                            component->update(time);
-                        }
-                    });
+        std::for_each(_updateable_components.begin(), _updateable_components.end(), [&time](const auto& component) -> void
+        {
+            if (component->enabled())
+            {
+                component->update(time);
+            }
+        });
     }
 
     void renderer::start_event_loop() noexcept
@@ -155,6 +134,15 @@ namespace scener::graphics
         _timer.reset();
 
         _window->show();
+
+        _device_manager->begin_prepare();
+
+        std::for_each(_drawable_components.begin(), _drawable_components.end(), [&](const auto& component) -> void
+        {
+            component->draw();
+        });
+
+        _device_manager->end_prepare();
 
         do
         {
@@ -184,7 +172,7 @@ namespace scener::graphics
 
     void renderer::post_process_components() noexcept
     {
-        for (const auto& component : _components)
+        std::for_each(_components.begin(), _components.end(), [&] (const auto& component) -> void
         {
             auto drawable = std::dynamic_pointer_cast<idrawable>(component);
 
@@ -199,44 +187,35 @@ namespace scener::graphics
             {
                 _updateable_components.push_back(updateable);
             }
-        }
+        });
 
         std::sort(_drawable_components.begin(), _drawable_components.end(),
-                [](const std::shared_ptr<idrawable>& a, const std::shared_ptr<idrawable>& b) -> bool
-                {
-                    return (a->draw_order() < b->draw_order());
-                });
+            [](const std::shared_ptr<idrawable>& a, const std::shared_ptr<idrawable>& b) -> bool
+            {
+                return (a->draw_order() < b->draw_order());
+            }
+        );
 
         std::sort(_updateable_components.begin(), _updateable_components.end(),
-                [](const std::shared_ptr<iupdateable>& a, const std::shared_ptr<iupdateable>& b) -> bool
-                {
-                    return (a->update_order() < b->update_order());
-                });
+            [](const std::shared_ptr<iupdateable>& a, const std::shared_ptr<iupdateable>& b) -> bool
+            {
+                return (a->update_order() < b->update_order());
+            }
+        );
     }
 
     void renderer::create_device() noexcept
     {
+        Ensures(_device_manager->preferred_back_buffer_width  > 0);
+        Ensures(_device_manager->preferred_back_buffer_height > 0);
+
+        _window->allow_user_resizing(_device_manager->allow_user_resizing);
+        _window->create({ 0u
+                        , 0u
+                        , _device_manager->preferred_back_buffer_width
+                        , _device_manager->preferred_back_buffer_height });
+        _window->title(_device_manager->window_title);
         _device_manager->create_device();
-        _window->allow_user_resizing(true);
-        _window->open();
-        _render_context = std::make_unique<render_context>(_device_manager->device()->display_device(), _window->display_surface());
-        _render_context->create();
-        _device_manager->apply_changes();
-
-        switch (_device_manager->device()->presentation_parameters().present_interval)
-        {
-        case present_interval::one:
-            _render_context->present_interval(1);
-            break;
-
-        case present_interval::two:
-            _render_context->present_interval(2);
-            break;
-
-        case present_interval::immediate:
-            _render_context->present_interval(0);
-            break;
-        }
     }
 
     void renderer::fixed_time_step() noexcept
@@ -252,12 +231,8 @@ namespace scener::graphics
         _is_running_slowly = (_timer.elapsed_time_step_time() > target_elapsed_time);
 
         if (!_is_running_slowly)
-        {
-            if (begin_draw())
-            {
-                draw(_time);
-                end_draw();
-            }
+        {           
+            _device_manager->draw();
 
             auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());
 
@@ -281,5 +256,11 @@ namespace scener::graphics
     void renderer::add_component(std::shared_ptr<icomponent> component)
     {
         _components.push_back(component);
+    }
+
+    void renderer::prepare_device_settings(graphics_device_information* device_info) const noexcept
+    {
+        //device_info->adapter                                  = graphics_adapter();
+        device_info->presentation_params.device_window_handle = _window->display_surface();
     }
 }

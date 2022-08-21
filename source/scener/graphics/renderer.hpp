@@ -8,21 +8,19 @@
 #include <string>
 #include <vector>
 
+#include "scener/content/content_manager.hpp"
+#include "scener/graphics/graphics_device_information.hpp"
 #include "scener/graphics/icomponent.hpp"
 #include "scener/graphics/idrawable.hpp"
 #include "scener/graphics/iupdateable.hpp"
+#include "scener/graphics/service_container.hpp"
 #include "scener/graphics/steptime.hpp"
 #include "scener/graphics/steptimer.hpp"
-
-namespace scener::graphics::opengl { class render_context; }
-
-namespace scener::content { class content_manager; }
 
 namespace scener::graphics
 {
     class graphics_device;
     class graphics_device_manager;
-    class service_container;
     class window;
 
     /// Provides basic graphics device initialization, and rendering code.
@@ -64,17 +62,8 @@ namespace scener::graphics
         virtual void exit() noexcept;
 
     protected:
-        /// Starts the drawing of a frame. This method is followed by calls to draw and end_draw.
-        virtual bool begin_draw() noexcept;
-
         /// Called after all components are initialized but before the first update in the render loop.
         virtual void begin_run() noexcept;
-
-        /// Called when the renderer determines it is time to draw a frame.
-        virtual void draw(const steptime& time) noexcept;
-
-        /// Ends the drawing of a frame. This method is preceeded by calls to draw and begin_draw.
-        virtual void end_draw() noexcept;
 
         /// Called after the renderer loop has stopped running before exiting.
         virtual void end_run() noexcept;
@@ -90,6 +79,10 @@ namespace scener::graphics
 
         /// Called when the renderer has determined that render logic needs to be processed.
         virtual void update(const steptime& time) noexcept;
+
+        /// Called when the graphics_device_manager is changing the graphics_device settings
+        /// (during reset or recreation of the GraphicsDevice).
+        virtual void prepare_device_settings(graphics_device_information* device_info) const noexcept;
 
         /// Updates the renderer's clock and calls update and draw.
         void time_step() noexcept;
@@ -121,7 +114,6 @@ namespace scener::graphics
 
     private:
         std::unique_ptr<graphics::window>         _window                { nullptr };
-        std::unique_ptr<opengl::render_context>   _render_context        { nullptr };
         std::unique_ptr<content::content_manager> _content_manager       { nullptr };
         std::unique_ptr<graphics_device_manager>  _device_manager        { nullptr };
         std::vector<std::shared_ptr<idrawable>>   _drawable_components   { };

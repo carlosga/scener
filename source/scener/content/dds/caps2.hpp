@@ -4,6 +4,8 @@
 #ifndef SCENER_CONTENT_DDS_CAPS2_HPP
 #define SCENER_CONTENT_DDS_CAPS2_HPP
 
+#include <cstdint>
+
 namespace scener::content::dds
 {
     /// The caps2 structure defines the capabilities of a DirectDrawSurface object

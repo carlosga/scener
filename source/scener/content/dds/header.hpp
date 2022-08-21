@@ -32,22 +32,22 @@ namespace scener::content::dds
     ///     http://www.opengl.org/registry/specs/ARB/texture_compression_bptc.txt
     struct header
     {
-        std::uint32_t magic;                ///< (magic number) containing the four character code value 'DDS ' (0x20534444).
-        std::uint32_t size;                 ///< Size of structure. This member must be set to 124.
-        header_flags  flags;                ///< Flags to indicate which members contain valid data.
-        std::uint32_t height;               ///< Surface height (in pixels).
-        std::uint32_t width;                ///< Surface width (in pixels).
-        std::uint32_t pitch_or_linear_size; ///< The pitch or number of bytes per scan line in an uncompressed texture;
-                                            ///< The total number of bytes in the top level texture for a compressed texture.
-        std::uint32_t depth;                ///< Depth of a volume texture (in pixels), otherwise unused.
-        std::uint32_t mipmap_count;         ///< Number of mipmap levels, otherwise unused.
-        std::uint32_t reserved1[11];        ///< Unused.
-        pixel_format  pixel_format;         ///< The pixel format (see DDS_PIXELFORMAT).
-        caps          caps;                 ///< Specifies the complexity of the surfaces stored.
-        std::uint32_t caps2;                ///< Additional detail about the surfaces stored.
-        std::uint32_t caps3;                ///< Unused.
-        std::uint32_t caps4;                ///< Unused.
-        std::uint32_t reserved2;            ///< Unused.
+        std::uint32_t                      magic;                ///< (magic number) containing the four character code value 'DDS ' (0x20534444).
+        std::uint32_t                      size;                 ///< Size of structure. This member must be set to 124.
+        header_flags                       flags;                ///< Flags to indicate which members contain valid data.
+        std::uint32_t                      height;               ///< Surface height (in pixels).
+        std::uint32_t                      width;                ///< Surface width (in pixels).
+        std::uint32_t                      pitch_or_linear_size; ///< The pitch or number of bytes per scan line in an uncompressed texture;
+                                                                 ///< The total number of bytes in the top level texture for a compressed texture.
+        std::uint32_t                      depth;                ///< Depth of a volume texture (in pixels), otherwise unused.
+        std::uint32_t                      mipmap_count;         ///< Number of mipmap levels, otherwise unused.
+        std::uint32_t                      reserved1[11];        ///< Unused.
+        scener::content::dds::pixel_format pixel_format;         ///< The pixel format (see DDS_PIXELFORMAT).
+        scener::content::dds::caps         caps;                 ///< Specifies the complexity of the surfaces stored.
+        std::uint32_t                      caps2;                ///< Additional detail about the surfaces stored.
+        std::uint32_t                      caps3;                ///< Unused.
+        std::uint32_t                      caps4;                ///< Unused.
+        std::uint32_t                      reserved2;            ///< Unused.
     };
 }
 

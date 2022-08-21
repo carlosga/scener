@@ -3,28 +3,30 @@
 
 #include "scener/graphics/effect_pass.hpp"
 
-#include "scener/graphics/graphics_device.hpp"
-#include "scener/graphics/opengl/program.hpp"
-
 namespace scener::graphics
 {
-    effect_pass::effect_pass(gsl::not_null<graphics_device*> device) noexcept
-        : _graphics_device { device }
-    {
-    }
-
     const std::string& effect_pass::name() const noexcept
     {
         return _name;
     }
 
-    void effect_pass::begin() noexcept
+    const vulkan::graphics_pipeline& effect_pass::pipeline() const noexcept
     {
-        _program->bind();
+        return _pipeline;
     }
 
-    void effect_pass::end() noexcept
+    const std::shared_ptr<vulkan::shader_module>& effect_pass::shader_module() const noexcept
     {
-        _program->unbind();
+        return _shader_module;
+    }
+
+    const std::vector<std::shared_ptr<effect_parameter>>& effect_pass::parameters() const noexcept
+    {
+        return _parameters;
+    }
+
+    graphics::constant_buffer* effect_pass::constant_buffer() const noexcept
+    {
+        return _constant_buffer.get();
     }
 }

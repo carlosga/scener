@@ -31,12 +31,9 @@ namespace scener::graphics
     class effect_technique final : public graphics_resource, public ieffect_matrices, public ieffect_lights
     {
     public:
-        /// Initializes a new instance of the EffectTechnique class
-        /// \param device the graphics device associated with this EffectTechnique.
+        /// Initializes a new instance of the effect_technique class
+        /// \param device the graphics device associated with this effect_technique.
         effect_technique(gsl::not_null<graphics_device*> device) noexcept;
-
-        /// Releases all resources being used by this EffectTechnique.
-        ~effect_technique() override = default;
 
     public:
         /// Gets the material alpha which determines its transparency.
@@ -136,11 +133,11 @@ namespace scener::graphics
         void bone_transforms(const std::vector<math::matrix4>& boneTransforms) noexcept;
 
     public:
-        /// Starts the application of the effect state just prior to rendering the effect.
-        void begin() noexcept;
+        const std::vector<std::shared_ptr<effect_pass>>& passes() const noexcept;
 
-        /// Ends the application of the effect state just after rendering the effect.
-        void end() noexcept;
+    public:
+        /// Starts the application of the effect state just prior to rendering the effect.
+        void update() noexcept;
 
     private:
         void set_world_view_proj() const noexcept;

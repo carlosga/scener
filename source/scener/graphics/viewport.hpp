@@ -6,6 +6,8 @@
 
 #include <cstdint>
 
+#include "scener/math/basic_rect.hpp"
+
 namespace scener::graphics
 {
     /// Represents the portion of the render target to receive draw calls.
@@ -27,24 +29,12 @@ namespace scener::graphics
         /// \returns the aspect ratio of the viewport.
         constexpr float aspect_ratio() const noexcept
         {
-            return ((width > 0 && height > 0) ? static_cast<float>(width) / static_cast<float>(height) : 0.0f);
+            return ((rect.width() > 0 && rect.height() > 0) ? rect.width() / rect.height() : 0.0f);
         }
 
-        /// Updates the viewport.
-        void update() const noexcept;
-
     public:
-        /// Gets or sets the pixel coordinate of the upper-left corner of the viewport on the render-target surface.
-        std::uint32_t x;
-
-        /// Gets or sets the pixel coordinate of the upper-left corner of the viewport on the render-target surface.
-        std::uint32_t y;
-
-        /// Gets or sets the width dimension of the viewport on the render-target surface, in pixels.
-        std::uint32_t width;
-
-        /// Gets or sets the height dimension of the viewport on the render-target surface, in pixels.
-        std::uint32_t height;
+        /// Gets or sets the viewport coordinates
+        scener::math::basic_rect<std::uint32_t> rect;
 
         /// Gets or sets the minimum depth of the clip volume.
         float min_depth;

@@ -9,12 +9,14 @@
 #include <vector>
 
 #include <gsl/gsl>
+#include "scener/graphics/vulkan/graphics_pipeline.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
-namespace scener::graphics::opengl { class program; }
+namespace scener::graphics::vulkan { class shader_module; }
 
 namespace scener::graphics
 {
+    class constant_buffer;
     class effect_parameter;
     class graphics_device;
 
@@ -22,26 +24,30 @@ namespace scener::graphics
     class effect_pass final
     {
     public:
-        /// Initializes a new instance of the EffectPass class.
-        /// \param device The GraphicsDevice associated with this EffectPass.
-        effect_pass(gsl::not_null<graphics_device*> device) noexcept;
-
-    public:
         /// Gets the name of this pass.
         /// \returns The name of this pass.
         const std::string& name() const noexcept;
 
-        /// Begins this pass.
-        void begin() noexcept;
+        /// Gets the graphics pipeline
+        const vulkan::graphics_pipeline& pipeline() const noexcept;
 
-        /// Ends this pass.
-        void end() noexcept;
+        /// Gets the effect pass shader module.
+        /// \returns the effect pass shader module.
+        const std::shared_ptr<vulkan::shader_module>& shader_module() const noexcept;
+
+        /// Gets the effect pass parameters.
+        /// \returns the effect pass parameters.
+        const std::vector<std::shared_ptr<effect_parameter>>& parameters() const noexcept;
+
+        /// Gets the effect constant buffer
+        graphics::constant_buffer* constant_buffer() const noexcept;
 
     private:
-        graphics_device*                               _graphics_device  { nullptr };
-        std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-        std::shared_ptr<opengl::program>               _program          { nullptr };
-        std::string                                    _name             { };
+        std::vector<std::shared_ptr<effect_parameter>> _parameters      = { };
+        std::shared_ptr<vulkan::shader_module>         _shader_module   = { };
+        std::string                                    _name            = { };
+        std::shared_ptr<graphics::constant_buffer>     _constant_buffer = { nullptr };
+        vulkan::graphics_pipeline                      _pipeline;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

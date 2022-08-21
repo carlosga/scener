@@ -13,14 +13,14 @@ namespace scener::content::readers
     using nlohmann::json;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<buffer_view>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<buffer_view>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<buffer_view>();
 
         instance->_name        = key;
         instance->_buffer      = input->read_object<gltf::buffer>(value[k_buffer].get<std::string>());
-        instance->_byte_offset = value[k_byte_offset].get<std::size_t>();
-        instance->_byte_length = value[k_byte_length].get<std::size_t>();
+        instance->_byte_offset = value[k_byte_offset].get<std::uint32_t>();
+        instance->_byte_length = value[k_byte_length].get<std::uint32_t>();
 
         return instance;
     }

@@ -4,9 +4,12 @@
 #ifndef SKELETAL_ANIMATION_SAMPLE_RENDERER_HPP
 #define SKELETAL_ANIMATION_SAMPLE_RENDERER_HPP
 
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/graphics_device_manager.hpp"
+#include "scener/graphics/presentation_parameters.hpp"
 #include "scener/graphics/renderer.hpp"
-
-namespace scener::graphics { struct steptime; }
+#include "scener/graphics/steptime.hpp"
+#include "scener/graphics/window.hpp"
 
 namespace skeletal::animation
 {
@@ -17,8 +20,7 @@ namespace skeletal::animation
 
     protected:
         void begin_run() noexcept override;
-        void load_content() noexcept override;
-        void draw(const scener::graphics::steptime& time) noexcept override;
+        void load_content() noexcept override;        
     };
 }
 

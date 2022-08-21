@@ -3,50 +3,48 @@
 
 #include "scener/content/readers/shader_reader.hpp"
 
-#include <regex>
-
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/constants.hpp"
-#include "scener/graphics/opengl/shader.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
 
 namespace scener::content::readers
 {
     using nlohmann::json;
-    using scener::graphics::opengl::shader;
-    using scener::graphics::opengl::shader_type;
+    using scener::graphics::vulkan::shader;
+    using scener::graphics::vulkan::shader_stage;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<shader>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<shader>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
-        auto type     = static_cast<shader_type>(value[k_type].get<std::int32_t>());
-        auto svalue  = load_shader(input, value[k_uri].get<std::string>());
-        auto instance = std::make_shared<shader>(key, type, svalue);
+        auto type     = value[k_type].get<std::int32_t>();
+        auto filename = value[k_uri].get<std::string>() + ".spv";
+        auto buffer   = input->read_external_reference(filename);
+        auto stage    = shader_stage::all;
 
-        instance->compile();
-
-        return instance;
-    }
-
-    std::string content_type_reader<shader>::load_shader(content_reader* input, const std::string& uri) const noexcept
-    {
-        auto buffer = input->read_external_reference(uri);
-        auto rx     = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");
-        auto fonly  = std::regex_constants::format_first_only;
-        auto value = std::string(buffer.begin(), buffer.end());
-        auto copy   = value;
-
-        std::smatch m;
-
-        while (std::regex_search(value, m, rx))
+        switch (type)
         {
-            const auto include_buffer = input->read_external_reference(m[1].str());
-            const auto include_value = std::string(include_buffer.begin(), include_buffer.end());
+        case 0x8B30:       // FRAGMENT
+            stage = shader_stage::fragment;
+            break;
 
-            copy   = std::regex_replace(copy, rx, include_value, fonly);
-            value = m.suffix().str();
+        case 0x8B31:        // VERTEX
+            stage = shader_stage::vertex;
+            break;
+
+        case 0x8E88:        // TESS CONTROL
+            stage = shader_stage::tess_control;
+            break;
+
+        case 0x00000004:    // GEOMETRY
+            stage = shader_stage::geometry;
+            break;
+
+        case 0x00000010:    // TESS EVALUATION
+            stage = shader_stage::tess_evaluation;
+            break;
         }
 
-        return copy;
+        return std::make_shared<shader>(key, stage, buffer);
     }
 }
 

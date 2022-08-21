@@ -18,10 +18,6 @@ namespace scener::graphics
     class animation final
     {
     public:
-        /// Initializes a new instance of the Animatin class.
-        animation() = default;
-
-    public:
         /// Gets the current time of the animation.
         /// \returns the current time of the animation.
         const timespan& current_time() const noexcept;
@@ -49,7 +45,7 @@ namespace scener::graphics
     private:
         timespan              _current_time     { 0 };
         timespan              _duration         { 0 };
-        std::size_t           _current_keyframe { 0 };
+        std::uint32_t         _current_keyframe { 0 };
         std::vector<keyframe> _keyframes        { };
         std::string           _name             { };
 

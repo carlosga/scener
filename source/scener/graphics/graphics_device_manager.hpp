@@ -10,6 +10,7 @@
 
 #include <gsl/gsl>
 
+#include "scener/graphics/graphics_device_information.hpp"
 #include "scener/graphics/igraphics_device_manager.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 
@@ -26,18 +27,15 @@ namespace scener::graphics
         /// \param renderer the Renderer associated with this GraphicsDeviceManager.
         graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept;
 
-        /// Releases all resources being used by this GraphicsDeviceManager.
-        ~graphics_device_manager() override = default;
-
     public:
-        /// Applies any changes to device-related propertie.
-        void apply_changes() noexcept;
+        /// Starts the preparation phase.
+        void begin_prepare() noexcept override;
 
-        /// Starts the drawing of a frame.
-        bool begin_draw() noexcept override;
+        /// Ends the preparation phase
+        void end_prepare() noexcept override;
 
-        /// Called by the renderer at the end of drawing; presents the final rendering.
-        void end_draw() noexcept override;
+        // Draws the current frame
+        void draw() noexcept override;
 
         /// Creates the graphics device.
         void create_device() noexcept override;
@@ -50,9 +48,6 @@ namespace scener::graphics
         /// Gets or sets a value indicating whether to allow the user to resize the device window.
         bool allow_user_resizing { false };
 
-        /// Gets or sets the device window title.
-        std::string window_title;
-
         /// Gets or sets a value that indicates whether the device should start in full-screen mode.
         bool full_screen { false };
 
@@ -62,9 +57,22 @@ namespace scener::graphics
         /// Gets or sets the preferred back-buffer height.
         std::uint32_t preferred_back_buffer_height { 0 };
 
+        /// Gets or sets the device window title.
+        std::string window_title;
+
+    public:
+        /// Raised when the graphics_device_manager is changing the graphics_device settings
+        /// (during reset or recreation of the GraphicsDevice).
+        nod::connection prepare_device_settings(
+            std::function<void(graphics_device_information*)>&& slot) noexcept override;
+
     private:
-        std::unique_ptr<graphics_device> _graphics_device { nullptr };
-        renderer*                        _renderer        { nullptr };
+        std::unique_ptr<graphics_device> _graphics_device;
+        renderer*                        _renderer;
+
+    private:
+        /// Signals
+        nod::signal<void(graphics_device_information*)> _prepare_device_settings_signal;
     };
 }
 

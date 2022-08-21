@@ -8,8 +8,7 @@
 
 #include "scener/input/keys.hpp"
 #include "scener/input/key_state.hpp"
-
-namespace scener::graphics::opengl { class display_surface; }
+#include "scener/graphics/vulkan/surface.hpp"
 
 namespace scener::input
 {
@@ -18,7 +17,7 @@ namespace scener::input
     {
     public:
         ///Initializes a new instance of the KeyboardState class.
-        keyboard_state(scener::graphics::opengl::display_surface* surface) noexcept;
+        keyboard_state(scener::graphics::vulkan::display_surface* surface) noexcept;
 
         //KeyboardState(Keys[] keys);
 
@@ -41,7 +40,7 @@ namespace scener::input
         bool is_key_up(keys key) noexcept;
 
     private:
-        scener::graphics::opengl::display_surface* _surface;
+        scener::graphics::vulkan::display_surface* _surface;
     };
 }
 

@@ -6,8 +6,6 @@
 
 #include <cstdint>
 
-#include "scener/graphics/opengl/platform.hpp"
-
 namespace scener::input
 {
     /// Identifies a particular key on a keyboard.
@@ -110,6 +108,5 @@ namespace scener::input
       , Pause           = 94    ///< PAUSE key.
     };
 }
-  
+
 #endif // SCENER_INPUT_KEYS_HPP
-  

@@ -10,8 +10,9 @@
 
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
-#include "scener/graphics/opengl/vertex_array_object.hpp"
+#include "scener/graphics/vulkan/buffer.hpp"
+
+namespace scener::graphics::vulkan { class logical_device; }
 
 namespace scener::graphics
 {
@@ -25,16 +26,18 @@ namespace scener::graphics
         /// \param device the graphics device associated with this vertex buffer.
         /// \param vertex_count the number of vertices.
         /// \param vertex_declaration the vertex declaration, which describes per-vertex data.
-        vertex_buffer(gsl::not_null<graphics_device*>     device
-                    , std::size_t                         vertex_count
-                    , const graphics::vertex_declaration& vertex_declaration) noexcept;
-
-        /// Releases all resources being used by the current VertexBuffer
-        ~vertex_buffer() override = default;
+        vertex_buffer(gsl::not_null<graphics_device*>      device
+                    , const graphics::vertex_declaration&  vertex_declaration
+                    , std::uint32_t                        vertex_count
+                    , const gsl::span<const std::uint8_t>& data) noexcept;
 
     public:
         /// Gets the number of vertex for the current buffer.
-        std::size_t vertex_count() const noexcept;
+        std::uint32_t vertex_count() const noexcept;
+
+        /// Defines per-vertex data in a buffer.
+        /// \returns the per vertex data definition of this vertex_buffer.
+        const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
         /// Returns a copy of the vertex buffer data.
         std::vector<std::uint8_t> get_data() const noexcept;
@@ -42,28 +45,18 @@ namespace scener::graphics
         /// Gets a copy of the vertex buffer data, specifying the start index and number of elements.
         /// \param start_index index of the first element to get.
         /// \param element_count number of elements to get.
-        std::vector<std::uint8_t> get_data(std::size_t start_index, std::size_t element_count) const noexcept;
+        std::vector<std::uint8_t> get_data(std::uint32_t start_index, std::uint32_t element_count) const noexcept;
 
         /// Sets the vertex buffer data.
         /// \param data the new vertex buffer data.
-        void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
-
-        /// Defines per-vertex data in a buffer.
-        /// \returns the per vertex data definition of this VertexBuffer.
-        const graphics::vertex_declaration& vertex_declaration() const noexcept;
+        void set_data(const gsl::span<const std::uint8_t>& data) noexcept;
 
     private:
-        void bind() noexcept;
-        void unbind() noexcept;
-
-    private:
-        std::uint32_t                _binding_index;
-        std::size_t                  _vertex_count;
+        std::uint32_t                _vertex_count;
         graphics::vertex_declaration _vertex_declaration;
-        opengl::vertex_array_object  _vao;
-        opengl::buffer               _vbo;
+        vulkan::buffer               _buffer;
 
-        friend class scener::graphics::graphics_device;
+        friend class scener::graphics::vulkan::logical_device;
     };
 }
 

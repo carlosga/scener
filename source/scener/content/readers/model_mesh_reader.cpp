@@ -8,7 +8,9 @@
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/effect_parameter.hpp"
+#include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/model_mesh.hpp"
@@ -17,8 +19,6 @@
 #include "scener/graphics/texture2d.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/vertex_declaration.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
-#include "scener/graphics/opengl/vertex_array_object.hpp"
 
 using nlohmann::json;
 using scener::math::matrix4;
@@ -30,7 +30,7 @@ using namespace scener::graphics;
 
 namespace scener::content::readers
 {
-    auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<model_mesh>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<model_mesh>();
 
@@ -47,25 +47,23 @@ namespace scener::content::readers
 
     std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& value) const noexcept
     {
-        auto instance       = std::make_shared<model_mesh_part>();
-        auto gdservice      = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto device         = gdservice->device();
-        auto accessors      = std::vector<std::shared_ptr<gltf::accessor>>();
-        auto elements       = std::vector<vertex_element>();
-        auto vertex_stride  = std::size_t { 0 };
-        auto vertex_count   = std::size_t { 0 };
-        auto indices        = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
-        auto component_type = indices->component_type();
-        auto index_count    = indices->attribute_count();
+        auto instance      = std::make_shared<model_mesh_part>();
+        auto gdservice     = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+        auto device        = gdservice->device();
+        auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
+        auto elements      = std::vector<vertex_element>();
+        auto vertex_stride = std::uint32_t { 0 };
+        auto vertex_count  = std::uint32_t { 0 };
+        auto indices       = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
 
         // Index buffer
-        instance->_index_buffer = std::make_unique<index_buffer>(device, component_type, index_count);
-        instance->_index_buffer->set_data(indices->get_data());
+        instance->_index_buffer = std::make_unique<index_buffer>(device, indices->attribute_count(), indices->get_data());
 
         // Vertex buffer
         accessors.reserve(value[k_attributes].size());
         elements.reserve(value[k_attributes].size());
 
+        // Vertex declaration
         for (auto it = value[k_attributes].begin(); it != value[k_attributes].end(); ++it)
         {
             const auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
@@ -91,7 +89,6 @@ namespace scener::content::readers
         instance->_start_index     = 0;
         instance->_vertex_offset   = 0;
         instance->_primitive_count = 0;
-        instance->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertex_count, declaration);
 
         switch (instance->_primitive_type)
         {
@@ -99,7 +96,7 @@ namespace scener::content::readers
             instance->_primitive_count = (vertex_count / 2);
             break;
         case primitive_type::triangle_list:
-            instance->_primitive_count = (vertex_count  / 3);
+            instance->_primitive_count = (vertex_count / 3);
             break;
         case primitive_type::line_loop:
         case primitive_type::line_strip:
@@ -115,7 +112,7 @@ namespace scener::content::readers
         auto data     = std::vector<std::uint8_t>(vertex_stride * vertex_count, 0);
         auto position = data.begin();
 
-        for (std::size_t i = 0; i < vertex_count; ++i)
+        for (std::uint32_t i = 0; i < vertex_count; ++i)
         {
             for (const auto& accessor : accessors)
             {
@@ -128,13 +125,19 @@ namespace scener::content::readers
         }
 
         // Initialize vertex buffer
-        instance->_vertex_buffer->set_data({ data });
+        instance->_vertex_buffer = std::make_unique<vertex_buffer>(device, declaration, vertex_count, data);
 
         // Effect Material
         const auto& materialref = value[k_material].get<std::string>();
         if (!materialref.empty())
         {
-            instance->effect = read_material(input, materialref);
+            instance->_effect = read_material(input, materialref);
+
+            std::for_each(instance->_effect->passes().begin()
+                        , instance->_effect->passes().end()
+                        , [&] (const auto& pass) {
+                            pass->_pipeline = device->create_graphics_pipeline(*instance);
+                          });
         }
 
         return instance;
@@ -187,13 +190,7 @@ namespace scener::content::readers
                 case effect_parameter_type::string:
                     parameter->set_value<std::string>(pvalue.get<std::string>());
                     break;
-
-                case effect_parameter_type::texture:
-                case effect_parameter_type::texture_1d:
-                case effect_parameter_type::texture_2d:
-                case effect_parameter_type::texture_3d:
-                case effect_parameter_type::texture_cube:
-                case effect_parameter_type::void_pointer:
+                default:
                     throw std::runtime_error("unknown parameter type");
                 }
             }
@@ -240,6 +237,7 @@ namespace scener::content::readers
         case attribute_type::matrix2:
         case attribute_type::matrix3:
         case attribute_type::matrix4:
+        default:
             throw std::runtime_error("unsupported attribute type");
         }
     }

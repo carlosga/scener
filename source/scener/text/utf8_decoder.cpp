@@ -26,9 +26,9 @@ namespace scener::text
 
             // http://xbox.create.msdn.com/en-US/sample/xnb_format
             // Decode UTF-8.
-            if (buffer & 0x80)
+            if ((buffer & 0x80) == 0x80)
             {
-                while (buffer & (0x80 >> byte_count))
+                while ((buffer & (0x80 >> byte_count)) != 0x0)
                 {
                     byte_count++;
                 }

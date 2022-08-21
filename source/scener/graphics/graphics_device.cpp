@@ -3,107 +3,92 @@
 
 #include "graphics_device.hpp"
 
-#include <gsl/gsl_assert>
-
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/vertex_declaration.hpp"
+#include "scener/graphics/effect_pass.hpp"
+#include "scener/graphics/vulkan/physical_device.hpp"
 
 namespace scener::graphics
 {
-    graphics_device::graphics_device() noexcept
-        : effect                   { nullptr }
-        , index_buffer             { nullptr }
-        , vertex_buffer            { nullptr }
-        , _blend_state             { this }
-        , _depth_stencil_state     { this }
-        , _presentation_parameters { }
-        , _rasterizer_state        { this }
-        , _viewport                { }
-        , _display_device          { std::make_unique<opengl::display_device>() }
+    graphics_device::graphics_device(const graphics_adapter&                  adapter
+                                   , const graphics::presentation_parameters& presentation_params) noexcept
+        : _blend_state             { blend_state::opaque }
+        , _depth_stencil_state     { depth_stencil_state::default_stencil }
+        , _rasterizer_state        { rasterizer_state::cull_counter_clockwise }
+        , _presentation_parameters { presentation_params }
+        , _viewport                { 0, 0, presentation_params.back_buffer_width, presentation_params.back_buffer_height }
+        , _adapter                 { adapter }
+        , _render_surface          { }
+        , _logical_device          { }
     {
-        if (!_display_device->open())
-        {
-            throw std::runtime_error("An error has occurred while opening the display device.");
-        }    
+        Expects(_presentation_parameters.device_window_handle != nullptr);
+
+        // Device window handle
+        const auto window_handle = _presentation_parameters.device_window_handle;
+        // Render surface (Vulkan - Wayland based)
+        _render_surface = _adapter.create_render_surface(window_handle);
+        // Physical device
+        const auto& gpu = _adapter.get_physical_device();
+        // Logical device (Vulkan)
+        _logical_device = gpu.create_logical_device(*_render_surface, _viewport);
+        // Swap chain
+        _logical_device->create_swap_chain(*_render_surface);
     }
 
-    opengl::display_device* graphics_device::display_device() const noexcept
+    void graphics_device::begin_prepare() noexcept
     {
-        return _display_device.get();
+        Expects(_logical_device.get() != nullptr);
+
+        return _logical_device->begin_prepare();
     }
 
-    void graphics_device::clear(const math::color& color) const noexcept
+    void graphics_device::end_prepare() noexcept
     {
-        std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
+        Expects(_logical_device.get() != nullptr);
 
-        glClearColor(color.r, color.g, color.b, color.a);
-
-        if (_depth_stencil_state.depth_buffer_enable)
-        {
-            bufferBits |= GL_DEPTH_BUFFER_BIT;
-            glClearDepth(1.0f);
-        }
-        if (_depth_stencil_state.stencil_enable)
-        {
-            bufferBits |= GL_STENCIL_BUFFER_BIT;
-            glClearStencil(1);
-        }
-
-        glClear(bufferBits);
+        _logical_device->end_prepare();
     }
 
-    void graphics_device::draw_indexed_primitives(primitive_type primitive_type
-                                                , std::size_t    base_vertex
-                                                , std::size_t    min_vertex_index
-                                                , std::size_t    num_vertices
-                                                , std::size_t    start_index
-                                                , std::size_t    primitive_count) const noexcept
+    void graphics_device::draw() noexcept
     {
-        Expects(index_buffer  != nullptr);
-        Expects(vertex_buffer != nullptr)
-        Expects(effect        != nullptr)
+        Expects(_logical_device.get() != nullptr);
 
-        auto offset = start_index * index_buffer->element_size_in_bytes();
-
-        effect->begin();
-        vertex_buffer->bind();
-        index_buffer->bind();
-
-        glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
-                               , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
-                               , static_cast<GLenum>(index_buffer->index_element_type())
-                               , reinterpret_cast<void*>(offset)
-                               , static_cast<GLint>(base_vertex));
-
-        index_buffer->unbind();
-        vertex_buffer->unbind();
-        effect->end();
-    }
-
-    void graphics_device::draw_primitives(primitive_type primitive_type
-                                        , std::size_t    start_vertex
-                                        , std::size_t    primitive_count) const noexcept
-    {
-        Expects(vertex_buffer != nullptr);
-        Expects(effect        != nullptr);
-
-        effect->begin();
-        vertex_buffer->bind();
-
-        glDrawArrays(static_cast<GLenum>(primitive_type)
-                   , static_cast<GLint>(start_vertex)
-                   , static_cast<GLsizei>(primitive_count));
-
-        vertex_buffer->unbind();
-        effect->end();
+        _logical_device->draw(*_render_surface);
     }
 
     void graphics_device::present() noexcept
     {
-        // TODO
-        // glfwSwapBuffers(glfwGetCurrentContext());
+        Expects(_logical_device.get() != nullptr);
+
+        _logical_device->present();
+    }
+
+    void graphics_device::draw_indexed(std::uint32_t     base_vertex
+                                     , std::uint32_t     min_vertex_index
+                                     , std::uint32_t     num_vertices
+                                     , std::uint32_t     start_index
+                                     , std::uint32_t     primitive_count
+                                     , vertex_buffer*    vertex_buffer
+                                     , index_buffer*     index_buffer
+                                     , effect_technique* technique) const noexcept
+    {
+        Expects(index_buffer  != nullptr);
+        Expects(vertex_buffer != nullptr);
+        Expects(technique     != nullptr);
+
+        std::for_each(technique->passes().begin(), technique->passes().end(), [&](auto& pass) {
+            _logical_device->bind_graphics_pipeline(pass->pipeline());
+        });
+
+        _logical_device->draw_indexed(
+              base_vertex
+            , min_vertex_index
+            , num_vertices
+            , start_index
+            , primitive_count
+            , vertex_buffer
+            , index_buffer);
     }
 
     blend_state& graphics_device::blend_state() noexcept
@@ -116,7 +101,7 @@ namespace scener::graphics
         return _depth_stencil_state;
     }
 
-    presentation_parameters& graphics_device::presentation_parameters() noexcept
+    graphics::presentation_parameters& graphics_device::presentation_parameters() noexcept
     {
         return _presentation_parameters;
     }
@@ -128,12 +113,49 @@ namespace scener::graphics
 
     viewport& graphics_device::viewport() noexcept
     {
-    return _viewport;
+        return _viewport;
     }
 
     void graphics_device::viewport(const graphics::viewport& viewport) noexcept
     {
         _viewport = viewport;
-        _viewport.update();
+    }
+
+    vulkan::graphics_pipeline graphics_device::create_graphics_pipeline(const model_mesh_part& model_mesh_part) noexcept
+    {
+        return _logical_device->create_graphics_pipeline(
+            _blend_state
+          , _depth_stencil_state
+          , _rasterizer_state
+          , model_mesh_part);
+    }
+
+    vulkan::buffer graphics_device::create_index_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
+    {
+        return _logical_device->create_index_buffer(data);
+    }
+
+    vulkan::buffer graphics_device::create_vertex_buffer(const gsl::span<const std::uint8_t>& data) const noexcept
+    {
+        return _logical_device->create_vertex_buffer(data);
+    }
+
+    vulkan::buffer graphics_device::create_uniform_buffer(std::uint32_t size) const noexcept
+    {
+        return _logical_device->create_uniform_buffer(size);
+    }
+
+    vulkan::texture_object graphics_device::create_texture_object(gsl::not_null<const scener::content::dds::surface*>   texture
+                                                                , gsl::not_null<const scener::graphics::sampler_state*> sampler_state
+                                                                , vk::ImageTiling                                       tiling
+                                                                , vk::ImageUsageFlags                                   usage
+                                                                , vk::MemoryPropertyFlags                               required_props) noexcept
+    {
+        return _logical_device->create_texture_object(texture, sampler_state, tiling, usage, required_props);
+    }
+
+    void graphics_device::destroy(const vulkan::texture_object& texture) const noexcept
+    {
+        _logical_device->destroy(texture);
     }
 }

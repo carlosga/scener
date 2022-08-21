@@ -12,10 +12,6 @@ namespace scener::graphics
     class steptimer final
     {
     public:
-        /// Initializes a new instance of the RendererTimer class.
-        steptimer() = default;
-
-    public:
         /// Resets the renderer time points.
         void reset() noexcept;
 
@@ -23,23 +19,13 @@ namespace scener::graphics
         void update_time_step() noexcept;
 
         /// Gets the time elapsed since the last timer reset.
-        constexpr timespan elapsed_time() const noexcept
-        {
-            return timespan::from_duration(current_time() - _start);
-        }
+        timespan elapsed_time() const noexcept;
 
         /// Gets the time elapsed since the last time step update.
-        constexpr timespan elapsed_time_step_time() const noexcept
-        {
-            return timespan::from_duration(current_time() - _last_time_step);
-        }
+        timespan elapsed_time_step_time() const noexcept;
 
     private:
         timespan::clock::time_point current_time() const noexcept;
-
-    private:
-        steptimer(const steptimer& timer) = delete;
-        steptimer& operator=(const steptimer& timer) = delete;
 
     private:
         timespan::clock::time_point _start          { timespan::clock::now() };

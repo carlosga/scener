@@ -1,6 +1,6 @@
 # scener
 
-OpenGL 3D model renderer (**C++ learning project**)
+Vulkan 3D model renderer (**C++ learning project**)
 
 ## Getting Started
 
@@ -8,14 +8,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-| Name                                       | Version       |
-|--------------------------------------------|---------------|
-| C++ compiler                               | Clang 4.0     |
-| C compiler                                 | Clang 4.0     |
-| [**libC++**](http://libcxx.llvm.org/)      | 4.0 (Linux)   |
+| Name        |
+|-------------|
+| cmake       |
+| Clang / GCC |
+| C compiler  |
 
 ```
-sudo apt-get install clang libc++ lldb git
+sudo apt-get install git cmake clang libc++ lldb
 ```
 
 ### Compile from Source
@@ -25,22 +25,33 @@ A step by step series of examples that tell you have to get a development env ru
 1. Clone repository
 
 ```
-git clone --recursive https://github.com/carlosga/scener.git
+git clone --recurse-submodules https://github.com/carlosga/scener.git
 ```
 
 2. Install dependencies (packages names for Debian)
 
 ```
-sudo apt-get install cmake xorg-dev libgl1-mesa-dev
+sudo apt-get install libvulkan1 libvulkan-dev vulkan-validationlayers vulkan-validationlayers-dev vulkan-tools xorg-dev libgl1-mesa-dev glslang-tools glslang-dev
 ```
 
-3. Configure the build (DEBUG)
+3. Configure the build
+
+3.1 (GCC - DEBUG)
 
 ```
 cd scener
-mkdir build\debug
-cd build\debug
-cmake ..\.. -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+```
+
+3.2 (CLANG - DEBUG)
+
+```
+cd scener
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang
 ```
 
 4. Build
@@ -54,17 +65,16 @@ make -j <NUM_CORES>
 ```
 make test
 ```
-
 ## Built With
 
-| Name                                                        | Description          |
-|-------------------------------------------------------------|----------------------|
-| [**GSL**](https://github.com/Microsoft/GSL)                 |                      |
-| [**JSON for Modern C++**](https://github.com/nlohmann/json) | JSON parser          |
-| [**nod**](https://github.com/fr00b0/nod)                    | C++ signals library  |
-| [**glad**](https://github.com/Dav1dde/glad)                 | OpenGL loader        |
-| [**Google Test**](https://code.google.com/p/googletest/)    | Test framework       |
-| [**glTF**](https://github.com/KhronosGroup/glTF)            | Asset format         |
+| Name                                                                                              | Description                          |
+|---------------------------------------------------------------------------------------------------|--------------------------------------|
+| [**Google Test**](https://code.google.com/p/googletest/)                                          | Test framework                       |
+| [**GSL**](https://github.com/Microsoft/GSL)                                                       | Microsoft C++ GSL                    |
+| [**JSON for Modern C++**](https://github.com/nlohmann/json)                                       | JSON parser                          |
+| [**nod**](https://github.com/fr00b0/nod)                                                          | C++ signals library                  |
+| [**Vulkan Memory Allocator**](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)  | AMD Vulkan Memory Allocation library |
+| [**glTF**](https://github.com/KhronosGroup/glTF)                                                  | Asset format                         |
 
 ## Authors
 

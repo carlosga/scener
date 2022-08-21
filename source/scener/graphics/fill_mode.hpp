@@ -11,8 +11,8 @@ namespace scener::graphics
     /// Describes options for filling the vertices and lines that define a primitive.
     enum class fill_mode : std::uint32_t
     {
-        solid      = 1  ///< draw solid faces for each primitive.
-      , wire_frame = 2  ///< draw lines connecting the vertices that define a primitive face.
+        solid      = 0  ///< draw solid faces for each primitive.
+      , wire_frame = 1  ///< draw lines connecting the vertices that define a primitive face.
     };
 }
 

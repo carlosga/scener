@@ -22,7 +22,7 @@ namespace scener::content::readers
 
     using namespace scener::content::gltf;
 
-    auto content_type_reader<animation>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<animation>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto instance   = std::make_shared<animation>();
         auto parameters = std::map<std::string, std::shared_ptr<accessor>>();
@@ -45,7 +45,7 @@ namespace scener::content::readers
 
         instance->_keyframes.reserve(count);
 
-        for (std::size_t i = 0; i < count; ++i)
+        for (std::uint32_t i = 0; i < count; ++i)
         {
             quaternion rotation    = quaternion::identity();
             vector3    scale       = vector3::one();

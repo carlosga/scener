@@ -5,13 +5,13 @@
 
 namespace scener::graphics
 {
-    vertex_declaration::vertex_declaration(std::size_t stride, const std::vector<vertex_element>& elements) noexcept
+    vertex_declaration::vertex_declaration(std::uint32_t stride, const std::vector<vertex_element>& elements) noexcept
         : _vertex_stride   { stride }
         , _vertex_elements { elements }
     {
     }
 
-    std::size_t vertex_declaration::vertex_stride() const noexcept
+    std::uint32_t vertex_declaration::vertex_stride() const noexcept
     {
         return _vertex_stride;
     }

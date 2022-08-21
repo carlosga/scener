@@ -7,6 +7,8 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <vulkan/vulkan.hpp>
+
 #include "scener/graphics/graphics_resource.hpp"
 
 namespace scener::graphics
@@ -37,13 +39,10 @@ namespace scener::graphics
 
         /// Gets the number of texture levels in a multilevel texture.
         /// \returns the number of texture levels in a multilevel texture.
-        virtual std::size_t level_count() const noexcept = 0;
+        virtual std::uint32_t level_count() const noexcept = 0;
 
-        /// Activates the texture object.
-        virtual void bind() const noexcept = 0;
-
-        /// Deactivates the texture object.
-        virtual void unbind() const noexcept = 0;
+        virtual const vk::Sampler& sampler() const noexcept = 0;
+        virtual const vk::ImageView& view() const noexcept = 0;
     };
 }
 

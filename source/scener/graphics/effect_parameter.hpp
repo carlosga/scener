@@ -5,6 +5,7 @@
 #define SCENER_GRAPHICS_EFFECT_PARAMETER_HPP
 
 #include <cstddef>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -12,18 +13,15 @@
 #include "scener/graphics/effect_parameter_type.hpp"
 #include "scener/math/matrix.hpp"
 
-namespace scener::content::readers { template <typename T> class content_type_reader; } 
-namespace scener::graphics::opengl { class constant_buffer; }
+namespace scener::content::readers { template <typename T> class content_type_reader; }
 
 namespace scener::graphics
 {
+    class constant_buffer;
+
     /// Represents an EffectTechnique parameter.
     class effect_parameter final
     {
-    public:
-        /// Initializes a new instance of the EffectParameter class.
-        effect_parameter() = default;
-
     public:
         /// Gets the number of columns in the parameter description.
         std::size_t column_count() const noexcept;
@@ -38,11 +36,17 @@ namespace scener::graphics
         effect_parameter_type parameter_type() const noexcept;
 
         /// Gets the number of rows in the parameter description.
-        std::size_t row_count() const noexcept;
+        std::uint32_t row_count() const noexcept;
 
         /// Gets the semantic meaning, or usage, of the parameter.
         /// \returns the semantic meaning, or usage, of the parameter.
         const std::string& semantic() const noexcept;
+
+        /// Gets the parameter offset in bytes
+        std::uint32_t offset() const noexcept;
+
+        /// Gets the parameter offset in bytes
+        std::uint32_t size() const noexcept;
 
     public:
         /// Get the effect parameter value.
@@ -68,17 +72,18 @@ namespace scener::graphics
         void set_value_transpose(const T& value) const noexcept;
 
     private:
-        std::size_t              _column_count    { 0 };
-        std::size_t              _row_count       { 0 };
-        std::size_t              _count           { 0 };
-        std::size_t              _offset          { 0 };
-        effect_parameter_class   _parameter_class { effect_parameter_class::scalar };
-        effect_parameter_type    _parameter_type  { effect_parameter_type::single };
-        opengl::constant_buffer* _constant_buffer { nullptr };
-        std::string              _name            { };
-        std::string              _semantic        { };
-        std::string              _value           { };
-        std::string              _uniform_name    { };
+        std::uint32_t                    _column_count    { 0 };
+        std::uint32_t                    _row_count       { 0 };
+        std::uint32_t                    _count           { 0 };
+        std::uint32_t                    _offset          { 0 };
+        std::uint32_t                    _size            { 0 };
+        effect_parameter_class           _parameter_class { effect_parameter_class::scalar };
+        effect_parameter_type            _parameter_type  { effect_parameter_type::single };
+        std::shared_ptr<constant_buffer> _constant_buffer { nullptr };
+        std::string                      _name            { };
+        std::string                      _semantic        { };
+        std::string                      _value           { };
+        std::string                      _uniform_name    { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

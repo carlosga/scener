@@ -7,13 +7,14 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <vector>
 
 #include <gsl/span>
 
 #include "scener/content/gltf/attribute_type.hpp"
-#include "scener/graphics/component_type.hpp"
+#include "scener/content/gltf/component_type.hpp"
 
 namespace scener::content::readers { template <typename T> class content_type_reader; }
 
@@ -35,24 +36,24 @@ namespace scener::content::gltf
 
         /// Gets the data type of the components referenced by this accessor.
         /// \returns the data type of the components referenced by this accessor.
-        graphics::component_type component_type() const noexcept;
+        gltf::component_type component_type() const noexcept;
 
         /// Gets the offset relative to the buffer-view in bytes.
         /// \returns the offset relative to the buffer-view in bytes.
-        std::size_t byte_offset() const noexcept;
+        std::uint32_t byte_offset() const noexcept;
 
         /// Gets the size, in bytes, of the data referenced by this accessor.
         /// \returns the size, in bytes, of the data referenced by this accessor.
-        std::size_t byte_length() const noexcept;
+        std::uint32_t byte_length() const noexcept;
 
         /// Gets the stride, in bytes, between attributes referenced by this accessor.
         /// \returns the stride, in bytes, between attributes referenced by this accessor.
-        std::size_t byte_stride() const noexcept;
+        std::uint32_t byte_stride() const noexcept;
 
         /// Gets the number of attributes referenced by this accessor, not to be confused with the number of bytes or
         /// number of components.
         /// \returns the number of attributes referenced by this accessor.
-        std::size_t attribute_count() const noexcept;
+        std::uint32_t attribute_count() const noexcept;
 
         /// Gets the maximum value of each component in this attribute.
         /// \returns the maximum value of each component in this attribute.
@@ -73,13 +74,13 @@ namespace scener::content::gltf
         /// Gets a view to the accessor data.
         /// \param offset specifies the element offset.
         /// \param count specifies the size in bytes of the data store region being replaced.
-        gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
+        gsl::span<const std::uint8_t> get_data(std::uint32_t offset, std::uint32_t count) const noexcept;
 
         /// Gets the element at the given offset from the accessor buffer.
         /// \param offset the offset of the element to return.
         /// \returns the requested element.
         template <typename T, typename = std::enable_if_t<std::is_constructible<T>::value>>
-        inline T get_element(std::size_t offset) const noexcept
+        inline T get_element(std::uint32_t offset) const noexcept
         {
             T    result;
             auto buffer = get_data(offset, 1);
@@ -92,7 +93,7 @@ namespace scener::content::gltf
         }
 
     private:
-        constexpr std::size_t get_attribute_type_count() const noexcept
+        constexpr std::uint32_t get_attribute_type_count() const noexcept
         {
             switch (_attribute_type)
             {
@@ -116,38 +117,44 @@ namespace scener::content::gltf
 
             case attribute_type::vector4:
                 return 4;
+
+            default:
+                throw std::runtime_error("Unknown glTF attribute type.");
             }
         }
 
-        constexpr std::size_t get_component_size_in_bytes() const noexcept
+        constexpr std::uint32_t get_component_size_in_bytes() const noexcept
         {
             switch (_component_type)
             {
-            case scener::graphics::component_type::byte:
-                return sizeof(std::int8_t);
+            case scener::content::gltf::component_type::uint16:
+                return sizeof(std::uint16_t);
 
-            case scener::graphics::component_type::int16:
+            case scener::content::gltf::component_type::int16:
                 return sizeof(std::int16_t);
 
-            case scener::graphics::component_type::single:
+            case scener::content::gltf::component_type::single:
                 return sizeof(float);
 
-            case scener::graphics::component_type::ubyte:
+            case scener::content::gltf::component_type::ubyte:
                 return sizeof(std::uint8_t);
 
-            case scener::graphics::component_type::uint16:
-                return sizeof(std::uint16_t);
+            case scener::content::gltf::component_type::byte:
+                return sizeof(std::int8_t);
+
+            default:
+                throw std::runtime_error("Unsupported glTF component type.");
             }
         }
 
     private:
         gltf::attribute_type         _attribute_type;
-        std::size_t                  _attribute_count;
+        std::uint32_t                _attribute_count;
         std::shared_ptr<buffer_view> _buffer_view;
-        std::size_t                  _byte_offset;
-        std::size_t                  _byte_length;
-        std::size_t                  _byte_stride;
-        graphics::component_type     _component_type;
+        std::uint32_t                _byte_offset;
+        std::uint32_t                _byte_length;
+        std::uint32_t                _byte_stride;
+        gltf::component_type         _component_type;
         std::vector<float>           _max;
         std::vector<float>           _min;
         std::string                  _name;

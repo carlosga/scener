@@ -94,7 +94,9 @@ namespace scener::graphics
         {
             const auto bone_index = bone->index();
 
-            _skin_transforms[bone_index] = _bind_shape_matrix * _inverse_bind_matrices[bone_index] * _world_transforms[bone_index];
+            _skin_transforms[bone_index] = _bind_shape_matrix
+                                         * _inverse_bind_matrices[bone_index]
+                                         * _world_transforms[bone_index];
         });
     }
 }

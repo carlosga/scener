@@ -34,11 +34,11 @@ namespace scener::text
             std::uint32_t buffer = static_cast<std::uint32_t>(chars[i]);
             std::size_t   offset = 1;
 
-            if (((buffer >> 7) & 0xff) & 0x7F)
+            if ((((buffer >> 7) & 0xff) & 0x7F) == 0x7F)
             {
-                if (((buffer >> 11) & 0xff) & 0x7FF)
+                if ((((buffer >> 11) & 0xff) & 0x7FF) == 0x7FF)
                 {
-                    if (((buffer >> 21) & 0xff) & 0x10FFFF)
+                    if ((((buffer >> 21) & 0xff) & 0x10FFFF) == 0x10FFFF)
                     {
                         offset = 4;
                     }

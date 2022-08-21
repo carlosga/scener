@@ -3,10 +3,7 @@
 
 #include "scener/graphics/model.hpp"
 
-#include "scener/graphics/effect_technique.hpp"
-#include "scener/graphics/model_mesh.hpp"
-#include "scener/graphics/skeleton.hpp"
-#include "scener/graphics/steptime.hpp"
+#include <algorithm>
 
 namespace scener::graphics
 {
@@ -28,34 +25,16 @@ namespace scener::graphics
         return _meshes;
     }
 
-    void model::update(const steptime& time) noexcept
+    void model::update(const steptime& time
+                     , const matrix4&  world
+                     , const matrix4&  view
+                     , const matrix4&  projection) noexcept
     {
-        for (const auto& mesh : _meshes)
-        {
-            if (mesh->skeleton() != nullptr)
-            {
-                mesh->skeleton()->update(time.elapsed_render_time);
-            }
-        }
+        std::for_each(_meshes.begin(), _meshes.end(), [&time, &world, &view, &projection] (auto& mesh) -> void { mesh->update(time, world, view, projection); });
     }
 
-    void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
+    void model::draw() noexcept
     {
-        for (const auto& mesh : _meshes)
-        {
-            for (const auto& effect : mesh->effects())
-            {
-                if (mesh->skeleton() != nullptr)
-                {
-                    effect->bone_transforms(mesh->skeleton()->skin_transforms());
-                }
-
-                effect->world(world);
-                effect->view(view);
-                effect->projection(projection);
-            }
-
-            mesh->draw();
-        }
+        std::for_each(_meshes.begin(), _meshes.end(), [&] (const auto& mesh) -> void { mesh->draw(); });
     }
 }

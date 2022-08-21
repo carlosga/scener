@@ -6,14 +6,18 @@
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/constants.hpp"
+#include "scener/graphics/constant_buffer.hpp"
+#include "scener/graphics/default_constant_buffer.hpp"
 #include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
+#include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/service_container.hpp"
-#include "scener/graphics/opengl/constant_buffer.hpp"
-#include "scener/graphics/opengl/platform.hpp"
-#include "scener/graphics/opengl/program.hpp"
+#include "scener/graphics/vulkan/shader.hpp"
+#include "scener/graphics/vulkan/shader_module.hpp"
+
+// #define offsetof(st, m) __builtin_offsetof(st, m)
 
 namespace scener::content::readers
 {
@@ -23,6 +27,7 @@ namespace scener::content::readers
     using scener::math::vector3;
     using scener::math::vector4;
     using scener::content::gltf::node;
+    using scener::graphics::constant_buffer;
     using scener::graphics::effect_technique;
     using scener::graphics::effect_parameter;
     using scener::graphics::effect_parameter_class;
@@ -30,10 +35,11 @@ namespace scener::content::readers
     using scener::graphics::effect_pass;
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
-    using scener::graphics::opengl::program;
+    using scener::graphics::vulkan::shader;
+    using scener::graphics::vulkan::shader_module;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& value) const noexcept
+    auto content_type_reader<effect_technique>::read([[maybe_unused]] content_reader* input, [[maybe_unused]] const std::string& key, const json& value) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto instance  = std::make_shared<effect_technique>(gdservice->device());
@@ -48,22 +54,28 @@ namespace scener::content::readers
         return instance;
     }
 
-    void content_type_reader<effect_technique>::read_parameters(content_reader*   input
+    void content_type_reader<effect_technique>::read_parameters([[maybe_unused]]  content_reader* input
                                                               , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
         for (auto it = value[k_uniforms].begin(); it != value[k_uniforms].end(); ++it)
         {
-            const auto  uniform_name = it.value().get<std::string>();
-            const auto& paramref     = value[k_parameters][uniform_name];
-            auto        parameter    = std::make_shared<effect_parameter>();
+            const auto  name      = it.value().get<std::string>();
+            const auto& paramref  = value[k_parameters][name];
+            auto        parameter = std::make_shared<effect_parameter>();
 
-            parameter->_name         = uniform_name;
-            parameter->_uniform_name = it.key();
+            std::uint32_t offset = 0;
+
+            parameter->_name         = name;
+            parameter->_uniform_name = it.key();            
 
             if (paramref.count(k_count) != 0)
             {
-                parameter->_count = paramref[k_count].get<std::size_t>();
+                parameter->_count = paramref[k_count].get<std::uint32_t>();
+            }
+            else
+            {
+                parameter->_count = 1;
             }
             if (paramref.count(k_semantic) != 0)
             {
@@ -71,6 +83,61 @@ namespace scener::content::readers
             }
 
             describe_parameter(parameter.get(), paramref[k_type].get<std::int32_t>());
+
+            if (parameter->_uniform_name == "u_jointMat")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_jointMat);
+            }
+            else if (parameter->_uniform_name == "u_normalMatrix")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_normalMatrix);
+            }
+            else if (parameter->_uniform_name == "u_modelViewMatrix")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_modelViewMatrix);
+            }
+            else if (parameter->_uniform_name == "u_projectionMatrix")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_projectionMatrix);
+            }
+            else if (parameter->_uniform_name == "u_light0Transform")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Transform);
+            }
+            else if (parameter->_uniform_name == "u_ambient")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_ambient);
+            }
+            else if (parameter->_uniform_name == "u_emission")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_emission);
+            }
+            else if (parameter->_uniform_name == "u_specular")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_specular);
+            }
+            else if (parameter->_uniform_name == "u_shininess")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_shininess);
+            }
+            else if (parameter->_uniform_name == "u_light0ConstantAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0ConstantAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0LinearAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0LinearAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0QuadraticAttenuation")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0QuadraticAttenuation);
+            }
+            else if (parameter->_uniform_name == "u_light0Color")
+            {
+                offset = offsetof(scener::graphics::default_constant_buffer, u_light0Color);
+            }
+
+            parameter->_offset = offset;
 
             effect->_parameters[parameter->_name] = parameter;
         }
@@ -82,6 +149,7 @@ namespace scener::content::readers
     {
         for (auto it = value.begin(); it != value.end(); ++it)
         {
+            const auto& key     = it.key();
             const auto& current = it.value();
 
             if (current.count(k_value) == 0)
@@ -89,8 +157,8 @@ namespace scener::content::readers
                 continue;
             }
 
-            const auto& parameter = effect->_parameters[it.key()];
-            
+            const auto& parameter = effect->_parameters[key];
+
             if (parameter == nullptr)
             {
                 continue;
@@ -101,7 +169,7 @@ namespace scener::content::readers
             if (current.count(k_node) != 0)
             {
                 // const auto nodeId = it.value()["node"].get<std::string>();
-                
+
                 // TODO: Read node reference
                 // auto node = context.find_object<Node>(nodeId);
                 // parameter->set_value<matrix4>(node->matrix);
@@ -134,13 +202,7 @@ namespace scener::content::readers
                 case effect_parameter_type::single:
                     parameter->set_value<float>(pvalue.get<float>());
                     break;
-                case effect_parameter_type::string:
-                case effect_parameter_type::texture:
-                case effect_parameter_type::texture_1d:
-                case effect_parameter_type::texture_2d:
-                case effect_parameter_type::texture_3d:
-                case effect_parameter_type::texture_cube:
-                case effect_parameter_type::void_pointer:
+                default:
                     throw std::runtime_error("unknown parameter type");
                 }
             }
@@ -167,43 +229,27 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::add_default_pass(content_reader*       input
-                                                               , const nlohmann::json& node
+                                                               , const nlohmann::json& value
                                                                , effect_technique*     effect) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto pass      = std::make_shared<effect_pass>(gdservice->device());
+        auto device    = gdservice->device();
+        auto pass      = std::make_shared<effect_pass>();
 
-        pass->_name = "default_pass";
+        pass->_name            = "default_pass";
+        pass->_constant_buffer = std::make_shared<constant_buffer>(device, "constant_buffer", sizeof(graphics::default_constant_buffer));
         pass->_parameters.reserve(effect->_parameters.size());
 
         for (const auto& param : effect->_parameters)
         {
+            param.second->_constant_buffer = pass->_constant_buffer;
             pass->_parameters.push_back(param.second);
         }
 
-        read_pass_program(input, node[k_program].get<std::string>(), pass.get());
+        // Shader module
+        pass->_shader_module = input->read_object_instance<shader_module>(value[k_program].get<std::string>());
 
         effect->_passes.push_back(pass);
-    }
-
-    void content_type_reader<effect_technique>::read_pass_program(content_reader*    input
-                                                                , const std::string& programName
-                                                                , effect_pass*       effectPass) const noexcept
-    {
-        // Pass program
-        effectPass->_program = input->read_object_instance<program>(programName);
-
-        // Uniforms
-        auto offsets = effectPass->_program->get_uniform_offsets();
-
-        for (const auto& parameter : effectPass->_parameters)
-        {
-            if (offsets.find(parameter->_uniform_name) != offsets.end())
-            {
-                parameter->_offset          = offsets[parameter->_uniform_name];
-                parameter->_constant_buffer = effectPass->_program->constant_buffer();
-            }
-        }
     }
 
     void content_type_reader<effect_technique>::cache_parameters(effect_technique* technique) const noexcept
@@ -269,140 +315,160 @@ namespace scener::content::readers
             }
             else
             {
-                std::cout << "unknown semantic " << parameter.second->_semantic << std::endl;
+                throw std::runtime_error("Unknown semantic.");
             }
         }
     }
 
     void content_type_reader<effect_technique>::describe_parameter(effect_parameter* parameter, std::int32_t type) const noexcept
-    {
+    {        
         switch (type)
         {
-        case GL_BYTE:
+        case 0x1400:    // byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
+            parameter->_size            = sizeof (std::int8_t) * parameter->_count;
             break;
 
-        case GL_UNSIGNED_BYTE:
+        case 0x1401:    // unsigned byte
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::byte;
+            parameter->_size            = sizeof (std::uint8_t) * parameter->_count;
             break;
 
-        case GL_SHORT:
+        case 0x1402:    // short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int16;
+            parameter->_size            = sizeof (std::int16_t) * parameter->_count;
             break;
 
-        case GL_UNSIGNED_SHORT:
+        case 0x1403:    // unsigned short
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint16;
+            parameter->_size            = sizeof (std::uint16_t) * parameter->_count;
             break;
 
-        case GL_INT:
+        case 0x1404:    // int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::int32;
+            parameter->_size            = sizeof (std::int32_t) * parameter->_count;
             break;
 
-        case GL_UNSIGNED_INT:
+        case 0x1405:    // unsigned int
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::uint32;
+            parameter->_size            = sizeof (std::uint32_t) * parameter->_count;
             break;
 
-        case GL_FLOAT:
+        case 0x1406:    // float
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::single;
+            parameter->_size            = sizeof (float) * parameter->_count;
             break;
 
-        case GL_FLOAT_VEC2:
+        case 0x8B50:    // vec2f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::vector2) * parameter->_count;
             break;
 
-        case GL_FLOAT_VEC3:
+        case 0x8B51:    // vec3f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::vector3) * parameter->_count;
             break;
 
-        case GL_FLOAT_VEC4:
+        case 0x8B52:    // vec4f
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::vector4) * parameter->_count;
             break;
 
-        case GL_INT_VEC2:
+        case 0x8B53:    // vec2i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::vector2i) * parameter->_count;
             break;
 
-        case GL_INT_VEC3:
+        case 0x8B54:    // vec3i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::vector3i) * parameter->_count;
             break;
 
-        case GL_INT_VEC4:
+        case 0x8B55:    // vec4i
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::int32;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::vector4i) * parameter->_count;
             break;
 
-        case GL_BOOL:
+        case 0x8B56:    // bool
             parameter->_parameter_class = effect_parameter_class::scalar;
             parameter->_parameter_type  = effect_parameter_type::boolean;
+            parameter->_size            = sizeof (bool) * parameter->_count;
             break;
 
-        case GL_BOOL_VEC2:
+        case 0x8B57:    // vec2b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (bool) * 2 * parameter->_count;
             break;
 
-        case GL_BOOL_VEC3:
+        case 0x8B58:    // vec3b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (bool) * 3 * parameter->_count;
             break;
 
-        case GL_BOOL_VEC4:
+        case 0x8B59:    // vec4b
             parameter->_parameter_class = effect_parameter_class::vector;
             parameter->_parameter_type  = effect_parameter_type::boolean;
             parameter->_row_count       = 1;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (bool) * 4 * parameter->_count;
             break;
 
-        case GL_FLOAT_MAT2	: // mat2
+        case 0x8B5A	:   // mat2f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 2;
             parameter->_column_count    = 2;
+            parameter->_size            = sizeof (math::matrix2) * parameter->_count;
             break;
 
-        case GL_FLOAT_MAT3	: // mat3
+        case 0x8B5B	:   // mat3f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 3;
             parameter->_column_count    = 3;
+            parameter->_size            = sizeof (math::matrix3) * parameter->_count;
             break;
 
-        case GL_FLOAT_MAT4	: // mat4
+        case 0x8B5C	:   // mat4f
             parameter->_parameter_class = effect_parameter_class::matrix;
             parameter->_parameter_type  = effect_parameter_type::single;
             parameter->_row_count       = 4;
             parameter->_column_count    = 4;
+            parameter->_size            = sizeof (math::matrix4) * parameter->_count;
             break;
 
-        case GL_SAMPLER_2D:
+        case 0x8B5E:    // sampler 2d
             parameter->_parameter_class = effect_parameter_class::object;
             parameter->_parameter_type  = effect_parameter_type::texture_2d;
             break;
