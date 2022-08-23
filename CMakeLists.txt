@@ -22,7 +22,7 @@ set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/single_include)
 set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
-set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
+set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/include)
 
 # AMD VULKAN MEMORY ALLOCATOR
 set (AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/vulkan-memory-allocator/include)
