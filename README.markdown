@@ -1,5 +1,8 @@
 # scener
 
+# !! This repository has moved !!
+# New location : https://codeberg.org/carlosga/scener
+
 Vulkan 3D model renderer (**C++ learning project**)
 
 ## Getting Started
